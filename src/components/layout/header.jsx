@@ -17,11 +17,8 @@ import { CircularProgress } from '@mui/material'
 import { useRouter } from 'next/router'
 
 export default function Header () {
-  const router = useRouter()
-
   const { cart } = useContext(CartContext);
   const { bag, setBag } = useContext(OpenCartContext);
-  const [languageReveal, setLanguageReveal] = useState(false)
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
   const [cartCount, setCartCount] = useState(0)
@@ -71,7 +68,7 @@ export default function Header () {
       <Menu menu={menu} setMenu={setMenu} setHamburger={setHamburger}/>
       <Cart bag={bag} setBag={setBag} />
       <div className='bg-mainGradient text-white justify-center items-center font-medium text-sm flex relative transition-all duration-500 sm:text-xs sm:justify-start' style={isPub ? {height:'35px', opacity:1} : {height:'0px', opacity:0}}>
-        <p className='sm:max-w-[80%] sm:ml-2 sm:text-center sm:truncate'>Livraison offerte dans toute la France à partir de 59€ d'achat !</p>
+        <p className='sm:max-w-[80%] sm:ml-2 sm:text-center sm:truncate'>{`Livraison offerte dans toute la France à partir de 59€ d'achat !`}</p>
         <Image src={Close} onClick={() => setIsPub(false)} className='w-5 h-auto absolute right-5' alt='Account pictogram' />
       </div>
       <header className="z-20 h-28 flex justify-between px-10 items-center font-medium sticky top-0 bg-transparent lg:px-5 text-primary">

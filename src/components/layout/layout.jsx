@@ -6,7 +6,7 @@ export default function Layout({ children }) {
         <div className="min-h-[100vh] flex flex-col">
             <Header />
             {children}
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
   }

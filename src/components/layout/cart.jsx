@@ -26,7 +26,7 @@ export default function Card ({bag, setBag}) {
     }, [bag, cart])
 
     return(
-        <div className="w-full h-full top-0 left-0 absolute overflow-hidden">
+        <div className="w-full h-full top-0 left-0 absolute overflow-hidden" style={bag ? {} : {zIndex:-10}}>
             <div className="fixed w-full h-full left-0 top-0 z-30 bg-black/80 cursor-pointer"
                  style={bag ? {opacity:1, transition:'opacity 1s'} : {opacity:0, zIndex:-10}}
                  onClick={() => {setBag(false), unlock()}}></div>

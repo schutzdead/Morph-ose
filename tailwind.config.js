@@ -63,7 +63,9 @@ module.exports = {
         homeGradient1:'linear-gradient(180deg, rgba(200, 179, 194, 0.42) 0%, #ECA683 100%)',
         homeGradient2:'linear-gradient(90deg, #DE5B30 0%, #582D3E 100%)',
         homeGradient3:'linear-gradient(90deg, rgba(200, 179, 194, 1) 0%, #ECA683 100%)',
-        pictoGradient:'linear-gradient(90deg, #ECA683 0%, #C8B3C2 100%)'
+        pictoGradient:'linear-gradient(90deg, #ECA683 0%, #C8B3C2 100%)',
+        menuGradient:'linear-gradient(180deg, #A8798F 0%, #E25E3E 100%)',
+        footer:'linear-gradient(87.62deg, #ECA683 0%, #FFF7F1 85%)'
       }
     },
     },
