@@ -13,8 +13,6 @@ import { useForm } from "react-hook-form";
 import { object, string, ref } from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from "next/router";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
 
 const schema = object({
     email:string().required("Required.").email("Invalid email.").trim().lowercase(),
@@ -22,17 +20,8 @@ const schema = object({
     confirmPassword:string().required("Required.").oneOf([ref("new_password"), null], "Not identical.").trim()
 }).required();
 
-export async function getServerSideProps({locale}) {
-    return {
-        props: {
-            ...(await serverSideTranslations(locale, ['common'])),
-        }
-    }
-}  
-
 export default function Reset() {
     const router = useRouter()
-    const { t } = useTranslation()
 
     const [loading, setLoading] = useState(false)
     const [logErr, setlogErr] = useState(false)
@@ -78,30 +67,30 @@ export default function Reset() {
         <CustomHead pageName='Reset password' metaResume='Reset password'/>
         <div className="w-[100vw] h-[100vh] bg-black/60 items-center justify-center overflow-hidden z-50 absolute top-0 left-0 flex">
             <div className="flex flex-col bg-white w-[400px] pt-2 pb-5 px-7 relative sm:w-[90%]">
-            {logErr ? <div className="text-sm text-center text-[#d32f2f] mt-5">{t('resetPassword.error')}</div> : ''}
+            {logErr ? <div className="text-sm text-center text-[#d32f2f] mt-5">TEST</div> : ''}
             {loading 
                 ? <Loading />
                 : 
             <form onSubmit={handleSubmit(onSubmit)} className='w-full grid grid-cols-1 gap-5'>
                 <ThemeProvider theme={colorTheme}>
-                    <h1 className="mt-5 font-bold text-[13px] text-center text-gray-600 md:mt-4">{t('resetPassword.title')}</h1>
+                    <h1 className="mt-5 font-bold text-[13px] text-center text-gray-600 md:mt-4">TEST</h1>
                     <Controller name="email" control={control} defaultValue=""
                                 render={({field}) => (
-                                    <TextInput field={field} name='email' label='Email' placeholder={t('resetPassword.plEmail')} errors={errors?.email} /> 
+                                    <TextInput field={field} name='email' label='Email' placeholder={"TEST"} errors={errors?.email} /> 
                                 )}
                     />
                     <Controller name="new_password" control={control} defaultValue=""
                                 render={({field}) => (
-                                  <PasswordInput field={field} name='new_password' label={t('resetPassword.new')} placeholder={t('resetPassword.plNew')} errors={errors?.new_password} /> 
+                                  <PasswordInput field={field} name='new_password' label={"TEST"} placeholder={"TEST"} errors={errors?.new_password} /> 
                                   )}
                     />
                     <Controller name="confirmPassword" control={control} defaultValue=""
                                 render={({field}) => (
-                                    <PasswordInput field={field} name='confirmPassword' label={t('resetPassword.confirm')} placeholder={t('resetPassword.plConfirm')} errors={errors?.confirmPassword} /> 
+                                    <PasswordInput field={field} name='confirmPassword' label={"TEST"} placeholder={"TEST"} errors={errors?.confirmPassword} /> 
                                 )}
                     />
                     <div className="flex place-self-center">
-                        <Button type="submit" variant="contained" sx={{borderRadius:0, mt:4}} className="bg-black w-full">{t('resetPassword.button')}</Button>
+                        <Button type="submit" variant="contained" sx={{borderRadius:0, mt:4}} className="bg-black w-full">{"TEST"}</Button>
                     </div>
                 </ThemeProvider>
             </form>
