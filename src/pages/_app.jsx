@@ -37,13 +37,6 @@ export default function App ({ Component, pageProps }) {
       <Head>
         <title></title>
         <meta name="description" content="" />
-        <link
-            rel="preload"
-            href="/font/Quesha.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-        />
       </Head>
       <OpenCartProvider>
         <CartProvider>

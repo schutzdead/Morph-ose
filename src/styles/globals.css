@@ -69,9 +69,8 @@
   
   @font-face {
     font-family: 'Quesha';
-    font-style: regular;
-    font-weight: 400;
-    src: url('../../public/font/Quesha.woff2') format('woff2');
+    font-display: optional;
+    src: url('/font/Quesha.woff2') format('woff2');
   }
 
   @media (max-width: 768px) { 
