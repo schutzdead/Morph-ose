@@ -42,10 +42,10 @@ export default function Section({data, menu}) {
                                     </div>
                                     <div className="flex ml-5 mr-10 md:mr-5 md:ml-0">
                                         {currentProducts?.map(article => 
-                                            <ArticleCard articleParams={article} key={article.id}/>
+                                            <ArticleCard articleParams={article} key={article.id} link="/categories/subcategories"/>
                                         )}
                                         {currentProducts?.slice(0,2).map(article => 
-                                            <ArticleCard articleParams={article} key={article.id}/>
+                                            <ArticleCard articleParams={article} key={article.id} link="/categories/subcategories"/>
                                         )}
                                     </div>
                                     <div className="cursor-pointer flex gap-1 items-center text-primary place-self-end mx-10 md:mx-5 font-semibold lg:text-sm underline underline-offset-2 sm:text-xs">
@@ -88,7 +88,7 @@ export function CatTitle ({butterfly=false, title, reverse}) {
     )
   }
 
-export function ArticleCard ({articleParams}) {
+export function ArticleCard ({articleParams, link}) {
     const [article, setArticle] = useState(null)
 
     useEffect(() => {
@@ -103,7 +103,7 @@ export function ArticleCard ({articleParams}) {
         {!article 
             ? <Loading />
             : 
-                <Link href="" className="group flex-[0_0_20%] pl-5 flex-col cursor-pointer lg:flex-[0_0_25%] sm:flex-[0_0_33%] relative">
+                <Link href={`${link}`} className="group flex-[0_0_20%] pl-5 flex-col cursor-pointer lg:flex-[0_0_25%] sm:flex-[0_0_33%] relative">
                     <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
                     <div className="transition-all duration-1000 relative hover:scale-[1.02] md:hover:scale-100">
                         <div className="text-white bg-primary px-2 py-0.5 font-bold text-sm absolute rounded-md top-3 left-3 sm:text-xs sm:px-1 sm:top-1.5 sm:left-1.5">-50%</div>

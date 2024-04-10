@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { GETRequest } from "@/utils/requestHeader"
 
-import { useEffect, useRef, useContext, useState } from "react";
+import { useEffect, useRef, useContext, useState, useCallback } from "react";
 
 import { FormControl } from "@mui/material";
 import { MenuItem, Select, ThemeProvider, Button, Breadcrumbs} from "@mui/material";
@@ -18,8 +18,7 @@ import { CustomButton } from "@/components/homepage/homepage"
 
 import { CartContext, OpenCartContext } from "@/utils/cartProvider";
 
-import { PrevButton, NextButton, usePrevNextButtons } from "@/utils/emblaButton";
-import { DotButton, useDotButton } from "@/utils/emblaDot";
+import { Thumb } from "@/utils/emblaThumb"
 
 import useEmblaCarousel from 'embla-carousel-react'
 
@@ -73,14 +72,33 @@ export default function Article({product}) {
         setDataProduct(product)
     }, [cart, product]);
 
-    const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS)
-    const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
-    const {
-      prevBtnDisabled,
-      nextBtnDisabled,
-      onPrevButtonClick,
-      onNextButtonClick
-    } = usePrevNextButtons(emblaApi)
+    const [emblaRef, emblaMainApi] = useEmblaCarousel(OPTIONS)
+    const [selectedIndex, setSelectedIndex] = useState(0)
+    const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
+      containScroll: 'keepSnaps',
+      dragFree: true
+    })
+  
+    const onThumbClick = useCallback(
+      (index) => {
+        if (!emblaMainApi || !emblaThumbsApi) return
+        emblaMainApi.scrollTo(index)
+      },
+      [emblaMainApi, emblaThumbsApi]
+    )
+  
+    const onSelect = useCallback(() => {
+      if (!emblaMainApi || !emblaThumbsApi) return
+      setSelectedIndex(emblaMainApi.selectedScrollSnap())
+      emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap())
+    }, [emblaMainApi, emblaThumbsApi, setSelectedIndex])
+  
+    useEffect(() => {
+      if (!emblaMainApi) return
+      onSelect()
+      emblaMainApi.on('select', onSelect)
+      emblaMainApi.on('reInit', onSelect)
+    }, [emblaMainApi, onSelect])
 
     return (
         <>
@@ -100,20 +118,19 @@ export default function Article({product}) {
                                         </div>
                                     )}
                                 </div>
-                                </div>
-                                <div className="grid grid-cols-[auto_1fr] justify-between items-center gap-[1.2rem] mt-[1.8rem]">
-                                <div className="grid grid-cols-2 gap-[0.6rem] items-center h-8 md:h-6">
-                                    <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-                                    <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-                                </div>
-                                <div className="embla__dots">
-                                    {scrollSnaps.map((_, index) => (
-                                    <DotButton key={index} onClick={() => onDotButtonClick(index)} className={'embla__dot'
-                                        .concat(
-                                        index === selectedIndex ? ' embla__dot--selected' : ''
-                                        )}
-                                    />
-                                    ))}
+                            </div>
+                            <div className="embla-thumbs">
+                                <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
+                                    <div className="embla-thumbs__container">
+                                        {SLIDES.map((index) => (
+                                        <Thumb
+                                            key={index}
+                                            onClick={() => onThumbClick(index)}
+                                            selected={index === selectedIndex}
+                                            index={index}
+                                        />
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>

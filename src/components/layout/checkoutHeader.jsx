@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
 import Logo from '../../../public/assets/header/logo1.svg'
-import User from '../../../public/assets/header/user.svg'
 import LeftArrow from '../../../public/assets/articles/leftSide.svg'
 
 import { UnderlineHover } from './header'
@@ -33,7 +32,7 @@ export default function CheckoutHeader () {
             </li>
           </ul>
           <Link href='/account/' className='items-center cursor-pointer hidden gap-1 mr-3 sm:flex'>
-              <Image src={User} className='pb-[2px] w-6 h-auto' alt='Account pictogram' />
+              {/* <Image src={User} className='pb-[2px] w-6 h-auto' alt='Account pictogram' /> */}
           </Link>
         </nav>
       </header>

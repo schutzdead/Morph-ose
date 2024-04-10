@@ -56,10 +56,10 @@ export default function Category({data, menu}) {
                                     </div>
                                     <div className="flex ml-5 mr-10 gap-y-10 flex-wrap md:mr-5 md:ml-0">
                                         {currentProducts?.map(article => 
-                                            <ArticleCard articleParams={article} key={article.id}/>
+                                            <ArticleCard articleParams={article} key={article.id} link="/categories/subcategories/article" />
                                         )}
                                         {currentProducts?.map(article => 
-                                            <ArticleCard articleParams={article} key={article.id}/>
+                                            <ArticleCard articleParams={article} key={article.id} link="/categories/subcategories/article"/>
                                         )}
                                     </div>
                                 </section>
