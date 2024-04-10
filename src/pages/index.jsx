@@ -50,8 +50,11 @@ export default function Home() {
       {
       landing 
         ? 
-        <main className="h-[100vh] w-[100vw] flex items-center justify-center">
+        <main className="h-[100vh] w-[100vw] flex items-center justify-center hxl:h-auto hxl:mt-10">
           <div className="h-[93%] w-[95%] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center text-center flex flex-col rounded-3xl items-center justify-center text-white relative lg:gap-10 sm:gap-6" style={{backgroundImage:`url(${Fullscreen.src})`}}>
+            <button className="text-sm font-black hidden bg-background text-primary place-self-center mb-5 rounded-2xl py-5 px-10 sm:px-5 sm:py-3 sm:text-xs sm:font-extrabold sm:block" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
+              VISITER LE SITE
+            </button>
             <h2 className="text-xl px-3">La société Morph’ose Evolution vous propose de découvrir</h2>
             <Image src={Logo} className='h-[50%] w-auto lg:max-h-[250px] sm:h-auto sm:w-[80%]' alt='Logo' priority />
             <div className="flex items-center gap-10 font-Quesha text-8xl xl:text-6xl lg:gap-5 lg:text-5xl sm:text-3xl sm:flex-col sm:gap-0">
@@ -61,7 +64,7 @@ export default function Home() {
               <Image src={transi} alt='animation icon' className="sm:h-auto sm:w-6" priority />
               <h1>Esotérisme</h1>
             </div>
-            <button className="text-sm font-black bg-background text-primary place-self-end absolute bottom-3 right-3 rounded-2xl py-5 px-10 sm:px-5 sm:py-3 sm:text-xs sm:font-extrabold" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
+            <button className="text-sm font-black bg-background text-primary place-self-end absolute bottom-3 right-3 rounded-2xl py-5 px-10 sm:px-5 sm:py-3 sm:text-xs sm:font-extrabold sm:hidden" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
               VISITER LE SITE
             </button>
           </div>
