@@ -2,8 +2,8 @@ import * as BSL from 'body-scroll-lock';
 
 export const unlock = () => {
     const body = document.querySelector('body');
+    BSL.enableBodyScroll(body)
     body.style.overflow = 'auto'
-    BSL.disableBodyScroll(body)
 }
 
 export const lock = () => {
@@ -11,4 +11,3 @@ export const lock = () => {
     body.style.overflow = 'hidden'
     BSL.disableBodyScroll(body)
 }
-
