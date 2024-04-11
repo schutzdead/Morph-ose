@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import Left from '../../../public/assets/articles/leftSide.svg'
 import Right from '../../../public/assets/articles/rightSide.svg'
-import { Loading } from "@/components/loader";
+import { Loading } from "@/utils/loader";
 
 export function Tab ({category}) {
     return(

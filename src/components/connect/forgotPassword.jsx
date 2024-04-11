@@ -10,7 +10,7 @@ import { useTranslation } from 'next-i18next'
 import Close from "../../../public/assets/close.svg"
 import Check from "../../../public/assets/check.svg"
 import { colorTheme, nobgCompletion } from "../styles/mui";
-import { Loading } from "../loader";
+import { Loading } from "../../utils/loader";
 import { unlock } from "@/utils/lockScreen";
 import { useRouter } from "next/router";
 

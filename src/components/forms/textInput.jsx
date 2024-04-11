@@ -16,6 +16,20 @@ export function TextInput ({field, name, label, placeholder, errors, style=''}) 
     )
 }
 
+
+export function CustomTextArea ({field, label, errors, style=''}) {
+    return(
+        <TextField 
+            {...field}
+            id={label} type="text"
+            multiline minRows={3}
+            label={label}
+            helperText= {errors ? errors.message : ""}
+            error={errors ? Boolean(true) : Boolean(false)}
+            className={`${style}`}
+        />
+    )
+}
 export function PasswordInput ({field, name, label, placeholder, errors, style=''}) {
     return (
         <TextField 

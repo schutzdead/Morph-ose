@@ -2,7 +2,7 @@ import { CustomHead } from "@/components/customHead"
 import { GETRequest } from "@/utils/requestHeader"
 import { useEffect, useState } from "react"
 import Layout from "@/components/layout/layout"
-import { Loading } from "@/components/loader"
+import { Loading } from "@/utils/loader"
 import Image from "next/image";
 import Link from "next/link";
 import Butterfly from '../../../public/assets/main/butterfly.svg'

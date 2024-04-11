@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 register();
 
 import Close from "../../../public/assets/close.svg"
-import { Loading } from "../loader";
+import { Loading } from "../../utils/loader";
 import { unlock } from "@/utils/lockScreen";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL

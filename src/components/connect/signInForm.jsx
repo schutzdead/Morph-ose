@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from 'next-i18next'
 
 import { colorTheme, nobgCompletion } from "../styles/mui";
-import { Loading } from "../loader";
+import { Loading } from "../../utils/loader";
 import { ForgotPassword } from "./forgotPassword";
 import { lock } from "@/utils/lockScreen";
 

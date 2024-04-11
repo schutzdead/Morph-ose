@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react"
 import { useRouter } from "next/router";
 import { CartContext } from "@/utils/cartProvider";
-import { Loading } from "../loader";
+import { Loading } from "../../utils/loader";
 import { Article } from "../layout/cart";
 import { useTranslation } from 'next-i18next'
 

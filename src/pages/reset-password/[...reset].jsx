@@ -3,7 +3,7 @@ import { CustomHead } from "@/components/customHead"
 import { ThemeProvider } from "@emotion/react";
 import { Button } from "@mui/material";
 import { colorTheme } from "@/components/styles/mui";
-import { Loading } from "@/components/loader";
+import { Loading } from "@/utils/loader";
 import { PasswordInput,TextInput } from "@/components/forms/textInput";
 
 import { useState } from "react";

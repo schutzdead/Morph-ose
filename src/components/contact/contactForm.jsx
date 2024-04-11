@@ -6,7 +6,7 @@ import { TextField, Button, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import { Loading } from "../loader";
+import { Loading } from "../../utils/loader";
 import { colorTheme, nobgCompletion } from "../styles/mui";
 
 import Image from "next/image";

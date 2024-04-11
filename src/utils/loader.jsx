@@ -1,6 +1,5 @@
-import { LinearProgress } from "@mui/material";
-import { ThemeProvider } from "@mui/material";
-import { colorTheme } from "./styles/mui";
+import { CircularProgress, ThemeProvider, LinearProgress } from "@mui/material"
+import { colorTheme } from "../components/styles/mui";
 
 export function Loading () {
     return (
@@ -11,5 +10,13 @@ export function Loading () {
                 </ThemeProvider>
             </div>
         </div>
+    )
+}
+
+export function CircularLoading () {
+    return(
+        <ThemeProvider theme={colorTheme}>
+            <CircularProgress size="1rem" color='primary'/>
+        </ThemeProvider>
     )
 }

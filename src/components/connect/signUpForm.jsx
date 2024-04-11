@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from 'next-i18next'
 
-import { Loading } from "../loader";
+import { Loading } from "../../utils/loader";
 import { colorTheme, nobgCompletion } from "../styles/mui";
 
 const schema = object({

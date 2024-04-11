@@ -8,7 +8,7 @@ import { CartContext } from "@/utils/cartProvider";
 import { TextInput } from "../forms/textInput";
 import { useTranslation } from 'next-i18next'
 
-import { Loading } from "../loader";
+import { Loading } from "../../utils/loader";
 import { colorTheme } from "../styles/mui";
 import { useRouter } from "next/router";
 

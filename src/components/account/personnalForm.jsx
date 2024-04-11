@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import { Button } from "@mui/material";
 import { colorTheme } from "@/components/styles/mui";
-import { Loading } from "@/components/loader";
+import { Loading } from "@/utils/loader";
 import {TextInput} from "@/components/forms/textInput";
 
 import { useEffect, useMemo, useState } from "react";

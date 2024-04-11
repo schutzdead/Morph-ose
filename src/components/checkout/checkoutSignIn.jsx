@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { Button, TextField, ThemeProvider} from "@mui/material";
 
 import { colorTheme, nobgCompletion } from "../styles/mui";
-import { Loading } from "../loader";
+import { Loading } from "../../utils/loader";
 import { ForgotPassword } from "../connect/forgotPassword";
 import { lock } from "@/utils/lockScreen";
 import { useTranslation } from 'next-i18next'
