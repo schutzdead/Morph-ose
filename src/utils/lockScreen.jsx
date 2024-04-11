@@ -1,13 +1,13 @@
 import * as BSL from 'body-scroll-lock';
 
 export const unlock = () => {
-    const body = document.querySelector('body');
-    BSL.enableBodyScroll(body)
-    body.style.overflow = 'auto'
+    const html = document.querySelector('html');
+    BSL.enableBodyScroll(html)
+    html.style.overflow = 'unset'
 }
 
 export const lock = () => {
-    const body = document.querySelector('body');
-    body.style.overflow = 'hidden'
-    BSL.disableBodyScroll(body)
+    const html = document.querySelector('html');
+    html.style.overflow = 'hidden'
+    BSL.disableBodyScroll(html)
 }

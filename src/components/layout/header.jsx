@@ -70,7 +70,7 @@ export default function Header () {
         <p className='sm:max-w-[80%] sm:ml-2 sm:text-center sm:truncate'>{`Livraison offerte dans toute la France à partir de 59€ d'achat !`}</p>
         <Image src={Close} onClick={() => setIsPub(false)} className='w-5 h-auto absolute right-5' alt='Account pictogram' />
       </div>
-      <header className="z-20 h-28 flex justify-between px-10 items-center font-medium sticky top-0 bg-transparent lg:px-5 text-primary">
+      <header className="z-20 h-28 flex justify-between bg-background px-10 items-center font-medium sticky top-0 lg:px-5 text-primary">
         <nav className='flex gap-8 md:hidden'>
           <div onClick={() => {setMenu(!menu); menu ? unlock() : lock()}} className='flex items-center'>
             <Hamburger hamburger={hamburger} setHamburger={setHamburger}/>
