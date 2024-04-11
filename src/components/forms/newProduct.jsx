@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { ThemeProvider, CircularProgress } from "@mui/material";
+import { ThemeProvider, CircularProgress, Checkbox } from "@mui/material";
 import { TextInput, CustomTextArea } from '@/components/forms/textInput';
 import { colorTheme } from '@/components/styles/mui';
 import { useEffect, useMemo, useState } from 'react';
@@ -121,6 +121,12 @@ export default function NewProduct ({setSearchResult, searchResult, setLoading, 
         }
     }
 
+    const [checked, setChecked] = useState(false);
+
+    const handleChange = (event) => {
+      setChecked(event.target.checked);
+    };
+
     return(
         <form onSubmit={handleSubmit(onSubmit)} className='w-full gap-5 bg-white py-5 px-5 grid grid-cols-4 justify-items-center rounded-xl shadow-xl xl:grid-cols-[1fr_1fr_1fr] sm:grid-cols-2 2sm:grid-cols-1'>
         <ThemeProvider theme={colorTheme}>
@@ -138,11 +144,16 @@ export default function NewProduct ({setSearchResult, searchResult, setLoading, 
                 render={({field}) => (
                     <TextInput field={field} label='Référence' placeholder='125286' errors={errors?.reference} style="w-full"/>
                 )}/>    
-                <Controller name="description" control={control} defaultValue=""
-                                render={({field}) => (
-                                    <CustomTextArea field={field} label='Description' errors={errors?.description} style="w-full col-span-4" />
-                    )}/>   
+            <div className="flex items-center">
+                <Checkbox size="small" checked={checked} onChange={handleChange} />
+                <p>Publier</p>
+            </div>
+            <Controller name="description" control={control} defaultValue=""
+                            render={({field}) => (
+                                <CustomTextArea field={field} label='Description' errors={errors?.description} style="w-full col-span-4" />
+                )}/>   
             </>
+            
             {error ? <div className='col-span-4 justify-self-end text-red-500 self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>{`Erreur (contactez un développeur)`}</div>: ''}
             {submitLoading ? 
                 <div className='flex items-center justify-start col-span-4 justify-self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>

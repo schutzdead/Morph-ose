@@ -37,7 +37,7 @@ export default function AdminAuth() {
       <main className='h-[100vh] w-[100vw] flex flex-col items-center justify-center bg-background lg:h-auto lg:min-h-[100vh] lg:py-10'>
         <h1 className='text-4xl font-bold mb-8 text-secondary sm:text-center'>SE CONNECTER</h1>
         <section className='w-[450px] flex flex-col sm:w-[90%]'>
-            <SignInAuth path="/guest/authentication" pushPath="/" pass={false} />
+            <SignInAuth path="/guest/authentication" pushPath="/admin/products" pass={false} />
         </section>
     </main>
     </>

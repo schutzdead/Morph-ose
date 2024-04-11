@@ -49,7 +49,9 @@ export function SignInAuth ({pushPath, path, pass=true, user_type}) {
             <ForgotPassword forgotCard={forgotCard} setForgotCard={setForgotCard} user_type={user_type} />
             {logErr ? <div className="text-sm text-[#d32f2f] text-center mb-5">Identifiant(s) incorrect(s)</div> : ''}
             {loading 
-                ? <Loading />
+                ? <div className="h-[100px] w-full">
+                    <Loading />
+                </div>
                 : 
                 <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-7 text-white 2sm:gap-x-3">
                     <InterfaceTextInput label='Email *' placeholder='Entrez votre email' name="emailIn" options={{...register("emailIn")}} commonError={errors.emailIn} commonErrorMessage={errors.emailIn?.message} style='col-span-2' labelStyle='text-secondary' />
