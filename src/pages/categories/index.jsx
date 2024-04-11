@@ -36,11 +36,12 @@ export default function Section({data, menu}) {
                         ? <p>Aucun article</p>
                         : <div className="flex flex-col gap-28 md:gap-10">
                             {menu?.map((m, index) => 
-                                <section key={m.id} className="flex flex-col gap-10">
+                                <section key={m.id} className="flex flex-col gap-10 relative">
+                                    <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
                                     <div style={index%2 === 0 ? {justifyContent:'start'} : {justifyContent:'end'}} className="w-full flex">
                                         <CatTitle title={m.title.toUpperCase()} butterfly={true} reverse={index%2 === 0} />
                                     </div>
-                                    <div className="flex ml-5 mr-10 md:mr-5 md:ml-0">
+                                    <div className="flex ml-5 mr-10 overflow-x-hidden md:mr-5 md:ml-0">
                                         {currentProducts?.map(article => 
                                             <ArticleCard articleParams={article} key={article.id} link="/categories/subcategories"/>
                                         )}
@@ -48,10 +49,10 @@ export default function Section({data, menu}) {
                                             <ArticleCard articleParams={article} key={article.id} link="/categories/subcategories"/>
                                         )}
                                     </div>
-                                    <div className="cursor-pointer flex gap-1 items-center text-primary place-self-end mx-10 md:mx-5 font-semibold lg:text-sm underline underline-offset-2 sm:text-xs">
+                                    <Link href="/categories/a" className="cursor-pointer flex gap-1 items-center text-primary place-self-end mx-10 md:mx-5 font-semibold lg:text-sm underline underline-offset-2 sm:text-xs">
                                         <p>Voir tous les produits</p>
                                         <Image src={RightArrow} alt='Right arrow' className="w-4" priority/>
-                                    </div>
+                                    </Link>
                                 </section>
                             )}
                         </div>
@@ -104,7 +105,6 @@ export function ArticleCard ({articleParams, link}) {
             ? <Loading />
             : 
                 <Link href={`${link}`} className="group flex-[0_0_20%] pl-5 flex-col cursor-pointer lg:flex-[0_0_25%] sm:flex-[0_0_33%] relative">
-                    <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
                     <div className="transition-all duration-1000 relative hover:scale-[1.02] md:hover:scale-100">
                         <div className="text-white bg-primary px-2 py-0.5 font-bold text-sm absolute rounded-md top-3 left-3 sm:text-xs sm:px-1 sm:top-1.5 sm:left-1.5">-50%</div>
                         <Image src={article?.images[0].url} alt='Article picture' width={0} height={0} className="object-cover w-full rounded-xl" priority/>

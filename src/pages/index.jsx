@@ -93,6 +93,7 @@ export default function Home() {
                 </button>
               </div>
             </section>
+
             <section className="flex flex-col items-center gap-14 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
               <Title title='Nos Collections Phares !' />
               <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-secondary">
@@ -112,6 +113,7 @@ export default function Home() {
                 </div>
               </div>
             </section>
+
             <section className="flex justify-evenly w-[95vw] mx-[2.5vw] relative sm:mx-5 py-20 sm:flex-col sm:items-center sm:py-10 sm:gap-10">
               <div className="absolute -z-10 bg-pictoGradient blur-[175px] h-[70%] top-[15%] w-full"></div>
               <Picto image={PictoTest} text="Une livraison rapide grâce à des partenaires reconnus !" title="Livraison express" />
@@ -120,6 +122,7 @@ export default function Home() {
                 <Picto image={PictoTest} text="Une livraison rapide grâce à des partenaires reconnus !" title="Livraison express" />
               </div>
             </section>
+
             <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
               <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
               <Title title='Nos services !' butterfly={true} />
@@ -139,7 +142,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="grid grid-cols-[auto_1fr] justify-between items-center gap-[1.2rem] mt-[1.8rem]">
-                  <div className="grid grid-cols-2 gap-[0.6rem] items-center h-8 md:h-6">
+                  <div className="grid grid-cols-2 gap-[0.6rem] items-center h-8 w-fit md:h-6">
                     <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
                     <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
                   </div>
@@ -162,6 +165,7 @@ export default function Home() {
                 </div>
               </div>
             </section>
+
             <section className="flex flex-col items-center gap-20 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:gap-10 md:mx-5">
               <Title title='Pour Les Pros' />
               <div className="flex items-center justify-center md:flex-col md:gap-10">

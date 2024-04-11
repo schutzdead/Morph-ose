@@ -94,9 +94,9 @@ export function Newletter () {
     )
   }
   
-  export function CustomButton ({butterfly=false,text}) {
+  export function CustomButton ({butterfly=false,text, style={width:'fit-content', height:'48px'}}) {
     return(
-      <button className="h-12 w-fit px-10 bg-mainGradient rounded-[50px] text-white font-medium text-lg relative md:text-sm">
+      <button className="px-10 bg-mainGradient rounded-[50px] text-white font-medium text-lg relative md:text-sm" style={style}>
         <Image src={Butterfly2} alt='butterfly icon' className="absolute h-auto w-12 -right-[25px] -top-[23px]" style={butterfly ? {display:'block'} : {display:'none'}} priority />
         {text}
       </button>
