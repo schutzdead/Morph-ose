@@ -78,7 +78,7 @@ export default function Article({product}) {
     const onSelect = useCallback(() => {
       if (!emblaMainApi || !emblaThumbsApi) return
       setSelectedIndex(emblaMainApi.selectedScrollSnap())
-    //   emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap())
+      emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap())
     }, [emblaMainApi, emblaThumbsApi, setSelectedIndex])
   
     useEffect(() => {
@@ -162,8 +162,8 @@ export default function Article({product}) {
                     </section>
                     <section className="mx-10 flex flex-col gap-10 pt-20 lg:gap-10 sm:pt-10 sm:mx-5">
                         <div className="flex w-fit px-8 font-semibold text-lg lg:text-base rounded-xl gap-10 bg-homeGradient3 py-3 sm:gap-8 sm:px-3">
-                            <p className="underline underline-offset-2 text-white">Informations supplémentaire</p>
-                            <p onClick={() => {setModal(true); setPosition(Math.max(window.screenY, document.documentElement.scrollTop, document.body.scrollTop)); body.style.overflow = 'hidden'}} className="underline underline-offset-2 text-secondary">Question</p>
+                            <p className="underline underline-offset-2 text-white cursor-pointer">Informations supplémentaire</p>
+                            <p onClick={() => {setModal(true); setPosition(Math.max(window.screenY, document.documentElement.scrollTop, document.body.scrollTop)); body.style.overflow = 'hidden'}} className="underline underline-offset-2 text-secondary cursor-pointer">Question</p>
                         </div>
                         <div className="w-full flex flex-col text-secondary gap-5">
                             <h2 className="px-8 w-fit font-extrabold text-2xl lg:text-xl sm:text-base sm:px-4">A propos de ce produit</h2>
