@@ -43,7 +43,7 @@ export const PrevButton = (props) => {
 
   return (
     <button {...restProps}>
-      <div className='w-8 h-8 min-h-8 min-w-8 flex items-center justify-center rounded-full bg-primary md:w-6 md:h-6'>
+      <div className='arrow w-8 h-8 min-h-8 min-w-8 flex items-center justify-center rounded-full bg-primary md:h-6'>
           <Image src={left} alt='left chevron' className='' priority />
       </div>
       {children}
@@ -56,7 +56,7 @@ export const NextButton = (props) => {
 
   return (
     <button {...restProps}>
-      <div className='w-8 h-8 min-h-8 min-w-8 flex items-center justify-center rounded-full bg-primary md:w-6 md:h-6'>
+      <div className='arrow w-8 h-8 min-h-8 min-w-8 flex items-center justify-center rounded-full bg-primary md:h-6'>
           <Image src={right} alt='left chevron' className='' priority />
       </div>
           {children}

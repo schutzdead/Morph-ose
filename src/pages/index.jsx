@@ -142,7 +142,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="grid grid-cols-[auto_1fr] justify-between items-center gap-[1.2rem] mt-[1.8rem]">
-                  <div className="grid grid-cols-2 gap-[0.6rem] items-center h-8 w-fit md:h-6">
+                  <div className="grid grid-cols-2 gap-[0.6rem] items-center h-8 w-fit md:h-6 ">
                     <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
                     <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
                   </div>

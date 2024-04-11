@@ -78,7 +78,7 @@ export default function Article({product}) {
     const onSelect = useCallback(() => {
       if (!emblaMainApi || !emblaThumbsApi) return
       setSelectedIndex(emblaMainApi.selectedScrollSnap())
-      emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap())
+    //   emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap())
     }, [emblaMainApi, emblaThumbsApi, setSelectedIndex])
   
     useEffect(() => {

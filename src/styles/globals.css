@@ -83,6 +83,9 @@
       width: 2rem;
       height: 2rem;
     }
+    .arrow {
+      width: 24px !important
+    }
   }
 
   .embla-thumbs__slide__number {
