@@ -105,11 +105,11 @@ export default function Article({product}) {
                 <main className="w-full mt-10 mb-20 xl:mb-10 sm:mt-5">
                     <section className="bg-background p-10 overflow-hidden mx-10 rounded-3xl flex gap-20 lg:gap-10 md:flex-col sm:p-5 sm:m-5 2sm:p-2">
                         <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[100%] top-0 w-[80%]"></div>
-                        <div className=" max-w-[1200px] w-1/2 md:w-full md:max-w-[">
+                        <div className=" max-w-[1200px] m-auto w-1/2 md:w-full h-full">
                             {/* VIEWPORT */}
-                            <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
+                            <div className="overflow-hidden rounded-2xl h-full" ref={emblaRef}>
                                 {/* CONTAINER */}
-                                <div className="flex touch-pan-y">
+                                <div className="flex touch-pan-y h-full">
                                     {SLIDES.map((s, index) =>
                                         <div key={index} className="min-w-0 flex-[0_0_100%] h-fit max-h-[600px] md:max-h-[400px]">
                                             <Image key={uuidv4()} src={product.images[0].url} width={544} height={600} className="w-full object-cover" alt='Article picture'/>
@@ -185,11 +185,6 @@ function ModalFAQ ({setModal, modal, position, body}) {
         setHeight(position)
     }, [position])
 
-    const mainContainer = useRef()
-
-    useEffect(() => {
-        mainContainer.current.style.overflow = 'auto'
-    }, [])
 
     return (
         <div className="w-[100vw] h-[100vh] bg-black/90 absolute flex-col items-center top-0 text-white z-50" style={modal ? {display:'flex', top:`${height}px`} : {display:'none', top:`${height}px`}}>
@@ -200,7 +195,7 @@ function ModalFAQ ({setModal, modal, position, body}) {
                 <div className="flex items-center justify-center w-full p-10 border-[3px]  text-center bg-white border-[#C63D2F] rounded-2xl">
                     <h1 className="font-Quesha text-[#C63D2F] max-w-[600px] text-7xl xl:text-6xl md:text-4xl 2sm:text-3xl">QUESTIONS FREQUENTES</h1>
                 </div>
-                <div className="bg-menuGradient p-10 rounded-2xl w-full scrollbar-thumb-gray-300 overflow-y-scroll scrollbar scrollbar-w-2 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner-rounded sm:p-5" ref={mainContainer}>
+                <div className="bg-menuGradient p-10 rounded-2xl w-full max-h-[50vh] scrollbar-thumb-gray-300 overflow-y-scroll scrollbar scrollbar-w-2 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner-rounded sm:p-5">
                     <div className="bg-homeGradient3 flex flex-col gap-5 rounded-xl px-5 pt-5 sm:px-0">
                         {QUESTION.map((q, index) => 
                             <div key={index} className="border-gray border-b mx-10 sm:mx-5" style={index === QUESTION.length-1 ? {border:'none'} : {}}>
