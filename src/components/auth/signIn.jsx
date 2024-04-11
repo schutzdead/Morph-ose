@@ -29,7 +29,9 @@ export function SignInAuth ({pushPath, path, pass=true, user_type}) {
         const { emailIn, passwordIn } = data
 		try {
             const response = await fetch(`/api/proxy/${path}`, POSTRequest({ email: emailIn, password:passwordIn }))
+            console.log(response);
             const auth = await response.json()
+            console.log(auth);
             setlogErr(!auth.data)
             if(auth.data) {
                 router.push(`${pushPath}`)
@@ -49,8 +51,10 @@ export function SignInAuth ({pushPath, path, pass=true, user_type}) {
             <ForgotPassword forgotCard={forgotCard} setForgotCard={setForgotCard} user_type={user_type} />
             {logErr ? <div className="text-sm text-[#d32f2f] text-center mb-5">Identifiant(s) incorrect(s)</div> : ''}
             {loading 
-                ? <div className="h-[100px] w-full">
-                    <Loading />
+                ? <div className="h-[100px] w-full flex justify-center">
+                    <div className="w-1/2 py-10">
+                        <Loading />
+                    </div>
                 </div>
                 : 
                 <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-7 text-white 2sm:gap-x-3">

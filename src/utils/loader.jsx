@@ -3,13 +3,9 @@ import { colorTheme } from "../components/styles/mui";
 
 export function Loading () {
     return (
-        <div className="w-full h-full">
-            <div className="flex h-full w-full items-center justify-center place-self-center">
-                <ThemeProvider theme={colorTheme}>
-                    <LinearProgress className="w-60"/>
-                </ThemeProvider>
-            </div>
-        </div>
+        <ThemeProvider theme={colorTheme}>
+            <LinearProgress />
+        </ThemeProvider>
     )
 }
 
