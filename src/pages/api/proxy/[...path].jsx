@@ -13,10 +13,10 @@ export const config = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (req, res) => {
 	delete req.headers.host
-	delete req.headers["x-forwarded-port"]
+
 	return new Promise((resolve, reject) => {
 		const pathname = url.parse(req.url).pathname
-		const isLogin = pathname === '/api/proxy/auth/client' || pathname === '/api/proxy/auth/tutor' || pathname === '/api/proxy/guest/authentication'
+		const isLogin = pathname === '/api/proxy/guest/authentication'
 
 		const cookies = new Cookies(req, res)
 		const authToken = cookies.get('auth-token')
@@ -34,7 +34,7 @@ export default (req, res) => {
 
 		proxy.once('error', reject)
 		proxy.web(req, res, {
-			target: 'https://api.pierres.darianne.fr', 
+			target: 'https://api.pierres.darianne.fr/', 
 			autoRewrite: false, //donnée de la requête
 			selfHandleResponse: isLogin, //true > alors on s'occupe nous même de la réponse (objectif recupérer le JWT)
 			// changeOrigin:true
