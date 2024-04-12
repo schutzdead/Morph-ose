@@ -17,18 +17,21 @@ export default (req, res) => {
 	return new Promise((resolve, reject) => {
 		const pathname = url.parse(req.url).pathname
 		const isLogin = pathname === '/api/proxy/guest/authentication'
-
+		
 		const cookies = new Cookies(req, res)
 		const authToken = cookies.get('auth-token')
 
 		req.url = req.url.replace(/^\/api\/proxy/, '')
 		req.headers.cookie = ''
 
+		console.log(pathname, req.url);
+
 		if (authToken) {
 			console.log('send API request with token');
 			req.headers['Authorization'] = `Bearer ${authToken}`
 		}
 		if (isLogin) {
+			console.log('try to connect');
 			proxy.once('proxyRes', interceptLoginResponse)
 		}
 
@@ -50,9 +53,10 @@ export default (req, res) => {
 				try {
 					if (proxyRes.statusCode === 200) {
 						const bodyToken = JSON.parse(apiResponseBody)
+						console.log(bodyToken);
 						const authToken = bodyToken.plainTextToken || bodyToken.token.plainTextToken
 						const userData = bodyToken.user
-						// console.log(userData);
+						console.log(userData);
 						const cookies = new Cookies(req, res)
 						cookies.set('auth-token', authToken, {
 							httpOnly: true,
