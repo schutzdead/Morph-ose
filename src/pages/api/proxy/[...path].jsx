@@ -13,7 +13,7 @@ export const config = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (req, res) => {
 	delete req.headers.host
-	console.log(req.headers);
+	console.log(req.headers.host);
 	return new Promise((resolve, reject) => {
 		const pathname = url.parse(req.url).pathname
 		const isLogin = pathname === '/api/proxy/guest/authentication'
@@ -53,7 +53,7 @@ export default (req, res) => {
 			})
 			proxyRes.on('end', () => {
 				try {
-					console.log(proxyRes);
+					console.log(proxyRes.statusCode);
 					if (proxyRes.statusCode === 200) {
 						const bodyToken = JSON.parse(apiResponseBody)
 						console.log(bodyToken);
