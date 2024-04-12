@@ -52,7 +52,6 @@ export async function getServerSideProps({req, res}) {
 }
 
 export default function Products({all_products}) {
-  console.log(all_products);
   const [products, setProducts] = useState(all_products)
   // const [pagination, setPagination] = useState([])
   const [loading, setLoading] = useState(false)

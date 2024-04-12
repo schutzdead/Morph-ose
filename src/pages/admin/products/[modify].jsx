@@ -79,8 +79,6 @@ export default function EditProduct({current_product}) {
       !current_product || current_product.message  ? '' : setProductData(current_product)
   }, [current_product])
 
-  console.log(current_product);
-
   return (
     <>
     <NoIndexHead />

@@ -30,9 +30,7 @@ export function SignInAuth ({pushPath, path, pass=true, user_type}) {
         const { emailIn, passwordIn } = data
 		try {
             const response = await fetch(`/api/proxy/${path}`, POSTRequest({ email: emailIn, password:passwordIn }))
-            console.log(response);
             const auth = await response.json()
-            console.log(auth);
             setlogErr(!auth.data)
             if(auth.data) {
                 router.push(`${pushPath}`)

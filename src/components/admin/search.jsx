@@ -1,9 +1,6 @@
-import { TextField, CircularProgress, ThemeProvider } from "@mui/material"
-import { colorTheme } from "../styles/mui"
 import { useState } from "react"
 import { POSTRequest } from "@/utils/requestHeader"
 import Link from "next/link"
-import { InterfaceTextInput } from "../forms/interface_input"
 import { CircularLoading } from "@/utils/loader"
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
@@ -21,7 +18,6 @@ export default function Search ({result, setResult, apiPath, linkTo1, linkTo2}) 
       try {
             const response = await fetch(`${API_URL}/search/${apiPath}`, POSTRequest({search:e.target.value}))
             const res = await response.json();
-            console.log(res);
             setResult([])
             for(const props in res){
                 setResult((previous => [...previous, {id:props, title:res[props]}]))
@@ -33,7 +29,6 @@ export default function Search ({result, setResult, apiPath, linkTo1, linkTo2}) 
         }
       }, 500)}
     } 
-    console.log(result);
     
     return(
         <div className='group relative flex flex-col w-full'>

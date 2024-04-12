@@ -9,7 +9,7 @@ import { AddFiles } from "./addFiles";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export default function NewProduct ({token, setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData}) {
+export default function NewProduct ({setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData}) {
     formResolver.defaultValues = useMemo(() => {
         return searchTutorData
     }, [searchTutorData])
@@ -42,7 +42,6 @@ export default function NewProduct ({token, setLoading, formResolver, validation
             newObj[file.id] = {order:order_pos}
             order_pos += 1
         }
-        console.log(newObj);
         setError(false)
         setLoading(true)
         try {
@@ -66,16 +65,13 @@ export default function NewProduct ({token, setLoading, formResolver, validation
                     // big_description:big_description,
                 })
             })
-            console.log(response);
             const register = await response.json()
-            console.log(register);
             if(register.message || response.status !== 200){
                 setLoading(false)
                 setError(true)
                 return
             }
             if(searchTutorData){
-                console.log(searchTutorData);
                 for(const property in register) {
                 if(register[property] === null) {
                         register[property] = ''
@@ -134,7 +130,7 @@ export default function NewProduct ({token, setLoading, formResolver, validation
 
             <section className="w-full gap-5 bg-white py-5 px-5 flex flex-col rounded-xl shadow-xl">     
                 <H2Title title="Photos du produit" />
-                <AddFiles fileType='Photo' docId={docId} token={token} setDocId={setDocId} />
+                <AddFiles fileType='Photo' docId={docId} setDocId={setDocId} />
             </section>
 
             <section className="place-self-end">

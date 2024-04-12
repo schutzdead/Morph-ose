@@ -52,12 +52,11 @@ export async function getServerSideProps({req, res}) {
 
   return {
     props: {
-      token:authToken
     }
   }
 }
 
-export default function AddProduct({token}) {
+export default function AddProduct() {
     const [loading, setLoading] = useState(false)
     const [searchResult, setSearchResult] = useState([])
 
@@ -93,7 +92,7 @@ export default function AddProduct({token}) {
                   searchResult={searchResult} setSearchResult={setSearchResult}
                   setLoading={setLoading} formationFilter={formationFilter}
                   formResolver={{resolver: yupResolver(schemaProduct)}}
-                  validationButton="Créer" api="/auth/admin/products" token={token} />
+                  validationButton="Créer" api="/auth/admin/products" />
           }
         </div>
       </section>

@@ -45,7 +45,6 @@ export default function Header () {
           body: JSON.stringify({ search:e.target.value })
       })
       const result = await response.json();
-      console.log(result);
       if(result.message) return setSearchResult(null)
       setSearchResult(result)
       setLoad(false)

@@ -6,11 +6,10 @@ import { useState } from "react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export function AddFiles ({docId, token, fileType, setDocId}) {
+export function AddFiles ({docId, fileType, setDocId}) {
     const [submitLoading, setSubmitLoading] = useState(false)
 
     async function uploadFile(e){
-        console.log(e);
         const formData = new FormData();
         if(e?.target?.files?.length > 0) {
             for (var x = 0; x < e?.target?.files?.length ; x++) {
@@ -22,17 +21,15 @@ export function AddFiles ({docId, token, fileType, setDocId}) {
         setSubmitLoading(true)
         
         try {
-            const form = await fetch(`${API_URL}/auth/admin/images/upload`, {
+            const form = await fetch(`/api/proxy/auth/admin/images/upload`, {
                 method: "POST", 
                 headers: {
                     "Accept": "application/json",
-                    'Authorization': `Bearer ${token}`
                 },
                 mode: "cors", 
                 body: formData
             })
             const register = await form.json()
-            console.log(register);
             setDocId(register.map(image => ({id:image.id, url:image.url})))
             setSubmitLoading(false)
         } catch (err) {
@@ -40,8 +37,6 @@ export function AddFiles ({docId, token, fileType, setDocId}) {
             console.error('Request failed:' + err.message)
         }
     }
-
-    console.log();
 
     return(
         <div className='w-full flex flex-col gap-3 mb-10 sm:mb-5'>
