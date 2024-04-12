@@ -52,6 +52,7 @@ export async function getServerSideProps({req, res}) {
 }
 
 export default function Products({all_products}) {
+  console.log(all_products);
   const [products, setProducts] = useState(all_products)
   // const [pagination, setPagination] = useState([])
   const [loading, setLoading] = useState(false)
@@ -99,7 +100,7 @@ export default function Products({all_products}) {
             {loading ? <Loading />
             : <>
                 <div className='grid text-secondary grid-cols-[repeat(4,2fr)_1fr] py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden xl:text-sm sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-xs'>
-                    <p>Titre</p>
+                    <p className='place-self-start'>Titre</p>
                     <p className='sm:hidden'>Catégorie</p>
                     <p>Publié</p>
                     <p>Prix</p>
@@ -107,8 +108,8 @@ export default function Products({all_products}) {
                 {
                   products?.sort((a, b) => a.title.localeCompare(b.title)).map((product) =>
                     <div key={product.id} className='grid grid-cols-[repeat(4,2fr)_1fr] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-sm' style={products?.indexOf(product)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
-                      <p className='font-semibold sm:text-center pl-2'>{`${product.title}`}</p>
-                      <p className='max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis hover:max-w-none sm:max-w-[90px]'>{product?.categories[0]}</p>
+                      <p className='font-semibold place-self-start pl-2'>{`${product.title}`}</p>
+                      <p className='max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis hover:max-w-none sm:max-w-[90px]'>{product?.categories[0]?.title}</p>
                       <div className='w-2 h-2 rounded-full sm:hidden' style={product.is_published ? {backgroundColor:'rgb(34 197 94)'} : {backgroundColor:'rgb(239 68 68)'}}></div>
                       <p className='max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis hover:max-w-none'>{product.price}€</p>
                       <Link href="/admin/products/[product]" as={`/admin/products/${product.id}`}>

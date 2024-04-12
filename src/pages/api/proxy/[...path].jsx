@@ -26,8 +26,6 @@ export default (req, res) => {
 		req.url = req.url.replace(/^\/api\/proxy/, '')
 		req.headers.cookie = ''
 
-		console.log(req.url);
-
 		if (authToken) {
 			console.log('send API request with token');
 			req.headers['Authorization'] = `Bearer ${authToken}`
@@ -49,11 +47,10 @@ export default (req, res) => {
 			let apiResponseBody = ''
 			proxyRes.on('data', (chunk) => {
 				apiResponseBody += chunk
-				console.log(apiResponseBody);
+				// console.log(apiResponseBody);
 			})
 			proxyRes.on('end', () => {
 				try {
-					console.log(proxyRes.statusCode);
 					if (proxyRes.statusCode === 200) {
 						const bodyToken = JSON.parse(apiResponseBody)
 						const authToken = bodyToken.plainTextToken || bodyToken.token.plainTextToken

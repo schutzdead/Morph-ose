@@ -5,39 +5,26 @@ import { TextInput, CustomTextArea } from '@/components/forms/textInput';
 import { colorTheme } from '@/components/styles/mui';
 import { useEffect, useMemo, useState } from 'react';
 import { H2Title } from '../littleComponents';
+import { AddFiles } from "./addFiles";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export default function NewProduct ({setSearchResult, searchResult, setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData}) {
+export default function NewProduct ({setSearchResult, searchResult, token, setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData}) {
     formResolver.defaultValues = useMemo(() => {
         return searchTutorData
     }, [searchTutorData])
+    
     const {reset, control, handleSubmit, formState: {errors}} = useForm(formResolver)
-
-    const [dataDisciplines, setDataDisciplines] = useState([])
-    const [birth, setBirth] = useState();
-    const [formationsLink, setFormationsLink] = useState([])
-    const [submitLoading, setSubmitLoading] = useState(false)
     const [docId, setDocId] = useState([])
-
-    const [targetFile, setTargetFile] = useState()
-    const [currentType, setCurrentType] = useState()
     const [error, setError] = useState(false)
-
-    useEffect(() => {
-        uploadFile(targetFile, currentType)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [targetFile, currentType])
+    const [checked, setChecked] = useState(false);
+    const handleChange = (event) => {
+      setChecked(event.target.checked);
+    };
 
     useEffect(() => {
         if(searchTutorData) {
-            searchTutorData.street ? '' : searchTutorData.street = ''
-            searchTutorData.city ? '' : searchTutorData.city = ''
-            searchTutorData.post_code ? '' : searchTutorData.post_code = ''
             reset(searchTutorData)
-            setDataDisciplines(searchTutorData?.disciplines)
-            setBirth(parseISO(searchTutorData?.birth_date))
-            setFormationsLink(searchTutorData?.formations?.map(e =>({id:e.id, title:e.title})))
             setDocId([])
             if(searchTutorData?.files?.length > 0) {
                 for(let file of searchTutorData?.files){
@@ -48,37 +35,15 @@ export default function NewProduct ({setSearchResult, searchResult, setLoading, 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[searchTutorData])
 
-    async function uploadFile(e, fileT){
-        const formData = new FormData();
-        if(e?.target?.files?.length > 0) {
-            formData.append("file[]", e?.target?.files[0]);
-        } else {    
-            return
-        }
-        setSubmitLoading(true)
-        
-        try {
-            const form = await fetch(`${API_URL}/api/files/upload`, {method: "POST", mode: "cors", body: formData})
-            const register = await form.json()
-            setDocId([
-                ...docId?.filter(file => file?.title !== fileT),
-                {id:register[0].id, url:register[0].download_url, title:fileT}
-            ])
-            setSubmitLoading(false)
-        } catch (err) {
-            setSubmitLoading(false)
-            console.error('Request failed:' + err.message)
-        }
-    }
-
     async function onSubmit(data) {
-
-        const { title, price, description, reference } = data
-        data.birth = new Date(birth);
+        const { title, price, description, reference, big_description, stock, TVA, promo_price } = data
         let newObj = {}
+        let order_pos = 0
         for(let file of docId) {
-            newObj[file.id] = {title: file.title}
+            newObj[file.id] = {order:order_pos}
+            order_pos += 1
         }
+        console.log(newObj);
         setError(false)
         setLoading(true)
         try {
@@ -92,26 +57,32 @@ export default function NewProduct ({setSearchResult, searchResult, setLoading, 
                 body: JSON.stringify({ 
                     title:title,
                     price:price,
-                    reference:reference,
-                    image:newObj,
+                    // reference:reference,
+                    stock:stock,
+                    is_published:checked,
+                    // TVA:TVA,
+                    promo_price:promo_price,
+                    images:newObj,
                     description:description,
+                    // big_description:big_description,
                 })
             })
+            console.log(response);
             const register = await response.json()
+            console.log(register);
             if(register.message || response.status !== 200){
                 setLoading(false)
                 setError(true)
                 return
             }
             if(searchTutorData){
+                console.log(searchTutorData);
                 for(const property in register) {
                 if(register[property] === null) {
                         register[property] = ''
                     }
                 }
                 setSearchTutorData({...register.address, ...register})
-                setDataDisciplines(searchTutorData?.disciplines)
-                setFormationsLink(searchTutorData?.formations?.map(e =>({id:e.id, title:e.title})))
             }
             setLoading(false)
         } catch (err) {
@@ -121,54 +92,63 @@ export default function NewProduct ({setSearchResult, searchResult, setLoading, 
         }
     }
 
-    const [checked, setChecked] = useState(false);
-
-    const handleChange = (event) => {
-      setChecked(event.target.checked);
-    };
-
-    return(
-        <form onSubmit={handleSubmit(onSubmit)} className='w-full gap-5 bg-white py-5 px-5 grid grid-cols-4 justify-items-center rounded-xl shadow-xl xl:grid-cols-[1fr_1fr_1fr] sm:grid-cols-2 2sm:grid-cols-1'>
+    return( 
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8 w-full" >
         <ThemeProvider theme={colorTheme}>
-            <>     
-            <H2Title title="Informations générales" />
-            <Controller name="title" control={control} defaultValue=""
-                render={({field}) => (
-                        <TextInput field={field} label='Nom du produit' placeholder='Collier en argent' errors={errors?.title} style="w-full"/>
-            )}/>    
-            <Controller name="price" control={control} defaultValue=""
-                render={({field}) => (
-                        <TextInput field={field} label='Prix' placeholder='10.99' errors={errors?.price} style="w-full"/>
-            )}/>    
-            <Controller name="reference" control={control} defaultValue=""
-                render={({field}) => (
-                    <TextInput field={field} label='Référence' placeholder='125286' errors={errors?.reference} style="w-full"/>
+            <section className='w-full gap-5 bg-white py-5 px-5 grid grid-cols-4 justify-items-center rounded-xl shadow-xl xl:grid-cols-3 sm:grid-cols-2 2sm:grid-cols-1'>     
+                <H2Title title="Informations générales" />
+                <Controller name="title" control={control} defaultValue=""
+                    render={({field}) => (
+                            <TextInput field={field} label='Nom du produit' placeholder='Collier en argent' errors={errors?.title} style="w-full xl:col-span-3 sm:col-span-2 2sm:col-span-1"/>
                 )}/>    
-            <div className="flex items-center">
-                <Checkbox size="small" checked={checked} onChange={handleChange} />
-                <p>Publier</p>
-            </div>
-            <Controller name="description" control={control} defaultValue=""
-                            render={({field}) => (
-                                <CustomTextArea field={field} label='Description' errors={errors?.description} style="w-full col-span-4" />
+                <Controller name="price" control={control} defaultValue=""
+                    render={({field}) => (
+                            <TextInput field={field} label='Prix' placeholder='10.99' errors={errors?.price} style="w-full"/>
+                )}/>    
+                <Controller name="promo_price" control={control} defaultValue=""
+                    render={({field}) => (
+                            <TextInput field={field} label='Prix promotion' placeholder='5.99' errors={errors?.promo_price} style="w-full"/>
+                )}/>    
+                <Controller name="reference" control={control} defaultValue=""
+                    render={({field}) => (
+                        <TextInput field={field} label='Référence' placeholder='125286' errors={errors?.reference} style="w-full"/>
+                    )}/>    
+                <Controller name="stock" control={control} defaultValue=""
+                    render={({field}) => (
+                        <TextInput field={field} label='Stock' placeholder='20' errors={errors?.stock} style="w-full"/>
+                    )}/>    
+                <Controller name="TVA" control={control} defaultValue=""
+                    render={({field}) => (
+                        <TextInput field={field} label='TVA' placeholder='5.5' errors={errors?.TVA} style="w-full"/>
+                    )}/>    
+                <Controller name="description" control={control} defaultValue="" render={({field}) => (
+                    <CustomTextArea field={field} label='Petit description' errors={errors?.description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
                 )}/>   
-            </>
-            
-            {error ? <div className='col-span-4 justify-self-end text-red-500 self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>{`Erreur (contactez un développeur)`}</div>: ''}
-            {submitLoading ? 
-                <div className='flex items-center justify-start col-span-4 justify-self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>
-                    <CircularProgress size="1.5rem"/>
-                </div>
-            :
+                <Controller name="big_description" control={control} defaultValue="" render={({field}) => (
+                    <CustomTextArea field={field} label='Grande description' errors={errors?.big_description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
+                )}/>
+                <div className="flex items-center place-self-start col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1">
+                    <Checkbox size="small" checked={checked} onChange={handleChange} />
+                    <p className="font-medium text-secondary">Publier en ligne directement</p>
+                </div>  
+            </section>
+
+            <section className="w-full gap-5 bg-white py-5 px-5 flex flex-col rounded-xl shadow-xl">     
+                <H2Title title="Photos du produit" />
+                <AddFiles fileType='Photo' docId={docId} token={token} setDocId={setDocId} />
+            </section>
+
+            <section className="place-self-end">
+                {error ? <div className='col-span-4 justify-self-end text-red-500 self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>{`Erreur (contactez un développeur)`}</div>: ''}
                 <div className='flex gap-3 col-span-4 justify-self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>
-                    <button onClick={() => {setDataDisciplines([]); setBirth();setDocId([]); setFormationsLink([]); reset({firstname:'', lastname:'', email:'', phone:'', city:'', street:'', post_code:''});}} className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>
+                    <button onClick={() => {setDocId([]); reset({title:'', price:'', promo_price:'', reference:'', stock:'', TVA:'', description:'', big_description:''});}} className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>
                         <p>Vider les champs</p>
                     </button>
                     <button type='submit' className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>
                         <p>{validationButton}</p>
                     </button>
                 </div>
-            }
+            </section>
         </ThemeProvider>
     </form>
     )

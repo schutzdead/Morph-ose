@@ -16,11 +16,15 @@ import { DashboardTitle } from '@/components/littleComponents';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export const schemaProduct = object({
+const schemaProduct = object({
   title:string().required("Requis."),
-  price:number().typeError("Doit être un nombre").required("Requis.").min(1, 'Minimum 1 questionnaire.'),
+  price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 questionnaire.'),
+  promo_price:string(),
+  TVA:string(),
+  stock:string(),
   reference:string(),
-  comment:string(),
+  description:string(),
+  big_description:string(),
 }).required();
 
 
@@ -48,11 +52,13 @@ export async function getServerSideProps({req, res}) {
   }}
 
   return {
-    props: {}
+    props: {
+      token:authToken
+    }
   }
 }
 
-export default function AddProduct() {
+export default function AddProduct({token}) {
     const [loading, setLoading] = useState(false)
     const [searchResult, setSearchResult] = useState([])
 
@@ -84,7 +90,7 @@ export default function AddProduct() {
                   searchResult={searchResult} setSearchResult={setSearchResult}
                   setLoading={setLoading} formationFilter={formationFilter}
                   formResolver={{resolver: yupResolver(schemaProduct)}}
-                  validationButton="Créer" api="products" />
+                  validationButton="Créer" api="/auth/admin/products" token={token} />
           }
         </div>
       </section>
