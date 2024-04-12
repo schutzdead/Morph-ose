@@ -8,7 +8,6 @@ import { Back,PictoButton } from '@/components/littleComponents';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { NoIndexHead } from '@/utils/customHead';
 import { object, string, number } from "yup";
-import Image from 'next/image'
 import BurgerMenu from '@/components/menus/burgerMenu'
 import { BlackHamburger } from '@/components/menus/burgerMenu'
 import { lock, unlock } from '@/utils/lockScreen'
@@ -85,7 +84,11 @@ export default function AddProduct({token}) {
         </div>
         <div ref={formationFilter} className='flex flex-col gap-5 items-center'>
           {loading
-              ? <Loading />
+              ? <div className="h-[100px] w-full flex justify-center">
+                <div className="w-1/2 py-10">
+                    <Loading />
+                </div>
+              </div>
               : <NewProduct
                   searchResult={searchResult} setSearchResult={setSearchResult}
                   setLoading={setLoading} formationFilter={formationFilter}

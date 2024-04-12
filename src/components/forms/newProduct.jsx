@@ -9,7 +9,7 @@ import { AddFiles } from "./addFiles";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export default function NewProduct ({setSearchResult, searchResult, token, setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData}) {
+export default function NewProduct ({token, setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData}) {
     formResolver.defaultValues = useMemo(() => {
         return searchTutorData
     }, [searchTutorData])
@@ -26,10 +26,9 @@ export default function NewProduct ({setSearchResult, searchResult, token, setLo
         if(searchTutorData) {
             reset(searchTutorData)
             setDocId([])
-            if(searchTutorData?.files?.length > 0) {
-                for(let file of searchTutorData?.files){
-                    setDocId((previous) => [...previous, {id:file.id, title:file?.pivot.title, download_url:file.download_url}])
-                }
+            searchTutorData?.is_published ? setChecked(true) : setChecked(false)
+            if(searchTutorData?.images?.length > 0) {
+                setDocId(searchTutorData?.images)
             }
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps

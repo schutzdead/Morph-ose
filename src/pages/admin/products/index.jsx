@@ -95,7 +95,6 @@ export default function Products({all_products}) {
                 <Search result={productSearch} setResult={setProductSearch} apiPath='products' linkTo1='products/[product]' linkTo2='products' />
               </div>
               <PictoButton image={add} linkTo="/admin/products/new" />
-              <PictoButton image={edit} linkTo="/admin/products/modify" />
             </div>
             {loading ? <Loading />
             : <>
@@ -112,7 +111,7 @@ export default function Products({all_products}) {
                       <p className='max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis hover:max-w-none sm:max-w-[90px]'>{product?.categories[0]?.title}</p>
                       <div className='w-2 h-2 rounded-full sm:hidden' style={product.is_published ? {backgroundColor:'rgb(34 197 94)'} : {backgroundColor:'rgb(239 68 68)'}}></div>
                       <p className='max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis hover:max-w-none'>{product.price}€</p>
-                      <Link href="/admin/products/[product]" as={`/admin/products/${product.id}`}>
+                      <Link href="/admin/products/[modify]" as={`/admin/products/${product.id}`}>
                         <button className='group flex gap-1 w-[40px] items-center text-white py-1 justify-center'>
                           <Image src={edit2} alt="details icon" className="group-hover:scale-[1.18] transition-all duration-300 w-6 h-auto mb-[1px]" priority />
                         </button>

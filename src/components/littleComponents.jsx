@@ -15,7 +15,7 @@ export function H2Title ({title}) {
 
 export function PictoButton ({image, linkTo}) {
     return(
-        <Link href={linkTo} className='rounded flex items-center justify-center cursor-pointer bg-secondary transition-all duration-300 h-10 w-10 min-w-10 min-h-10 sm:min-h-7 sm:h-7 sm:w-7 sm:min-w-7'>
+        <Link href={linkTo} className='rounded flex items-center justify-center cursor-pointer bg-secondary transition-all duration-300 h-10 w-10 min-w-10 min-h-10 sm:min-h-8 sm:h-8 sm:w-8 sm:min-w-8'>
             <Image src={image} className='w-6 h-auto sm:w-5' alt='Edit profil pictogram' />
         </Link>
     )

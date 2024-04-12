@@ -37,7 +37,7 @@ export default function Search ({result, setResult, apiPath, linkTo1, linkTo2}) 
     
     return(
         <div className='group relative flex flex-col w-full'>
-                <input type='text' spellCheck='false' autoComplete='off' placeholder="Rechercher..." className="text-white w-full bg-secondary/70 rounded-[8px] p-3 placeholder:text-white focus-visible:outline-none md:text-sm" value={search} onChange={handleChangeSearch}/>
+                <input type='text' spellCheck='false' autoComplete='off' placeholder="Rechercher..." className="text-white w-full bg-secondary/70 rounded-[8px] h-10 sm:h-8 px-4 placeholder:text-white focus-visible:outline-none md:text-sm" value={search} onChange={handleChangeSearch}/>
                 {load ?
                 <div className='absolute w-[85%] h-3/5 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-end items-center'>
                     <CircularLoading />
