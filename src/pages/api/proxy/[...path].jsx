@@ -13,7 +13,7 @@ export const config = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (req, res) => {
 	delete req.headers.host
-
+	console.log(req.headers);
 	return new Promise((resolve, reject) => {
 		const pathname = url.parse(req.url).pathname
 		const isLogin = pathname === '/api/proxy/guest/authentication'
@@ -24,7 +24,9 @@ export default (req, res) => {
 		req.url = req.url.replace(/^\/api\/proxy/, '')
 		req.headers.cookie = ''
 
-		console.log(pathname, req.url);
+		console.log(cookies);
+		console.log(req.url);
+		console.log(req.headers);
 
 		if (authToken) {
 			console.log('send API request with token');
@@ -37,7 +39,7 @@ export default (req, res) => {
 
 		proxy.once('error', reject)
 		proxy.web(req, res, {
-			target: 'https://api.pierres.darianne.fr/', 
+			target: process.env.NEXT_PUBLIC_API_URL, 
 			autoRewrite: false, //donnée de la requête
 			selfHandleResponse: isLogin, //true > alors on s'occupe nous même de la réponse (objectif recupérer le JWT)
 			// changeOrigin:true
@@ -47,10 +49,11 @@ export default (req, res) => {
 			let apiResponseBody = ''
 			proxyRes.on('data', (chunk) => {
 				apiResponseBody += chunk
-				// console.log(apiResponseBody);
+				console.log(apiResponseBody);
 			})
 			proxyRes.on('end', () => {
 				try {
+					console.log(proxyRes);
 					if (proxyRes.statusCode === 200) {
 						const bodyToken = JSON.parse(apiResponseBody)
 						console.log(bodyToken);
