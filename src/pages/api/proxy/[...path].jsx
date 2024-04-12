@@ -13,7 +13,9 @@ export const config = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (req, res) => {
 	delete req.headers.host
-	console.log(req.headers.host);
+	delete req.headers["x-forwarded-port"]
+	delete req.headers["x-invoke-output"]
+
 	return new Promise((resolve, reject) => {
 		const pathname = url.parse(req.url).pathname
 		const isLogin = pathname === '/api/proxy/guest/authentication'
@@ -24,9 +26,7 @@ export default (req, res) => {
 		req.url = req.url.replace(/^\/api\/proxy/, '')
 		req.headers.cookie = ''
 
-		console.log(cookies);
 		console.log(req.url);
-		console.log(req.headers);
 
 		if (authToken) {
 			console.log('send API request with token');
@@ -56,10 +56,8 @@ export default (req, res) => {
 					console.log(proxyRes.statusCode);
 					if (proxyRes.statusCode === 200) {
 						const bodyToken = JSON.parse(apiResponseBody)
-						console.log(bodyToken);
 						const authToken = bodyToken.plainTextToken || bodyToken.token.plainTextToken
 						const userData = bodyToken.user
-						console.log(userData);
 						const cookies = new Cookies(req, res)
 						cookies.set('auth-token', authToken, {
 							httpOnly: true,
