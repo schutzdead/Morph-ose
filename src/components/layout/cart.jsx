@@ -30,15 +30,18 @@ export default function Card ({bag, setBag}) {
                         <p className="text-secondary mb-[3px] font-medium">Boutique</p>
                         <Image src={RightArrow} alt="Right arrow pictogram" className='w-5'/>
                     </div>
-                    <div className="mt-5 mb-12 pl-10 gradient-text md:mb-8">
+                    <div className="mt-5 mb-12 pl-10 gradient-text md:mb-8 sm:hidden">
                         <p className="font-Quesha text-8xl xl:text-6xl md:text-4xl 2sm:text-3xl">Votre</p>
                         <p className="font-semibold text-6xl md:text-4xl">Panier</p>
+                    </div>
+                    <div className="mt-2 mb-12 hidden pl-10 gradient-text md:mb-8 sm:flex">
+                        <p className="font-Quesha text-8xl xl:text-6xl md:text-4xl">Votre Panier</p>
                     </div>
                     {!command || command.length === 0
                         ? <p className="w-[400px] h-full flex pt-40 justify-center sm:w-auto">Aucun article.</p>
                         : 
                         <div className="flex overflow-y-auto">
-                            <div className="px-5 overflow-y-scroll scrollbar-thumb-gray-300 scrollbar-thin scrollbar-w-2 flex flex-col gap-10 w-[400px] sm:w-full">
+                            <div className="px-5 overflow-y-scroll scrollbar-thumb-gray-300 scrollbar-thin scrollbar-w-2 flex flex-col gap-10 w-[400px] sm:w-full sm:gap-0">
                                 {command.map(article => <Article key={uuidv4()} data={article}/>)}
                             </div>
                         </div>
@@ -46,14 +49,14 @@ export default function Card ({bag, setBag}) {
                     {!command || command.length === 0
                         ? ''
                         : 
-                    <div className="flex flex-col gap-8 w-full px-5 pt-6 text-primary md:gap-4 md:py-5">
+                    <div className="flex flex-col gap-8 w-full px-5 pt-6 text-primary md:gap-4 md:py-5 sm:mb-14">
                         <div className="gap-1">
                             <p className="font-semibold text-lg sm:text-base">Sous-total : {command.reduce((accumulator, currentValue) =>
                                 accumulator + (currentValue.price * currentValue.quantity), 0
                             )}€</p>
                             <p className="text-[10px] text-gray-500">Prix ​​TTC, hors frais de livraison</p>
                         </div>
-                        <Link href='/checkout/' onClick={() => {setBag(false);unlock()}}>
+                        <Link href='/checkout/' onClick={() => {setBag(false);unlock()}} className="place-self-center">
                             <CustomButton butterfly={true} text="Continuer" style={{width:"250px", height:'40px'}} />
                         </Link>
                     </div>
@@ -69,7 +72,7 @@ export function Article (data) {
     return(
         <div className="flex flex-col gap-10 w-full md:gap-7">
             <div className='text-xs flex gap-5 items-center w-full'>
-                <section className="w-28 h-28 min-h-28 min-w-28 relative">
+                <section className="w-28 h-28 min-h-28 min-w-28 relative md:w-20 md:h-20 md:min-h-20 md:min-w-20">
                     <Image
                         src={data.data.picture.url}
                         alt="Article picture"
@@ -77,7 +80,7 @@ export function Article (data) {
                         className="rounded-2xl object-cover"
                         />
                 </section>
-                <section className='flex flex-col h-full justify-between w-full flex-1 text-secondary'>
+                <section className='flex flex-col h-full justify-between w-full flex-1 text-secondary md:h-20'>
                         <div className="flex flex-col gap-1 w-full">
                             <h3 className="font-bold text-lg lg:text-base leading-none sm:text-sm">{data?.data?.title}</h3>
                             <h3 className="whitespace-nowrap sm:text-sm ">Référence : {data?.data?.reference ? data?.data?.reference : 0}</h3>
@@ -87,7 +90,7 @@ export function Article (data) {
                             <p className="text-[#A57A95] font-medium line-through sm:text-sm">{data?.data?.price}€</p>
                         </div>
                 </section>
-                <section className='flex flex-col items-end justify-between w-fit h-full'>
+                <section className='flex flex-col items-end justify-between w-fit h-full md:h-20'>
                     <Image src={Trash} onClick={() => dispatch(removeCart(data.data))} alt="Remove article pictogram" className="w-5"/>
                     <div className="flex gap-5 items-center">
                         <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} />

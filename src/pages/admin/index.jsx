@@ -17,7 +17,8 @@ export async function getServerSideProps({req, res}) {
         'Authorization': `Bearer ${authToken}`
     }
   })
-  if(response.status === 200) {
+  const person = await response.json()
+  if(response.status === 200 && person.is_admin) {
     return { 
       redirect: {
         destination: '/admin/products',
