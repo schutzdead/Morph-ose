@@ -16,17 +16,17 @@ import Plus from '../../../../public/assets/header/plus.svg'
 
 import useEmblaCarousel from 'embla-carousel-react'
 
-const SLIDE_COUNT = 4
-const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
 
 const QUESTION_COUNT = 4
 const QUESTION = Array.from(Array(QUESTION_COUNT).keys())
 
-export async function getServerSideProps() {
-    const result = await fetch(`https://api.bat-n3.darianne.fr/categories`, GETRequest).then(r => r.json())
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+
+export async function getServerSideProps({query}) {
+    const product =  await fetch(`${API_URL}/products/${query.articles}`, GETRequest).then(r => r.json())
     return {
         props: {
-            product: result[0].childs[1].childs[1].products[0],
+            product: product,
         }
     }
 }
@@ -36,7 +36,6 @@ const OPTIONS = { slidesToScroll: 'auto' }
 export default function Article({product}) {
     const { setBag } = useContext(OpenCartContext);
     const { v4: uuidv4 } = require('uuid');
-    const [dataProduct, setDataProduct] = useState()
     const [quantityValue, setQuantityValue] = useState(1)
     const [error, setError] = useState(false)
 
@@ -47,18 +46,15 @@ export default function Article({product}) {
         dispatch({
             type: 'ADD_TO_CART',
             quantity: quantityValue,
-            id:dataProduct.id,
-            title: dataProduct.title,
-            price : dataProduct.price,
-            picture: dataProduct.images[0],
+            id:product?.id,
+            title: product?.title,
+            price : product?.price,
+            reference: product?.reference,
+            promo_price: product?.promo_price,
+            picture: product?.images[0],
         })
     }
 
-    useEffect(() => {
-        setDataProduct(product)
-    }, [cart, product]);
-
-    
     //THUMBNAILS EMBLA
     const [emblaRef, emblaMainApi] = useEmblaCarousel(OPTIONS)
     const [selectedIndex, setSelectedIndex] = useState(0)
@@ -110,9 +106,11 @@ export default function Article({product}) {
                             <div className="overflow-hidden rounded-2xl h-full" ref={emblaRef}>
                                 {/* CONTAINER */}
                                 <div className="flex touch-pan-y h-full">
-                                    {SLIDES.map((s, index) =>
-                                        <div key={index} className="min-w-0 flex-[0_0_100%] h-fit max-h-[600px] md:max-h-[400px]">
-                                            <Image key={uuidv4()} src={product.images[0].url} width={544} height={600} className="w-full object-cover" alt='Article picture'/>
+                                    {product?.images?.map((s, index) =>
+                                        <div key={index} className="min-w-0 flex-[0_0_100%] h-0 pb-[85%] max-h-[600px] md:max-h-[400px]">
+                                            <div className="w-full h-0 pb-[80%] relative">
+                                                <Image src={s?.url} fill className="object-cover rounded-2xl" alt='Article picture'/>
+                                            </div>
                                         </div>
                                     )}
                                 </div>
@@ -120,12 +118,13 @@ export default function Article({product}) {
                             <div className="mt-5">
                                 <div className="overflow-hidden" ref={emblaThumbsRef}>
                                     <div className="flex gap-5 w-full">
-                                        {SLIDES.map((index) => (
+                                        {product?.images?.map((m, index) => (
                                         <Thumb
                                             key={index}
+                                            image={m?.url}
                                             onClick={() => onThumbClick(index)}
                                             selected={index === selectedIndex}
-                                            index={index}
+                                            index={m?.url}
                                         />
                                         ))}
                                     </div>
@@ -135,27 +134,29 @@ export default function Article({product}) {
                         <div className="w-1/2 flex flex-col gap-10 h-[600px] justify-between md:w-full md:h-auto">
                             <div className="flex flex-col gap-3 text-secondary">
                                 <h2 className="font-extrabold  text-3xl xl:text-2xl lg:text-xl sm:text-base">{product?.title}</h2>
-                                <p className="sm:text-sm">Lot de deux boîtes d’encens de Chine. Chaque boîte est composée de 2à bâtonnets d’encens. Profitez de notre offre spéciale sur ces bâtonnets d’encens qui vous feront voyager en Asie !!  </p>
+                                <p className="sm:text-sm">{product?.description}</p>
                                 <div className="flex items-center gap-2 mt-5">
-                                    <p className="text-2xl font-medium lg:text-xl sm:text-base">{product?.price}€</p>
-                                    <p className="text-xl text-[#A57A95] font-medium line-through lg:text-lg sm:text-sm">400€</p>
+                                    <p className="text-2xl font-medium lg:text-xl sm:text-base">{product?.promo_price ? product?.promo_price : product?.price}€</p>
+                                    { product?.promo_price 
+                                        ? <p className="text-xl text-[#A57A95] font-medium line-through lg:text-lg sm:text-sm">{product?.price}€</p>
+                                        : ''
+                                    }
                                 </div>
                                 <div className="flex flex-col mt-5">
                                     <p className="font-medium sm:text-sm">Quantités disponibles</p>
-                                    <p className="font-bold text-lg sm:text-base">20</p>
+                                    <p className="font-bold text-lg sm:text-base">{product?.stock}</p>
                                 </div>
-                            {/* <div dangerouslySetInnerHTML={{__html: product.description}} /> */}
                             </div>
                             
                             <div className="flex flex-col">
-                                <div className="flex gap-5 items-center mt-8">
+                                <div className="flex gap-5 items-center mt-8 sm:mt-0">
                                     <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} />
                                 </div>
                                 <div className="py-5" onClick={() => {updateCart();setBag(true);lock()}}>
                                     <CustomButton butterfly={true} text="Acheter" style={{width:"250px", height:'40px'}} />
                                 </div>
                                 <div className="flex text-sm text-secondary">
-                                    <p className="">Référence : 15166</p>
+                                    <p className="">Référence : {product?.reference ? product?.reference : '0'}</p>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +168,10 @@ export default function Article({product}) {
                         </div>
                         <div className="w-full flex flex-col text-secondary gap-5">
                             <h2 className="px-8 w-fit font-extrabold text-2xl lg:text-xl sm:text-base sm:px-4">A propos de ce produit</h2>
-                            <p className="p-8 border rounded-2xl border-primary sm:text-sm sm:p-4">Lorem ipsum dolor sit amet consectetur. Vestibulum purus aliquam purus vel sed. Eu ornare enim tincidunt hendrerit libero commodo vitae netus magnis. Id at eget est id velit non in nulla tincidunt. Ultricies neque ac adipiscing ugiat leo scelerisque vulputate posuere. Habitant pellentesque posuere et nunc. Amet erat nibh scelerisque proin sollicitudin nisl vitae. Pretium eget dolor auctor velit commodo blandit lacus adipiscing. Mollis tristique orci varius urna integer egestas sagittis. Mauris iaculis diam feugiat gravida aliquam lobortis viverra. Volutpat ultrices libero augue ut justo cursus eget a. Mi sed tortor ac sed massa venenatis sed pretium. Lorem ipsum dolor sit amet consectetur. Vestibulum purus aliquam purus vel sed. Eu ornare enim tincidunt hendrerit libero commodo vitae netus magnis. Id at eget est id velit non in nulla tincidunt. Ultricies neque ac adipiscing turpis nunc orci fringilla tristique. In scelerisque velit dui eleifend pellentesque volutpat cras vitae. Diam urna purus cursus sit.</p>
+                            { product?.big_description 
+                                ? <p className="p-8 border rounded-2xl border-primary sm:text-sm sm:p-4">Lorem ipsum dolor sit amet consectetur. Vestibulum purus aliquam purus vel sed. Eu ornare enim tincidunt hendrerit libero commodo vitae netus magnis. Id at eget est id velit non in nulla tincidunt. Ultricies neque ac adipiscing ugiat leo scelerisque vulputate posuere. Habitant pellentesque posuere et nunc. Amet erat nibh scelerisque proin sollicitudin nisl vitae. Pretium eget dolor auctor velit commodo blandit lacus adipiscing. Mollis tristique orci varius urna integer egestas sagittis. Mauris iaculis diam feugiat gravida aliquam lobortis viverra. Volutpat ultrices libero augue ut justo cursus eget a. Mi sed tortor ac sed massa venenatis sed pretium. Lorem ipsum dolor sit amet consectetur. Vestibulum purus aliquam purus vel sed. Eu ornare enim tincidunt hendrerit libero commodo vitae netus magnis. Id at eget est id velit non in nulla tincidunt. Ultricies neque ac adipiscing turpis nunc orci fringilla tristique. In scelerisque velit dui eleifend pellentesque volutpat cras vitae. Diam urna purus cursus sit.</p>
+                                : <p className="p-8 border rounded-2xl border-primary sm:text-sm sm:p-4">Aucune information complémentaire.</p>
+                            }
                         </div>
                     </section>
                     <Newletter />

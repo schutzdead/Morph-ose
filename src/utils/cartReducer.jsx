@@ -16,13 +16,15 @@ export function cartReducer(state, action) {
                 }
                 : article)
             :[...state, {
-                  id: action.id,
-                  quantity: action.quantity,
-                  size: action.size,
-                  sizeId: action.sizeId,
-                  title: action.title,
-                  price : action.price,
-                  picture: action.picture,
+                id: action.id,
+                quantity: action.quantity,
+                size: action.size,
+                sizeId: action.sizeId,
+                title: action.title,
+                price : action.price,
+                reference: action.reference,
+                promo_price: action.promo_price,
+                picture: action.picture,
             }]
       }
 

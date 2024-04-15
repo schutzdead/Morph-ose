@@ -8,48 +8,44 @@ import Link from "next/link";
 import Butterfly from '../../../public/assets/main/butterfly.svg'
 import RightArrow from '../../../public/assets/articles/right.svg'
 import { Newletter } from "@/components/homepage/homepage"
+import Services from '../../../public/assets/main/services.webp'
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export async function getServerSideProps() {
-    const result = await fetch(`https://api.bat-n3.darianne.fr/categories`, GETRequest).then(r => r.json())
+    const getCategories =  await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
     return {
         props: {
-            data: result[0].childs[1].childs[1].products,
-            menu: result
+            data: getCategories,
         }
     }
 }
 
-export default function Section({data, menu}) {
-    const [currentProducts, setCurrentProducts] = useState()
-    useEffect(()=> {
-        setCurrentProducts(data)
-    },[data])
-
+export default function Section({data}) {
     return(
         <>
             <CustomHead pageName='Boutique' metaResume="Retrouvez l'ensemble des articles" />
             <Layout>
             <div className="flex flex-col gap-20 w-full pt-10 md:gap-14 flex-1">
-                <CategoriesMenu cat={menu} />
+                <CategoriesMenu cat={data} />
                 <div>
-                    {menu?.length === 0 || !menu 
+                    {data?.length === 0 || !data 
                         ? <p>Aucun article</p>
                         : <div className="flex flex-col gap-28 md:gap-10">
-                            {menu?.map((m, index) => 
+                            {data?.map((m, index) => 
                                 <section key={m.id} className="flex flex-col gap-10 relative">
                                     <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
                                     <div style={index%2 === 0 ? {justifyContent:'start'} : {justifyContent:'end'}} className="w-full flex">
                                         <CatTitle title={m.title.toUpperCase()} butterfly={true} reverse={index%2 === 0} />
                                     </div>
                                     <div className="flex ml-5 mr-10 overflow-x-hidden md:mr-5 md:ml-0">
-                                        {currentProducts?.map(article => 
-                                            <ArticleCard articleParams={article} key={article.id} link="/categories/subcategories"/>
-                                        )}
-                                        {currentProducts?.slice(0,2).map(article => 
-                                            <ArticleCard articleParams={article} key={article.id} link="/categories/subcategories"/>
+                                        {m?.childs.map(c => c.products).flat().length === 0 
+                                        ? <p className="text-lg font-semibold text-secondary sm:text-base pl-10 md:pl-5">Aucun article.</p>
+                                        : m?.childs.map(c => c.products).flat().slice(0,6).map(article => 
+                                            <ArticleCard articleParams={article} key={article.id} link="/categories/[subcategories]" asLink={`/categories/${m?.id}`} />
                                         )}
                                     </div>
-                                    <Link href="/categories/a" className="cursor-pointer flex gap-1 items-center text-primary place-self-end mx-10 md:mx-5 font-semibold lg:text-sm underline underline-offset-2 sm:text-xs">
+                                    <Link href="/categories/[subcategories]" as={`/categories/${m?.id}`} className="cursor-pointer flex gap-1 items-center text-primary place-self-end mx-10 md:mx-5 font-semibold lg:text-sm underline underline-offset-2 sm:text-xs">
                                         <p>Voir tous les produits</p>
                                         <Image src={RightArrow} alt='Right arrow' className="w-4" priority/>
                                     </Link>
@@ -69,7 +65,7 @@ export function CategoriesMenu ({cat}) {
     return(
         <div className="flex gap-5 mx-10 overflow-x-auto pb-4 md:mx-5">
             {cat.map(c =>
-                <button key={c.id} className="bg-menuGradient font-bold text-white px-4 py-2 rounded-lg cursor-pointer">{c.title}</button>
+                <Link key={c.id} href="/categories/[subcategories]" as={`/categories/${c?.id}`}><button className="bg-menuGradient font-bold text-white px-4 py-2 rounded-lg cursor-pointer">{c.title}</button></Link>
             )}
         </div>
     )   
@@ -89,7 +85,7 @@ export function CatTitle ({butterfly=false, title, reverse}) {
     )
   }
 
-export function ArticleCard ({articleParams, link}) {
+export function ArticleCard ({articleParams, link, asLink}) {
     const [article, setArticle] = useState(null)
 
     useEffect(() => {
@@ -104,10 +100,16 @@ export function ArticleCard ({articleParams, link}) {
         {!article 
             ? <Loading />
             : 
-                <Link href={`${link}`} className="group flex-[0_0_20%] pl-5 flex-col cursor-pointer lg:flex-[0_0_25%] sm:flex-[0_0_33%] relative">
+                <Link href={`${link}`} as={asLink} className="group flex-[0_0_20%] pl-5 flex-col cursor-pointer lg:flex-[0_0_25%] sm:flex-[0_0_33%] relative">
                     <div className="transition-all duration-1000 relative hover:scale-[1.02] md:hover:scale-100">
                         <div className="text-white bg-primary px-2 py-0.5 font-bold text-sm absolute rounded-md top-3 left-3 sm:text-xs sm:px-1 sm:top-1.5 sm:left-1.5">-50%</div>
-                        <Image src={article?.images[0].url} alt='Article picture' width={0} height={0} className="object-cover w-full rounded-xl" priority/>
+                        <div className="w-full h-0 pb-[100%] relative">
+                            {article?.images[0]
+                                ? <Image src={article?.images[0]?.url} alt='Article picture' fill className="object-cover rounded-xl" priority/>
+                                : <Image src={Services} alt='Article picture' fill className="object-cover rounded-xl" priority/>
+                            }
+                        </div>
+                        
                     </div>
                     <div className="text-secondary font-semibold mt-2">
                         <h2 className="sm:text-sm">{article?.title}</h2>

@@ -107,7 +107,7 @@ export default function Products({all_products}) {
                   products?.sort((a, b) => a.title.localeCompare(b.title)).map((product) =>
                     <div key={product.id} className='grid grid-cols-[repeat(4,2fr)_1fr] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-sm' style={products?.indexOf(product)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
                       <p className='font-semibold place-self-start pl-2'>{`${product.title}`}</p>
-                      <p className='max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis hover:max-w-none sm:max-w-[90px]'>{product?.categories[0]?.title}</p>
+                      <p className='px-4 text-center'>{product?.categories[0]?.title}</p>
                       <div className='w-2 h-2 rounded-full sm:hidden' style={product.is_published ? {backgroundColor:'rgb(34 197 94)'} : {backgroundColor:'rgb(239 68 68)'}}></div>
                       <p className='max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis hover:max-w-none'>{product.price}€</p>
                       <Link href="/admin/products/[modify]" as={`/admin/products/${product.id}`}>

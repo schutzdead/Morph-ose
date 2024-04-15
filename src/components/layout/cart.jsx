@@ -24,8 +24,8 @@ export default function Card ({bag, setBag}) {
 
     return(
         <>
-            <div className="fixed w-full h-full transition-all duration-500 z-30 bg-black/80 cursor-pointer" style={bag ? {right:"0%"} : {right:'-100%'}} onClick={() => {setBag(false), unlock()}}></div>
-            <menu className="fixed h-full z-40 bg-white text-black flex flex-col transition-all duration-1000 py-10 md:py-5 sm:w-full" style={bag ? {right:"0%"} : {right:'-100%'}}>
+            <div className="fixed w-full h-full left-0 top-0 z-[30] bg-black/60 cursor-pointer" style={bag ? {opacity:1, transition:'opacity 1s'} : {opacity:0, zIndex:-10}}  onClick={() => {setBag(false), unlock()}}></div>
+            <menu className="fixed h-full z-40 bg-white text-black flex flex-col py-10 md:py-5 sm:w-full" style={bag ? {right:"0%", transition:'right 800ms ease-out'} : {right:'-100%'}}>
                     <div className="flex items-center text-xs self-end pr-3 cursor-pointer" onClick={() => {setBag(false);unlock()}}>
                         <p className="text-secondary mb-[3px] font-medium">Boutique</p>
                         <Image src={RightArrow} alt="Right arrow pictogram" className='w-5'/>
@@ -80,20 +80,20 @@ export function Article (data) {
                 </section>
                 <section className='flex flex-col h-full justify-between w-full flex-1 text-secondary'>
                         <div className="flex flex-col gap-1 w-full">
-                            <h3 className="font-bold text-lg lg:text-base leading-none sm:text-sm">Objet avec un long nom Objet avec un long nom</h3>
-                            <h3 className="whitespace-nowrap sm:text-sm ">Référence : 12315</h3>
+                            <h3 className="font-bold text-lg lg:text-base leading-none sm:text-sm">{data?.data?.title}</h3>
+                            <h3 className="whitespace-nowrap sm:text-sm ">Référence : {data?.data?.reference ? data?.data?.reference : 0}</h3>
                         </div>
                         <div className="flex items-center gap-2 text-primary">
-                            <p className="font-medium text-lg sm:text-base">{data.data?.price}€</p>
-                            <p className="text-[#A57A95] font-medium line-through sm:text-sm">400€</p>
+                            <p className="font-medium text-lg sm:text-base">{data?.data?.promo_price ? data?.data?.promo_price : data?.data?.price}€</p>
+                            <p className="text-[#A57A95] font-medium line-through sm:text-sm">{data?.data?.price}€</p>
                         </div>
                 </section>
-                <seciton className='flex flex-col items-end justify-between w-fit h-full'>
+                <section className='flex flex-col items-end justify-between w-fit h-full'>
                     <Image src={Trash} onClick={() => dispatch(removeCart(data.data))} alt="Remove article pictogram" className="w-5"/>
                     <div className="flex gap-5 items-center">
                         <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} />
                     </div>
-                </seciton>
+                </section>
             </div>
             <div className="bg-secondaryLight h-[1px] w-full"></div>
         </div>

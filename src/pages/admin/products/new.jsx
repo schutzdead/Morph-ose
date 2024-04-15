@@ -12,6 +12,7 @@ import BurgerMenu from '@/components/menus/burgerMenu'
 import { BlackHamburger } from '@/components/menus/burgerMenu'
 import { lock, unlock } from '@/utils/lockScreen'
 import { DashboardTitle } from '@/components/littleComponents';
+import { GETRequest } from '@/utils/requestHeader';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -50,13 +51,17 @@ export async function getServerSideProps({req, res}) {
       },
   }}
 
+  const cat = await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
+  const all = cat?.map(c => c.childs).flat()
+
   return {
     props: {
+      all_categories : all
     }
   }
 }
 
-export default function AddProduct() {
+export default function AddProduct({all_categories}) {
     const [loading, setLoading] = useState(false)
     const [searchResult, setSearchResult] = useState([])
 
@@ -92,7 +97,7 @@ export default function AddProduct() {
                   searchResult={searchResult} setSearchResult={setSearchResult}
                   setLoading={setLoading} formationFilter={formationFilter}
                   formResolver={{resolver: yupResolver(schemaProduct)}}
-                  validationButton="Créer" api="/auth/admin/products" />
+                  validationButton="Créer" api="/auth/admin/products" all_categories={all_categories} />
           }
         </div>
       </section>

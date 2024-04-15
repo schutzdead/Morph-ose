@@ -2,11 +2,9 @@ import product_icon from '../../../../public/assets/dashboard/product.svg'
 import add from '../../../../public/assets/dashboard/add.svg'
 import { Menu } from '@/components/menus/menu'
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ThemeProvider} from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { colorTheme } from '@/components/styles/mui';
+import { useEffect, useState } from "react";
 import { Loading } from '@/utils/loader';
-// import TutorFilter from '@/components/tutors/tutorFilter';
+
 import NewProduct from '@/components/forms/newProduct';
 import { Back, PictoButton } from '@/components/littleComponents';
 import { GETRequest } from '@/utils/requestHeader';
@@ -16,7 +14,7 @@ import Image from 'next/image'
 import BurgerMenu from '@/components/menus/burgerMenu'
 import { BlackHamburger } from '@/components/menus/burgerMenu'
 import { lock, unlock } from '@/utils/lockScreen'
-import { DashboardTitle } from '@/components/littleComponents';
+import { DashboardTitle, DeleteButton } from '@/components/littleComponents';
 import { object, string, number } from "yup";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
@@ -50,9 +48,14 @@ export async function getServerSideProps({req, res, query}) {
         product[property] = ''
       }
   }
+
+  const cat = await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
+  const all = cat?.map(c => c.childs).flat()
+
   return {
       props: {
-        current_product:product
+        current_product:product,
+        all_categories : all
       }
   }
 }
@@ -68,7 +71,7 @@ const schemaProduct = object({
   big_description:string(),
 }).required();
 
-export default function EditProduct({current_product}) {
+export default function EditProduct({current_product, all_categories}) {
     const [productData, setProductData] = useState()
     const [loading, setLoading] = useState(false)
 
@@ -93,6 +96,7 @@ export default function EditProduct({current_product}) {
         <div className='flex gap-3 mt-10 sm:mt-20'>
             <Back title="Retour à la liste" linkTo='/admin/products' />
             <PictoButton image={add} linkTo='/admin/products/new' />
+            <DeleteButton api='auth/admin/products' id={current_product?.id} setLoading={setLoading} backLink={'/admin/products'} />
         </div>
         <div className='flex flex-col gap-5 items-center'>
           {/* <form className='w-full place-self-center gap-10 bg-white py-4 mt-4 px-5 items-center justify-items-center rounded-xl shadow-xl sm:mt-0'
@@ -107,7 +111,7 @@ export default function EditProduct({current_product}) {
                   setLoading={setLoading}
                   formResolver={{resolver: yupResolver(schemaProduct)}}
                   searchTutorData={productData} setSearchTutorData={setProductData}
-                  validationButton="Modifier" api={`/auth/admin/products/${productData?.id}`} />
+                  validationButton="Modifier" api={`/auth/admin/products/${productData?.id}`} all_categories={all_categories} />
           }
         </div>
       </section>

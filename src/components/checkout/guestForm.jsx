@@ -45,8 +45,6 @@ export function GuestForm ({userData}) {
 
     const [loading, setLoading] = useState(false)
     const { cart } = useContext(CartContext)
-    
-    if(cart?.length > 0) console.log(cart[0]?.sizeId);
 
     const [checked, setChecked] = useState(false);
 

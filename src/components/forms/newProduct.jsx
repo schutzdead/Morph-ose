@@ -1,15 +1,22 @@
 import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { ThemeProvider, CircularProgress, Checkbox } from "@mui/material";
+import { ThemeProvider, Checkbox, InputLabel, MenuItem, Select, FormControl } from "@mui/material";
 import { TextInput, CustomTextArea } from '@/components/forms/textInput';
 import { colorTheme } from '@/components/styles/mui';
 import { useEffect, useMemo, useState } from 'react';
 import { H2Title } from '../littleComponents';
 import { AddFiles } from "./addFiles";
+import { GETRequest } from "@/utils/requestHeader";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export default function NewProduct ({setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData}) {
+export default function NewProduct ({setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData, all_categories}) {
+    
+    const [dataCategory, setDataCategory] = useState('')
+    const handleChangeCat = (event) => {
+        setDataCategory(event.target.value);
+    };
+
     formResolver.defaultValues = useMemo(() => {
         return searchTutorData
     }, [searchTutorData])
@@ -27,6 +34,7 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
             reset(searchTutorData)
             setDocId([])
             searchTutorData?.is_published ? setChecked(true) : setChecked(false)
+            setDataCategory(searchTutorData?.categories?.id)
             if(searchTutorData?.images?.length > 0) {
                 setDocId(searchTutorData?.images)
             }
@@ -55,30 +63,33 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                 body: JSON.stringify({ 
                     title:title,
                     price:price,
-                    // reference:reference,
+                    reference:reference,
                     stock:stock,
                     is_published:checked,
-                    // TVA:TVA,
+                    vat_price:TVA,
                     promo_price:promo_price,
                     images:newObj,
                     description:description,
-                    // big_description:big_description,
+                    big_description:big_description,
                 })
             })
             const register = await response.json()
-            if(register.message || response.status !== 200){
+            if(response.status === 200){
+                const getProducts =  await fetch(`${API_URL}/categories/${dataCategory}`, GETRequest).then(r => r.json())
+                const addToCat = await fetch(`/api/proxy/auth/admin/categories/${dataCategory}`, {
+                    method: "POST",    
+                    mode: "cors",
+                    headers: {
+                        "Accept": "application/json",
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ products:[...getProducts.products.map(c => c.id), register.id] })
+                })
+                const test = await addToCat.json()
                 setLoading(false)
-                setError(true)
                 return
             }
-            if(searchTutorData){
-                for(const property in register) {
-                if(register[property] === null) {
-                        register[property] = ''
-                    }
-                }
-                setSearchTutorData({...register.address, ...register})
-            }
+            setError(true)
             setLoading(false)
         } catch (err) {
             setLoading(false)
@@ -99,7 +110,7 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                 <Controller name="price" control={control} defaultValue=""
                     render={({field}) => (
                             <TextInput field={field} label='Prix' placeholder='10.99' errors={errors?.price} style="w-full"/>
-                )}/>    
+                )}/>
                 <Controller name="promo_price" control={control} defaultValue=""
                     render={({field}) => (
                             <TextInput field={field} label='Prix promotion' placeholder='5.99' errors={errors?.promo_price} style="w-full"/>
@@ -122,6 +133,17 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                 <Controller name="big_description" control={control} defaultValue="" render={({field}) => (
                     <CustomTextArea field={field} label='Grande description' errors={errors?.big_description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
                 )}/>
+                <Controller name="big_description" control={control} defaultValue="" render={({field}) => (
+                    <CustomTextArea field={field} label='Grande description' errors={errors?.big_description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
+                )}/>
+                <FormControl sx={{width:'100%'}}>
+                    <InputLabel>Catégorie</InputLabel>
+                    <Select label="Catégorie" defaultValue="" required
+                            value={dataCategory} onChange={handleChangeCat}
+                    >
+                    {all_categories?.map((name) => (<MenuItem key={name.id} value={name.id}>{name.title}</MenuItem>))}
+                    </Select>
+                </FormControl>    
                 <div className="flex items-center place-self-start col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1">
                     <Checkbox size="small" checked={checked} onChange={handleChange} />
                     <p className="font-medium text-secondary">Publier en ligne directement</p>

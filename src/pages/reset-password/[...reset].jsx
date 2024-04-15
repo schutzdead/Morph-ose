@@ -46,7 +46,6 @@ export default function Reset() {
                 })
             })
             const register = await response.json()
-            console.log(register.message);
             if(register.message === 'Votre mot de passe a été réinitialisé !') {
                 router.push('/account')
                 setLoading(false)

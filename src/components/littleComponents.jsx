@@ -4,8 +4,8 @@ import Link from 'next/link'
 import leftArrow from '../../public/assets/dashboard/left_arrow.svg'
 import delete_icon from '../../public/assets/dashboard/delete.svg'
 import { DeleteCard } from './deleteCard'
-// import { useState } from 'react'
-// import { lock } from '@/utils/lockScreen'
+import { useState } from 'react'
+import { lock } from '@/utils/lockScreen'
 
 export function H2Title ({title}) {
     return (
@@ -38,7 +38,7 @@ export function DashboardTitle ({text, image}) {
 
 export function MenuButton ({text, image, active, slug, setActive, link}) {
     return (
-        <Link href={link} className='rounded-lg py-3 cursor-pointer text-white flex justify-start items-center px-4 gap-7 transition-[backgroundColor] duration-300'
+        <Link href={link} className='rounded-lg py-3 cursor-pointer text-white flex justify-start items-center px-4 gap-7 transition-[backgroundColor] duration-300 hover:bg-secondary'
                 onClick={() => {setActive('');setActive(slug)}}
                 style={active?.includes(slug) ? {backgroundColor:'#582D3E' } : {}}>
             <div className='p-2 bg-white rounded-xl'>
@@ -53,12 +53,12 @@ export function MenuButton ({text, image, active, slug, setActive, link}) {
     )
 }
 
-export function DeleteButton ({api, id, setLoading, backLink}) {
+export function DeleteButton ({api, id, setLoading, backLink, text=''}) {
     const [deleteCard, setDeleteCard] = useState(false)
     return(
         <>
             <DeleteCard deleteCard={deleteCard} setDeleteCard={setDeleteCard} api={api} id={id} setLoading={setLoading} backLink={backLink} />
-            <button onClick={() => {setDeleteCard(true); lock()}} className='rounded flex items-center justify-center cursor-pointer bg-red-500 hover:bg-red-700 transition-all duration-300 mb-5 px-2'>
+            <button onClick={() => {window?.scrollTo({top:0}); setDeleteCard(true); lock()}} className='rounded flex items-center justify-center cursor-pointer bg-red-500 hover:bg-red-700 transition-all duration-300 h-10 w-10 min-w-10 min-h-10 sm:min-h-8 sm:h-8 sm:w-8 sm:min-w-8'>
                 <Image src={delete_icon} className='w-6 h-auto' alt='Edit profil pictogram' />
             </button>
         </>

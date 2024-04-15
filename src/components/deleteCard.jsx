@@ -1,15 +1,13 @@
 import { unlock } from "@/utils/lockScreen";
 import { useRouter } from "next/router";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
-
 export function DeleteCard ({deleteCard, setDeleteCard, api, id, backLink, setLoading}) {
     const router = useRouter()
     
     async function deleteProfil (api_f, id_f) {
         setLoading(true)
         try {
-            const response = await fetch(`${API_URL}/${api_f}/${id_f}`, {
+            const response = await fetch(`/api/proxy/${api_f}/${id_f}`, {
                 method: "DELETE",
                 mode: "cors",
                 headers: {
