@@ -44,8 +44,6 @@ export default (req, res) => {
 		})
 
 		function interceptLoginResponse(proxyRes, req, res) {
-			console.log(req.headers.host);
-			console.log(req.headers["x-forwarded-port"]);
 			let apiResponseBody = ''
 			proxyRes.on('data', (chunk) => {
 				apiResponseBody += chunk
