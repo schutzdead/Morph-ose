@@ -25,7 +25,7 @@ export default function Card ({bag, setBag}) {
     return(
         <>
             <div className="fixed w-full h-full left-0 top-0 z-[30] bg-black/60 cursor-pointer" style={bag ? {opacity:1, transition:'opacity 1s'} : {opacity:0, zIndex:-10}}  onClick={() => {setBag(false), unlock()}}></div>
-            <menu className="fixed h-full z-40 bg-white text-black flex flex-col py-10 md:py-5 sm:w-full" style={bag ? {right:"0%", transition:'right 800ms ease-out'} : {right:'-100%'}}>
+            <menu className="fixed h-full z-40 bg-white text-black flex flex-col py-10 md:py-5 sm:w-full" style={bag ? {right:"0%", transition:'right 400ms ease-out'} : {right:'-100%'}}>
                     <div className="flex items-center text-xs self-end pr-3 cursor-pointer" onClick={() => {setBag(false);unlock()}}>
                         <p className="text-secondary mb-[3px] font-medium">Boutique</p>
                         <Image src={RightArrow} alt="Right arrow pictogram" className='w-5'/>
@@ -73,9 +73,8 @@ export function Article (data) {
                     <Image
                         src={data.data.picture.url}
                         alt="Article picture"
-                        layout='fill'
-                        objectFit='cover'
-                        className="rounded-2xl"
+                        fill
+                        className="rounded-2xl object-cover"
                         />
                 </section>
                 <section className='flex flex-col h-full justify-between w-full flex-1 text-secondary'>

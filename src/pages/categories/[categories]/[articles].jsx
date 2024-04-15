@@ -23,7 +23,9 @@ const QUESTION = Array.from(Array(QUESTION_COUNT).keys())
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export async function getServerSideProps({query}) {
-    const product =  await fetch(`${API_URL}/products/${query.articles}`, GETRequest).then(r => r.json())
+    console.log(query.art);
+    const product =  await fetch(`${API_URL}/products/${query.art}`, GETRequest).then(r => r.json())
+    console.log(product);
     return {
         props: {
             product: product,
@@ -34,6 +36,7 @@ export async function getServerSideProps({query}) {
 const OPTIONS = { slidesToScroll: 'auto' }
 
 export default function Article({product}) {
+    console.log(product);
     const { setBag } = useContext(OpenCartContext);
     const { v4: uuidv4 } = require('uuid');
     const [quantityValue, setQuantityValue] = useState(1)
@@ -92,6 +95,8 @@ export default function Article({product}) {
     useEffect(() => {
         setBody(document?.querySelector('html'))
     },[])
+
+    console.log(product);
 
     return (
         <>

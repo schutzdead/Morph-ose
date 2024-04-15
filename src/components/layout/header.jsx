@@ -61,6 +61,8 @@ export default function Header () {
     }
   },[cart])
 
+  console.log(searchResult);
+
   return (
     <>
       <Menu menu={menu} setMenu={setMenu} setHamburger={setHamburger}/>
@@ -74,33 +76,34 @@ export default function Header () {
           <div onClick={() => {setMenu(!menu); menu ? unlock() : lock()}} className='flex items-center'>
             <Hamburger hamburger={hamburger} setHamburger={setHamburger}/>
           </div>
-          <div className='group w-[250px] relative flex flex-col overflow-hidden'>
+          <div className='flex flex-col gap-4 relative'>
+            <div className='group w-[250px] relative overflow-hidden flex flex-col'>
               <input type="text" placeholder="Rechercher" autoComplete='off' spellCheck="false"
-                     value={search} onChange={handleChangeSearch} className='pb-1 w-[65%] flex items-center bg-transparent focus:outline-none placeholder:text-primary'
-                     >
+                      value={search} onChange={handleChangeSearch} className='pb-1 w-[65%] flex items-center bg-transparent focus:outline-none placeholder:text-primary'
+                      >
               </input>
-              {load ? 
+              {load ?
               <div className='absolute w-full h-[25px] top-0 right-0 bg-gray-300/90 flex items-center'>
-                <CircularProgress size="1rem"/> 
+                <CircularProgress size="1rem"/>
               </div>
               : ''}
               <UnderlineHover />
-              {
-                searchResult === null || searchResult.length === 0
-                ? ''
-                : <div className='relative flex flex-col text-right mt-3 bg-white border border-gray-400 p-2'>
-                    {searchResult ? 
-                    searchResult.map(s => 
-                      <Link key={s.id} href="/[sections]/[categories]/[subCategories]/[articles]" as={`${s.breadcrumb[2].slug}/${s.breadcrumb[1].slug}/${s.breadcrumb[0].slug}/${s.slug}`} className='cursor-pointer'>
-                        <p className='py-2 border-b border-gray-300 pr-3 '>{s.title}</p>
-                      </Link>
-                    )
-                    : ''
-                    }
-                  </div>
-              }
-              
             </div>
+            {
+              searchResult === null || searchResult.length === 0 || search === ''
+              ? ''
+              : <div className='absolute mt-10 flex flex-col bg-white border border-gray-400 p-2'>
+                  {searchResult ?
+                  searchResult.map(s =>
+                    <Link key={s.id} href={{pathname:`/categories/recherche/${s.slug}`, query:{art:s.id}}} className='cursor-pointer'>
+                      <p className='py-2 text-secondary border-b border-primary pr-3 '>{s.title}</p>
+                    </Link>
+                  )
+                  : ''
+                  }
+                </div>
+            }
+          </div>
         </nav>
         <Link href='/' className='flex flex-col justify-center gap-2 h-full font-bold absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0'>
           <Image src={Logo} className='h-[75%] w-auto cursor-pointer relative sm:h-[55%]' alt='Logo' priority={true}/>

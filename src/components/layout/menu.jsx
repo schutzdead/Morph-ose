@@ -28,7 +28,7 @@ export default function Menu ({menu, setMenu , setHamburger}) {
         <>
                 <div className="fixed w-full h-full left-0 top-0 z-30 bg-black/60 cursor-pointer"
                 style={menu ? {opacity:1, transition:'opacity 1s'} : {opacity:0, zIndex:-10}} onClick={() => {setMenu(false);unlock();setHamburger(false)}}></div>
-                <menu className="fixed pl-10 pr-10 h-full top-0 bg-white z-40 py-16 flex-col items-center sm:w-full sm:pr-10 md:py-10" style={menu ? {left:"0%", transition:'left 800ms ease-out'} : {left:"-100%"}}>
+                <menu className="fixed pl-10 pr-10 h-full top-0 bg-white z-40 py-16 flex-col items-center sm:w-full sm:pr-10 md:py-10" style={menu ? {left:"0%", transition:'left 400ms ease-out'} : {left:"-100%"}}>
                 <Image src={Close} onClick={() => {setMenu(false);unlock();setHamburger(false)}} alt="Close pictogram" className='w-8 cursor-pointer self-start'/>
                 <div className="overflow-y-auto overflow-x-hidden px-10 pt-10 md:pt-5">
                     <ul className="flex flex-col tracking-wide w-full pt-10 font-semibold sm:text-sm md:pt-5">
@@ -88,7 +88,7 @@ function NestedTab ({id, setHamburger, setMenu, setResetAll, resetAll, childs, e
         <div className="flex w-full flex-col mt-5">
             <div className="flex justify-between items-center cursor-pointer gap-5" onClick={() => {setHeightDetails(details?.current?.offsetHeight); setOpen(!open); setResetAll(id)}}>
                 <li className="" onClick={(e) => {e.stopPropagation();unlock();closeBurger()}}>
-                    <Link href="/categories/[category]" as={`/categories/${each_data?.id}`}>{each_data?.title.toUpperCase()}</Link>
+                    <Link href={{pathname: `/categories/${each_data?.slug}`, query: { cat:each_data?.id }}}>{each_data?.title.toUpperCase()}</Link>
                 </li>
                 {cross ? 
                     <Image src={Plus} className="w-4 h-auto transition-all duration-300" style={open ? {transform:'rotate(45deg)'} : {transform:'rotate(0deg)'}} alt='Logo' />
@@ -98,7 +98,7 @@ function NestedTab ({id, setHamburger, setMenu, setResetAll, resetAll, childs, e
             <ul className="ml-10 flex flex-col gap-3 overflow-hidden place-self-start h-auto w-auto" style={open ? {maxHeight:`${heightDetails}px`, transition:'all 1s'} : { maxHeight:0, transition:'all 500ms'}}>
                 <ul ref={details} className="w-full flex flex-col gap-1 py-5">
                     {childs.map(cat =>
-                        <Link key={cat.id} href="/categories/[category]" as={`/categories/${each_data?.id}`} onClick={closeBurger} className="cursor-pointer">
+                        <Link key={cat.id} href={{pathname: `/categories/${each_data?.slug}`, query: { cat:each_data?.id }}} onClick={closeBurger} className="cursor-pointer">
                             <li>{cat.title}</li>
                         </Link>
                     )}

@@ -91,7 +91,7 @@ export default function Products({all_products}) {
           <div className='flex flex-col bg-white shadow-dashboard w-full rounded-xl py-10 px-5 xl:py-5 lg:px-2 lg:py-2 sm:shadow-none'>
             <div className='flex gap-3 mb-5 items-center w-full'>
               <div ref={filterBox} className='w-full'>
-                <Search result={productSearch} setResult={setProductSearch} apiPath='products' linkTo1='products/[product]' linkTo2='products' />
+                <Search result={productSearch} setResult={setProductSearch} apiPath='products' />
               </div>
               <PictoButton image={add} linkTo="/admin/products/new" />
             </div>
@@ -110,7 +110,7 @@ export default function Products({all_products}) {
                       <p className='px-4 text-center'>{product?.categories[0]?.title}</p>
                       <div className='w-2 h-2 rounded-full sm:hidden' style={product.is_published ? {backgroundColor:'rgb(34 197 94)'} : {backgroundColor:'rgb(239 68 68)'}}></div>
                       <p className='max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis hover:max-w-none'>{product.price}€</p>
-                      <Link href="/admin/products/[modify]" as={`/admin/products/${product.id}`}>
+                      <Link href={`/admin/products/${product.id}`}>
                         <button className='group flex gap-1 w-[40px] items-center text-white py-1 justify-center'>
                           <Image src={edit2} alt="details icon" className="group-hover:scale-[1.18] transition-all duration-300 w-6 h-auto mb-[1px]" priority />
                         </button>

@@ -44,7 +44,7 @@ export default function Search ({result, setResult, apiPath, linkTo1, linkTo2}) 
                     : <div className='flex flex-col min-w-[40%] absolute mt-[68px] bg-white border-2 rounded-[4px] z-20 border-tertiary max-h-[200px] overflow-y-auto'>
                         {result ?
                         result.map(s =>
-                            <Link href={`/admin/${linkTo1}`} as={`/admin/${linkTo2}/${s?.title?.id ? s?.title?.id : s?.id}`} key={s?.title?.id ? s?.title?.id : s?.id} className='hover:bg-gray-200 bg-white cursor-pointer transition-all duration-500 p-3.5 border-b border-[#c4c4c4]'
+                            <Link href={`/admin/products/${s?.title?.id}`} key={s?.title?.id ? s?.title?.id : s?.id} className='hover:bg-gray-200 bg-white cursor-pointer transition-all duration-500 p-3.5 border-b border-[#c4c4c4]'
                             style={result.length === s.id ? {border:'none'} : {}}
                             onClick={() => {setSearch(''); setResult('')}}>{s?.title?.title ? s?.title?.title : 'No name'}</Link>
                         )

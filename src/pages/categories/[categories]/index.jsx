@@ -1,21 +1,17 @@
 import { CustomHead } from "@/components/customHead"
 import { GETRequest } from "@/utils/requestHeader"
-import { useEffect, useState } from "react"
 import Layout from "@/components/layout/layout"
-import { Breadcrumbs } from "@mui/material"
-import Link from "next/link"
 import { CategoriesMenu, CatTitle, ArticleCard } from ".."
 import { Newletter } from "@/components/homepage/homepage"
 
 import Image from "next/image";
-import RightArrow from '../../../../public/assets/articles/right.svg'
 import Service from '../../../../public/assets/main/services.webp'
 import Butterfly from '../../../../public/assets/main/butterfly.svg'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export async function getServerSideProps({query}) {
-    const getCategory =  await fetch(`${API_URL}/categories/${query.categories}`, GETRequest).then(r => r.json())
+    const getCategory =  await fetch(`${API_URL}/categories/${query.cat}`, GETRequest).then(r => r.json())
     const getCategories =  await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
     return {
         props: {
@@ -54,7 +50,7 @@ export default function Category({data, allCat}) {
                                         {m?.products.length === 0 
                                         ? <p className="text-lg font-semibold text-secondary sm:text-base pl-10 md:pl-5">Aucun article.</p>
                                         : m?.products.map(article => 
-                                            <ArticleCard articleParams={article} key={article.id} link="/categories/category/[article]" asLink={`/categories/category/${article?.id}`} />
+                                            <ArticleCard articleParams={article} key={article.id} link={{pathname: `/categories/${m?.slug}/${article?.slug}`, query: { art:article?.id }}} />
                                         )}
                                     </div>
                                 </section>

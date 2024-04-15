@@ -2,7 +2,7 @@ import Layout from "@/components/layout/layout";
 import Image from "next/image";
 import { CustomHead } from "@/components/customHead";
 import { useEffect, useState } from "react";
-
+import Link from 'next/link'
 import Fullscreen from '../../public/assets/main/fullscreen.gif'
 import Fullscreen2 from '../../public/assets/main/fullscreen2.webp'
 import Services from '../../public/assets/main/services.webp'
@@ -88,9 +88,9 @@ export default function Home() {
                 <button className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
                   SERVICE
                 </button>
-                <button className="text-sm font-black bg-background text-[#A37C99] place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
+                <Link href='/categories' className="text-sm font-black bg-background text-[#A37C99] place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
                   BOUTIQUE
-                </button>
+                </Link>
               </div>
             </section>
 

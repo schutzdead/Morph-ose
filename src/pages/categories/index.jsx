@@ -42,10 +42,10 @@ export default function Section({data}) {
                                         {m?.childs.map(c => c.products).flat().length === 0 
                                         ? <p className="text-lg font-semibold text-secondary sm:text-base pl-10 md:pl-5">Aucun article.</p>
                                         : m?.childs.map(c => c.products).flat().slice(0,6).map(article => 
-                                            <ArticleCard articleParams={article} key={article.id} link="/categories/[subcategories]" asLink={`/categories/${m?.id}`} />
+                                            <ArticleCard articleParams={article} key={article.id} link={{pathname: `/categories/${m?.slug}/${article?.slug}`, query: { art:article?.id }}} />
                                         )}
                                     </div>
-                                    <Link href="/categories/[subcategories]" as={`/categories/${m?.id}`} className="cursor-pointer flex gap-1 items-center text-primary place-self-end mx-10 md:mx-5 font-semibold lg:text-sm underline underline-offset-2 sm:text-xs">
+                                    <Link href={{pathname: `/categories/${m?.slug}`, query: { cat:m?.id }}} className="cursor-pointer flex gap-1 items-center text-primary place-self-end mx-10 md:mx-5 font-semibold lg:text-sm underline underline-offset-2 sm:text-xs">
                                         <p>Voir tous les produits</p>
                                         <Image src={RightArrow} alt='Right arrow' className="w-4" priority/>
                                     </Link>
@@ -65,7 +65,7 @@ export function CategoriesMenu ({cat}) {
     return(
         <div className="flex gap-5 mx-10 overflow-x-auto pb-4 md:mx-5">
             {cat.map(c =>
-                <Link key={c.id} href="/categories/[subcategories]" as={`/categories/${c?.id}`}><button className="bg-menuGradient font-bold text-white px-4 py-2 rounded-lg cursor-pointer">{c.title}</button></Link>
+                <Link key={c.id} href={{pathname: `/categories/${c?.slug}`, query: { cat:c?.id }}}><button className="bg-menuGradient font-bold text-white px-4 py-2 rounded-lg cursor-pointer">{c.title}</button></Link>
             )}
         </div>
     )   
@@ -85,7 +85,7 @@ export function CatTitle ({butterfly=false, title, reverse}) {
     )
   }
 
-export function ArticleCard ({articleParams, link, asLink}) {
+export function ArticleCard ({articleParams, link}) {
     const [article, setArticle] = useState(null)
 
     useEffect(() => {
@@ -95,12 +95,14 @@ export function ArticleCard ({articleParams, link, asLink}) {
         }
     },[articleParams])
 
+    console.log(article);
+
     return (
         <> 
         {!article 
             ? <Loading />
             : 
-                <Link href={`${link}`} as={asLink} className="group flex-[0_0_20%] pl-5 flex-col cursor-pointer lg:flex-[0_0_25%] sm:flex-[0_0_33%] relative">
+                <Link href={link} className="group flex-[0_0_20%] pl-5 flex-col cursor-pointer lg:flex-[0_0_25%] sm:flex-[0_0_33%] relative">
                     <div className="transition-all duration-1000 relative hover:scale-[1.02] md:hover:scale-100">
                         <div className="text-white bg-primary px-2 py-0.5 font-bold text-sm absolute rounded-md top-3 left-3 sm:text-xs sm:px-1 sm:top-1.5 sm:left-1.5">-50%</div>
                         <div className="w-full h-0 pb-[100%] relative">
@@ -114,8 +116,11 @@ export function ArticleCard ({articleParams, link, asLink}) {
                     <div className="text-secondary font-semibold mt-2">
                         <h2 className="sm:text-sm">{article?.title}</h2>
                         <div className="flex items-center gap-2">
-                            <p className="text-sm sm:text-xs">{article?.price}€</p>
-                            <p className="text-sm text-[#6C7275] font-medium line-through sm:text-xs">400€</p>
+                            <p className="text-sm sm:text-xs">{article?.promo_price ? article?.promo_price : article?.price}€</p>
+                            { article?.promo_price 
+                                ? <p className="text-sm text-[#6C7275] font-medium line-through sm:text-xs">{article?.price}€</p>
+                                : ''
+                            }
                         </div>
                     </div>
                 </Link>
