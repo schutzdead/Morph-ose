@@ -44,10 +44,13 @@ export default (req, res) => {
 		})
 
 		function interceptLoginResponse(proxyRes, req, res) {
+			console.log(req.headers.host);
+			console.log(req.headers["x-forwarded-port"]);
+			console.log(proxyRes);
 			let apiResponseBody = ''
 			proxyRes.on('data', (chunk) => {
 				apiResponseBody += chunk
-				// console.log(apiResponseBody);
+				console.log(apiResponseBody);
 			})
 			proxyRes.on('end', () => {
 				try {
@@ -61,6 +64,7 @@ export default (req, res) => {
 							sameSite: 'lax', //protection supplémentaire CSRF
 				
 						})
+						console.log(userData);
 						res.status(200).json({ data:userData })
 						// res.status(200).json({ loggedIn: true })
 						resolve()
