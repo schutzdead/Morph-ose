@@ -44,10 +44,10 @@ export default (req, res) => {
 		})
 
 		function interceptLoginResponse(proxyRes, req, res) {
+			console.log(proxyRes.headers);
 			let apiResponseBody = ''
 			proxyRes.on('data', (chunk) => {
 				apiResponseBody += chunk
-				console.log(apiResponseBody);
 			})
 			proxyRes.on('end', () => {
 				try {
