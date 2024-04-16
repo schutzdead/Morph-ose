@@ -19,6 +19,11 @@ export default function ClientBurgerMenu ({menu, setMenu , setHamburger}) {
                             <Link href='/client/orders'>Commandes</Link>
                         </li>
                         <li onClick={closeBurger}>
+                            <Link href='/' className="cursor-pointer relative overflow-hidden mt-1.5 group">
+                                <p>Retour au site</p>
+                            </Link>
+                        </li>
+                        <li onClick={closeBurger}>
                             <Link href='/logout' className="cursor-pointer relative overflow-hidden mt-1.5 group">
                                 <p>Déconnexion</p>
                             </Link>

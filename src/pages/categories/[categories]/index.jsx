@@ -26,8 +26,9 @@ export default function Category({data, allCat}) {
         <>
             <CustomHead pageName='Boutique' metaResume="Retrouvez l'ensemble de nos articles" />
             <Layout>
-            <div className="flex flex-col gap-20 w-full pt-10 md:gap-14 flex-1">
-                <div className="h-[60vh] w-[90vw] max-w-[1400px] max-h-[500px] place-self-center flex rounded-3xl lg:max-h-[425px] md:max-h-[350px] sm:max-h-[250px] sm:h-[30vh]" style={{background:'linear-gradient(82.92deg, #DE5B30 0%, #FFF7F1 98%)'}}>
+            <div className="flex flex-col gap-20 w-full md:gap-14 flex-1">
+                <CategoriesMenu cat={allCat.filter(f => f.id !== data.id)} />
+                <div className="h-[60vh] w-[90vw] max-w-[1400px] -mt-10 md:-mt-5 max-h-[500px] place-self-center flex rounded-3xl lg:max-h-[425px] md:max-h-[350px] sm:max-h-[250px] sm:h-[30vh]" style={{background:'linear-gradient(82.92deg, #DE5B30 0%, #FFF7F1 98%)'}}>
                     <Image src={Service} alt='Picture categories' className="w-[50%] rounded-3xl object-cover md:hidden" priority/>
                     <div className="flex justify-center items-center w-full px-4">
                         <div className="font-Quesha w-fit mx-4 relative text-9xl lg:text-8xl md:text-7xl sm:text-5xl">
@@ -36,7 +37,6 @@ export default function Category({data, allCat}) {
                         </div>
                     </div>
                 </div>
-                <CategoriesMenu cat={allCat.filter(f => f.id !== data.id)} />
                 <div>
                     {data?.childs?.map(c => c.products).flat().length === 0 || !data 
                         ? <p className="text-lg font-semibold text-secondary sm:text-base pl-10 md:pl-5">Aucun article pour le moment</p>

@@ -12,7 +12,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function NewProduct ({setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData, all_categories}) {
     
-    const [dataCategory, setDataCategory] = useState('')
+    const [dataCategory, setDataCategory] = useState("")
     const handleChangeCat = (event) => {
         setDataCategory(event.target.value);
     };
@@ -29,14 +29,12 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
       setChecked(event.target.checked);
     };
 
-    console.log(searchTutorData);
-
     useEffect(() => {
         if(searchTutorData) {
             reset(searchTutorData)
             setDocId([])
             searchTutorData?.is_published ? setChecked(true) : setChecked(false)
-            setDataCategory(searchTutorData?.categories?.id)
+            setDataCategory(searchTutorData?.categories[0]?.id)
             if(searchTutorData?.images?.length > 0) {
                 setDocId(searchTutorData?.images)
             }

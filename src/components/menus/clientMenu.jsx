@@ -16,6 +16,9 @@ export function ClientMenu () {
     return (
         <menu className='h-[100vh] bg-secondary/70 min-w-[320px] shadow-2xl overflow-hidden py-[5vh] flex flex-col px-[20px] fixed top-0 lg:hidden'>
             <div className='mb-10 text-white place-self-center flex flex-col items-center gap-2'>
+                <Link href="/" className="cursor-pointer">
+                    <button className='font-medium text-center px-[25px] mb-5 flex gap-3 rounded-md justify-center text-base bg-secondary text-white py-3 sm:px-0'>Retour au site</button>
+                </Link>
                 <Link href='/client'>
                     <h1 className='font-bold text-4xl'>CLIENT</h1>
                 </Link>

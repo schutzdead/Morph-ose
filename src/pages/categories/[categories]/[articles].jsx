@@ -9,7 +9,8 @@ import { lock, unlock } from "@/utils/lockScreen";
 import { CartContext, OpenCartContext } from "@/utils/cartProvider";
 import { Newletter } from "@/components/homepage/homepage";
 import { Thumb } from "@/utils/emblaThumb"
-
+import { Breadcrumbs } from "@mui/material";
+import Link from "next/link";
 import Close from '../../../../public/assets/articles/close.svg'
 import useEmblaCarousel from 'embla-carousel-react'
 
@@ -87,70 +88,79 @@ export default function Article({product}) {
         setBody(document?.querySelector('html'))
     },[])
 
+    console.log(product);
+
     return (
         <>
             <CustomHead pageName='Boutique' metaResume="Détails de l'article selectionné" />
             <ModalFAQ modal={modal} setModal={setModal} position={position} body={body} />
             <Layout>
                 <main className="w-full mt-10 mb-20 xl:mb-10 sm:mt-5">
-                    <section className="bg-background p-10 overflow-hidden mx-10 rounded-3xl flex gap-20 lg:gap-10 md:flex-col sm:p-5 sm:m-5 2sm:p-2">
+                    <section className="bg-background p-10 overflow-hidden mx-10 rounded-3xl flex gap-5 flex-col sm:p-5 sm:m-5 2sm:p-2">
                         <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[100%] top-0 w-[80%]"></div>
-                        <div className=" max-w-[1200px] m-auto w-1/2 md:w-full h-full">
-                            {/* VIEWPORT */}
-                            <div className="overflow-hidden rounded-2xl h-full" ref={emblaRef}>
-                                {/* CONTAINER */}
-                                <div className="flex touch-pan-y h-full">
-                                    {product?.images?.map((s, index) =>
-                                        <div key={index} className="min-w-0 flex-[0_0_100%] h-0 pb-[85%] max-h-[600px] md:max-h-[400px]">
-                                            <div className="w-full h-0 pb-[80%] relative">
-                                                <Image src={s?.url} fill className="object-cover rounded-2xl" alt='Article picture'/>
+                        <Breadcrumbs separator="›" aria-label="breadcrumb" className="z-10 py-3 px-3 sm:text-xs">
+                            <Link className='hover:underline underline-offset-2' href={{pathname: `/categories/${product?.breadcrumb[1]?.slug}`, query: { cat:product?.breadcrumb[1]?.id }}}>{product?.breadcrumb[1]?.title}</Link>
+                            <p className="text-black">{product?.title}</p>
+                        </Breadcrumbs> 
+                        <div className="flex md:flex-col gap-20 lg:gap-10">
+                            <div className=" max-w-[1200px] m-auto w-1/2 md:w-full h-full">
+                                {/* VIEWPORT */}
+                            
+                                <div className="overflow-hidden rounded-2xl h-full" ref={emblaRef}>
+                                    {/* CONTAINER */}
+                                    <div className="flex touch-pan-y h-full">
+                                        {product?.images?.map((s, index) =>
+                                            <div key={index} className="min-w-0 flex-[0_0_100%] h-0 pb-[85%] max-h-[600px] md:max-h-[400px]">
+                                                <div className="w-full h-0 pb-[80%] relative">
+                                                    <Image src={s?.url} fill className="object-cover rounded-2xl" alt='Article picture'/>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )}
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="mt-5">
-                                <div className="overflow-hidden" ref={emblaThumbsRef}>
-                                    <div className="flex gap-5 w-full">
-                                        {product?.images?.map((m, index) => (
-                                        <Thumb
-                                            key={index}
-                                            image={m?.url}
-                                            onClick={() => onThumbClick(index)}
-                                            selected={index === selectedIndex}
-                                            index={m?.url}
-                                        />
-                                        ))}
+                                <div className="mt-5">
+                                    <div className="overflow-hidden" ref={emblaThumbsRef}>
+                                        <div className="flex gap-5 w-full">
+                                            {product?.images?.map((m, index) => (
+                                            <Thumb
+                                                key={index}
+                                                image={m?.url}
+                                                onClick={() => onThumbClick(index)}
+                                                selected={index === selectedIndex}
+                                                index={m?.url}
+                                            />
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="w-1/2 flex flex-col gap-10 h-[600px] justify-between md:w-full md:h-auto">
-                            <div className="flex flex-col gap-3 text-secondary">
-                                <h2 className="font-extrabold  text-3xl xl:text-2xl lg:text-xl sm:text-base">{product?.title}</h2>
-                                <p className="sm:text-sm">{product?.description}</p>
-                                <div className="flex items-center gap-2 mt-5">
-                                    <p className="text-2xl font-medium lg:text-xl sm:text-base">{product?.promo_price ? product?.promo_price : product?.price}€</p>
-                                    { product?.promo_price 
-                                        ? <p className="text-xl text-[#A57A95] font-medium line-through lg:text-lg sm:text-sm">{product?.price}€</p>
-                                        : ''
-                                    }
+                            <div className="w-1/2 flex flex-col gap-10 h-[600px] justify-between md:w-full md:h-auto">
+                                <div className="flex flex-col gap-3 text-secondary">
+                                    <h2 className="font-extrabold  text-3xl xl:text-2xl lg:text-xl sm:text-base">{product?.title}</h2>
+                                    <p className="sm:text-sm">{product?.description}</p>
+                                    <div className="flex items-center gap-2 mt-5">
+                                        <p className="text-2xl font-medium lg:text-xl sm:text-base">{product?.promo_price ? product?.promo_price : product?.price}€</p>
+                                        { product?.promo_price
+                                            ? <p className="text-xl text-[#A57A95] font-medium line-through lg:text-lg sm:text-sm">{product?.price}€</p>
+                                            : ''
+                                        }
+                                    </div>
+                                    <div className="flex flex-col mt-5">
+                                        <p className="font-medium sm:text-sm">Quantités disponibles</p>
+                                        <p className="font-bold text-lg sm:text-base">{product?.stock}</p>
+                                    </div>
                                 </div>
-                                <div className="flex flex-col mt-5">
-                                    <p className="font-medium sm:text-sm">Quantités disponibles</p>
-                                    <p className="font-bold text-lg sm:text-base">{product?.stock}</p>
-                                </div>
-                            </div>
                             
-                            <div className="flex flex-col">
-                                <div className="flex gap-5 items-center mt-8 sm:mt-0">
-                                    <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} />
-                                </div>
-                                <div className="py-5" onClick={() => {updateCart();setBag(true);lock()}}>
-                                    <CustomButton butterfly={true} text="Acheter" style={{width:"250px", height:'40px'}} />
-                                </div>
-                                <div className="flex text-sm text-secondary">
-                                    <p className="">Référence : {product?.reference ? product?.reference : '0'}</p>
+                                <div className="flex flex-col">
+                                    <div className="flex gap-5 items-center mt-8 sm:mt-0">
+                                        <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} />
+                                    </div>
+                                    <div className="py-5" onClick={() => {updateCart();setBag(true);lock()}}>
+                                        <CustomButton butterfly={true} text="Acheter" style={{width:"250px", height:'40px'}} />
+                                    </div>
+                                    <div className="flex text-sm text-secondary">
+                                        <p className="">Référence : {product?.reference ? product?.reference : '0'}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +173,7 @@ export default function Article({product}) {
                         <div className="w-full flex flex-col text-secondary gap-5">
                             <h2 className="px-8 w-fit font-extrabold text-2xl lg:text-xl sm:text-base sm:px-4">A propos de ce produit</h2>
                             { product?.big_description 
-                                ? <p className="p-8 border rounded-2xl border-primary sm:text-sm sm:p-4">Lorem ipsum dolor sit amet consectetur. Vestibulum purus aliquam purus vel sed. Eu ornare enim tincidunt hendrerit libero commodo vitae netus magnis. Id at eget est id velit non in nulla tincidunt. Ultricies neque ac adipiscing ugiat leo scelerisque vulputate posuere. Habitant pellentesque posuere et nunc. Amet erat nibh scelerisque proin sollicitudin nisl vitae. Pretium eget dolor auctor velit commodo blandit lacus adipiscing. Mollis tristique orci varius urna integer egestas sagittis. Mauris iaculis diam feugiat gravida aliquam lobortis viverra. Volutpat ultrices libero augue ut justo cursus eget a. Mi sed tortor ac sed massa venenatis sed pretium. Lorem ipsum dolor sit amet consectetur. Vestibulum purus aliquam purus vel sed. Eu ornare enim tincidunt hendrerit libero commodo vitae netus magnis. Id at eget est id velit non in nulla tincidunt. Ultricies neque ac adipiscing turpis nunc orci fringilla tristique. In scelerisque velit dui eleifend pellentesque volutpat cras vitae. Diam urna purus cursus sit.</p>
+                                ? <p className="p-8 border rounded-2xl border-primary sm:text-sm sm:p-4">{product?.big_description}</p>
                                 : <p className="p-8 border rounded-2xl border-primary sm:text-sm sm:p-4">Aucune information complémentaire.</p>
                             }
                         </div>

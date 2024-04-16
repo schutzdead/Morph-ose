@@ -96,7 +96,7 @@ export default function Orders({all_orders}) {
                       <div className='flex flex-col items-center font-bold sm:text-xs'>
                         <p>{new Date(order.created_at).toLocaleDateString('fr')}</p>
                       </div>
-                      <Link href={`/client/orders/${order.id}`}>
+                      <Link href={`/client/orders/${order.tracking_number}`}>
                         <button className='group flex gap-1 w-[40px] items-center text-white py-1 justify-center'>
                           <Image src={edit2} alt="details icon" className="group-hover:scale-[1.18] transition-all duration-300 w-6 h-auto mb-[1px]" priority />
                         </button>

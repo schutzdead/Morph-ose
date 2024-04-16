@@ -26,7 +26,7 @@ export default function Section({data}) {
         <>
             <CustomHead pageName='Boutique' metaResume="Retrouvez l'ensemble des articles" />
             <Layout>
-            <div className="flex flex-col gap-20 w-full pt-10 md:gap-14 flex-1">
+            <div className="flex flex-col gap-20 w-full md:gap-14 flex-1">
                 <CategoriesMenu cat={data} />
                 <div>
                     {data?.length === 0 || !data 
@@ -63,7 +63,8 @@ export default function Section({data}) {
 
 export function CategoriesMenu ({cat}) {
     return(
-        <div className="flex gap-5 mx-10 overflow-x-auto pb-4 md:mx-5">
+        <div className="flex gap-5 px-10 sticky top-28 bg-background z-20 items-center overflow-x-auto py-8 md:mx-5">
+            <Link href="/categories"><button className="bg-menuGradient text-center font-bold text-white px-4 py-2 rounded-lg cursor-pointer">Toutes les catégories</button></Link>
             {cat.map(c =>
                 <Link key={c.id} href={{pathname: `/categories/${c?.slug}`, query: { cat:c?.id }}}><button className="bg-menuGradient font-bold text-white px-4 py-2 rounded-lg cursor-pointer">{c.title}</button></Link>
             )}

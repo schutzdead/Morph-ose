@@ -1,20 +1,15 @@
-import Image from 'next/image'
 import orders_icon from '../../../../public/assets/dashboard/orders.svg'
 import ClientBurgerMenu from '@/components/menus/clientBurgerMenu'
 import { ClientMenu } from '@/components/menus/clientMenu'
-import Link from 'next/link'
-import { GETTokenRequest } from "@/utils/requestHeader"
-import {  useRef, useState } from 'react'
-import { Pagination } from '@mui/material'
-import { Back, PictoButton } from '@/components/littleComponents'
-import { Loading } from '@/utils/loader'
-import Search from '@/components/admin/search'
+import { GETRequest } from "@/utils/requestHeader"
+import { useState } from 'react'
+import { Back } from '@/components/littleComponents'
 import { NoIndexHead } from '@/utils/customHead'
 
 import { BlackHamburger } from '@/components/menus/burgerMenu'
 import { lock, unlock } from '@/utils/lockScreen'
 import { DashboardTitle } from '@/components/littleComponents'
-import { Article } from '@/components/layout/cart'
+import { OrderArticle } from '@/pages/admin/orders/[order]'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -41,9 +36,8 @@ export async function getServerSideProps({req, res, query}) {
       },
   }}
 
-  console.log(query);
-
-  const result = await fetch(`${API_URL}/auth/orders/${query.order}`, GETTokenRequest(authToken)).then(r => r.json())
+  const result = await fetch(`${API_URL}/orders/tracking/${query.order}`, GETRequest).then(r => r.json())
+  console.log(query.order, result);
   return {
       props: {
         order:result
@@ -81,7 +75,7 @@ export default function Orders({order}) {
               <div className='flex flex-col gap-2 text-sm'>
                   <div className='flex flex-col gap-1.5 pb-5 border-b border-gray-300'>
                       <h3 className='text-2xl font-semibold my-3 text-secondary xl:text-lg sm:text-base sm:text-center'>Information personnelles</h3>
-                      <Informations title="Nom : " value={`${order?.lastname} ${order?.firstsname}`} />
+                      <Informations title="Nom : " value={`${order?.lastname} ${order?.firstname}`} />
                       <Informations title="Email : " value={order?.email} />
                       <Informations title="Téléphone : " value={order?.phone} />
                 </div>
@@ -109,14 +103,14 @@ export default function Orders({order}) {
               <h2 className="text-3xl font-extrabold text-secondary mb-5 self-center xl:text-xl sm:text-lg sm:text-center">Commande</h2>
               <div className='flex flex-col gap-1.5 pb-5 border-b border-gray-300'>
                       <h3 className='text-2xl font-semibold my-3 text-secondary xl:text-lg sm:text-base sm:text-center'>Informations</h3>
-                      <Informations title="Création : " value={order?.email} textColor='#582D3E' />
-                      <Informations title="Prix : " value={order?.shipping_price} textColor='#582D3E' />
-                      <Informations title="Prix de la livraison : " value={order?.shipping_price} textColor='#582D3E' />
+                      <Informations title="Création : " value={new Date(order.created_at).toLocaleDateString('fr')} textColor='#582D3E' />
+                      <Informations title="Prix : " value={`${order?.total_price}€`} textColor='#582D3E' />
+                      <Informations title="Prix de la livraison : " value={`${order?.shipping_price}€`} textColor='#582D3E' />
                       <Informations title="Suivi : " value={order?.tracking_number} textColor='#582D3E' />
                 </div>
                 <div className='flex flex-col gap-1.5'>
                       <h3 className='text-2xl font-semibold my-3 text-secondary xl:text-lg sm:text-base sm:text-center'>Détails</h3>
-                      {order?.items?.map(article => <Article key={uuidv4()} data={article}/>)}
+                      {order?.items?.map(article => <OrderArticle key={uuidv4()} data={article}/>)}
                 </div>
             </section>
           </>
