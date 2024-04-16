@@ -35,8 +35,6 @@ export async function getServerSideProps({req, res, query}) {
       },
   }}
 
-  console.log(query);
-
   const result = await fetch(`${API_URL}/auth/admin/orders/${query.order}`, GETTokenRequest(authToken)).then(r => r.json())
   return {
       props: {
@@ -46,11 +44,7 @@ export async function getServerSideProps({req, res, query}) {
 }
 
 export default function Orders({order}) {
-  console.log(order);
     const { v4: uuidv4 } = require('uuid');
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(false)
-
     const [menu, setMenu] = useState(false)
     const [hamburger, setHamburger] = useState(false)
 

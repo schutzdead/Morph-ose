@@ -37,7 +37,6 @@ export async function getServerSideProps({req, res, query}) {
   }}
 
   const result = await fetch(`${API_URL}/orders/tracking/${query.order}`, GETRequest).then(r => r.json())
-  console.log(query.order, result);
   return {
       props: {
         order:result
@@ -46,7 +45,6 @@ export async function getServerSideProps({req, res, query}) {
 }
 
 export default function Orders({order}) {
-  console.log(order);
   const { v4: uuidv4 } = require('uuid');
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)

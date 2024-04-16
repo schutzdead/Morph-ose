@@ -71,20 +71,11 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                     images:newObj,
                     description:description,
                     big_description:big_description,
+                    categories:[dataCategory]
                 })
             })
             const register = await response.json()
             if(response.status === 200){
-                const getProducts =  await fetch(`${API_URL}/categories/${dataCategory}`, GETRequest).then(r => r.json())
-                const addToCat = await fetch(`/api/proxy/auth/admin/categories/${dataCategory}`, {
-                    method: "POST",    
-                    mode: "cors",
-                    headers: {
-                        "Accept": "application/json",
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ products:[...getProducts.products.map(c => c.id), register.id] })
-                })
                 setLoading(false)
                 if(searchTutorData){
                     for(const property in register) {

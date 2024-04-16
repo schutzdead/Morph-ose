@@ -34,7 +34,6 @@ export async function getServerSideProps({req, res}) {
     }
   })
   const person = await response.json()
-  console.log(response, person);
   if(response.status !== 200 || !person.is_admin) {
     return { 
       redirect: {
@@ -53,28 +52,12 @@ export async function getServerSideProps({req, res}) {
 
 export default function Products({all_products}) {
   const [products, setProducts] = useState(all_products)
-  // const [pagination, setPagination] = useState([])
   const [loading, setLoading] = useState(false)
-  const [currentPage, setCurrentPage] = useState()
   const [productSearch, setProductSearch] = useState([])
   const filterBox = useRef(null)
 
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
-
-  // useEffect(() => {
-  //   setPagination([])
-  //   for(let i = 1; i <= products.last_page; i++){
-  //     setPagination((previous) => [...previous, i])
-  //   }
-  // }, [products])
-
-  // async function updatePagination (number) {
-  //   setLoading(true)
-  //   const result = await fetch(`${API_URL}/api/products?with_pagination=true&page=${number}`, GETRequest).then(r => r.json())
-  //   setProducts(result)
-  //   setLoading(false)
-  // }
 
   return (
     <>

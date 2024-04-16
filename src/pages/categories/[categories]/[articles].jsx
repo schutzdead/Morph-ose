@@ -34,7 +34,6 @@ const OPTIONS = { slidesToScroll: 'auto' }
 export default function Article({product}) {
     const { setBag } = useContext(OpenCartContext);
     const [quantityValue, setQuantityValue] = useState(1)
-    const [error, setError] = useState(false)
 
     const { dispatch } = useContext(CartContext);
     const updateCart = () => {
@@ -87,8 +86,6 @@ export default function Article({product}) {
     useEffect(() => {
         setBody(document?.querySelector('html'))
     },[])
-
-    console.log(product);
 
     return (
         <>
