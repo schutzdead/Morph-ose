@@ -41,7 +41,7 @@ export function SignInForm () {
             const auth = await response.json()
             setlogErr(!auth.data)
             if(auth.data) {
-                router.push('/')
+                router.push('/client/orders')
                 setLoading(false)
                 return
                 

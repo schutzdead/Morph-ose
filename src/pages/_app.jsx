@@ -37,6 +37,7 @@ export default function App ({ Component, pageProps }) {
       <Head>
         <title></title>
         <meta name="description" content="" />
+        <link rel="preload" href="/assets/main/fullscreen2.webp" as="image"/>
       </Head>
       <OpenCartProvider>
         <CartProvider>

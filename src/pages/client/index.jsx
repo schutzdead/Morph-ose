@@ -23,7 +23,7 @@ export async function getServerSideProps({req, res}) {
   if(response.status === 200 && !person.is_admin) {
     return { 
       redirect: {
-        destination: '/',
+        destination: '/client/orders',
         permanent: false,
       },
   }}

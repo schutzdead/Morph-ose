@@ -27,7 +27,7 @@ export function SignInAuth ({pushPath, path, pass=true, user_type}) {
     
     async function onSubmit(data) {
         setLoading(true)
-        setlogErr(true)
+        setlogErr(false)
         const { emailIn, passwordIn } = data
 		try {
             const response = await fetch(`/api/proxy/${path}`, POSTRequest({ email: emailIn, password:passwordIn }))

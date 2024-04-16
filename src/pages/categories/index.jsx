@@ -41,7 +41,7 @@ export default function Section({data}) {
                                     <div className="flex ml-5 mr-10 overflow-x-hidden md:mr-5 md:ml-0">
                                         {m?.childs.map(c => c.products).flat().length === 0 
                                         ? <p className="text-lg font-semibold text-secondary sm:text-base pl-10 md:pl-5">Aucun article.</p>
-                                        : m?.childs.map(c => c.products).flat().slice(0,6).map(article => 
+                                        : m?.childs.map(c => c.products).flat().filter(np => np.is_published).slice(0,6).map(article => 
                                             <ArticleCard articleParams={article} key={article.id} link={{pathname: `/categories/${m?.slug}/${article?.slug}`, query: { art:article?.id }}} />
                                         )}
                                     </div>

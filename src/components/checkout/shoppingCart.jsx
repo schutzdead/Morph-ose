@@ -12,7 +12,7 @@ export function ShoppingCart () {
     const router = useRouter()
 
     function subTotal (command) {
-        return command.reduce((accumulator, currentValue) => accumulator + (currentValue.price * currentValue.quantity), 0)
+        return command.reduce((accumulator, currentValue) => accumulator + ((currentValue.promo_price ? currentValue.promo_price : currentValue.price) * currentValue.quantity), 0)
     }
 
     useEffect(() => {

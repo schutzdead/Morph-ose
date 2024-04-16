@@ -20,7 +20,7 @@ const schemaProduct = object({
   title:string().required("Requis."),
   price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 questionnaire.'),
   promo_price:string(),
-  TVA:string(),
+  vat_percent:string(),
   stock:string(),
   reference:string(),
   description:string(),
@@ -42,8 +42,8 @@ export async function getServerSideProps({req, res}) {
         'Authorization': `Bearer ${authToken}`
     }
   })
-  
-  if(response.status !== 200) {
+  const person = await response.json()
+  if(response.status !== 200 || !person.is_admin) {
     return { 
       redirect: {
         destination: '/admin',
@@ -88,11 +88,9 @@ export default function AddProduct({all_categories}) {
         </div>
         <div ref={formationFilter} className='flex flex-col gap-5 items-center'>
           {loading
-              ? <div className="h-[100px] w-full flex justify-center">
-                <div className="w-1/2 py-10">
+              ? <div className="w-1/2 max-w-[200px] py-20">
                     <Loading />
                 </div>
-              </div>
               : <NewProduct
                   searchResult={searchResult} setSearchResult={setSearchResult}
                   setLoading={setLoading} formationFilter={formationFilter}

@@ -49,7 +49,7 @@ export default function Category({data, allCat}) {
                                     <div className="flex ml-5 mr-10 gap-y-10 flex-wrap md:mr-5 md:ml-0">
                                         {m?.products.length === 0 
                                         ? <p className="text-lg font-semibold text-secondary sm:text-base pl-10 md:pl-5">Aucun article.</p>
-                                        : m?.products.map(article => 
+                                        : m?.products.filter(np => np.is_published).map(article => 
                                             <ArticleCard articleParams={article} key={article.id} link={{pathname: `/categories/${m?.slug}/${article?.slug}`, query: { art:article?.id }}} />
                                         )}
                                     </div>

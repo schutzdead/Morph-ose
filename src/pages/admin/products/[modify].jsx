@@ -32,8 +32,8 @@ export async function getServerSideProps({req, res, query}) {
         'Authorization': `Bearer ${authToken}`
     }
   })
-  
-  if(response.status !== 200) {
+  const person = await response.json()
+  if(response.status !== 200 || !person.is_admin) {
     return { 
       redirect: {
         destination: '/admin',
@@ -63,7 +63,7 @@ const schemaProduct = object({
   title:string().required("Requis."),
   price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 questionnaire.'),
   promo_price:string(),
-  TVA:string(),
+  vat_percent:string(),
   stock:string(),
   reference:string(),
   description:string(),
@@ -105,7 +105,9 @@ export default function EditProduct({current_product, all_categories}) {
               </ThemeProvider>
           </form> */}
           {loading
-              ? <Loading />
+              ? <div className="w-1/2 max-w-[200px] py-20">
+                      <Loading />
+                  </div>
               : <NewProduct
                   setLoading={setLoading}
                   formResolver={{resolver: yupResolver(schemaProduct)}}

@@ -18,8 +18,7 @@ export default (req, res) => {
 
 	return new Promise((resolve, reject) => {
 		const pathname = url.parse(req.url).pathname
-		const isLogin = pathname === '/api/proxy/guest/authentication' || '/api/proxy/guest/authentication/admin' || '/api/proxy/guest/register'
-		
+		const isLogin = pathname === '/api/proxy/guest/authentication' || pathname === '/api/proxy/guest/authentication/admin' || pathname === '/api/proxy/guest/register'
 		const cookies = new Cookies(req, res)
 		const authToken = cookies.get('auth-token')
 
@@ -44,7 +43,6 @@ export default (req, res) => {
 		})
 
 		function interceptLoginResponse(proxyRes, req, res) {
-			console.log(proxyRes.headers);
 			let apiResponseBody = ''
 			proxyRes.on('data', (chunk) => {
 				apiResponseBody += chunk

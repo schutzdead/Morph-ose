@@ -29,6 +29,8 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
       setChecked(event.target.checked);
     };
 
+    console.log(searchTutorData);
+
     useEffect(() => {
         if(searchTutorData) {
             reset(searchTutorData)
@@ -43,7 +45,7 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
     },[searchTutorData])
 
     async function onSubmit(data) {
-        const { title, price, description, reference, big_description, stock, TVA, promo_price } = data
+        const { title, price, description, reference, big_description, stock, vat_percent, promo_price } = data
         let newObj = {}
         let order_pos = 0
         for(let file of docId) {
@@ -66,7 +68,7 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                     reference:reference,
                     stock:stock,
                     is_published:checked,
-                    vat_price:TVA,
+                    vat_percent:vat_percent,
                     promo_price:promo_price,
                     images:newObj,
                     description:description,
@@ -85,8 +87,15 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                     },
                     body: JSON.stringify({ products:[...getProducts.products.map(c => c.id), register.id] })
                 })
-                const test = await addToCat.json()
                 setLoading(false)
+                if(searchTutorData){
+                    for(const property in register) {
+                    if(register[property] === null) {
+                            register[property] = ''
+                        }
+                    }
+                    setSearchTutorData({...register})
+                }
                 return
             }
             setError(true)
@@ -123,16 +132,13 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                     render={({field}) => (
                         <TextInput field={field} label='Stock' placeholder='20' errors={errors?.stock} style="w-full"/>
                     )}/>    
-                <Controller name="TVA" control={control} defaultValue=""
+                <Controller name="vat_percent" control={control} defaultValue=""
                     render={({field}) => (
-                        <TextInput field={field} label='TVA' placeholder='5.5' errors={errors?.TVA} style="w-full"/>
+                        <TextInput field={field} label='TVA' placeholder='5.5' errors={errors?.vat_percent} style="w-full"/>
                     )}/>    
                 <Controller name="description" control={control} defaultValue="" render={({field}) => (
                     <CustomTextArea field={field} label='Petit description' errors={errors?.description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
                 )}/>   
-                <Controller name="big_description" control={control} defaultValue="" render={({field}) => (
-                    <CustomTextArea field={field} label='Grande description' errors={errors?.big_description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
-                )}/>
                 <Controller name="big_description" control={control} defaultValue="" render={({field}) => (
                     <CustomTextArea field={field} label='Grande description' errors={errors?.big_description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
                 )}/>
@@ -158,7 +164,7 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
             <section className="place-self-end">
                 {error ? <div className='col-span-4 justify-self-end text-red-500 self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>{`Erreur (contactez un développeur)`}</div>: ''}
                 <div className='flex gap-3 col-span-4 justify-self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>
-                    <button onClick={() => {setDocId([]); reset({title:'', price:'', promo_price:'', reference:'', stock:'', TVA:'', description:'', big_description:''});}} className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>
+                    <button onClick={() => {setDocId([]); reset({title:'', price:'', promo_price:'', reference:'', stock:'', vat_percent:'', description:'', big_description:''});}} className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>
                         <p>Vider les champs</p>
                     </button>
                     <button type='submit' className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>

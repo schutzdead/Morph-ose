@@ -57,7 +57,7 @@ export function CheckoutSignIn ({setUserData}) {
 
     return (
         <>
-            <ForgotPassword forgotCard={forgotCard} setForgotCard={setForgotCard} />
+            <ForgotPassword forgotCard={forgotCard} setForgotCard={setForgotCard} user_type="client" />
             {logErr ? <div className="text-sm text-[#d32f2f] text-center mb-5">Identifiant ou mot de passe incorrect.</div> : ''}
             {loading 
                 ? <Loading />

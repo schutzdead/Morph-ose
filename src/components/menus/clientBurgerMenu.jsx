@@ -3,7 +3,7 @@ import Link from "next/link"
 import { unlock } from "@/utils/lockScreen"
 import Close from "../../../public/assets/close.svg"
 
-export default function BurgerMenu ({menu, setMenu , setHamburger}) {
+export default function ClientBurgerMenu ({menu, setMenu , setHamburger}) {
     const closeBurger = () => {setHamburger(false);setMenu(false);unlock()}
 
     return (
@@ -16,9 +16,7 @@ export default function BurgerMenu ({menu, setMenu , setHamburger}) {
                 <div className="flex justify-center">
                     <ul className="relative flex flex-col items-center text-xl tracking-wide w-full gap-6 sm:text-lg">
                         <li className='cursor-pointer flex flex-col gap-6 items-center relative overflow-hidden mt-1.5 group' onClick={closeBurger}>
-                            <Link href='/admin/products'>Produits</Link>
-                            <Link href='/admin/categories'>Catégories</Link>
-                            <Link href='/admin/orders'>Commandes</Link>
+                            <Link href='/client/orders'>Commandes</Link>
                         </li>
                         <li onClick={closeBurger}>
                             <Link href='/logout' className="cursor-pointer relative overflow-hidden mt-1.5 group">

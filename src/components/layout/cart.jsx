@@ -51,11 +51,11 @@ export default function Card ({bag, setBag}) {
                     <div className="flex flex-col gap-8 w-full px-5 pt-6 text-primary md:gap-4 md:py-5 sm:mb-14">
                         <div className="gap-1">
                             <p className="font-semibold text-lg sm:text-base">Sous-total : {command.reduce((accumulator, currentValue) =>
-                                accumulator + (currentValue.price * currentValue.quantity), 0
+                                accumulator + ((currentValue.promo_price ? currentValue.promo_price : currentValue.price) * currentValue.quantity), 0
                             ).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}€</p>
                             <p className="text-[10px] text-gray-500">Prix ​​TTC, hors frais de livraison</p>
                         </div>
-                        <Link href='/checkout/' onClick={() => {setBag(false);unlock()}} className="place-self-center">
+                        <Link href='/checkout/' onClick={() => {unlock();setBag(false)}} className="place-self-center">
                             <CustomButton butterfly={true} text="Continuer" style={{width:"250px", height:'40px'}} />
                         </Link>
                     </div>
@@ -86,7 +86,11 @@ export function Article (data) {
                         </div>
                         <div className="flex items-center gap-2 text-primary">
                             <p className="font-medium text-lg sm:text-base">{data?.data?.promo_price ? data?.data?.promo_price : data?.data?.price}€</p>
-                            <p className="text-[#A57A95] font-medium line-through sm:text-sm">{data?.data?.price}€</p>
+                            { data?.data?.promo_price 
+                                ? <p className="text-[#A57A95] font-medium line-through sm:text-sm">{data?.data?.price}€</p>
+                                : ''
+                            }
+                            
                         </div>
                 </section>
                 <section className='flex flex-col items-end justify-between w-fit h-full md:h-20'>

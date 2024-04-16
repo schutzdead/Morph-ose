@@ -5,12 +5,11 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { InterfaceTextInput } from "@/components/forms/interface_input";
 
-import Close from "../../public/assets/close.svg"
+import Close from "../../public/assets/header/close.svg"
 import Check from "../../public/assets/check.svg"
 import { Loading } from "@/utils/loader";
 
 import { unlock } from "@/utils/lockScreen";
-import { useRouter } from "next/router";
 
 const schema = object({
     forgotEmail:string().required("Requis.").email("Email non valide."),
@@ -22,7 +21,6 @@ export function ForgotPassword ({forgotCard, setForgotCard, user_type}) {
     const  {reset, handleSubmit, register, formState: {errors}} = useForm ({ resolver:  yupResolver(schema)})
     const [logErr, setlogErr] = useState(false)
     const [loading, setLoading] = useState(false)
-    const router = useRouter()
     const [mailSend, setMailSend] = useState(false)
 
     async function onSubmit(data) {
@@ -31,7 +29,7 @@ export function ForgotPassword ({forgotCard, setForgotCard, user_type}) {
         setlogErr(false)
         const { forgotEmail } = data
 		try {
-            const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
+            const response = await fetch(`${API_URL}/guest/forgot-password`, {
                 method: "POST",    
                 mode: "cors",
                 headers: {
@@ -59,7 +57,7 @@ export function ForgotPassword ({forgotCard, setForgotCard, user_type}) {
     return(
         <div className="w-[100vw] h-[100vh] bg-black/90 items-center justify-center overflow-hidden z-50 absolute top-0 left-0"
              style={forgotCard ? {display:"flex"} : {display:"none"}}>
-            <div className="flex flex-col w-[450px] rounded-lg bg-mainGradient py-5 px-10 relative sm:w-[90%]">
+            <div className="flex flex-col w-[450px] rounded-lg bg-pictoGradient py-5 px-10 relative sm:w-[90%]">
                 <Image src={Close} alt="Close pictogram" 
                        onClick={() => {setMailSend(false); setlogErr(false); setForgotCard(false); unlock()}} 
                        className='self-end -mr-5 h-7 w-auto cursor-pointer' />
@@ -79,12 +77,14 @@ export function ForgotPassword ({forgotCard, setForgotCard, user_type}) {
                     <h1 className="text-lg text-center pb-5 text-white font-bold">Mot de passe oublié</h1>
                     {logErr ? <div className="text-sm text-[#d32f2f] text-center mb-5">Aucun compte relié à cet email.</div> : ''}
                     {loading
-                    ? <Loading />
+                    ? <div className="py-20">
+                        <Loading />
+                    </div>
                     :
-                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 relative justify-center">
+                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col text-white gap-5 relative justify-center">
                             <InterfaceTextInput label='Email *' placeholder='Entrez votre email' name="forgotEmail" options={{...register("forgotEmail")}} commonError={errors.forgotEmail} commonErrorMessage={errors.forgotEmail?.message}/>
-                            <button type='submit' className='px-[45px] my-4 flex gap-3 rounded-xl py-3 bg-yellow place-self-center'>
-                                <p className='font-bold text-white'>Continuer</p>
+                            <button type='submit' className='px-[45px] my-4 flex gap-3 rounded-xl py-3 bg-secondary place-self-center'>
+                                <p className='font-bold'>Continuer</p>
                             </button>
                     </form>
                 }

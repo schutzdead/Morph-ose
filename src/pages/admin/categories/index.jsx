@@ -1,32 +1,18 @@
-import Image from 'next/image'
 import category_icon from '../../../../public/assets/dashboard/categories.svg'
-import add from '../../../../public/assets/dashboard/add.svg'
-import edit from '../../../../public/assets/dashboard/edit.svg'
-import edit2 from '../../../../public/assets/dashboard/edit2.svg'
 import { Menu } from '@/components/menus/menu'
-import Link from 'next/link'
 import { GETRequest } from "@/utils/requestHeader"
-import { useEffect, useRef, useState } from 'react'
-import { Pagination } from '@mui/material'
-import { PictoButton } from '@/components/littleComponents'
+import { useEffect, useState } from 'react'
 import { CircularLoading } from '@/utils/loader'
-import Search from '@/components/admin/search'
 import { NoIndexHead } from '@/utils/customHead'
-import { InterfaceTextInput } from '@/components/forms/interface_input'
 import { DeleteButton } from '@/components/littleComponents'
 
 import BurgerMenu from '@/components/menus/burgerMenu'
 import { BlackHamburger } from '@/components/menus/burgerMenu'
 import { lock, unlock } from '@/utils/lockScreen'
 import { DashboardTitle } from '@/components/littleComponents'
-import { object, string } from "yup";
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
-const schema = object({
-  subCat:string().required("Requis."),
-}).required();
 
 export async function getServerSideProps({req, res}) {
   const Cookies = require('cookies')
@@ -43,7 +29,8 @@ export async function getServerSideProps({req, res}) {
     }
   })
   
-  if(response.status !== 200) {
+  const person = await response.json()
+  if(response.status !== 200 || !person.is_admin) {
     return { 
       redirect: {
         destination: '/admin',
