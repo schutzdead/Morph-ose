@@ -14,7 +14,7 @@ export const config = {
 export default (req, res) => {
 	delete req.headers.host
 	delete req.headers["x-forwarded-port"]
-	delete req.headers["x-invoke-output"]
+	// delete req.headers["x-invoke-output"]
 
 	return new Promise((resolve, reject) => {
 		const pathname = url.parse(req.url).pathname
@@ -51,8 +51,9 @@ export default (req, res) => {
 				try {
 					if (proxyRes.statusCode === 200) {
 						const bodyToken = JSON.parse(apiResponseBody)
-						const authToken = bodyToken.plainTextToken || bodyToken.token.plainTextToken
+						const authToken = bodyToken.token.plainTextToken
 						const userData = bodyToken.user
+						
 						const cookies = new Cookies(req, res)
 						cookies.set('auth-token', authToken, {
 							httpOnly: true,
