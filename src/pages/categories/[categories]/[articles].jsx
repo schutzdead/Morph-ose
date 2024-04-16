@@ -2,7 +2,6 @@ import Layout from "@/components/layout/layout"
 import Image from "next/image"
 import { GETRequest } from "@/utils/requestHeader"
 import { useEffect, useRef, useContext, useState, useCallback } from "react";
-import Link from "next/link"
 import { UpdateButton } from "@/components/articles/updateButton";
 import { CustomHead } from "@/components/customHead";
 import { CustomButton } from "@/components/homepage/homepage"
@@ -12,8 +11,6 @@ import { Newletter } from "@/components/homepage/homepage";
 import { Thumb } from "@/utils/emblaThumb"
 
 import Close from '../../../../public/assets/articles/close.svg'
-import Plus from '../../../../public/assets/header/plus.svg'
-
 import useEmblaCarousel from 'embla-carousel-react'
 
 
@@ -23,9 +20,7 @@ const QUESTION = Array.from(Array(QUESTION_COUNT).keys())
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export async function getServerSideProps({query}) {
-    console.log(query.art);
     const product =  await fetch(`${API_URL}/products/${query.art}`, GETRequest).then(r => r.json())
-    console.log(product);
     return {
         props: {
             product: product,
@@ -36,15 +31,11 @@ export async function getServerSideProps({query}) {
 const OPTIONS = { slidesToScroll: 'auto' }
 
 export default function Article({product}) {
-    console.log(product);
     const { setBag } = useContext(OpenCartContext);
-    const { v4: uuidv4 } = require('uuid');
     const [quantityValue, setQuantityValue] = useState(1)
     const [error, setError] = useState(false)
 
-    const selector = useRef(null)
-    
-    const { cart, dispatch } = useContext(CartContext);
+    const { dispatch } = useContext(CartContext);
     const updateCart = () => {
         dispatch({
             type: 'ADD_TO_CART',
@@ -95,8 +86,6 @@ export default function Article({product}) {
     useEffect(() => {
         setBody(document?.querySelector('html'))
     },[])
-
-    console.log(product);
 
     return (
         <>

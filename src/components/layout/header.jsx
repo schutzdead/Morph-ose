@@ -13,8 +13,6 @@ import { lock, unlock } from '@/utils/lockScreen'
 import Cart from './cart'
 import { CircularProgress } from '@mui/material'
 
-import { useRouter } from 'next/router'
-
 export default function Header () {
   const { cart } = useContext(CartContext);
   const { bag, setBag } = useContext(OpenCartContext);
@@ -60,8 +58,6 @@ export default function Header () {
       setCartCount(0)
     }
   },[cart])
-
-  console.log(searchResult);
 
   return (
     <>
@@ -111,14 +107,14 @@ export default function Header () {
         <nav className='flex items-center'>
           <ul className='flex gap-10 items-center h-[30px] whitespace-nowrap lg:gap-5 md:hidden'>
             <li className='cursor-pointer relative overflow-hidden group sm:hidden h-full'>
-              <Link href='/account/' className='flex gap-2'>
+              <Link href='/client' className='flex gap-2'>
                 <Image src={User} className='pb-[2px] w-6 h-auto' alt='Account pictogram' />
                 <p>Client</p>
                 <UnderlineHover />
               </Link>
             </li>
             <li className='cursor-pointer relative overflow-hidden group sm:hidden h-full'>
-              <Link href='/account/' className='flex gap-2'>
+              <Link href='/' className='flex gap-2'>
                 <Image src={User} className='pb-[2px] w-6 h-auto' alt='Account pictogram' />
                 <p>Pro</p>
                 <UnderlineHover />

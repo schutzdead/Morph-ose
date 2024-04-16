@@ -10,7 +10,6 @@ import { Back, PictoButton } from '@/components/littleComponents';
 import { GETRequest } from '@/utils/requestHeader';
 import { NoIndexHead } from '@/utils/customHead';
 
-import Image from 'next/image'
 import BurgerMenu from '@/components/menus/burgerMenu'
 import { BlackHamburger } from '@/components/menus/burgerMenu'
 import { lock, unlock } from '@/utils/lockScreen'

@@ -28,7 +28,7 @@ export function SignInForm () {
         setLoading(true)
         const { emailIn, passwordIn } = data
 		try {
-            const response = await fetch('/api/proxy/guest/authentication/', {
+            const response = await fetch('/api/proxy/guest/authentication', {
                 method: "POST",
                 credentials: 'include',    
                 mode: "cors",

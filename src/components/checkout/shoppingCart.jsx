@@ -36,7 +36,7 @@ export function ShoppingCart () {
                     <div className="gap-1 w-[400px] flex flex-col items-center xl:w-[300px] lg:w-[330px]">
                         <div className="flex w-full justify-between font-semibold text-2xl lg:text-xl sm:text-lg">
                             <p>Sous-total : </p>
-                            <p>{subTotal(command)}€</p>
+                            <p>{subTotal(command).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}€</p>
                         </div>
                         <div className="flex w-full justify-between font-medium text-xl lg:text-lg sm:text-base">
                             <p>Frais de livraison : </p>
@@ -45,7 +45,7 @@ export function ShoppingCart () {
                         <div className="h-[1px] bg-homeGradient3 w-full my-2"></div>
                         <div className="flex w-full justify-between font-medium text-xl lg:text-lg sm:text-base">
                             <p>Total : </p>
-                            <p>{subTotal(command) + shipping}€</p>
+                            <p>{(subTotal(command) + shipping).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}€</p>
                         </div>
                     </div>
                 </div>

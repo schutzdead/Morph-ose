@@ -15,5 +15,4 @@ export const colorTheme = createTheme({
     
 })
 
-// WebkitBoxShadow: "0 0 0 1000px white inset"
 export const nobgCompletion = { spellcheck: 'false' };

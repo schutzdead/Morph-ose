@@ -1,4 +1,3 @@
-// import background from '../../public/assets/homepage/background.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import leftArrow from '../../public/assets/dashboard/left_arrow.svg'

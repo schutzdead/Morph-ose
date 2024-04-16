@@ -2,7 +2,7 @@ import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { object, string, ref } from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TextField, Button, ThemeProvider } from "@mui/material";
+import { TextField, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Loading } from "@/utils/loader";
@@ -11,16 +11,16 @@ import { colorTheme, nobgCompletion } from "../styles/mui";
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 const schema = object({
-    lastname:string().required("Required.").min(3, "3 to 16 characters.").max(16, "3 to 16 characters").trim().uppercase(),
-    firstname:string().required("Required.").min(3, "3 to 16 characters.").max(16, "3 to 16 characters.").trim().uppercase(),
-    emailUp:string().required("Required.").email("Invalid email.").trim().lowercase(),
-    phone:string().required("Required.").matches(/^[0-9]*$/, 'Invalid phone number.'),
-    country:string().required("Required.").uppercase().min(3, "Invalid country").max(30, "Invalid Country"),
-    ZIPCode:string().required("Required.").matches(/^[0-9]*/, 'Invalid ZIP code.'),
-    city:string().required("Required.").min(3, "Invalid city").uppercase(),
-    address:string().required("Required.").uppercase(),
-    passwordUp:string().required("Required.").min(8, "min. 8 characters").trim(),
-    confirmPassword:string().required("Required.").oneOf([ref("passwordUp"), null], "Not identical.").trim()
+    lastname:string().required("Requis.").min(3, "3 à 16 caractères.").max(16, "3 à 16 caractères").trim().uppercase(),
+    firstname:string().required("Requis.").min(3, "3 à 16 caractères.").max(16, "3 à 16 caractères.").trim().uppercase(),
+    emailUp:string().required("Requis.").email("Invalid email.").trim().lowercase(),
+    phone:string().required("Requis.").matches(/^[0-9]*$/, 'Téléphone invalide.'),
+    country:string().required("Requis.").uppercase().min(3, "Pays invalide").max(30, "Pays invalide"),
+    ZIPCode:string().required("Requis.").matches(/^[0-9]*/, 'Code postal invalide.'),
+    city:string().required("Requis.").min(3, "Ville invalide").uppercase(),
+    address:string().required("Requis.").uppercase(),
+    passwordUp:string().required("Requis.").min(8, "min. 8 caractères").trim(),
+    confirmPassword:string().required("Requis.").oneOf([ref("passwordUp"), null], "Non identique.").trim()
 }).required();
 
 export function SignUpForm () {
@@ -33,7 +33,7 @@ export function SignUpForm () {
         const { firstname, lastname, phone, country, ZIPCode, city, address, emailUp, passwordUp } = data
         setLoading(true)
         try {
-            const response = await fetch(`${API_URL}/guest/register`, {
+            const response = await fetch(`api/proxy/guest/register`, {
                 method: "POST",    
                 mode: "cors",
                 headers: {
@@ -55,16 +55,14 @@ export function SignUpForm () {
                 })
             })
             const register = await response.json()
-            setlogErr(!register.loggedIn)
-            if(register.data) {
+            if(response.status === 200) {
                 router.push('/')
                 setLoading(false)
                 return
             }
-            if(!register.loggedIn){
-                router.push('#errorSignUp')
-            }
+            setlogErr(!register.loggedIn)
             setLoading(false)
+            router.push('#errorSignUp')
         } catch (err) {
             setLoading(false)
             console.error('Request failed:' + err.message)

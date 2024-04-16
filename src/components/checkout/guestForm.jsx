@@ -11,18 +11,18 @@ import { Loading } from "@/utils/loader";
 import { colorTheme } from "../styles/mui";
 
 const schema = object({
-    email:string().required("Required.").email("Invalid email.").trim().lowercase(),
-    country:string().required("Required.").uppercase().min(3, "Invalid country").max(30, "Invalid Country"),
-    post_code:string().required("Required.").matches(/^[0-9]*/, 'Invalid ZIP code.'),
-    city:string().required("Required.").min(3, "Invalid city").uppercase(),
-    street:string().required("Required.").uppercase(),
-    lastname:string().required("Required.").min(3, "3 to 16 characters.").max(16, "3 to 16 characters").trim().uppercase(),
-    firstname:string().required("Required.").min(3, "3 to 16 characters.").max(16, "3 to 16 characters.").trim().uppercase(),
-    phone:string().required("Required.").matches(/^[0-9]*$/, 'Invalid phone number.'),
+    email:string().required("Requis.").email("Email invalide.").trim().lowercase(),
+    country:string().required("Requis.").uppercase().min(3, "Pays invalide.").max(30, "Pays invalide."),
+    post_code:string().required("Requis.").matches(/^[0-9]*/, 'Code postal invalide.'),
+    city:string().required("Requis.").min(3, "Ville invalide.").uppercase(),
+    street:string().required("Requis.").uppercase(),
+    lastname:string().required("Requis.").min(3, "3 à 16 caractères.").max(16, "3 à 16 caractères.").trim().uppercase(),
+    firstname:string().required("Requis.").min(3, "3 à 16 caractères.").max(16, "3 à 16 caractères.").trim().uppercase(),
+    phone:string().required("Requis.").matches(/^[0-9]*$/, 'Téléphone invalide.'),
     
     bill_name:string().trim().uppercase(),
     bill_country:string().uppercase(),
-    bill_post_code:string().matches(/^[0-9]*/, 'Invalid ZIP code.'),
+    bill_post_code:string().matches(/^[0-9]*/, 'Code postal invalide.'),
     bill_city:string().uppercase(),
     bill_street:string().uppercase(),
 }).required();
@@ -82,7 +82,6 @@ export function GuestForm ({userData}) {
                             ({
                                 id: product.id,
                                 quantity: product.quantity,
-                                variante_id: product.sizeId
                             })
                         ),
                 })

@@ -27,16 +27,17 @@ export function SignInAuth ({pushPath, path, pass=true, user_type}) {
     
     async function onSubmit(data) {
         setLoading(true)
+        setlogErr(true)
         const { emailIn, passwordIn } = data
 		try {
             const response = await fetch(`/api/proxy/${path}`, POSTRequest({ email: emailIn, password:passwordIn }))
             const auth = await response.json()
-            setlogErr(!auth.data)
-            if(auth.data) {
+            if(response.status === 200) {
                 router.push(`${pushPath}`)
                 setLoading(false)
                 return
             }
+            setlogErr(true)
             setLoading(false)
             reset({emailIn:emailIn, passwordIn:''})
 		} catch (err) {

@@ -95,8 +95,6 @@ export function ArticleCard ({articleParams, link}) {
         }
     },[articleParams])
 
-    console.log(article);
-
     return (
         <> 
         {!article 

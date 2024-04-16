@@ -44,7 +44,8 @@ export default function Checkout ({data}) {
         return () => {
             setUserData()
         }
-    },[data])
+    }
+    ,[data])
 
     return(
         <Layout>
@@ -67,7 +68,7 @@ export default function Checkout ({data}) {
                     <div className="flex flex-col items-center h-fullwithHeaderCheckout sticky top-[176px] px-12 2xl:px-6 lg:mt-20 lg:relative lg:top-0 lg:flex-col-reverse lg:h-auto md:mt-10">
                         <ShoppingCart />
                     </div>
-                    <button type='submit' className='w-fit col-span-1 place-self-center px-10 hidden lg:flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3'>
+                    <button type='submit' form="guestForm" className='w-fit col-span-1 place-self-center px-10 hidden lg:flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3'>
                             <p className='font-medium text-center'>Continuer</p>
                     </button>
                 </div>

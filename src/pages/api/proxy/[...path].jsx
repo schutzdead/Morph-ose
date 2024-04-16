@@ -18,7 +18,7 @@ export default (req, res) => {
 
 	return new Promise((resolve, reject) => {
 		const pathname = url.parse(req.url).pathname
-		const isLogin = pathname === '/api/proxy/guest/authentication'
+		const isLogin = pathname === '/api/proxy/guest/authentication' || '/api/proxy/guest/authentication/admin' || '/api/proxy/guest/register'
 		
 		const cookies = new Cookies(req, res)
 		const authToken = cookies.get('auth-token')
@@ -61,7 +61,6 @@ export default (req, res) => {
 							sameSite: 'lax', //protection supplémentaire CSRF
 				
 						})
-						console.log(userData);
 						res.status(200).json({ data:userData })
 						// res.status(200).json({ loggedIn: true })
 						resolve()

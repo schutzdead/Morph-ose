@@ -1,5 +1,4 @@
 import Image from "next/image"
-import Close from '../../../public/assets/close.svg'
 import RightArrow from '../../../public/assets/articles/rightSide.svg'
 import Link from "next/link"
 
@@ -53,7 +52,7 @@ export default function Card ({bag, setBag}) {
                         <div className="gap-1">
                             <p className="font-semibold text-lg sm:text-base">Sous-total : {command.reduce((accumulator, currentValue) =>
                                 accumulator + (currentValue.price * currentValue.quantity), 0
-                            )}€</p>
+                            ).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}€</p>
                             <p className="text-[10px] text-gray-500">Prix ​​TTC, hors frais de livraison</p>
                         </div>
                         <Link href='/checkout/' onClick={() => {setBag(false);unlock()}} className="place-self-center">
@@ -93,7 +92,7 @@ export function Article (data) {
                 <section className='flex flex-col items-end justify-between w-fit h-full md:h-20'>
                     <Image src={Trash} onClick={() => dispatch(removeCart(data.data))} alt="Remove article pictogram" className="w-5"/>
                     <div className="flex gap-5 items-center">
-                        <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} />
+                        <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={true} article={data.data} />
                     </div>
                 </section>
             </div>
