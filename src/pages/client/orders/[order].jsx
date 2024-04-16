@@ -63,7 +63,7 @@ export default function Orders({order}) {
               <BlackHamburger hamburger={hamburger} setHamburger={setHamburger}/>
           </div>
           <div className='flex mt-10'>
-          <Back title="Retour à la liste" linkTo='/admin/orders' />
+          <Back title="Retour à la liste" linkTo='/client/orders' />
         </div>
         <div className='gap-5 grid-cols-2 grid lg:flex lg:flex-col lg:gap-10 lg:items-center'>
         { order === null || order === undefined 
