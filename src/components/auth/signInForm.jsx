@@ -30,7 +30,6 @@ export function SignInForm () {
 		try {
             const response = await fetch('/api/proxy/guest/authentication', {
                 method: "POST",
-                credentials: 'include',    
                 mode: "cors",
                 headers: {
                     "Accept": "application/json",
