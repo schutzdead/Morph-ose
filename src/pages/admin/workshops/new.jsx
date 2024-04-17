@@ -1,10 +1,9 @@
-import product_icon from '../../../../public/assets/dashboard/product.svg'
-import edit from '../../../../public/assets/dashboard/edit.svg'
+import workshop_icon from '../../../../public/assets/dashboard/workshop.svg'
 import { Menu } from '@/components/menus/menu'
 import { useRef, useState } from "react";
 import { Loading } from '@/utils/loader';
-import NewProduct from '@/components/forms/newProduct';
-import { Back,PictoButton } from '@/components/littleComponents';
+import NewWorkshop from '@/components/forms/newWorkshop';
+import { Back } from '@/components/littleComponents';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { NoIndexHead } from '@/utils/customHead';
 import { object, string, number } from "yup";
@@ -16,15 +15,11 @@ import { GETRequest } from '@/utils/requestHeader';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-const schemaProduct = object({
+const schemaEvent = object({
   title:string().required("Requis."),
   price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 questionnaire.'),
-  promo_price:string(),
-  vat_percent:string(),
-  stock:string(),
-  reference:string(),
-  description:string(),
-  big_description:string(),
+  duration:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 minute.'),
+  entries_available:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 entrée.'),
 }).required();
 
 
@@ -78,23 +73,23 @@ export default function AddProduct({all_categories}) {
       <Menu />
       <BurgerMenu menu={menu} setMenu={setMenu} setHamburger={setHamburger}/>
       <section className='w-rightSide flex flex-col min-h-[100vh] px-20 py-10 ml-[320px] lg:ml-0 xl:px-5 lg:w-[95vw] sm:w-full sm:pb-5 sm:pt-0'>
-        <DashboardTitle text='Nouveau produit' image={product_icon}/>
+        <DashboardTitle text='Nouvel évènement' image={workshop_icon}/>
         <div onClick={() => {setMenu(!menu); menu ? unlock() : lock()}} className='hidden z-40 absolute top-7 left-8 lg:block'>
           <BlackHamburger hamburger={hamburger} setHamburger={setHamburger}/>
         </div>
         <div className='flex gap-3 mt-10 sm:mt-20'>
-            <Back title="Retour à la liste" linkTo='/admin/products' />
+            <Back title="Retour à la liste" linkTo='/admin/workshops' />
         </div>
         <div ref={formationFilter} className='flex flex-col gap-5 items-center'>
           {loading
               ? <div className="w-1/2 max-w-[200px] py-20">
                     <Loading />
                 </div>
-              : <NewProduct
+              : <NewWorkshop
                   searchResult={searchResult} setSearchResult={setSearchResult}
                   setLoading={setLoading} formationFilter={formationFilter}
-                  formResolver={{resolver: yupResolver(schemaProduct)}}
-                  validationButton="Créer" api="/auth/admin/products" all_categories={all_categories} />
+                  formResolver={{resolver: yupResolver(schemaEvent)}}
+                  validationButton="Créer" api="/auth/admin/workshops"/>
           }
         </div>
       </section>

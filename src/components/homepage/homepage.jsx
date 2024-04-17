@@ -43,7 +43,7 @@ export function Newletter () {
   
   export function Title ({butterfly=false, title}) {
     return(
-      <div className="relative font-Quesha w-fit text-9xl xl:text-6xl md:text-4xl ">
+      <div className="relative font-Quesha w-fit text-9xl xl:text-6xl md:text-4xl 2sm:text-center">
         <div className="relative">
           <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 -left-[53px] -top-[20px] xl:w-12 xl:-left-[41px] xl:-top-[23px] md:w-8 md:-left-[25px] md:-top-[16px]" style={butterfly ? {display:'block'} : {display:'none'}} priority />
           <h1 className="gradient-text2">{title}</h1>
@@ -79,14 +79,16 @@ export function Newletter () {
     )
   }
   
-  export function Service ({image, title, description}) {
+  export function Service ({workshop, description}) {
     return(
       <div className="min-w-0 flex-[0_0_33.33%] pl-5 h-fit lg:flex-[0_0_50%] md:flex-[0_0_100%]">
         <div className="bg-white h-full p-2 flex flex-col relative rounded-3xl overflow-hidden">
-          <Image src={image} alt='service picture' className="w-full h-[60%] rounded-2xl object-cover" priority />
-          <h2 className="text-3xl xl:text-2xl lg:text-xl sm:text-lg font-bold text-secondary mt-4">{title}</h2>
+          <div className="w-full h-0 pb-[60%] relative">
+            <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-2xl object-cover" priority />
+          </div>
+          <h2 className="text-3xl xl:text-2xl lg:text-xl sm:text-lg font-bold text-secondary mt-4">{workshop?.title}</h2>
           <p className="text-[#A37C99] sm:text-sm">{description}</p>
-          <div className="bg-secondary my-3 place-self-end rounded-full w-10 h-10 min-w-10 min-h-10 flex items-center justify-center mx-3">
+          <div className="bg-secondary cursor-pointer my-3 place-self-end rounded-full w-10 h-10 min-w-10 min-h-10 flex items-center justify-center mx-3">
             <Image src={WRightArrow} alt='arrow icon' className="" priority />
           </div>
         </div>

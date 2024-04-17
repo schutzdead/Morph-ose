@@ -5,6 +5,8 @@ import { useRouter } from 'next/router'
 import Product from '../../../public/assets/dashboard/product.svg'
 import Orders from '../../../public/assets/dashboard/orders.svg'
 import Category from '../../../public/assets/dashboard/categories.svg'
+import Workshop from '../../../public/assets/dashboard/workshop.svg'
+import First from '../../../public/assets/dashboard/first.svg'
 import logout from '../../../public/assets/dashboard/logout.svg'
 import Image from 'next/image'
 
@@ -25,8 +27,10 @@ export function Menu () {
             </div>
             <div className='flex flex-col gap-2 max-h-[540px] overflow-y-auto'>
                 <MenuButton setActive={setActive} active={active} slug='products' text="Produits" image={Product} link='/admin/products'/>
+                <MenuButton setActive={setActive} active={active} slug='first-products' text="Produits phares" image={First} link='/admin/first-products'/>
                 <MenuButton setActive={setActive} active={active} slug='categories' text="Catégories" image={Category} link='/admin/categories'/>
                 <MenuButton setActive={setActive} active={active} slug='orders' text="Commandes" image={Orders} link='/admin/orders'/>
+                <MenuButton setActive={setActive} active={active} slug='workshops' text="Workshops" image={Workshop} link='/admin/workshops'/>
                 <Link href='/logout' className="rounded-lg py-3 cursor-pointer text-white flex items-center px-4 gap-7 transition-[backgroundColor] duration-300 hover:bg-secondary">
                       <div className='p-2 bg-white rounded-lg'>
                           <Image src={logout} alt='Log out pictogram' className="w-5 h-auto" priority/>

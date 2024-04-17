@@ -19,6 +19,18 @@ import { DotButton, useDotButton } from "@/utils/emblaDot";
 import useEmblaCarousel from 'embla-carousel-react'
 
 import { Newletter, Title, Card, Picto, CustomButton, Service } from "@/components/homepage/homepage";
+import { GETRequest } from "@/utils/requestHeader";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+
+export async function getServerSideProps() {
+  const result = await fetch(`${API_URL}/workshops`, GETRequest).then(r => r.json())
+  return {
+      props: {
+          workshops:result
+      }
+  }
+}
 
 function load(key) {
   const once = window.sessionStorage.getItem(key);
@@ -27,7 +39,7 @@ function load(key) {
 
 const OPTIONS = { slidesToScroll: 'auto' }
 
-export default function Home() {
+export default function Home({workshops}) {
   const [landing, setLanding] = useState(true);
   
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS)
@@ -85,10 +97,10 @@ export default function Home() {
                 <p className="gradient-text2 text-3xl font-bold lg:text-2xl sm:text-lg">Découvrez notre boutique ésotérique : Minéraux, Encens spirituel, Bougies, Librairie...</p>
               </div>
               <div className="flex gap-3 absolute bottom-3 right-3">
-                <button className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
-                  SERVICE
-                </button>
-                <Link href='/categories' className="text-sm font-black bg-background text-[#A37C99] place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
+                <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
+                  SERVICES
+                </Link>
+                <Link href='/categories' className="text-sm font-black bg-background text-[#A37C99] place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
                   BOUTIQUE
                 </Link>
               </div>
@@ -129,40 +141,39 @@ export default function Home() {
               <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-primary">
                 <p className="max-w-[1000px]">Chez Morph’ose Evolution on ne vous laisse pas tout seul dans l’aventure de la découverte de soit !</p>
               </div>
-              <div className=" max-w-[1200px] m-auto w-full">
-                {/* VIEWPORT */}
-                <div className="overflow-hidden" ref={emblaRef}> 
-                {/* CONTAINER */}
-                  <div className="flex touch-pan-y -ml-5">
-                    <Service title="Nos ateliers et evenements" image={Service2} description="Participez à nos ateliers et évènements  en vous inscrivant !" />
-                    <Service title="Nos ateliers et evenements" image={Service2} description="Participez à nos ateliers et évènements  en vous inscrivant !" />
-                    <Service title="Nos ateliers et evenements" image={Service2} description="Participez à nos ateliers et évènements  en vous inscrivant !" />
-                    <Service title="Nos ateliers et evenements" image={Service2} description="Participez à nos ateliers et évènements  en vous inscrivant !" />
-                    <Service title="Nos ateliers et evenements" image={Service2} description="Participez à nos ateliers et évènements  en vous inscrivant !" />
+              {workshops?.length > 0 
+                ? <div className=" max-w-[1200px] m-auto w-full">
+                  {/* VIEWPORT */}
+                  <div className="overflow-hidden" ref={emblaRef}> 
+                  {/* CONTAINER */}
+                    <div className="flex touch-pan-y -ml-5">
+                      { workshops.slice(0,7).map(workshop => <Service key={workshop.id} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-[auto_1fr] justify-between items-center gap-[1.2rem] mt-[1.8rem]">
+                    <div className="grid grid-cols-2 gap-[0.6rem] items-center h-8 w-fit md:h-6 ">
+                      <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+                      <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+                    </div>
+                    <div className="embla__dots">
+                      {scrollSnaps.map((_, index) => (
+                        <DotButton key={index} onClick={() => onDotButtonClick(index)} className={'embla__dot'
+                          .concat(
+                            index === selectedIndex ? ' embla__dot--selected' : ''
+                          )}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-[auto_1fr] justify-between items-center gap-[1.2rem] mt-[1.8rem]">
-                  <div className="grid grid-cols-2 gap-[0.6rem] items-center h-8 w-fit md:h-6 ">
-                    <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-                    <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-                  </div>
-                  <div className="embla__dots">
-                    {scrollSnaps.map((_, index) => (
-                      <DotButton key={index} onClick={() => onDotButtonClick(index)} className={'embla__dot'
-                        .concat(
-                          index === selectedIndex ? ' embla__dot--selected' : ''
-                        )}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
+                : <p className="font-semibold text-xl lg:text-lg sm:text-base text-secondary">Aucun évènement prévu dans les prochains jours.</p>
+              }
               <div className="flex flex-col gap-5 text-center mt-10">
                 <p className="text-5xl font-bold lg:text-3xl sm:text-xl  text-primary">Réservez nos services en ligne dès maintenant ! </p>
                 <p className="text-xl lg:text-lg sm:text-base text-secondary max-w-[1400px]">Nous avons développer pour vous accompagner dans votre métamorphose, plusieurs services : des ateliers, des évènements ou encore des séances personnalisées en ligne ou dans nos locaux</p>
-                <div className="place-self-center mt-10">
+                <Link href="/services" className="place-self-center mt-10">
                   <CustomButton text="Réserver" butterfly={true} />
-                </div>
+                </Link>
               </div>
             </section>
 
