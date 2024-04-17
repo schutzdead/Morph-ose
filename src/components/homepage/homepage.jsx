@@ -5,6 +5,7 @@ import Butterfly from '../../../public/assets/main/butterfly.svg'
 import Butterfly2 from '../../../public/assets/main/butterfly2.svg'
 import Plant1 from '../../../public/assets/main/plant1.svg'
 import Services from '../../../public/assets/main/services.webp'
+import Link from "next/link";
 
 export function Newletter () {
     return(
@@ -54,17 +55,23 @@ export function Newletter () {
   }
   
   export function Card ({image, title, description}) {
+    console.log(image);
     return(
       <div className="flex flex-col group rounded-3xl h-full relative overflow-hidden cursor-pointer">
-        <div className="rounded-3xl absolute bg-homeGradient1 w-full h-[35%] min-h-[170px] flex flex-col gap-3 items-center justify-center text-white opacity-0 -top-[100%] pb-5 group-hover:top-[0%] group-hover:opacity-100 transition-all ease-out duration-1000 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
+        <div className="rounded-3xl bg-homeGradient1 absolute z-10 top-0 w-full h-[35%] min-h-[170px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-1000 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
           <h2 className="text-3xl font-bold lg:text-2xl sm:text-lg text-center">{title.toUpperCase()}</h2>
-          <p className="font-bold text-center px-2 sm:text-sm">{description}</p>
+          <p className="font-bold text-center px-2 text-ellipsis line-clamp-2 sm:text-sm">{description}</p>
           <button className="bg-white px-3 py-1 rounded-3xl text-xs font-bold flex gap-1 items-center absolute right-5 bottom-3">
             <p className="gradient-text2">Voir plus</p>
             <Image src={RightArrow} alt='arrow icon' className="mt-[2px]" priority />
           </button>
         </div>
-        <Image src={image} alt='categories picture' className="h-full object-cover" priority />
+        <div className="w-full h-full transition-all relative duration-1000 hover:scale-105">
+          {image
+            ? <Image src={image} alt='categories picture' fill className="object-cover" priority />
+            : <Image src={Services} alt='categories picture' fill className="object-cover" priority />
+          }
+        </div>
       </div>
     )
   }
@@ -87,10 +94,10 @@ export function Newletter () {
             <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-2xl object-cover" priority />
           </div>
           <h2 className="text-3xl xl:text-2xl lg:text-xl sm:text-lg font-bold text-secondary mt-4">{workshop?.title}</h2>
-          <p className="text-[#A37C99] sm:text-sm">{description}</p>
-          <div className="bg-secondary cursor-pointer my-3 place-self-end rounded-full w-10 h-10 min-w-10 min-h-10 flex items-center justify-center mx-3">
-            <Image src={WRightArrow} alt='arrow icon' className="" priority />
-          </div>
+          <p className="text-[#A37C99] sm:text-sm text-ellipsis line-clamp-2 h-[50px]">{workshop?.description ? workshop?.description : description}</p>
+          <Link href="/services" className="bg-secondary cursor-pointer my-3 place-self-end rounded-full w-10 h-10 min-w-10 min-h-10 flex items-center justify-center mx-3">
+            <Image src={WRightArrow} alt='arrow icon' priority />
+          </Link>
         </div>
       </div>
     )

@@ -27,7 +27,7 @@ export function Menu () {
             </div>
             <div className='flex flex-col gap-2 max-h-[540px] overflow-y-auto'>
                 <MenuButton setActive={setActive} active={active} slug='products' text="Produits" image={Product} link='/admin/products'/>
-                <MenuButton setActive={setActive} active={active} slug='first-products' text="Produits phares" image={First} link='/admin/first-products'/>
+                <MenuButton setActive={setActive} active={active} slug='first' text="Produits phares" image={First} link='/admin/first'/>
                 <MenuButton setActive={setActive} active={active} slug='categories' text="Catégories" image={Category} link='/admin/categories'/>
                 <MenuButton setActive={setActive} active={active} slug='orders' text="Commandes" image={Orders} link='/admin/orders'/>
                 <MenuButton setActive={setActive} active={active} slug='workshops' text="Workshops" image={Workshop} link='/admin/workshops'/>

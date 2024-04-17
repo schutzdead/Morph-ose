@@ -70,7 +70,7 @@ export default function Checkout ({data,workshop}) {
                             <ServiceGuestForm userData={userData} workshop={workshop} />
                         </div>
                     </div>
-                    <div className="flex flex-col items-center h-fullwithHeaderCheckout sticky top-[200px] px-12 2xl:px-6 lg:mt-10 lg:relative lg:top-0 lg:flex-col-reverse lg:h-auto md:mt-5">
+                    <div className="flex flex-col items-center h-fullwithHeaderCheckout sticky top-[200px] px-12 2xl:px-6 lg:mt-10 lg:relative lg:top-0 lg:flex-col-reverse lg:h-auto md:mt-5 sm:px-0">
                         <ServiceCart workshop={workshop} />
                     </div>
                     <button type='submit' form="guestForm" className='w-fit col-span-1 place-self-center px-10 hidden lg:flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 mt-10'>

@@ -6,7 +6,6 @@ import Link from 'next/link'
 import Fullscreen from '../../public/assets/main/fullscreen.gif'
 import Fullscreen2 from '../../public/assets/main/fullscreen2.webp'
 import Services from '../../public/assets/main/services.webp'
-import Service2 from '../../public/assets/main/service2.webp'
 import Women from '../../public/assets/main/women.svg'
 import Logo from '../../public/assets/header/logo1.svg'
 import PictoTest from '../../public/assets/main/picto.svg'
@@ -25,9 +24,12 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export async function getServerSideProps() {
   const result = await fetch(`${API_URL}/workshops`, GETRequest).then(r => r.json())
+  const first = await fetch(`${API_URL}/catalog/homepage`, GETRequest).then(r => r.json())
+
   return {
       props: {
-          workshops:result
+          workshops:result,
+          first_products:first,
       }
   }
 }
@@ -39,7 +41,7 @@ function load(key) {
 
 const OPTIONS = { slidesToScroll: 'auto' }
 
-export default function Home({workshops}) {
+export default function Home({workshops, first_products}) {
   const [landing, setLanding] = useState(true);
   
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS)
@@ -55,6 +57,7 @@ export default function Home({workshops}) {
     setLanding(() => load('start'))
   },[])
 
+  console.log(first_products);
 
   return (
     <>
@@ -112,16 +115,16 @@ export default function Home({workshops}) {
                 <p className="font-medium">Une collection de produits ésotériques et de bien être variée qui vous aidera à vous métamorphoser.</p>
                 <p>Osez découvrir de nouvelles facettes de votre personnalité.</p>
               </div>
-              <div className="grid grid-cols-3 grid-rows-1 max-h-[700px] h-[55vh] min-h-[430px] gap-10 mt-5 lg:grid-cols-2 sm:grid-cols-1">
+              <div className="grid grid-cols-3 w-full grid-rows-1 max-h-[700px] h-[55vh] min-h-[430px] gap-10 mt-5 lg:grid-cols-2 sm:grid-cols-1">
                 <div className="sm:hidden">
-                  <Card  image={Services} title="Bougie" description="Une gamme de bougies parfumée qui vous fera voyager" />
+                  <Card  image={first_products[0]?.images[0]?.url} title={first_products[0].title} description={first_products[0].description} />
                 </div>
                 <div className="flex flex-col h-full gap-10">
-                  <Card image={Services} title="Bougie" description="Une gamme de bougies parfumée qui vous fera voyager" />
-                  <Card image={Services} title="Bougie" description="Une gamme de bougies parfumée qui vous fera voyager" />
+                  <Card image={first_products[1]?.images[0]?.url} title={first_products[1].title} description={first_products[1].description} />
+                  <Card image={first_products[2]?.images[0]?.url} title={first_products[2].title} description={first_products[2].description} />
                 </div>
                 <div className="lg:hidden">
-                  <Card  image={Services} title="Bougie" description="Une gamme de bougies parfumée qui vous fera voyager" />
+                  <Card  image={first_products[3]?.images[0]?.url} title={first_products[3].title} description={first_products[3].description} />
                 </div>
               </div>
             </section>

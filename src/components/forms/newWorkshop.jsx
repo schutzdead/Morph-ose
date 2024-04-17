@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { ThemeProvider } from "@mui/material";
-import { TextInput } from '@/components/forms/textInput';
+import { CustomTextArea, TextInput } from '@/components/forms/textInput';
 import { colorTheme } from '@/components/styles/mui';
 import { useEffect, useMemo, useState } from 'react';
 import { H2Title } from '../littleComponents';
@@ -36,9 +36,11 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
     },[searchTutorData])
 
     async function onSubmit(data) {
-        const { title, price, duration, entries_available } = data
+        const { title, price, duration, entries_available, description } = data
         setError(false)
         setLoading(true)
+        var tzoffset = (new Date(begin)).getTimezoneOffset() * 60000; //offset in milliseconds
+        var localISOTime = (new Date(begin - tzoffset)).toISOString().slice(0, -1);
         try {
             const response = await fetch(`/api/proxy/${api}`, {
                 method: "POST",    
@@ -51,14 +53,13 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                     title:title,
                     price:price,
                     duration:duration,
+                    description:description,
                     entries_available:entries_available,
-                    date:new Date(begin).toISOString(),
+                    date:localISOTime,
                     image_id:docId[0] ? docId[0].id : null,
                 })
             })
-            console.log(response);
             const register = await response.json()
-            console.log(register);
             if(response.status === 200){
                 setLoading(false)
                 if(searchTutorData){
@@ -105,7 +106,10 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                 <Controller name="entries_available" control={control} defaultValue=""
                     render={({field}) => (
                         <TextInput field={field} label="Nombre d'entrée" placeholder='20' errors={errors?.entries_available} style="w-full"/>
-                    )}/>    
+                    )}/>  
+                <Controller name="description" control={control} defaultValue="" render={({field}) => (
+                    <CustomTextArea field={field} label='Description' errors={errors?.description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
+                )}/>   
             </section>
 
             <section className="w-full gap-5 bg-white py-5 px-5 flex flex-col rounded-xl shadow-xl">     

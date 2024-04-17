@@ -20,6 +20,7 @@ const schemaEvent = object({
   price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 questionnaire.'),
   duration:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 minute.'),
   entries_available:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 entrée.'),
+  description:string(),
 }).required();
 
 

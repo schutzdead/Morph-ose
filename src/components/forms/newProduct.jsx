@@ -126,9 +126,9 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                         <TextInput field={field} label='TVA' placeholder='5.5' errors={errors?.vat_percent} style="w-full"/>
                     )}/>    
                 <Controller name="description" control={control} defaultValue="" render={({field}) => (
-                    <CustomTextArea field={field} label='Petit description' errors={errors?.description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
+                    <CustomTextArea field={field} label='Petite description' errors={errors?.description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
                 )}/>   
-                <Controller name="big_description" control={control} defaultValue="" render={({field}) => (
+                <Controller name="big_description" control={control} render={({field}) => (
                     <CustomTextArea field={field} label='Grande description' errors={errors?.big_description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
                 )}/>
                 <FormControl sx={{width:'100%'}}>

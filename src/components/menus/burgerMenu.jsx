@@ -17,7 +17,7 @@ export default function BurgerMenu ({menu, setMenu , setHamburger}) {
                     <ul className="relative flex flex-col items-center text-xl tracking-wide w-full gap-6 sm:text-lg">
                         <li className='cursor-pointer flex flex-col gap-6 items-center relative overflow-hidden mt-1.5 group' onClick={closeBurger}>
                             <Link href='/admin/products'>Produits</Link>
-                            <Link href='/admin/first-products'>Produits phares</Link>
+                            <Link href='/admin/first'>Produits phares</Link>
                             <Link href='/admin/categories'>Catégories</Link>
                             <Link href='/admin/orders'>Commandes</Link>
                             <Link href='/admin/workshops'>Workshops</Link>
