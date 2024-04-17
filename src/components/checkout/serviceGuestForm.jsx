@@ -49,7 +49,7 @@ export function ServiceGuestForm ({userData, workshop}) {
         setLoading(true)
         setErr(false)
         try {
-            const response = await fetch('/api/proxy/orders', {
+            const response = await fetch(`/api/proxy/auth/workshops/${workshop?.id}/book`, {
                 method: "POST",    
                 mode: "cors",
                 headers: {
@@ -68,20 +68,13 @@ export function ServiceGuestForm ({userData, workshop}) {
                         city: bill_city || "",
                         country: bill_country || ""
                     },
-                    services:[]
                 })
             })
             const register = await response.json()
             if(response.status === 200)  { 
-                const booking = await fetch(`/api/proxy/auth/workshops/${workshop?.id}/book`, GETRequest)
-                if(booking.status !== 200)  { 
-                    setLoading(false)
-                    setErr(true)
-                    return
-                }
                 const url = await register.stripe_session.url
                 location.assign(url)
-                return
+                setLoading(false)
             }
             setLoading(false)
             setErr(true)

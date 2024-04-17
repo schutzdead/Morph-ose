@@ -55,7 +55,6 @@ export function Newletter () {
   }
   
   export function Card ({image, title, description}) {
-    console.log(image);
     return(
       <div className="flex flex-col group rounded-3xl h-full relative overflow-hidden cursor-pointer">
         <div className="rounded-3xl bg-homeGradient1 absolute z-10 top-0 w-full h-[35%] min-h-[170px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-1000 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">

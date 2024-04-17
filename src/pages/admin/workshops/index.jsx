@@ -59,8 +59,6 @@ export default function Workshops({all_workshops}) {
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
 
-  console.log(workshops);
-
   return (
     <>
     <NoIndexHead />

@@ -170,8 +170,6 @@ function SearchFirst ({result, setResult, apiPath, setFirst}) {
     }
   }
   
-  console.log(result);
-
   return(
       <div className='group relative flex flex-col w-full'>
               <input type='text' spellCheck='false' autoComplete='off' placeholder="Rechercher..." className="text-white w-full bg-secondary/70 rounded-[8px] h-10 sm:h-8 px-4 placeholder:text-white focus-visible:outline-none md:text-sm" value={search} onChange={handleChangeSearch}/>

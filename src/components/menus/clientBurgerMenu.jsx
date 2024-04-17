@@ -18,6 +18,9 @@ export default function ClientBurgerMenu ({menu, setMenu , setHamburger}) {
                         <li className='cursor-pointer flex flex-col gap-6 items-center relative overflow-hidden mt-1.5 group' onClick={closeBurger}>
                             <Link href='/client/orders'>Commandes</Link>
                         </li>
+                        <li className='cursor-pointer flex flex-col gap-6 items-center relative overflow-hidden mt-1.5 group' onClick={closeBurger}>
+                            <Link href='/client/workshops'>Workshops</Link>
+                        </li>
                         <li onClick={closeBurger}>
                             <Link href='/' className="cursor-pointer relative overflow-hidden mt-1.5 group">
                                 <p>Retour au site</p>

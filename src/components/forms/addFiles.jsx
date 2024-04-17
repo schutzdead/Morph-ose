@@ -90,7 +90,6 @@ export function AddFile ({docId, fileType, setDocId}) {
                 body: formData
             })
             const register = await form.json()
-            console.log(register);
             setDocId(register.map(image => ({id:image.id, url:image.url})))
             setSubmitLoading(false)
         } catch (err) {

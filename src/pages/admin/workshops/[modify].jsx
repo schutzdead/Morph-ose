@@ -60,7 +60,6 @@ const schemaEvent = object({
 }).required();
 
 export default function EditProduct({current_event}) {
-  console.log(current_event);
     const [event, setEvent] = useState()
     const [loading, setLoading] = useState(false)
 

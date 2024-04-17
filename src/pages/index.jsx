@@ -57,8 +57,6 @@ export default function Home({workshops, first_products}) {
     setLanding(() => load('start'))
   },[])
 
-  console.log(first_products);
-
   return (
     <>
       <CustomHead pageName='Home' metaResume='Homepage'/>
