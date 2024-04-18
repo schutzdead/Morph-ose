@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Link from 'next/link'
 import Fullscreen from '../../public/assets/main/fullscreen.gif'
 import Fullscreen2 from '../../public/assets/main/fullscreen2.webp'
-import Services from '../../public/assets/main/services.webp'
+import Pro from '../../public/assets/main/pro.webp'
 import Women from '../../public/assets/main/women.svg'
 import Logo from '../../public/assets/header/logo1.svg'
 import PictoTest from '../../public/assets/main/picto.svg'
@@ -85,7 +85,7 @@ export default function Home({workshops, first_products}) {
         :
         <Layout>
           <main className="pt-[1.5vh]">
-            <section className="h-home -mt-[112px] w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Fullscreen2.src})`}}>
+            <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Fullscreen2.src})`}}>
               <div className="w-[30%] animate-infiniteMove flex justify-end absolute top-1/2 -translate-y-1/2 right-0 md:w-auto md:h-[35%] md:static md:translate-y-0 md:animate-none">
                 <Image src={Women} alt='women icon' className="max-w-[380px] w-full h-auto md:w-auto md:h-full" priority />
               </div>
@@ -188,11 +188,13 @@ export default function Home({workshops, first_products}) {
                 </div>
                 <div className="w-[25vw] max-w-[600px] min-w-[300px] shadow-2xl overflow-hidden rounded-2xl">
                   <div className="h-[25vw] max-h-[600px] min-h-[300px]">
-                    <Image src={Services} alt='categories picture' className="h-full object-cover" priority />
+                    <Image src={Pro} alt='categories picture' className="h-full object-cover" priority />
                   </div>
-                  <div className="w-full p-4 bg-homeGradient3">
-                      <button className="bg-homeGradient2 text-white font-semibold rounded-lg py-4 w-full text-xl lg:text-lg sm:text-base">{`Je m'inscris !`}</button>
-                  </div>
+                  <Link href='/rent'>
+                    <div className="w-full p-4 bg-homeGradient3">
+                        <button className="bg-homeGradient2 text-white font-semibold rounded-lg py-4 w-full text-xl lg:text-lg sm:text-base">{`Je m'inscris !`}</button>
+                    </div>
+                  </Link>
                 </div>
               </div>
             </section>

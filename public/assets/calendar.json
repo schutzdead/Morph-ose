@@ -1,0 +1,25 @@
+{
+	"days" : [
+        {"id":0, "day":"Lundi"},
+        {"id":1, "day":"Mardi"},
+        {"id":2, "day":"Mercredi"},
+        {"id":3, "day":"Jeudi"},
+        {"id":4, "day":"Vendredi"},
+        {"id":5, "day":"Samedi"},
+        {"id":6, "day":"Dimanche"}
+    ],
+    "months": [
+        {"id":0, "month":"Janvier", "days_number":31},
+        {"id":1, "month":"Février", "days_number":28, "days_number_bissextile":29},
+        {"id":2, "month":"Mars", "days_number":31},
+        {"id":3, "month":"Avril", "days_number":30},
+        {"id":4, "month":"Mai", "days_number":31},
+        {"id":5, "month":"Juin", "days_number":30},
+        {"id":6, "month":"Juillet", "days_number":31},
+        {"id":7, "month":"Août", "days_number":31},
+        {"id":8, "month":"Septembre", "days_number":30},
+        {"id":9, "month":"Octobre", "days_number":31},
+        {"id":10, "month":"Novembre", "days_number":30},
+        {"id":11, "month":"Décembre", "days_number":31}
+    ]
+}

@@ -24,14 +24,14 @@ export default function Services({workshops}) {
       <CustomHead pageName='Services' metaResume="Retrouvez l'ensemble de nos services"/>
         <Layout>
           <main className="pt-[1.5vh]">
-            <section className="h-home -mt-[112px] w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-center flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5">
+            <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-center flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5">
                 <div className="h-full w-full place-self-center relative flex rounded-3xl" style={{background:'linear-gradient(82.92deg, #DE5B30 0%, #FFF7F1 98%)'}}>
                     <Image src={Picture} alt='Picture categories' className="w-[50%] rounded-3xl object-cover md:hidden" priority/>
                     <div className="flex justify-center items-center w-full px-4 relative">
                         <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 left-1/2 top-40" priority />
                         <div className="w-fit mx-4 relative">
                             <div className="flex flex-col gap-3 items-center text-center">
-                                <h1 className="gradient-text2  font-Quesha text-7xl lg:text-6xl md:text-5xl sm:text-4xl">On vous accompagne</h1>
+                                <h1 className="gradient-text2  font-Quesha text-7xl lg:text-6xl md:text-5xl sm:text-4xl">On Vous Accompagne</h1>
                                 <p className="text-primary font-medium text-lg sm:text-base md:text-white">Vous accompagner tout au long de votre cheminement intérieur en vous proposant des services variés qui amorceront votre des changement dans votre vie !</p>
                             </div>
                         </div>

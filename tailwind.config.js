@@ -52,7 +52,7 @@ module.exports = {
       },
       height: {
         'fullwithHeader' : 'calc(100vh - 112px - 35px)',
-        'home' : 'calc(97vh - 35px)',
+        'home' : 'calc(97vh - 112px - 35px)',
         'fullwithHeaderCheckout' : 'calc(100vh - 176px)',
       },
       minHeight: {

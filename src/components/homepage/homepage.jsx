@@ -23,18 +23,18 @@ export function Newletter () {
         </div>
         <div className="flex flex-col gap-3">
           <h1 className="font-Quesha w-fit text-8xl xl:text-6xl md:text-4xl text-secondary 2sm:text-3xl">Ou Suivez Nous Sur Instagram...</h1>
-          <div className="max-w-screen flex ml-20 gap-2 h-[200px] min-h-[200px] overflow-hidden lg:h-[150px] lg:min-h-[150px] sm:h-[100px] sm:min-h-[100px] lg:ml-0">
-            <div className="flex-[0_0_25%] max-w-[200px] h-full lg:max-w-[150px] sm:max-w-[100px]">
-              <Image src={Services} alt='plant icon' className="object-cover h-full" priority />
+          <div className="max-w-screen flex ml-10 gap-5 h-[100px] min-h-[100px] overflow-hidden sm:h-[80px] sm:min-h-[80px] lg:ml-0">
+            <div className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[80px]">
+              <Image src={Services} alt='plant icon' className="rounded-lg object-cover h-full" priority />
             </div>
-            <div className="flex-[0_0_25%] max-w-[200px] h-full lg:max-w-[150px] sm:max-w-[100px]">
-              <Image src={Services} alt='plant icon' className="object-cover h-full" priority />
+            <div className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[80px]">
+              <Image src={Services} alt='plant icon' className="rounded-lg object-cover h-full" priority />
             </div>
-            <div className="flex-[0_0_25%] max-w-[200px] h-full lg:max-w-[150px] sm:max-w-[100px]">
-              <Image src={Services} alt='plant icon' className="object-cover h-full" priority />
+            <div className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[80px]">
+              <Image src={Services} alt='plant icon' className="rounded-lg object-cover h-full" priority />
             </div>
-            <div className="flex-[0_0_25%] max-w-[200px] h-full lg:max-w-[150px] sm:max-w-[100px]">
-              <Image src={Services} alt='plant icon' className="object-cover h-full" priority />
+            <div className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[80px]">
+              <Image src={Services} alt='plant icon' className="rounded-lg object-cover h-full" priority />
             </div>
           </div>
         </div>
