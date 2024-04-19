@@ -4,8 +4,6 @@ import { CustomHead } from "@/components/customHead";
 import Link from 'next/link'
 import Picture from '../../public/assets/contact/contact.webp'
 import Butterfly from '../../public/assets/main/butterfly.svg'
-import { Newletter, Title} from "@/components/homepage/homepage";
-import { GETRequest } from "@/utils/requestHeader";
 import { ContactForm } from "@/components/forms/contactForm";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL

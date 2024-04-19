@@ -76,9 +76,7 @@ export function RentGuestForm ({userData, rent}) {
                     }
                 })
             })
-            console.log(response);
             const register = await response.json()
-            console.log(register);
             const url = await register.stripe_session.url
             if(response.status === 200)  { 
                 location.assign(url)

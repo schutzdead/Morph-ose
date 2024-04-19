@@ -23,7 +23,7 @@ export function ContactForm () {
     const  {reset, register, handleSubmit, formState: {errors}} = useForm ({ resolver:  yupResolver(schema)})
     const [loading, setLoading] = useState(false)
     const [logErr, setlogErr] = useState(false)
-    const [mailSend, setMailSend] = useState(true)
+    const [mailSend, setMailSend] = useState(false)
 
     async function onSubmit(data) {
         const { name, email, message } = data

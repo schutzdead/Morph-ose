@@ -79,7 +79,7 @@ export default function Rent() {
                     <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-primary">
                         <p className="max-w-[1000px]">Venez proposer votre vos services ou réserver notre local pour proposer un atelier ! Apportez votre expertise.</p>
                     </div>
-                    <div className="flex flex-col items-center mt-5 gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl">
+                    <div className="flex flex-col items-center mt-5 gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl sm:p-5 sm:gap-5">
                         <h2 className="font-Quesha text-8xl lg:text-7xl md:text-6xl sm:text-5xl text-[#E25E3EB8]">Etape {step}</h2>
                         {loading 
                             ? <CircularLoading />
@@ -103,10 +103,10 @@ export default function Rent() {
 export function Step1 ({step, setStep}) {
     return(
         <div className="w-full flex flex-col gap-5" style={step === 1 ? {display:'flex'} : {display:'none'}}>
-            <div className="font-semibold text-2xl bg-[#ECA683] w-full flex items-center justify-center rounded-2xl py-5 sm:text-sm">
-                <h2 className="gradient-text2">QUE SOUHAITEZ VOUS PROPOSER ?</h2>
+            <div className="font-semibold text-2xl bg-[#ECA683] w-full flex items-center justify-center rounded-2xl py-5 sm:text-lg">
+                <h2 className="gradient-text2 text-center px-5">QUE SOUHAITEZ VOUS PROPOSER ?</h2>
             </div>
-            <div className="flex flex-col items-center rounded-2xl text-white bg-primary gap-5 py-5">
+            <div className="flex flex-col items-center rounded-2xl text-white bg-primary gap-5 p-5">
                 <h2 className="font-Quesha text-7xl lg:text-6xl md:text-5xl sm:text-4xl">Réserver un local</h2>
                 <p className="sm:text-sm max-w-[500px] text-center">Je souhaite organiser un atelier ou évènement dans votre local pour organiser un atelier ou un évènement !</p>
                 <button onClick={() => setStep(2)} className="w-fit px-5 py-2 bg-[#ECA683] mt-4 rounded-[50px] text-white font-bold text-base">RESERVER</button>
@@ -116,14 +116,11 @@ export function Step1 ({step, setStep}) {
   }
 
 export function Step2 ({step, setStep, option, setOption, setDispo, setLoading}) {
-    console.log(option);
     async function addDispo (day) {
-        console.log(option);
         if(option === undefined) return
         setLoading(true)
         try {
             const result = await fetch(`${API_URL}/room-rentals/${day}`, GETRequest).then(r => r.json())
-            console.log(result);
             setDispo(result)
             setStep(3)
             setLoading(false)
@@ -136,9 +133,9 @@ export function Step2 ({step, setStep, option, setOption, setDispo, setLoading})
     return(
         <div className="w-full flex-col gap-5" style={step === 2 ? {display:'flex'} : {display:'none'}}>
             <div className="font-semibold text-2xl bg-[#ECA683] w-full flex items-center justify-center lg:text-xl rounded-2xl py-5 sm:text-lg">
-                <h2 className="gradient-text2">SELECTIONNER LA DUREE DE VOTRE RESERVATION DU LOCAL</h2>
+                <h2 className="gradient-text2 text-center px-3">SELECTIONNER LA DUREE DE VOTRE RESERVATION DU LOCAL</h2>
             </div>
-            <div className="grid grid-cols-4 w-full justify-items-center text-white gap-5 p-5">
+            <div className="grid grid-cols-4 w-full justify-items-center text-white gap-5 py-5 lg:max-w-[700px] place-self-center lg:grid-cols-2 sm:grid-cols-1 sm:max-w-[350px]">
                 <ModalStep2 title='Soirée' duration="19h - 23h" price={55} setOption={setOption} option={option} value={'evening'} />
                 <ModalStep2 title='1/2 journée' duration="14h - 19h" price="Semaine : 50" price2="Week-end : 60"  setOption={setOption} option={option} value={'half_day'} />
                 <ModalStep2 title='Journée' duration="9h - 19h" price="Semaine : 80" price2="Week-end : 100" setOption={setOption} option={option} value={'full_day'} />
@@ -167,7 +164,7 @@ export function ModalStep2 ({title, duration, price, price2, setOption, option, 
     };
     return(
         <div className="flex flex-col rounded-[18px] w-full shadow-xl bg-background">
-            <div className="w-full min-h-[90px] items-center text-center flex justify-center bg-primary rounded-t-2xl py-4 px-10 text-white font-semibold text-xl lg:text-lg sm:text-base">
+            <div className="w-full items-center text-center flex justify-center bg-primary rounded-t-2xl py-3 px-5 text-white font-semibold text-xl lg:text-lg sm:text-base">
                 <p>{title}</p>
             </div>
             <div className="flex flex-col items-center w-full h-full py-3 text-lg px-2 text-center">
@@ -177,8 +174,8 @@ export function ModalStep2 ({title, duration, price, price2, setOption, option, 
                     </ThemeProvider>
                     <div className="w-full font-medium flex flex-col justify-center h-full items-center text-secondary">
                         <p className="font-semibold">{duration}</p>
-                        <p>{price}€</p>
-                        <p>{price2 ? `${price2}€` : ""}</p>
+                        <p className="text-base">{price}€</p>
+                        <p className="text-base">{price2 ? `${price2}€` : ""}</p>
                     </div>
                 </div>
             </div>
@@ -234,15 +231,12 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
             }
             setCurrentMonth(currentMonth + (timeOrientation*1))
         }
-
-        console.log(disponibility);
-
     return(
         <div className="w-full flex flex-col gap-5" style={step === 3 ? {display:'flex'} : {display:'none'}}>
             <div className="font-semibold text-2xl bg-[#ECA683] w-full flex items-center justify-center rounded-2xl py-5 sm:text-sm">
                 <h2 className="gradient-text2">SELECTIONNER UNE DATE</h2>
             </div>
-            <div className='place-self-center mt-5 bg-white shadow-2xl text-secondary max-w-[600px] px-[30px] py-10 rounded-2xl shadow-dashboard sm:px-5 md:place-self-center sm:py-5 sm:min-w-[400px] 2sm:min-w-[95vw]'>
+            <div className='place-self-center mt-5 bg-white shadow-2xl text-secondary max-w-[600px] px-[30px] py-10 rounded-2xl shadow-dashboard sm:p-2 md:place-self-center sm:w-full sm:shadow-none'>
                 <div className='flex text-2xl font-bold mb-5 items-center justify-between sm:text-xl sm:mb-2'>
                     <p>{calendar.months[currentMonth].month} {currentYear}</p>
                     <div className='flex items-center gap-5'>
@@ -282,7 +276,7 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                         <h1 className='text-2xl font-semibold sm:text-center md:text-xl sm:text-lg mb-5'>{`Créneaux disponible du ${date.getDate()} ${calendar.months[date.getMonth()].month.toLowerCase()}`}</h1>
                         <div className="flex flex-col gap-4 w-full">
                             {disponibility?.map(dispo =>
-                                <div key={dispo.id} onClick={() => {setRentId(dispo.id);setStep(4)}} className="flex flex-col w-full font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl items-center hover:bg-primary cursor-pointer duration-500 transition-all">
+                                <div key={dispo.id} onClick={() => {setRentId(dispo.id);setStep(4)}} className="flex flex-col w-full font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl text-center items-center hover:bg-primary cursor-pointer duration-500 transition-all">
                                     <h3 className="text-lg sm:text-sm">{dispo.title}</h3>
                                     <p className="text-xl font-bold lg:text-lg sm:text-base">{dispo.price}€</p>
                                 </div>
@@ -292,7 +286,6 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                     :""
                 }
             </div>       
-            <button className="w-fit px-5 py-2 place-self-center transition-all duration-500   mt-4 rounded-[50px] text-white font-bold text-base" style={dispo !== undefined ? {backgroundColor:'rgba(222,91,48,0.8'} : {backgroundColor:'rgb(156,163,175)'}}>CONTINUER</button>
         </div>
     )
   }
@@ -317,9 +310,7 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                 },
                 body: JSON.stringify({ room_rental_id:rentId, number_of_person:persons, price_per_person:price })
             })
-            console.log(response);
             const newRent = await response.json()
-            console.log(newRent);
             if(response.status === 200){
                 router.push({
                     pathname: '/rentCheckout',

@@ -46,7 +46,6 @@ export async function getServerSideProps({req, res, query}) {
 export default function ProOrders({order}) {
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
-  console.log(order);
   return (
     <>
     <NoIndexHead />
