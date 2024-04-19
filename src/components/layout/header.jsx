@@ -105,25 +105,24 @@ export default function Header () {
           <Image src={Logo} className='h-[75%] w-auto cursor-pointer relative sm:h-[55%]' alt='Logo' priority={true}/>
         </Link>
         <nav className='flex items-center'>
-          <ul className='flex gap-10 items-center h-[30px] whitespace-nowrap lg:gap-5 md:hidden'>
+          <ul className='flex gap-8 items-center h-[30px] whitespace-nowrap lg:gap-5 md:hidden'>
             <li className='cursor-pointer relative overflow-hidden group sm:hidden h-full'>
               <Link href='/client' className='flex gap-2'>
-                <Image src={User} className='pb-[2px] w-6 h-auto' alt='Account pictogram' />
-                <p>Client</p>
-                <UnderlineHover />
-              </Link>
-            </li>
-            <li className='cursor-pointer relative overflow-hidden group sm:hidden h-full'>
-              <Link href='/' className='flex gap-2'>
-                <Image src={User} className='pb-[2px] w-6 h-auto' alt='Account pictogram' />
-                <p>Pro</p>
-                <UnderlineHover />
+                <Image src={User} className='pb-[2px] w-6 h-auto mt-1' alt='Account pictogram' />
               </Link>
             </li>
             <li className='cursor-pointer flex items-center gap-2 relative sm:hidden overflow-hidden h-full group' onClick={() => {setBag(!bag); bag ? unlock() : lock()}}>
               <Image src={Bag} className='pb-[2px] w-5 h-auto' alt='Account pictogram' />
-              <p>Panier</p>
-              <UnderlineHover />
+              <span>
+              {` (${cartCount})`}
+              </span>
+            </li>
+            <li>
+              <Link href="/contact">
+                <button type='submit' className='px-4 bg-primary/80 hover:bg-primary transition-all duration-500 w-full flex rounded-xl justify-center text-base text-white py-2'>
+                    <p className='font-medium text-center'>Contact</p>
+                </button>
+              </Link>
             </li>
           </ul>
           {/* RESPONSIVE */}

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Orders from '../../../public/assets/dashboard/orders.svg'
 import Workshops from '../../../public/assets/dashboard/workshop.svg'
+import Pro from '../../../public/assets/dashboard/pro.svg'
 import logout from '../../../public/assets/dashboard/logout.svg'
 import Image from 'next/image'
 
@@ -27,6 +28,7 @@ export function ClientMenu () {
             </div>
             <div className='flex flex-col gap-2 max-h-[540px] overflow-y-auto'>
                 <MenuButton setActive={setActive} active={active} slug='orders' text="Commandes" image={Orders} link='/client/orders'/>
+                <MenuButton setActive={setActive} active={active} slug='pro' text="Commandes Pro" image={Pro} link='/client/pro'/>
                 <MenuButton setActive={setActive} active={active} slug='workshops' text="Workshops" image={Workshops} link='/client/workshops'/>
                 <Link href='/logout' className="rounded-lg py-3 cursor-pointer text-white flex items-center px-4 gap-7 transition-[backgroundColor] duration-300 hover:bg-secondary">
                       <div className='p-2 bg-white rounded-lg'>

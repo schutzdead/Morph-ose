@@ -1,10 +1,9 @@
 import product_icon from '../../../../public/assets/dashboard/product.svg'
-import edit from '../../../../public/assets/dashboard/edit.svg'
 import { Menu } from '@/components/menus/menu'
 import { useRef, useState } from "react";
 import { Loading } from '@/utils/loader';
 import NewProduct from '@/components/forms/newProduct';
-import { Back,PictoButton } from '@/components/littleComponents';
+import { Back } from '@/components/littleComponents';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { NoIndexHead } from '@/utils/customHead';
 import { object, string, number } from "yup";
@@ -18,7 +17,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 const schemaProduct = object({
   title:string().required("Requis."),
-  price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 questionnaire.'),
+  price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1.'),
   promo_price:string(),
   vat_percent:string(),
   stock:string(),

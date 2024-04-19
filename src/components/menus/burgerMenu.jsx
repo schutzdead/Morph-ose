@@ -20,6 +20,7 @@ export default function BurgerMenu ({menu, setMenu , setHamburger}) {
                             <Link href='/admin/first'>Produits phares</Link>
                             <Link href='/admin/categories'>Catégories</Link>
                             <Link href='/admin/orders'>Commandes</Link>
+                            <Link href='/admin/pro'>Commandes Pro</Link>
                             <Link href='/admin/workshops'>Workshops</Link>
                             <Link href='/admin/rent'>Location</Link>
                         </li>

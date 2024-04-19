@@ -47,7 +47,7 @@ export function Newletter () {
       <div className="relative font-Quesha w-fit text-9xl xl:text-6xl md:text-4xl 2sm:text-center">
         <div className="relative">
           <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 -left-[53px] -top-[20px] xl:w-12 xl:-left-[41px] xl:-top-[23px] md:w-8 md:-left-[25px] md:-top-[16px]" style={butterfly ? {display:'block'} : {display:'none'}} priority />
-          <h1 className="gradient-text2">{title}</h1>
+          <h1 className="gradient-text2 text-center">{title}</h1>
         </div>
         <div className="h-[3px] w-full bg-mainGradient"></div>
       </div>

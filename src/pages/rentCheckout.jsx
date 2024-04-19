@@ -10,6 +10,8 @@ import { ServiceCart } from "@/components/checkout/serviceCart";
 import { GETRequest } from "@/utils/requestHeader";
 import { ServiceGuestForm } from "@/components/checkout/serviceGuestForm";
 import { FakeBreadCrumb } from "./checkout";
+import { RentServiceCart } from "@/components/checkout/rentCart";
+import { RentGuestForm } from "@/components/checkout/rentGuestForm";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -27,16 +29,16 @@ export async function getServerSideProps ({req, res, query}) {
         }
       })
     const data = await response.json()
-    const result = await fetch(`${API_URL}/workshops/${query.id}`, GETRequest).then(r => r.json())
+    const result = await fetch(`${API_URL}/room-rentals/reservations/${query.id}`, GETRequest).then(r => r.json())
     return {
       props: {
           data: data,
-          workshop:result
+          rent:result
       }
     }
   }
 
-export default function ServicesCheckout ({data,workshop}) {
+export default function RentCheckout ({data,rent}) {
     const [userData, setUserData] = useState() 
     useEffect(() => {
         if(data.message) return
@@ -51,6 +53,8 @@ export default function ServicesCheckout ({data,workshop}) {
         }
     }
     ,[data])
+
+    console.log(rent);
 
     return(
         <Layout>
@@ -67,11 +71,11 @@ export default function ServicesCheckout ({data,workshop}) {
                         </div>}
                         <div className="max-w-[500px] w-full py-14 mx-10 px-10 box-content border border-secondary rounded-xl xl:max-w-[400px] md:pt-6 md:pb-10 sm:max-w-[320px] sm:px-0 sm:mx-0 sm:border-none sm:py-5">
                             <h2 className="font-bold text-[15px] mb-3">{userData ? '' : "Continuer en tant qu'invté"}</h2>
-                            <ServiceGuestForm userData={userData} workshop={workshop} />
+                            <RentGuestForm userData={userData} rent={rent} />
                         </div>
                     </div>
                     <div className="flex flex-col items-center h-fullwithHeaderCheckout sticky top-[220px] px-12 2xl:px-6 lg:mt-10 lg:relative lg:top-0 lg:flex-col-reverse lg:h-auto md:mt-5 sm:px-0">
-                        <ServiceCart workshop={workshop} />
+                        <RentServiceCart rent={rent} />
                     </div>
                     <button type='submit' form="guestForm" className='w-fit col-span-1 place-self-center px-10 hidden lg:flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 mt-10'>
                             <p className='font-medium text-center'>Continuer</p>

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import orders_icon from '../../../../public/assets/dashboard/orders.svg'
-import edit2 from '../../../../public/assets/dashboard/edit2.svg'
+import edit2 from '../../../../public/assets/dashboard/details.svg'
 import ClientBurgerMenu from '@/components/menus/clientBurgerMenu'
 import { ClientMenu } from '@/components/menus/clientMenu'
 import Link from 'next/link'
@@ -38,10 +38,12 @@ export async function getServerSideProps({req, res}) {
       },
   }}
 
+  const user = await response.json()
+
   const result = await fetch(`${API_URL}/auth/orders`, GETTokenRequest(authToken)).then(r => r.json())
   return {
       props: {
-          all_orders:result?.filter(r => r.workshops.length === 0)
+          all_orders:result?.filter(r => r.workshops?.length === 0).filter(r => r.room_rental_reservation === null)
       }
   }
 }

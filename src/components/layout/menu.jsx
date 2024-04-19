@@ -33,9 +33,6 @@ export default function Menu ({menu, setMenu , setHamburger}) {
                 <div className="overflow-y-auto overflow-x-hidden px-10 pt-10 md:pt-5 md:px-5">
                     <ul className="flex flex-col overflow-y-auto overflow-x-hidden scrollbar-thumb-gray-300 scrollbar-thin scrollbar-w-2 max-h-[65vh] tracking-wide w-full pt-10 font-semibold sm:text-sm md:pt-5">
                         <MainCategory data={data} setHamburger={setHamburger} setMenu={setMenu}/>
-                        <Link href='/' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
-                            <Tab level1='COMPTE PRO'/>
-                        </Link>
                         <Link href='/client' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
                             <Tab level1='COMPTE CLIENT'/>
                         </Link>

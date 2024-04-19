@@ -15,6 +15,17 @@ import left_chevron from '../../public/assets/rent/left_chevron.svg'
 import gray_left_chevron from '../../public/assets/rent/gray_left_chevron.svg'
 import right_chevron from '../../public/assets/rent/right_chevron.svg'
 import calendar from '../../public/assets/calendar.json'
+import { InterfaceTextInput } from "@/components/forms/interface_input";
+
+import { object, number } from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+
+const schema = object({
+    persons:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Min. 1 personne.'),
+    price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Min. 1 euro.'),
+}).required();
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -33,7 +44,10 @@ export default function Rent() {
     const [dispo, setDispo] = useState()
     const [loading, setLoading] = useState(false)
 
-    console.log(dispo);
+    const [rentId, setRentId] = useState(null)
+
+    const [logErr, setlogErr] = useState(false)
+
 
     return (
         <>
@@ -72,7 +86,8 @@ export default function Rent() {
                             : <>
                                 <Step1 step={step} setStep={setStep} />
                                 <Step2 step={step} setStep={setStep} option={option} setOption={setOption} setDispo={setDispo} setLoading={setLoading} />
-                                <Step3 step={step} setStep={setStep} dispo={dispo} />
+                                <Step3 step={step} setStep={setStep} dispo={dispo} setRentId={setRentId} />
+                                <Step4 step={step} setStep={setStep} rentId={rentId} setLoading={setLoading} />
                             </>
                         }
                     </div>
@@ -171,7 +186,7 @@ export function ModalStep2 ({title, duration, price, price2, setOption, option, 
     )
 }
 
-export function Step3 ({step, setStep, dispo}) {
+export function Step3 ({step, setStep, dispo, setRentId}) {
     const { v4: uuidv4 } = require('uuid');
     const [numberOfDays, setNumberOfDays] = useState([])
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
@@ -265,11 +280,11 @@ export function Step3 ({step, setStep, dispo}) {
                 {date && disponibility?.length > 0 && disponibility ? 
                     <div className="flex flex-col items-center mt-10 sm:mt-5">
                         <h1 className='text-2xl font-semibold sm:text-center md:text-xl sm:text-lg mb-5'>{`Créneaux disponible du ${date.getDate()} ${calendar.months[date.getMonth()].month.toLowerCase()}`}</h1>
-                        <div className="flex flex-col gap-4">
+                        <div className="flex flex-col gap-4 w-full">
                             {disponibility?.map(dispo =>
-                                <div key={dispo.id} className="flex flex-col font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl items-center hover:bg-primary cursor-pointer duration-500 transition-all">
+                                <div key={dispo.id} onClick={() => {setRentId(dispo.id);setStep(4)}} className="flex flex-col w-full font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl items-center hover:bg-primary cursor-pointer duration-500 transition-all">
                                     <h3 className="text-lg sm:text-sm">{dispo.title}</h3>
-                                    <p>{dispo.price}€</p>
+                                    <p className="text-xl font-bold lg:text-lg sm:text-base">{dispo.price}€</p>
                                 </div>
                             )}
                         </div>
@@ -278,6 +293,65 @@ export function Step3 ({step, setStep, dispo}) {
                 }
             </div>       
             <button className="w-fit px-5 py-2 place-self-center transition-all duration-500   mt-4 rounded-[50px] text-white font-bold text-base" style={dispo !== undefined ? {backgroundColor:'rgba(222,91,48,0.8'} : {backgroundColor:'rgb(156,163,175)'}}>CONTINUER</button>
+        </div>
+    )
+  }
+
+
+  export function Step4 ({step, setStep, rentId, setLoading}) {
+
+    const  {reset, handleSubmit, register, formState: {errors}} = useForm ({ resolver:  yupResolver(schema)})
+    const router = useRouter()
+
+    async function onSubmit(data) {
+        setLoading(true)
+        // setlogErr(false)
+        const { price, persons } = data
+		try {
+            const response = await fetch(`${API_URL}/room-rentals/reservations`, {
+                method: "POST",    
+                mode: "cors",
+                headers: {
+                    "Accept": "application/json",
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ room_rental_id:rentId, number_of_person:persons, price_per_person:price })
+            })
+            console.log(response);
+            const newRent = await response.json()
+            console.log(newRent);
+            if(response.status === 200){
+                router.push({
+                    pathname: '/rentCheckout',
+                    query: { id: newRent.id },
+                })
+                setLoading(false)
+                setStep(1)
+                return
+            }
+            setLoading(false)
+            // setlogErr(true)
+            reset()
+		} catch (err) {
+			console.error('Request failed:' + err)
+            setLoading(false)
+            // setlogErr(true)
+		}
+	}
+
+
+    return(
+        <div className="w-full flex flex-col gap-5" style={step === 4 ? {display:'flex'} : {display:'none'}}>
+            <div className="font-semibold text-2xl bg-[#ECA683] w-full flex items-center justify-center rounded-2xl py-5 sm:text-sm">
+                <h2 className="gradient-text2">INFORMATIONS COMPLEMENTAIRES</h2>
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-5 text-white gap-5 max-w-[500px] place-self-center w-[90%] relative justify-center">
+                <InterfaceTextInput label='Nombre de personne *' placeholder='Nombre maximum de participants' name="persons" options={{...register("persons")}} commonError={errors.persons} commonErrorMessage={errors.persons?.message} labelStyle="text-secondary"/>
+                <InterfaceTextInput label='Prix par personne (euros) *' placeholder='Coût individuel par participant' name="price" options={{...register("price")}} commonError={errors.price} commonErrorMessage={errors.price?.message} labelStyle="text-secondary"/>
+                <button type='submit' className='px-[45px] my-4 flex gap-3 rounded-xl py-3 bg-secondary/80 hover:bg-secondary transition-all duration-500 place-self-center'>
+                    <p className='font-bold'>Valider</p>
+                </button>
+            </form>
         </div>
     )
   }

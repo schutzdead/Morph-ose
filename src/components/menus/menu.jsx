@@ -8,6 +8,7 @@ import Category from '../../../public/assets/dashboard/categories.svg'
 import Workshop from '../../../public/assets/dashboard/workshop.svg'
 import First from '../../../public/assets/dashboard/first.svg'
 import Rent from '../../../public/assets/dashboard/rent.svg'
+import Pro from '../../../public/assets/dashboard/pro.svg'
 import logout from '../../../public/assets/dashboard/logout.svg'
 import Image from 'next/image'
 
@@ -31,6 +32,7 @@ export function Menu () {
                 <MenuButton setActive={setActive} active={active} slug='first' text="Produits phares" image={First} link='/admin/first'/>
                 <MenuButton setActive={setActive} active={active} slug='categories' text="Catégories" image={Category} link='/admin/categories'/>
                 <MenuButton setActive={setActive} active={active} slug='orders' text="Commandes" image={Orders} link='/admin/orders'/>
+                <MenuButton setActive={setActive} active={active} slug='pro' text="Commandes Pro" image={Pro} link='/admin/pro'/>
                 <MenuButton setActive={setActive} active={active} slug='workshops' text="Workshops" image={Workshop} link='/admin/workshops'/>
                 <MenuButton setActive={setActive} active={active} slug='rent' text="Location" image={Rent} link='/admin/rent'/>
                 <Link href='/logout' className="rounded-lg py-3 cursor-pointer text-white flex items-center px-4 gap-7 transition-[backgroundColor] duration-300 hover:bg-secondary">
