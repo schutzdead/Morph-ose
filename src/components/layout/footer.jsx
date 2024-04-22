@@ -2,8 +2,30 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Facebook from '../../../public/assets/footer/facebook.svg'
 import Instagram from '../../../public/assets/footer/instagram.svg'
+import { useEffect, useState } from 'react'
+import { Skeleton } from '@mui/material'
+import { GETRequest } from '@/utils/requestHeader'
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function Footer () {
+
+    const [data, setData] = useState()
+    async function fetchCategories() {
+		try {
+            const getCategories =  await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
+            setData(getCategories)
+		} catch (err) {
+			console.error('Request failed:' + err)
+		}
+	}
+
+    useEffect(() => {
+        fetchCategories()
+    }, [])
+
+    console.log(data);
+
     return (
         <footer className="bg-footer pt-20 pb-14 flex flex-col gap-10 px-5 lg:px-8 md:pt-10 md:pb-6 sm:pt-14 sm:gap-8">
             <div className='grid-cols-[2fr_repeat(5,1fr)] grid gap-10 justify-items-center lg:grid-cols-3 sm:grid-cols-1 lg:gap-y-10 sm:gap-8'>
@@ -18,37 +40,40 @@ export default function Footer () {
                 <div className='text-secondary font-medium flex flex-col'>
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>ACCUEIL</h3>
                     <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:justify-center'>
-                        <Link href='/'>Nos collections phares</Link>
-                        <Link href='/services/'>Nos services</Link>
-                        <Link href='/who/'>Pour les pros</Link>
-                        <Link href='/contact/'>{`Billets d'humeur`}</Link>
+                        <Link href='/#headlight'>Nos collections phares</Link>
+                        <Link href='/#service'>Nos services</Link>
+                        <Link href='/#pro'>Pour les pros</Link>
+                        <Link href='/#newsletter'>{`Billets d'humeur`}</Link>
                     </div>
                 </div>
                 <div className='text-secondary font-medium flex flex-col'>
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>BOUTIQUE</h3>
                     <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:justify-center'>
-                        <Link href='/services/'>Bien-être et méditation</Link>
-                        <Link href='/'>Bijoux</Link>
-                        <Link href='/who/'>Bougies</Link>
-                        <Link href='/who/'>Encens</Link>
-                        <Link href='/who/'>Cartomancie</Link>
-                        <Link href='/contact/'>Livres</Link>
+                    {data 
+                        ? data?.slice(0,4).map(d => <Link key={d.id} href={{pathname: `/categories/${d?.slug}`, query: { cat:d?.id }}}>{d?.title}</Link>)
+                        :             
+                        <div className="flex flex-col gap-2">
+                            <Skeleton />
+                            <Skeleton />
+                            <Skeleton />
+                        </div>
+                    }
                     </div>
                 </div>
                 <div className='text-secondary font-medium flex flex-col'>
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>SERVICES</h3>
                     <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:justify-center'>
-                        <Link href='/'>Evènements & Ateliers</Link>
-                        <Link href='/services/'>Proposer vos services</Link>
+                        <Link href='/services'>Evènements & Ateliers</Link>
+                        <Link href='/rent'>Proposer vos services</Link>
                     </div>
                 </div>
                 <div className='text-secondary font-medium flex flex-col'>
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>QUI SOMMES NOUS ?</h3>
                     <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:justify-center'>
-                        <Link href='/who/'>Fondatrice</Link>
-                        <Link href='/who/'>{`L'équipe`}</Link>
-                        <Link href='/who/'>Nos valeurs</Link>
-                        <Link href='/who/'>Nos objectifs</Link>
+                        <Link href='/about'>Fondatrice</Link>
+                        <Link href='/about'>{`L'équipe`}</Link>
+                        <Link href='/about'>Nos valeurs</Link>
+                        <Link href='/about'>Nos objectifs</Link>
                     </div>
                 </div>
                 <div className='text-secondary font-medium flex flex-col'>
@@ -56,7 +81,7 @@ export default function Footer () {
                     <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5'>
                         <Link href='/politics'>Politique de confidentialité</Link>
                         <Link href='/mentions'>Mentions légales</Link>
-                        <Link href='/'>Un problème?</Link>
+                        <Link href='/contact'>Un problème?</Link>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ import { CircularProgress } from '@mui/material';
 import { lock, unlock } from '@/utils/lockScreen';
 import Router from "next/router";
 import Head from 'next/head'
+import mainLogo from '../../public/assets/header/logo1.svg'
 
 export default function App ({ Component, pageProps }) {
   const [loading, setLoading] = useState(false)
@@ -35,9 +36,22 @@ export default function App ({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title></title>
-        <meta name="description" content="" />
+        <title>{`Merveilles de Morph'ose`}</title>
+        <meta name="description" content="Découvrez notre boutique ésotérique : Minéraux, Encens spirituel, Bougies, Librairie et pleins d'autres merveilleurses choses." />
         <link rel="preload" href="/assets/main/fullscreen2.webp" as="image"/>
+
+        <meta property="og:image" content={mainLogo.src} />
+        <meta property="og:image:type" content="png" />
+        <meta property="og:image:width" content="350" />
+        <meta property="og:image:height" content="350" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
       </Head>
       <OpenCartProvider>
         <CartProvider>

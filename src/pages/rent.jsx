@@ -14,6 +14,7 @@ import { CircularLoading } from "@/utils/loader";
 import left_chevron from '../../public/assets/rent/left_chevron.svg'
 import gray_left_chevron from '../../public/assets/rent/gray_left_chevron.svg'
 import right_chevron from '../../public/assets/rent/right_chevron.svg'
+import left_arrow from '../../public/assets/dashboard/left_arrow.svg'
 import calendar from '../../public/assets/calendar.json'
 import { InterfaceTextInput } from "@/components/forms/interface_input";
 
@@ -79,7 +80,11 @@ export default function Rent() {
                     <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-primary">
                         <p className="max-w-[1000px]">Venez proposer votre vos services ou réserver notre local pour proposer un atelier ! Apportez votre expertise.</p>
                     </div>
-                    <div className="flex flex-col items-center mt-5 gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl sm:p-5 sm:gap-5">
+                    <div className="flex flex-col items-center mt-5 relative gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl sm:p-5 sm:gap-5">
+                        <button style={step === 1 ? {display:'none'} : {display:'flex'}} onClick={() => setStep(step === 1 ? step : step-1 )} className='pl-2 pr-4 bg-primary/80 hover:bg-primary absolute w-fit top-8 left-10 items-center transition-all duration-500 rounded-xl justify-center text-base text-white py-2'>
+                            <Image src={left_arrow} alt='left arrow icon' className="" priority />
+                            <p className='font-medium text-center mb-[2px]'>Retour</p>
+                        </button>
                         <h2 className="font-Quesha text-8xl lg:text-7xl md:text-6xl sm:text-5xl text-[#E25E3EB8]">Etape {step}</h2>
                         {loading 
                             ? <CircularLoading />

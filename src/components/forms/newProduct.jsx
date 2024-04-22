@@ -6,9 +6,6 @@ import { colorTheme } from '@/components/styles/mui';
 import { useEffect, useMemo, useState } from 'react';
 import { H2Title } from '../littleComponents';
 import { AddFiles } from "./addFiles";
-import { GETRequest } from "@/utils/requestHeader";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function NewProduct ({setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData, all_categories}) {
     
@@ -32,7 +29,7 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
     useEffect(() => {
         if(searchTutorData) {
             reset(searchTutorData)
-            setDocId([])
+            // setDocId([])
             searchTutorData?.is_published ? setChecked(true) : setChecked(false)
             setDataCategory(searchTutorData?.categories[0]?.id)
             if(searchTutorData?.images?.length > 0) {
@@ -153,7 +150,7 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
             <section className="place-self-end">
                 {error ? <div className='col-span-4 justify-self-end text-red-500 self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>{`Erreur (contactez un développeur)`}</div>: ''}
                 <div className='flex gap-3 col-span-4 justify-self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>
-                    <button onClick={() => {setDocId([]); reset({title:'', price:'', promo_price:'', reference:'', stock:'', vat_percent:'', description:'', big_description:''});}} className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>
+                    <button onClick={() => {reset({title:'', price:'', promo_price:'', reference:'', stock:'', vat_percent:'', description:'', big_description:''});}} className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>
                         <p>Vider les champs</p>
                     </button>
                     <button type='submit' className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>

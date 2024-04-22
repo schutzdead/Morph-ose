@@ -38,36 +38,20 @@ export async function getServerSideProps({req, res}) {
       },
   }}
 
-  const user = await response.json()
-
   const result = await fetch(`${API_URL}/auth/orders`, GETTokenRequest(authToken)).then(r => r.json())
+  console.log(result);
   return {
       props: {
-          all_orders:result?.filter(r => r.workshops?.length === 0).filter(r => r.room_rental_reservation === null)
+          all_orders:result?.filter(r => r.workshops?.length === 0).filter(r => !r.room_rental_reservation)
       }
   }
 }
 
 export default function Orders({all_orders}) {
   const [orders, setProducts] = useState(all_orders)
-  // const [pagination, setPagination] = useState([])
   const [loading, setLoading] = useState(false)
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
-
-  // useEffect(() => {
-  //   setPagination([])
-  //   for(let i = 1; i <= orders.last_page; i++){
-  //     setPagination((previous) => [...previous, i])
-  //   }
-  // }, [orders])
-
-  // async function updatePagination (number) {
-  //   setLoading(true)
-  //   const result = await fetch(`${API_URL}/api/products?with_pagination=true&page=${number}`, GETRequest).then(r => r.json())
-  //   setProducts(result)
-  //   setLoading(false)
-  // }
 
   return (
     <>

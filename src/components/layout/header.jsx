@@ -119,7 +119,7 @@ export default function Header () {
             </li>
             <li>
               <Link href="/contact">
-                <button type='submit' className='px-4 bg-primary/80 hover:bg-primary transition-all duration-500 w-full flex rounded-xl justify-center text-base text-white py-2'>
+                <button className='px-4 bg-primary/80 hover:bg-primary transition-all duration-500 w-full flex rounded-xl justify-center text-base text-white py-2'>
                     <p className='font-medium text-center'>Contact</p>
                 </button>
               </Link>

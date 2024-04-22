@@ -4,11 +4,9 @@ import deleteDoc from '../../../public/assets/dashboard/delete.svg';
 import { CircularLoading } from "@/utils/loader";
 import { useState } from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
-
 export function AddFiles ({docId, fileType, setDocId}) {
     const [submitLoading, setSubmitLoading] = useState(false)
-
+    
     async function uploadFile(e){
         const formData = new FormData();
         if(e?.target?.files?.length > 0) {
@@ -30,13 +28,15 @@ export function AddFiles ({docId, fileType, setDocId}) {
                 body: formData
             })
             const register = await form.json()
-            setDocId(register.map(image => ({id:image.id, url:image.url})))
+            setDocId([...docId, register.map(image => ({id:image.id, url:image.url}))].flat())
             setSubmitLoading(false)
         } catch (err) {
             setSubmitLoading(false)
             console.error('Request failed:' + err.message)
         }
     }
+
+    console.log(docId);
 
     return(
         <div className='w-full flex flex-col gap-3 mb-10 sm:mb-5'>

@@ -1,4 +1,5 @@
 import { Loading } from "@/utils/loader";
+import Link from "next/link";
 
 export function ServiceCart ({workshop}) {
     return (
@@ -7,13 +8,20 @@ export function ServiceCart ({workshop}) {
         {!workshop
             ? <Loading />
             : 
-            <div className="flex flex-col bg-secondary/70 py-5 px-20 rounded-xl items-center font-medium text-white mt-5 mx-5 gap-1 text-xl lg:text-base sm:text-sm">
-                <h2 className="lg:text-5xl md:text-4xl lg:font-Quesha font-bold lg:font-medium mb-4">{workshop?.title}</h2>
-                <p className="max-w-[400px] pb-5 text-center">{workshop?.description}</p>
-                <p>{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
-                <p>Date : {new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
-                <p>Durée : {workshop?.duration} minutes</p>
-                <p className="text-2xl lg:text-lg sm:text-base mt-4 font-semibold">{workshop?.price}€</p>
+            <div className="flex flex-col gap-3 w-[95vw] max-w-[350px]">
+                <div className="flex flex-col w-full bg-secondary/70 py-5 px-5 rounded-xl items-center font-medium text-white mt-5 gap-1 text-xl lg:text-base sm:text-sm">
+                    <h2 className="lg:text-5xl md:text-4xl lg:font-Quesha font-bold lg:font-medium">{workshop?.title}</h2>
+                    <p className="max-w-[400px] pb-5 text-center">{workshop?.description}</p>
+                    <p>{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
+                    <p>Date : {new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
+                    <p>Durée : {workshop?.duration} minutes</p>
+                    <p className="text-2xl lg:text-lg sm:text-base mt-4 font-semibold">{workshop?.price}€</p>
+                </div>
+                <Link href="/services" className="">
+                    <button className='bg-secondary w-full items-center transition-all duration-500 rounded-xl justify-center text-base text-white py-2'>
+                        <p className='font-medium text-center mb-[2px]'>Modifier</p>
+                    </button>
+                </Link>
             </div>
         }
         </>

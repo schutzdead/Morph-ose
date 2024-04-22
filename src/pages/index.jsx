@@ -59,7 +59,7 @@ export default function Home({workshops, first_products}) {
 
   return (
     <>
-      <CustomHead pageName='Home' metaResume='Homepage'/>
+      <CustomHead pageName='Accueil' metaResume="Découvrez l'ensemble de notre gamme" />
       {
       landing 
         ? 
@@ -107,7 +107,7 @@ export default function Home({workshops, first_products}) {
               </div>
             </section>
 
-            <section className="flex flex-col items-center gap-14 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
+            <section id="headlight" className="scroll-m-32 flex flex-col items-center gap-14 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
               <Title title='Nos Collections Phares !' />
               <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-secondary">
                 <p className="font-medium">Une collection de produits ésotériques et de bien être variée qui vous aidera à vous métamorphoser.</p>
@@ -115,14 +115,14 @@ export default function Home({workshops, first_products}) {
               </div>
               <div className="grid grid-cols-3 w-full grid-rows-1 max-h-[700px] h-[55vh] min-h-[430px] gap-10 mt-5 lg:grid-cols-2 sm:grid-cols-1">
                 <div className="sm:hidden">
-                  <Card  image={first_products[0]?.images[0]?.url} title={first_products[0].title} description={first_products[0].description} />
+                  <Card  product={first_products[0]} />
                 </div>
                 <div className="flex flex-col h-full gap-10">
-                  <Card image={first_products[1]?.images[0]?.url} title={first_products[1].title} description={first_products[1].description} />
-                  <Card image={first_products[2]?.images[0]?.url} title={first_products[2].title} description={first_products[2].description} />
+                  <Card product={first_products[1]} />
+                  <Card product={first_products[2]} />
                 </div>
                 <div className="lg:hidden">
-                  <Card  image={first_products[3]?.images[0]?.url} title={first_products[3].title} description={first_products[3].description} />
+                  <Card  product={first_products[3]} />
                 </div>
               </div>
             </section>
@@ -136,7 +136,7 @@ export default function Home({workshops, first_products}) {
               </div>
             </section>
 
-            <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
+            <section id="service" className="scroll-m-32 flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
               <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
               <Title title='Nos services !' butterfly={true} />
               <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-primary">
@@ -178,7 +178,7 @@ export default function Home({workshops, first_products}) {
               </div>
             </section>
 
-            <section className="flex flex-col items-center gap-20 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:gap-10 md:mx-5">
+            <section id="pro" className="scroll-m-32 flex flex-col items-center gap-20 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:gap-10 md:mx-5">
               <Title title='Pour Les Pros' />
               <div className="flex items-center justify-center md:flex-col md:gap-10">
                 <div className="flex flex-col max-w-[800px] w-full py-10 shadow-2xl px-10 rounded-l-2xl md:rounded-2xl md:py-5 sm:px-5">
