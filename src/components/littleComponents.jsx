@@ -36,10 +36,17 @@ export function DashboardTitle ({text, image}) {
 }
 
 export function MenuButton ({text, image, active, slug, setActive, link}) {
+    const escapeRegExpMatch = function(s) {
+        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    };
+    const isExactMatch = (str, match) => {
+      return new RegExp(`\\b${escapeRegExpMatch(match)}\\b`).test(str)
+    }
+    
     return (
         <Link href={link} className='rounded-lg py-3 cursor-pointer text-white flex justify-start items-center px-4 gap-7 transition-[backgroundColor] duration-300 hover:bg-secondary'
                 onClick={() => {setActive('');setActive(slug)}}
-                style={active?.includes(slug) ? {backgroundColor:'#582D3E' } : {}}>
+                style={isExactMatch(active, slug) ? {backgroundColor:'#582D3E' } : {}}>
             <div className='p-2 bg-white rounded-xl'>
                 <Image
                     src={image}

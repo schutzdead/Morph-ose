@@ -19,7 +19,7 @@ export default function Contact() {
                         <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 left-1/2 top-40" priority />
                         <div className="w-fit mx-4 relative">
                             <div className="flex flex-col gap-3 items-center text-center">
-                                <h1 className="gradient-text2  font-Quesha text-7xl lg:text-6xl md:text-5xl sm:text-4xl">Contact</h1>
+                                <h1 className="gradient-text2  font-Quesha text-7xl lg:text-6xl md:text-5xl sm:text-4xl">CONTACT</h1>
                             </div>
                         </div>
                     </div>
