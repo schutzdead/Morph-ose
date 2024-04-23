@@ -8,9 +8,7 @@ import { useRouter } from "next/router";
 import { Loading } from "@/utils/loader";
 import { colorTheme, nobgCompletion } from "../styles/mui";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
-
-const schema = object({
+export const schemaSignUp = object({
     lastname:string().required("Requis.").min(3, "3 à 16 caractères.").max(16, "3 à 16 caractères").trim().uppercase(),
     firstname:string().required("Requis.").min(3, "3 à 16 caractères.").max(16, "3 à 16 caractères.").trim().uppercase(),
     emailUp:string().required("Requis.").email("Invalid email.").trim().lowercase(),
@@ -25,7 +23,7 @@ const schema = object({
 
 export function SignUpForm () {
     const router = useRouter()
-    const  {control, handleSubmit, formState: {errors}} = useForm ({ resolver:  yupResolver(schema)})
+    const  {control, handleSubmit, formState: {errors}} = useForm ({ resolver:  yupResolver(schemaSignUp)})
     const [loading, setLoading] = useState(false)
     const [logErr, setlogErr] = useState(false)
 
@@ -56,7 +54,7 @@ export function SignUpForm () {
             })
             const register = await response.json()
             if(response.status === 200) {
-                router.push('/')
+                router.push('/client')
                 setLoading(false)
                 return
             }

@@ -6,9 +6,7 @@ import Picture from '../../public/assets/contact/contact.webp'
 import Butterfly from '../../public/assets/main/butterfly.svg'
 import { ContactForm } from "@/components/forms/contactForm";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
-
-export default function Services() {
+export default function Contact() {
   return (
     <>
       <CustomHead pageName='Contact' metaResume="Contactez nous pour plus d'informations."/>
@@ -43,7 +41,7 @@ export default function Services() {
                 <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-primary">
                     <p className="max-w-[1000px]">On essaiera de faire au mieux pour trouver une solution à votre problème.</p>
                 </div>
-                <div className="max-w-[800px] w-full flex justify-center">
+                <div className="max-w-[800px] w-full flex flex-col justify-center">
                   <ContactForm />
                 </div>
             </section>

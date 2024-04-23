@@ -74,12 +74,12 @@ export default function Header () {
           </div>
           <div className='flex flex-col gap-4 relative'>
             <div className='group w-[250px] relative overflow-hidden flex flex-col'>
-              <input type="text" placeholder="Rechercher" autoComplete='off' spellCheck="false"
+              <input type="text" placeholder="Rechercher un article..." autoComplete='off' spellCheck="false"
                       value={search} onChange={handleChangeSearch} className='pb-1 w-[65%] flex items-center bg-transparent focus:outline-none placeholder:text-primary'
                       >
               </input>
               {load ?
-              <div className='absolute w-full h-[25px] top-0 right-0 bg-gray-300/90 flex items-center'>
+              <div className='absolute w-full h-[25px] top-0 right-0 bg-gray-300/50 rounded-md flex items-center'>
                 <CircularProgress size="1rem"/>
               </div>
               : ''}
@@ -88,11 +88,11 @@ export default function Header () {
             {
               searchResult === null || searchResult.length === 0 || search === ''
               ? ''
-              : <div className='absolute mt-10 flex flex-col bg-white border border-gray-400 p-2'>
+              : <div className='absolute mt-10 flex flex-col bg-white border rounded-lg border-primary py-2 '>
                   {searchResult ?
-                  searchResult.map(s =>
-                    <Link key={s.id} href={{pathname:`/categories/recherche/${s.slug}`, query:{art:s.id}}} className='cursor-pointer'>
-                      <p className='py-2 text-secondary border-b border-primary pr-3 '>{s.title}</p>
+                  searchResult.map((s, index) =>
+                    <Link key={s.id} href={{pathname:`/categories/recherche/${s.slug}`, query:{art:s.id}}} className='cursor-pointer hover:bg-primary/10 duration-500 transition-all px-4'>
+                      <p className='py-2 text-secondary pr-3' style={searchResult?.length !== index+1 ? {borderBottom:'1px solid rgb(229,231,235)'} : {}}>{s.title}</p>
                     </Link>
                   )
                   : ''

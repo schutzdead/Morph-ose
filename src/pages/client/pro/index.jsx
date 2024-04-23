@@ -64,6 +64,9 @@ export default function ProOrders({all_orders}) {
               <BlackHamburger hamburger={hamburger} setHamburger={setHamburger}/>
           </div>
           <div className='flex flex-col bg-white shadow-dashboard w-full rounded-xl py-10 px-5 xl:py-5 lg:px-2 lg:py-2 sm:shadow-none'>
+            {orders?.length === 0 || !orders 
+            ? <p className='font-medium place-self-center text-secondary text-center sm:text-sm'>Aucune commande</p>
+            : <>
             {loading ? <Loading />
             : <>
                 <div className='grid text-secondary py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden grid-cols-[repeat(4,2fr)_1fr] xl:text-sm sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-xs'>
@@ -89,11 +92,10 @@ export default function ProOrders({all_orders}) {
                     </div>
                   )
                 }
-                {/* <div className='mt-14 mb-4 w-full flex gap-3 justify-center'>
-                  <Pagination count={pagination.length} page={currentPage} onChange={(event, value) => {updatePagination(value);setCurrentPage(value)}} />
-                </div> */}
               </>
             }
+            </>
+          }
           </div>
         </section>
     </main>

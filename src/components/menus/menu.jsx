@@ -33,7 +33,7 @@ export function Menu () {
                 <MenuButton setActive={setActive} active={active} slug='categories' text="Catégories" image={Category} link='/admin/categories'/>
                 <MenuButton setActive={setActive} active={active} slug='orders' text="Commandes" image={Orders} link='/admin/orders'/>
                 <MenuButton setActive={setActive} active={active} slug='pro' text="Commandes Pro" image={Pro} link='/admin/pro'/>
-                <MenuButton setActive={setActive} active={active} slug='workshops' text="Workshops" image={Workshop} link='/admin/workshops'/>
+                <MenuButton setActive={setActive} active={active} slug='workshops' text="Evènements" image={Workshop} link='/admin/workshops'/>
                 <MenuButton setActive={setActive} active={active} slug='rent' text="Location" image={Rent} link='/admin/rent'/>
                 <Link href='/logout' className="rounded-lg py-3 cursor-pointer text-white flex items-center px-4 gap-7 transition-[backgroundColor] duration-300 hover:bg-secondary">
                       <div className='p-2 bg-white rounded-lg'>

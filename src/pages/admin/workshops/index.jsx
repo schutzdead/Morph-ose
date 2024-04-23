@@ -67,7 +67,7 @@ export default function Workshops({all_workshops}) {
         <Menu />
         <BurgerMenu menu={menu} setMenu={setMenu} setHamburger={setHamburger}/>
         <section className='w-full min-h-[100vh] px-5 py-28 ml-[320px] lg:ml-0 lg:px-2 lg:py-20'>
-          <DashboardTitle text='Workshop' image={workshop_icon}/>
+          <DashboardTitle text='Evènements' image={workshop_icon}/>
           <div onClick={() => {setMenu(!menu); menu ? unlock() : lock()}} className='hidden z-40 absolute top-7 left-8 lg:block'>
               <BlackHamburger hamburger={hamburger} setHamburger={setHamburger}/>
           </div>

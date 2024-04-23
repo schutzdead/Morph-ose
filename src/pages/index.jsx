@@ -3,7 +3,7 @@ import Image from "next/image";
 import { CustomHead } from "@/components/customHead";
 import { useEffect, useState } from "react";
 import Link from 'next/link'
-import Fullscreen from '../../public/assets/main/fullscreen.gif'
+import Fullscreen from '../../public/assets/main/fullscreen1.webp'
 import Fullscreen2 from '../../public/assets/main/fullscreen2.webp'
 import Pro from '../../public/assets/main/pro.webp'
 import Women from '../../public/assets/main/women.svg'
@@ -63,9 +63,9 @@ export default function Home({workshops, first_products}) {
       {
       landing 
         ? 
-        <main className="h-[100vh] w-[100vw] flex items-center justify-center hxl:h-auto hxl:mt-10">
-          <div className="h-[93%] w-[95%] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center text-center flex flex-col rounded-3xl items-center justify-center text-white relative lg:gap-10 sm:gap-6" style={{backgroundImage:`url(${Fullscreen.src})`}}>
-            <button className="text-sm font-black hidden bg-background text-primary place-self-center mb-5 rounded-2xl py-5 px-10 sm:px-5 sm:py-3 sm:text-xs sm:font-extrabold sm:block" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
+        <main className="h-[100vh] w-[100vw] flex items-center justify-center">
+          <div className="h-[97%] w-[98%] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center text-center flex flex-col rounded-3xl items-center justify-center text-white relative lg:gap-10 sm:gap-6 sm:py-0" style={{backgroundImage:`url(${Fullscreen.src})`}}>
+            <button className="text-sm font-black hidden bg-background text-primary place-self-center mb-5 rounded-2xl py-5 px-10 sm:px-5 sm:py-3 sm:text-xs sm:font-extrabold sm:block sm:mb-0" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
               VISITER LE SITE
             </button>
             <h2 className="text-xl px-3">La société Morph’ose Evolution vous propose de découvrir</h2>
@@ -86,10 +86,7 @@ export default function Home({workshops, first_products}) {
         <Layout>
           <main className="pt-[1.5vh]">
             <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Fullscreen2.src})`}}>
-              <div className="w-[30%] animate-infiniteMove flex justify-end absolute top-1/2 -translate-y-1/2 right-0 md:w-auto md:h-[35%] md:static md:translate-y-0 md:animate-none">
-                <Image src={Women} alt='women icon' className="max-w-[380px] w-full h-auto md:w-auto md:h-full" priority />
-              </div>
-              <div className="w-[70%] gap-10 flex flex-col ml-[5vw] md:w-[90%] md:text-center md:items-center md:gap-5 md:ml-0">
+              <div className="gap-10 flex flex-col px-20 w-full text-center items-center md:gap-5 md:ml-0 lg:px-10 sm:px-5">
                 <div className="flex gap-10 font-Quesha text-7xl whitespace-nowrap gradient-text xl:text-6xl lg:gap-5 lg:text-5xl md:text-4xl sm:text-[26px]">
                   <h1>Bien-être</h1>
                   <h1>Spiritualité</h1>
@@ -108,7 +105,7 @@ export default function Home({workshops, first_products}) {
             </section>
 
             <section id="headlight" className="scroll-m-32 flex flex-col items-center gap-14 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
-              <Title title='Nos Collections Phares !' />
+              <Title title='Nos collections phares !' />
               <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-secondary">
                 <p className="font-medium">Une collection de produits ésotériques et de bien être variée qui vous aidera à vous métamorphoser.</p>
                 <p>Osez découvrir de nouvelles facettes de votre personnalité.</p>
@@ -167,7 +164,7 @@ export default function Home({workshops, first_products}) {
                     </div>
                   </div>
                 </div>
-                : <p className="font-semibold text-xl lg:text-lg sm:text-base text-secondary">Aucun évènement prévu dans les prochains jours.</p>
+                : <p className="font-semibold text-xl lg:text-lg sm:text-base text-secondary">Aucun évènement disponible dans les prochains jours.</p>
               }
               <div className="flex flex-col gap-5 text-center mt-10">
                 <p className="text-5xl font-bold lg:text-3xl sm:text-xl  text-primary">Réservez nos services en ligne dès maintenant ! </p>
@@ -179,7 +176,7 @@ export default function Home({workshops, first_products}) {
             </section>
 
             <section id="pro" className="scroll-m-32 flex flex-col items-center gap-20 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:gap-10 md:mx-5">
-              <Title title='Pour Les Pros' />
+              <Title title='Pour les pros' />
               <div className="flex items-center justify-center md:flex-col md:gap-10">
                 <div className="flex flex-col max-w-[800px] w-full py-10 shadow-2xl px-10 rounded-l-2xl md:rounded-2xl md:py-5 sm:px-5">
                   <h2 className="text-primary font-Quesha text-6xl xl:text-5xl lg:text-4xl md:text-3xl">Vous êtes un professionnel dans le milieu de l’ésotérisme?</h2>

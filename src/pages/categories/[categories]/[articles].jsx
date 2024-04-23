@@ -142,10 +142,13 @@ export default function Article({product}) {
                                             : ''
                                         }
                                     </div>
-                                    <div className="flex flex-col mt-5">
-                                        <p className="font-medium sm:text-sm">Quantités disponibles</p>
-                                        <p className="font-bold text-lg sm:text-base">{product?.stock}</p>
-                                    </div>
+                                    {product?.stock === 1 
+                                        ? <p className="font-bold text-lg sm:text-base">Produit unique</p>
+                                        : <div className="flex flex-col mt-5">
+                                            <p className="font-medium sm:text-sm">Quantités disponibles</p>
+                                            <p className="font-bold text-lg sm:text-base">{product?.stock}</p>
+                                        </div>
+                                    }
                                 </div>
                             
                                 <div className="flex flex-col">

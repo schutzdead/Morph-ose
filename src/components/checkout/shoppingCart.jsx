@@ -49,7 +49,7 @@ export function ShoppingCart () {
                         </div>
                     </div>
                 </div>
-                <div className="w-[400px] overflow-y-auto scrollbar-thumb-gray-300 scrollbar scrollbar-w-2 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner-rounded mb-10 self-center flex flex-col xl:w-[300px] lg:w-[500px] lg:mt-5 lg:mb-5 sm:w-[330px]">
+                <div className="w-[400px] overflow-y-auto overflow-x-hidden scrollbar-thumb-gray-300 scrollbar scrollbar-w-2 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner-rounded mb-10 self-center flex flex-col xl:w-[350px] lg:w-[500px] lg:mt-5 lg:mb-5 sm:w-[330px]">
                     {command.map(article => <Article key={uuidv4()} data={article}/>)}
                 </div>
             </>

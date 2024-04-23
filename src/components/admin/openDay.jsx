@@ -52,7 +52,7 @@ export function OpenDay ({day, setSlot, slot, disponibility, setDisponibilities}
         }
     }
     return(
-        <div className="w-[100vw] h-[100vh] bg-black/60 items-center justify-center overflow-hidden z-50 absolute top-0 left-0"
+        <div className="w-[100vw] h-[100vh] bg-black/60 items-center justify-center overflow-hidden z-50 absolute top-0 left-0 md:items-start md:pt-3"
                 style={slot ? {display:"flex"} : {display:"none"}}>
             <div className="flex flex-col bg-white text-black rounded-2xl pt-2 pb-10 px-14 relative lg:w-[95%] sm:px-4">
                 <Image src={Close} alt="Close pictogram" 
@@ -64,8 +64,8 @@ export function OpenDay ({day, setSlot, slot, disponibility, setDisponibilities}
                         ? <div className='flex place-self-center'>
                             <CircularLoading />
                         </div>
-                        : <div className='w-full max-h-[80vh] overflow-y-auto gap-10 flex flex-col'>
-                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8" >
+                        : <div className='w-full max-h-[80vh] overflow-y-auto gap-10 flex flex-col md:max-h-[60vh]'>
+                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8 md:flex-col-reverse" >
                                 <div className='flex gap-5 flex-wrap justify-center'>
                                     <ThemeProvider theme={colorTheme}>
                                         <CustomCheckBox text="Soirée" services={services} setServices={setServices} value={'evening'} />

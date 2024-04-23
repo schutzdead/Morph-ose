@@ -24,8 +24,6 @@ export default function Footer () {
         fetchCategories()
     }, [])
 
-    console.log(data);
-
     return (
         <footer className="bg-footer pt-20 pb-14 flex flex-col gap-10 px-5 lg:px-8 md:pt-10 md:pb-6 sm:pt-14 sm:gap-8">
             <div className='grid-cols-[2fr_repeat(5,1fr)] grid gap-10 justify-items-center lg:grid-cols-3 sm:grid-cols-1 lg:gap-y-10 sm:gap-8'>

@@ -1,9 +1,6 @@
-import Image from 'next/image'
 import ws_icon from '../../../../public/assets/dashboard/workshop.svg'
-import edit2 from '../../../../public/assets/dashboard/edit2.svg'
 import ClientBurgerMenu from '@/components/menus/clientBurgerMenu'
 import { ClientMenu } from '@/components/menus/clientMenu'
-import Link from 'next/link'
 import { GETTokenRequest } from "@/utils/requestHeader"
 import {  useState } from 'react'
 import { Loading } from '@/utils/loader'
@@ -48,24 +45,9 @@ export async function getServerSideProps({req, res}) {
 
 export default function Orders({all_orders}) {
   const [orders, setProducts] = useState(all_orders)
-  // const [pagination, setPagination] = useState([])
   const [loading, setLoading] = useState(false)
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
-
-  // useEffect(() => {
-  //   setPagination([])
-  //   for(let i = 1; i <= orders.last_page; i++){
-  //     setPagination((previous) => [...previous, i])
-  //   }
-  // }, [orders])
-
-  // async function updatePagination (number) {
-  //   setLoading(true)
-  //   const result = await fetch(`${API_URL}/api/products?with_pagination=true&page=${number}`, GETRequest).then(r => r.json())
-  //   setProducts(result)
-  //   setLoading(false)
-  // }
 
   return (
     <>
@@ -74,11 +56,14 @@ export default function Orders({all_orders}) {
         <ClientMenu />
         <ClientBurgerMenu menu={menu} setMenu={setMenu} setHamburger={setHamburger}/>
         <section className='w-full min-h-[100vh] px-5 py-28 ml-[320px] lg:ml-0 lg:px-2 lg:py-20'>
-          <DashboardTitle text='Workshops' image={ws_icon}/>
+          <DashboardTitle text='Evènements' image={ws_icon}/>
           <div onClick={() => {setMenu(!menu); menu ? unlock() : lock()}} className='hidden z-40 absolute top-7 left-8 lg:block'>
               <BlackHamburger hamburger={hamburger} setHamburger={setHamburger}/>
           </div>
           <div className='flex flex-col bg-white shadow-dashboard w-full rounded-xl py-10 px-5 xl:py-5 lg:px-2 lg:py-2 sm:shadow-none'>
+          {orders?.length === 0 || !orders 
+            ? <p className='font-medium place-self-center text-secondary text-center sm:text-sm'>Aucun évènement</p>
+            : <>
             {loading ? <Loading />
             : <>
                 <div className='grid text-secondary py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden grid-cols-[repeat(4,1fr)] xl:text-sm sm:text-xs'>
@@ -100,10 +85,9 @@ export default function Orders({all_orders}) {
                     </div>
                   )
                 }
-                {/* <div className='mt-14 mb-4 w-full flex gap-3 justify-center'>
-                  <Pagination count={pagination.length} page={currentPage} onChange={(event, value) => {updatePagination(value);setCurrentPage(value)}} />
-                </div> */}
               </>
+            }
+            </>
             }
           </div>
         </section>

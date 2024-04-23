@@ -49,9 +49,12 @@ export default function Services({workshops}) {
                 <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-primary">
                     <p className="max-w-[1000px]">Une collection de produits ésotériques et de bien être variée qui vous aidera à vous métamorphoser. Osez découvrir de nouvelles facettes de votre personnalité.</p>
                 </div>
-                <div className="gap-8 grid grid-cols-3 mt-10 md:mt-5 lg:grid-cols-2 sm:grid-cols-1 w-full place-items-center max-w-[1500px] place-self-center">
+                {workshops?.length === 0 || !workshops
+                ? <p className='font-medium place-self-center text-secondary text-center sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
+                : <div className="gap-8 grid grid-cols-3 mt-10 md:mt-5 lg:grid-cols-2 sm:grid-cols-1 w-full place-items-center max-w-[1500px] place-self-center">
                     { workshops.map(workshop => <Individual key={workshop.id} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                 </div>
+                }
             </section>
             <Newletter />
           </main>

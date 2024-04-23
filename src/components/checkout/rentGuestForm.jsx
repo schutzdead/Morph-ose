@@ -1,11 +1,10 @@
 import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { object, string } from "yup";
+import { object, string, ref} from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import {  ThemeProvider, Checkbox } from "@mui/material";
-import { useState, useContext, useEffect, useMemo } from "react";
-import { CartContext } from "@/utils/cartProvider";
-import { TextInput } from "../forms/textInput";
+import { useState, useEffect, useMemo } from "react";
+import { PasswordInput, TextInput } from "../forms/textInput";
 
 import { Loading } from "@/utils/loader";
 import { colorTheme } from "../styles/mui";
@@ -27,31 +26,64 @@ const schema = object({
     bill_street:string().uppercase(),
 }).required();
 
+const schemaConnected = object({
+    password:string().required("Requis.").min(8, "min. 8 caractères").trim(),
+    confirmPassword:string().required("Requis.").oneOf([ref("password"), null], "Non identique.").trim(),
+})
+
 export function RentGuestForm ({userData, rent}) { 
+    const [newSchema, setNewSchema] = useState(userData ? schema : schema.concat(schemaConnected))
     const {reset, control, handleSubmit, formState: {errors}} = useForm ({ 
-        resolver:  yupResolver(schema),
+        resolver:  yupResolver(newSchema),
         defaultValues: useMemo(() => {
             return userData
           }, [userData])
     })
 
     useEffect(() => {
+        userData ? setNewSchema(schema) : setNewSchema(schema.concat(schemaConnected))
         reset(userData)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userData])
 
     const [loading, setLoading] = useState(false)
     const [checked, setChecked] = useState(false);
-    const { cart } = useContext(CartContext)
+    const [error, setError] = useState(false)
 
     const handleChange = (event) => {
       setChecked(event.target.checked);
     };
 
     async function onSubmit(data) {
-        const { email, lastname, firstname, phone, company, siret, activity, bill_city, bill_country, bill_name, bill_post_code, bill_street } = data
+        const { email, lastname, firstname, phone, password, company, siret, activity, bill_city, bill_country, bill_name, bill_post_code, bill_street } = data
         setLoading(true)
+        setError(false)
         try {
+            if(!userData || userData === undefined || userData === null) {
+                const signUp = await fetch(`api/proxy/guest/register`, {
+                    method: "POST",    
+                    mode: "cors",
+                    headers: {
+                        "Accept": "application/json",
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        firstname:firstname, 
+                        lastname:lastname, 
+                        email:email, 
+                        phone:phone, 
+                        password:password,
+                        company_name:company,
+                        company_siret:siret,
+                        company_type:activity,
+                    })
+                })
+                if(signUp.status !== 200) {
+                    setError(true)
+                    setLoading(false)
+                    return
+                }
+            }
             const response = await fetch(`/api/proxy/auth/room-rentals/reservations/${rent.id}/order`, {
                 method: "POST",    
                 mode: "cors",
@@ -77,13 +109,17 @@ export function RentGuestForm ({userData, rent}) {
                 })
             })
             const register = await response.json()
-            const url = await register.stripe_session.url
             if(response.status === 200)  { 
+                const url = await register.stripe_session.url
                 location.assign(url)
+                setLoading(false)
+                return
             }
             setLoading(false)
+            setError(true)
         } catch (err) {
             setLoading(false)
+            setError(true)
             console.error('Request failed:' + err.message)
         }
     }
@@ -94,12 +130,27 @@ export function RentGuestForm ({userData, rent}) {
             ? <Loading />
             : 
             <form onSubmit={handleSubmit(onSubmit)} id="guestForm" className='w-full grid grid-cols-2 gap-5 relative place-self-center'>
+                {error ? <div className='col-span-2 text-red-500 place-self-center'>{`Erreur, veuillez réessayer plus tard.`}</div>: ''}
                 <ThemeProvider theme={colorTheme}>
                     <Controller name="email" control={control} defaultValue=''
                                 render={({field}) => (
                                         <TextInput field={field} name='email' label='Email' placeholder="Entrez votre email" errors={errors?.email} style="col-span-2"/>
                                 )}
                     />
+                    <div style={userData ? {display:'none'} : {display:'block'}}>
+                    <Controller name="password" control={control} defaultValue=''
+                                render={({field}) => (
+                                        <PasswordInput field={field} name='password' secureTextEntry={true} label='Mot de passe' placeholder="Entrez votre mot de passe" errors={errors?.password}/>
+                                )}
+                    />
+                    </div>
+                    <div style={userData ? {display:'none'} : {display:'block'}}>
+                        <Controller name="confirmPassword" control={control} defaultValue=''
+                                    render={({field}) => (
+                                            <PasswordInput field={field} name='confirmPassword' secureTextEntry={true} label='Confirmation' placeholder="Confirmez votre mot de passe" errors={errors?.confirmPassword}/>
+                                    )}
+                        />
+                    </div>
                     <h1 className="col-span-2 -mb-2 mt-10 font-bold text-[13px] text-gray-600 md:mt-4">Informations professionnelle</h1>
                     <Controller name="firstname" control={control} defaultValue=""
                                 render={({field}) => (

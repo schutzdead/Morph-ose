@@ -1,9 +1,5 @@
 import { CheckoutSignIn } from "@/components/checkout/checkoutSignIn";
-import { GuestForm } from "@/components/checkout/guestForm";
 import Layout from "@/components/layout/layout";
-import Image from "next/image";
-
-import RightArrow from '../../public/assets/articles/rightSide.svg'
 
 import { useEffect, useState } from "react";
 import { ServiceCart } from "@/components/checkout/serviceCart";
@@ -66,7 +62,7 @@ export default function ServicesCheckout ({data,workshop}) {
                             <CheckoutSignIn setUserData={setUserData} />
                         </div>}
                         <div className="max-w-[500px] w-full py-14 mx-10 px-10 box-content border border-secondary rounded-xl xl:max-w-[400px] md:pt-6 md:pb-10 sm:max-w-[320px] sm:px-0 sm:mx-0 sm:border-none sm:py-5">
-                            <h2 className="font-bold text-[15px] mb-3">{userData ? '' : "Continuer en tant qu'invté"}</h2>
+                            <h2 className="font-bold text-[15px] mb-3">{userData ? '' : "S'inscrire et payer"}</h2>
                             <ServiceGuestForm userData={userData} workshop={workshop} />
                         </div>
                     </div>

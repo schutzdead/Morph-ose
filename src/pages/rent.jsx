@@ -46,10 +46,6 @@ export default function Rent() {
     const [loading, setLoading] = useState(false)
 
     const [rentId, setRentId] = useState(null)
-
-    const [logErr, setlogErr] = useState(false)
-
-
     return (
         <>
         <CustomHead pageName='Services' metaResume="Retrouvez l'ensemble de nos services"/>
@@ -81,11 +77,11 @@ export default function Rent() {
                         <p className="max-w-[1000px]">Venez proposer votre vos services ou réserver notre local pour proposer un atelier ! Apportez votre expertise.</p>
                     </div>
                     <div className="flex flex-col items-center mt-5 relative gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl sm:p-5 sm:gap-5">
-                        <button style={step === 1 ? {display:'none'} : {display:'flex'}} onClick={() => setStep(step === 1 ? step : step-1 )} className='pl-2 pr-4 bg-primary/80 hover:bg-primary absolute w-fit top-8 left-10 items-center transition-all duration-500 rounded-xl justify-center text-base text-white py-2'>
-                            <Image src={left_arrow} alt='left arrow icon' className="" priority />
+                        <button style={step === 1 ? {display:'none'} : {display:'flex'}} onClick={() => setStep(step === 1 ? step : step-1 )} className='pl-2 pr-4 bg-primary/80 hover:bg-primary absolute w-fit top-8 left-10 items-center transition-all duration-500 rounded-xl justify-center text-base text-white py-2 md:top-5 md:left-5 md:pl-0 md:pr-2 md:py-1 md:text-sm md:rounded-md md:bg-primary'>
+                            <Image src={left_arrow} alt='left arrow icon' className="md:w-4 h-auto" priority />
                             <p className='font-medium text-center mb-[2px]'>Retour</p>
                         </button>
-                        <h2 className="font-Quesha text-8xl lg:text-7xl md:text-6xl sm:text-5xl text-[#E25E3EB8]">Etape {step}</h2>
+                        <h2 className="font-Quesha text-8xl lg:text-7xl md:text-6xl sm:text-5xl text-[#E25E3EB8] md:pt-10">Etape {step}</h2>
                         {loading 
                             ? <CircularLoading />
                             : <>
@@ -238,59 +234,64 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
         }
     return(
         <div className="w-full flex flex-col gap-5" style={step === 3 ? {display:'flex'} : {display:'none'}}>
-            <div className="font-semibold text-2xl bg-[#ECA683] w-full flex items-center justify-center rounded-2xl py-5 sm:text-sm">
-                <h2 className="gradient-text2">SELECTIONNER UNE DATE</h2>
-            </div>
-            <div className='place-self-center mt-5 bg-white shadow-2xl text-secondary max-w-[600px] px-[30px] py-10 rounded-2xl shadow-dashboard sm:p-2 md:place-self-center sm:w-full sm:shadow-none'>
-                <div className='flex text-2xl font-bold mb-5 items-center justify-between sm:text-xl sm:mb-2'>
-                    <p>{calendar.months[currentMonth].month} {currentYear}</p>
-                    <div className='flex items-center gap-5'>
-                        {currentYear === new Date().getFullYear() && currentMonth === new Date().getMonth() 
-                            ?<Image src={gray_left_chevron} alt="Arrow icon" className='w-8 cursor-pointer'/>
-                            :<Image src={left_chevron} alt="Arrow icon" className='w-8 cursor-pointer' onClick={() => {changeMonth(-1)}}/>
-                        }
-                        <Image src={right_chevron} alt="Arrow icon" className='w-8 cursor-pointer' onClick={() => {changeMonth(1)}} />
+            {dispo?.length === 0 || !dispo
+                ? <p className='font-medium place-self-center text-secondary text-center sm:text-sm'>Aucune disponibilité pour cette période, revenez plus tard ou changer de période.</p>
+                : <>
+                    <div className="font-semibold text-2xl bg-[#ECA683] w-full flex items-center justify-center rounded-2xl py-5 sm:text-sm">
+                        <h2 className="gradient-text2">SELECTIONNER UNE DATE</h2>
                     </div>
-                </div>
-                <div className='grid grid-cols-7 place-items-center mx-5 sm:mx-0'>
-                    {calendar.days.map(day => <h3 key={day.id} className='p-5 text-sm font-bold'><p className='w-6 h-6 flex items-center justify-center'>{day.day.slice(0,3).toLowerCase()}</p></h3>)}
-                </div>
-                <div className='grid grid-cols-7 place-items-center gap-x-[9px] gap-y-5'>
-                    {lag === 0 
-                        ? ''
-                        : lag?.map(n => <h3 key={n} className='p-5 text-sm font-bold md:p-0 md:min-w-[40px] md:min-h-[40px] md:w-full md:h-full'><p className='w-6 h-6 flex items-center justify-center'></p></h3>)
-                    }
-                    {numberOfDays.map(n => 
-                        <div key={uuidv4()} 
-                                onClick={() => {setDate(new Date(currentYear, currentMonth, n+1)); setDisponibility(disponibilities.filter(dispo => new Date(new Date(dispo.date).getFullYear(),new Date(dispo.date).getMonth(),new Date(dispo.date).getDate(),0,0,0,0).getTime() === new Date(currentYear,currentMonth,n+1,0,0,0,0).getTime()))}} 
-                                className='p-5 border rounded relative border-[#D5D4DF] text-sm flex items-center justify-center cursor-pointer hover:bg-primary/40 transition-all duration-300 md:p-0 md:min-w-[40px] md:min-h-[40px] md:w-full md:h-full 2sm:min-h-[35px] 2sm:min-w-[35px]' 
-                                style={(currentYear === new Date().getFullYear() && currentMonth === new Date().getMonth() && n+1<new Date().getDate())
-                                ? {backgroundColor:'rgb(243 244 246)', color:'rgb(156 163 175)', cursor:'default',  pointerEvents: "none"} 
-                                : {}}>
-                            <p className='z-10 w-6 h-6 flex items-center justify-center'>{n+1}</p>
-                            <div className='w-16 h-16 z-0 left-0 top-0 bg-primary/50 absolute md:p-0 md:min-w-[38px] md:min-h-[38px] md:w-full md:h-full 2sm:min-h-[32px] 2sm:min-w-[32px]' style={
-                                disponibilities?.map(d => d.date).findIndex(i => new Date(new Date(i).getFullYear(),new Date(i).getMonth(),new Date(i).getDate(),0,0,0,0).getTime() === new Date(currentYear,currentMonth,n+1,0,0,0,0).getTime()) === -1 || new Date().getTime() >= new Date(currentYear,currentMonth,n+2,0,0,0,0).getTime()
-                                ? {display:'none'} 
-                                : {display:'flex'}
-                            }></div>
-                        </div>)
-                    }
-                </div>
-                {date && disponibility?.length > 0 && disponibility ? 
-                    <div className="flex flex-col items-center mt-10 sm:mt-5">
-                        <h1 className='text-2xl font-semibold sm:text-center md:text-xl sm:text-lg mb-5'>{`Créneaux disponible du ${date.getDate()} ${calendar.months[date.getMonth()].month.toLowerCase()}`}</h1>
-                        <div className="flex flex-col gap-4 w-full">
-                            {disponibility?.map(dispo =>
-                                <div key={dispo.id} onClick={() => {setRentId(dispo.id);setStep(4)}} className="flex flex-col w-full font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl text-center items-center hover:bg-primary cursor-pointer duration-500 transition-all">
-                                    <h3 className="text-lg sm:text-sm">{dispo.title}</h3>
-                                    <p className="text-xl font-bold lg:text-lg sm:text-base">{dispo.price}€</p>
-                                </div>
-                            )}
+                    <div className='place-self-center mt-5 bg-white shadow-2xl text-secondary max-w-[600px] px-[30px] py-10 rounded-2xl shadow-dashboard sm:p-2 md:place-self-center sm:w-full sm:shadow-none'>
+                        <div className='flex text-2xl font-bold mb-5 items-center justify-between sm:text-xl sm:mb-2'>
+                            <p>{calendar.months[currentMonth].month} {currentYear}</p>
+                            <div className='flex items-center gap-5'>
+                                {currentYear === new Date().getFullYear() && currentMonth === new Date().getMonth() 
+                                    ?<Image src={gray_left_chevron} alt="Arrow icon" className='w-8 cursor-pointer'/>
+                                    :<Image src={left_chevron} alt="Arrow icon" className='w-8 cursor-pointer' onClick={() => {changeMonth(-1)}}/>
+                                }
+                                <Image src={right_chevron} alt="Arrow icon" className='w-8 cursor-pointer' onClick={() => {changeMonth(1)}} />
+                            </div>
                         </div>
-                    </div>
-                    :""
-                }
-            </div>       
+                        <div className='grid grid-cols-7 place-items-center mx-5 sm:mx-0'>
+                            {calendar.days.map(day => <h3 key={day.id} className='p-5 text-sm font-bold'><p className='w-6 h-6 flex items-center justify-center'>{day.day.slice(0,3).toLowerCase()}</p></h3>)}
+                        </div>
+                        <div className='grid grid-cols-7 place-items-center gap-x-[9px] gap-y-5'>
+                            {lag === 0 
+                                ? ''
+                                : lag?.map(n => <h3 key={n} className='p-5 text-sm font-bold md:p-0 md:min-w-[40px] md:min-h-[40px] md:w-full md:h-full'><p className='w-6 h-6 flex items-center justify-center'></p></h3>)
+                            }
+                            {numberOfDays.map(n => 
+                                <div key={uuidv4()} 
+                                        onClick={() => {setDate(new Date(currentYear, currentMonth, n+1)); setDisponibility(disponibilities.filter(dispo => new Date(new Date(dispo.date).getFullYear(),new Date(dispo.date).getMonth(),new Date(dispo.date).getDate(),0,0,0,0).getTime() === new Date(currentYear,currentMonth,n+1,0,0,0,0).getTime()))}} 
+                                        className='p-5 border rounded relative border-[#D5D4DF] text-sm flex items-center justify-center cursor-pointer hover:bg-primary/40 transition-all duration-300 md:p-0 md:min-w-[40px] md:min-h-[40px] md:w-full md:h-full 2sm:min-h-[35px] 2sm:min-w-[35px]' 
+                                        style={(currentYear === new Date().getFullYear() && currentMonth === new Date().getMonth() && n+1<new Date().getDate())
+                                        ? {backgroundColor:'rgb(243 244 246)', color:'rgb(156 163 175)', cursor:'default',  pointerEvents: "none"} 
+                                        : {}}>
+                                    <p className='z-10 w-6 h-6 flex items-center justify-center'>{n+1}</p>
+                                    <div className='w-16 h-16 z-0 left-0 top-0 bg-primary/50 absolute md:p-0 md:min-w-[38px] md:min-h-[38px] md:w-full md:h-full 2sm:min-h-[32px] 2sm:min-w-[32px]' style={
+                                        disponibilities?.map(d => d.date).findIndex(i => new Date(new Date(i).getFullYear(),new Date(i).getMonth(),new Date(i).getDate(),0,0,0,0).getTime() === new Date(currentYear,currentMonth,n+1,0,0,0,0).getTime()) === -1 || new Date().getTime() >= new Date(currentYear,currentMonth,n+2,0,0,0,0).getTime()
+                                        ? {display:'none'} 
+                                        : {display:'flex'}
+                                    }></div>
+                                </div>)
+                            }
+                        </div>
+                        {date && disponibility?.length > 0 && disponibility ? 
+                            <div className="flex flex-col items-center mt-10 sm:mt-5">
+                                <h1 className='text-2xl font-semibold sm:text-center md:text-xl sm:text-lg mb-5'>{`Créneaux disponible du ${date.getDate()} ${calendar.months[date.getMonth()].month.toLowerCase()}`}</h1>
+                                <div className="flex flex-col gap-4 w-full">
+                                    {disponibility?.map(dispo =>
+                                        <div key={dispo.id} onClick={() => {setRentId(dispo.id);setStep(4)}} className="flex flex-col w-full font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl text-center items-center hover:bg-primary cursor-pointer duration-500 transition-all">
+                                            <h3 className="text-lg sm:text-sm">{dispo.title}</h3>
+                                            <p className="text-xl font-bold lg:text-lg sm:text-base">{dispo.price}€</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            :""
+                        }
+                    </div>   
+                </>
+            }    
         </div>
     )
   }

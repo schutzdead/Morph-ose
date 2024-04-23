@@ -39,7 +39,6 @@ export async function getServerSideProps({req, res}) {
   }}
 
   const result = await fetch(`${API_URL}/auth/orders`, GETTokenRequest(authToken)).then(r => r.json())
-  console.log(result);
   return {
       props: {
           all_orders:result?.filter(r => r.workshops?.length === 0).filter(r => !r.room_rental_reservation)
@@ -65,34 +64,36 @@ export default function Orders({all_orders}) {
               <BlackHamburger hamburger={hamburger} setHamburger={setHamburger}/>
           </div>
           <div className='flex flex-col bg-white shadow-dashboard w-full rounded-xl py-10 px-5 xl:py-5 lg:px-2 lg:py-2 sm:shadow-none'>
-            {loading ? <Loading />
+            {orders?.length === 0 || !orders 
+            ? <p className='font-medium place-self-center text-secondary text-center sm:text-sm'>Aucune commande</p>
             : <>
-                <div className='grid text-secondary py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden grid-cols-[repeat(4,2fr)_1fr] xl:text-sm sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-xs'>
-                    <p>Numéro</p>
-                    <p>{`Nb. d'articles`}</p>
-                    <p className='sm:hidden'>Paiement</p>
-                    <p>Création</p>
-                </div>
-                {
-                  orders?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((order) =>
-                    <div key={order.id} className='grid grid-cols-[repeat(4,2fr)_1fr] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-sm' style={orders?.indexOf(order)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
-                      <p className='px-4 text-center'>{order.tracking_number}</p>
-                      <p className='font-semibold'>{`${order?.items?.length}`}</p>
-                      <p className='px-4 text-center sm:hidden'>{order.status}</p>
-                      <div className='flex flex-col items-center font-bold sm:text-xs'>
-                        <p>{new Date(order.created_at).toLocaleDateString('fr')}</p>
+              {loading ? <Loading />
+              : <>
+                  <div className='grid text-secondary py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden grid-cols-[repeat(4,2fr)_1fr] xl:text-sm sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-xs'>
+                      <p>Numéro</p>
+                      <p>{`Nb. d'articles`}</p>
+                      <p className='sm:hidden'>Paiement</p>
+                      <p>Création</p>
+                  </div>
+                  {
+                    orders?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((order) =>
+                      <div key={order.id} className='grid grid-cols-[repeat(4,2fr)_1fr] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-sm' style={orders?.indexOf(order)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
+                        <p className='px-4 text-center'>{order.tracking_number}</p>
+                        <p className='font-semibold'>{`${order?.items?.length}`}</p>
+                        <p className='px-4 text-center sm:hidden'>{order.status}</p>
+                        <div className='flex flex-col items-center font-bold sm:text-xs'>
+                          <p>{new Date(order.created_at).toLocaleDateString('fr')}</p>
+                        </div>
+                        <Link href={`/client/orders/${order.tracking_number}`}>
+                          <button className='group flex gap-1 w-[40px] items-center text-white py-1 justify-center'>
+                            <Image src={edit2} alt="details icon" className="group-hover:scale-[1.18] transition-all duration-300 w-6 h-auto mb-[1px]" priority />
+                          </button>
+                        </Link>
                       </div>
-                      <Link href={`/client/orders/${order.tracking_number}`}>
-                        <button className='group flex gap-1 w-[40px] items-center text-white py-1 justify-center'>
-                          <Image src={edit2} alt="details icon" className="group-hover:scale-[1.18] transition-all duration-300 w-6 h-auto mb-[1px]" priority />
-                        </button>
-                      </Link>
-                    </div>
-                  )
-                }
-                {/* <div className='mt-14 mb-4 w-full flex gap-3 justify-center'>
-                  <Pagination count={pagination.length} page={currentPage} onChange={(event, value) => {updatePagination(value);setCurrentPage(value)}} />
-                </div> */}
+                    )
+                  }
+                </>
+              }
               </>
             }
           </div>
