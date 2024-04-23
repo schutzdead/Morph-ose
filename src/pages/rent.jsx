@@ -16,9 +16,9 @@ import gray_left_chevron from '../../public/assets/rent/gray_left_chevron.svg'
 import right_chevron from '../../public/assets/rent/right_chevron.svg'
 import left_arrow from '../../public/assets/dashboard/left_arrow.svg'
 import calendar from '../../public/assets/calendar.json'
-import { InterfaceTextInput } from "@/components/forms/interface_input";
+import { InterfaceTextArea, InterfaceTextInput } from "@/components/forms/interface_input";
 
-import { object, number } from "yup";
+import { object, number,string } from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 const schema = object({
     persons:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Min. 1 personne.'),
     price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Min. 1 euro.'),
+    comment:string().required("Requis.")
 }).required();
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
@@ -305,7 +306,7 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
     async function onSubmit(data) {
         setLoading(true)
         // setlogErr(false)
-        const { price, persons } = data
+        const { price, persons, comment } = data
 		try {
             const response = await fetch(`${API_URL}/room-rentals/reservations`, {
                 method: "POST",    
@@ -314,7 +315,7 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                     "Accept": "application/json",
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ room_rental_id:rentId, number_of_person:persons, price_per_person:price })
+                body: JSON.stringify({ room_rental_id:rentId, number_of_person:persons, price_per_person:price, description:comment })
             })
             const newRent = await response.json()
             if(response.status === 200){
@@ -345,6 +346,7 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-5 text-white gap-5 max-w-[500px] place-self-center w-[90%] relative justify-center">
                 <InterfaceTextInput label='Nombre de personne *' placeholder='Nombre maximum de participants' name="persons" options={{...register("persons")}} commonError={errors.persons} commonErrorMessage={errors.persons?.message} labelStyle="text-secondary"/>
                 <InterfaceTextInput label='Prix par personne (euros) *' placeholder='Coût individuel par participant' name="price" options={{...register("price")}} commonError={errors.price} commonErrorMessage={errors.price?.message} labelStyle="text-secondary"/>
+                <InterfaceTextArea label='Description *' placeholder="Décrivez vous rapidement et dites nous ce que vous souhaitez proposer comme activité..." name="comment" height={3}  options={{...register("comment")}} commonError={errors.comment} commonErrorMessage={errors.comment?.message} labelStyle="text-secondary"/>
                 <button type='submit' className='px-[45px] my-4 flex gap-3 rounded-xl py-3 bg-secondary/80 hover:bg-secondary transition-all duration-500 place-self-center'>
                     <p className='font-bold'>Valider</p>
                 </button>

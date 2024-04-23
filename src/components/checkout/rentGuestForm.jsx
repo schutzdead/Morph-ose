@@ -58,6 +58,16 @@ export function RentGuestForm ({userData, rent}) {
         const { email, lastname, firstname, phone, password, company, siret, activity, bill_city, bill_country, bill_name, bill_post_code, bill_street } = data
         setLoading(true)
         setError(false)
+        console.log({ 
+            firstname:firstname, 
+            lastname:lastname, 
+            email:email, 
+            phone:phone, 
+            password:password,
+            company_name:company,
+            company_siret:siret,
+            company_type:activity,
+        });
         try {
             if(!userData || userData === undefined || userData === null) {
                 const signUp = await fetch(`api/proxy/guest/register`, {

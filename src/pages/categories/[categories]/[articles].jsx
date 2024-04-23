@@ -152,12 +152,18 @@ export default function Article({product}) {
                                 </div>
                             
                                 <div className="flex flex-col">
-                                    <div className="flex gap-5 items-center mt-8 sm:mt-0">
-                                        <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} />
-                                    </div>
-                                    <div className="py-5" onClick={() => {updateCart();setBag(true);lock()}}>
-                                        <CustomButton butterfly={true} text="Acheter" style={{width:"250px", height:'40px'}} />
-                                    </div>
+                                    {product?.stock === 0 ?
+                                    <p className="py-5 text-secondary font-semibold">{`Ce produit n'est plus en stock.`}</p>
+                                    :
+                                        <>
+                                        <div className="flex gap-5 items-center mt-8 sm:mt-0">
+                                            <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} />
+                                        </div>
+                                        <div className="py-5" onClick={() => {updateCart();setBag(true);lock()}}>
+                                            <CustomButton butterfly={true} text="Acheter" style={{width:"250px", height:'40px'}} />
+                                        </div>
+                                        </>
+                                    }
                                     <div className="flex text-sm text-secondary">
                                         <p className="">Référence : {product?.reference ? product?.reference : '0'}</p>
                                     </div>

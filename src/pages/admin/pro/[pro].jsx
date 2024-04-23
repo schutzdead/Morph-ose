@@ -74,7 +74,7 @@ export default function ProOrders({order}) {
                       <Informations title="Nombre de participants : " value={order.room_rental_reservation?.number_of_person} />
                       <Informations title="Prix par participant : " value={order.room_rental_reservation?.price_per_person} />
                       <Informations title="Date : " value={new Date(order.room_rental_reservation?.room_rental?.date).toLocaleDateString('fr')} />
-
+                      <Informations title="Commentaire : " value={order.room_rental_reservation?.description} />
                 </div>
               </div>
               <div className='flex flex-col gap-2 text-sm'>
