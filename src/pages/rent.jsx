@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Checkbox, ThemeProvider } from "@mui/material";
 import { colorTheme } from "@/components/styles/mui";
 import { CircularLoading } from "@/utils/loader";
+import { location_days } from "./admin/rent";
 
 import left_chevron from '../../public/assets/rent/left_chevron.svg'
 import gray_left_chevron from '../../public/assets/rent/gray_left_chevron.svg'
@@ -22,6 +23,10 @@ import { object, number,string } from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
+import fr from 'date-fns/locale/fr';
+import parseISO from "date-fns/parseISO";
 
 const schema = object({
     persons:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Min. 1 personne.'),
@@ -138,9 +143,9 @@ export function Step2 ({step, setStep, option, setOption, setDispo, setLoading})
                 <h2 className="gradient-text2 text-center px-3">SELECTIONNER LA DUREE DE VOTRE RESERVATION DU LOCAL</h2>
             </div>
             <div className="grid grid-cols-4 w-full justify-items-center text-white gap-5 py-5 lg:max-w-[700px] place-self-center lg:grid-cols-2 sm:grid-cols-1 sm:max-w-[350px]">
-                <ModalStep2 title='Soirée' duration="19h - 23h" price={55} setOption={setOption} option={option} value={'evening'} />
-                <ModalStep2 title='1/2 journée' duration="14h - 19h" price="Semaine : 50" price2="Week-end : 60"  setOption={setOption} option={option} value={'half_day'} />
-                <ModalStep2 title='Journée' duration="9h - 19h" price="Semaine : 80" price2="Week-end : 100" setOption={setOption} option={option} value={'full_day'} />
+                <ModalStep2 title='Soirée' duration="19h-23h" price={55} setOption={setOption} option={option} value={'evening'} />
+                <ModalStep2 title='1/2 journée' duration="9h-14h / 14h-19h" price="Semaine : 50" price2="Week-end : 60"  setOption={setOption} option={option} value={'half_day'} />
+                <ModalStep2 title='Journée' duration="9h-19h" price="Semaine : 80" price2="Week-end : 100" setOption={setOption} option={option} value={'full_day'} />
                 <ModalStep2 title='Week-end' duration="Samedi - Dimanche" price={180} setOption={setOption} option={option} value={'full_week_end'}/>
             </div>
             <button disabled={option === undefined} onClick={() => addDispo(option)} className="w-fit px-5 py-2 place-self-center transition-all duration-500   mt-4 rounded-[50px] text-white font-bold text-base" style={option !== undefined ? {backgroundColor:'rgba(222,91,48,0.8'} : {backgroundColor:'rgb(156,163,175)'}}>CONTINUER</button>
@@ -252,8 +257,8 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                                 <Image src={right_chevron} alt="Arrow icon" className='w-8 cursor-pointer' onClick={() => {changeMonth(1)}} />
                             </div>
                         </div>
-                        <div className='grid grid-cols-7 place-items-center mx-5 sm:mx-0'>
-                            {calendar.days.map(day => <h3 key={day.id} className='p-5 text-sm font-bold'><p className='w-6 h-6 flex items-center justify-center'>{day.day.slice(0,3).toLowerCase()}</p></h3>)}
+                        <div className='grid grid-cols-7 place-items-center'>
+                            {location_days.map(day => <h3 key={day.id} className='p-5 text-sm font-bold'><p className='w-6 h-6 flex items-center justify-center'>{day.day.toLowerCase()}</p></h3>)}
                         </div>
                         <div className='grid grid-cols-7 place-items-center gap-x-[9px] gap-y-5'>
                             {lag === 0 
@@ -262,9 +267,13 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                             }
                             {numberOfDays.map(n => 
                                 <div key={uuidv4()} 
-                                        onClick={() => {setDate(new Date(currentYear, currentMonth, n+1)); setDisponibility(disponibilities.filter(dispo => new Date(new Date(dispo.date).getFullYear(),new Date(dispo.date).getMonth(),new Date(dispo.date).getDate(),0,0,0,0).getTime() === new Date(currentYear,currentMonth,n+1,0,0,0,0).getTime()))}} 
+                                        onClick={() => {
+                                            setDate(new Date(currentYear, currentMonth, n+1)); 
+                                            setDisponibility(disponibilities.filter(dispo => new Date(new Date(dispo.date).getFullYear(),new Date(dispo.date).getMonth(),new Date(dispo.date).getDate(),0,0,0,0).getTime() === new Date(currentYear,currentMonth,n+1,0,0,0,0).getTime()))}
+                                        } 
                                         className='p-5 border rounded relative border-[#D5D4DF] text-sm flex items-center justify-center cursor-pointer hover:bg-primary/40 transition-all duration-300 md:p-0 md:min-w-[40px] md:min-h-[40px] md:w-full md:h-full 2sm:min-h-[35px] 2sm:min-w-[35px]' 
                                         style={(currentYear === new Date().getFullYear() && currentMonth === new Date().getMonth() && n+1<new Date().getDate())
+                                            || new Date(currentYear,currentMonth,n,0,0,0,0).getDay() === 6
                                         ? {backgroundColor:'rgb(243 244 246)', color:'rgb(156 163 175)', cursor:'default',  pointerEvents: "none"} 
                                         : {}}>
                                     <p className='z-10 w-6 h-6 flex items-center justify-center'>{n+1}</p>
@@ -302,11 +311,14 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
 
     const  {reset, handleSubmit, register, formState: {errors}} = useForm ({ resolver:  yupResolver(schema)})
     const router = useRouter()
+    const [begin, setBegin] = useState(parseISO("0"));
 
     async function onSubmit(data) {
         setLoading(true)
         // setlogErr(false)
-        const { price, persons, comment } = data
+        const { price, persons, comment, title, duration } = data
+        var tzoffset = (new Date(begin)).getTimezoneOffset() * 60000; //offset in milliseconds
+        var localISOTime = (new Date(begin - tzoffset)).toISOString().slice(0, -1);
 		try {
             const response = await fetch(`${API_URL}/room-rentals/reservations`, {
                 method: "POST",    
@@ -315,7 +327,15 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                     "Accept": "application/json",
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ room_rental_id:rentId, number_of_person:persons, price_per_person:price, description:comment })
+                body: JSON.stringify({ 
+                    room_rental_id:rentId, 
+                    number_of_person:persons, 
+                    price_per_person:price, 
+                    description:comment,
+                    title_workshop:title,
+                    duration:duration,
+                    start_time:localISOTime
+                 })
             })
             const newRent = await response.json()
             if(response.status === 200){
@@ -344,9 +364,18 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                 <h2 className="gradient-text2">INFORMATIONS COMPLEMENTAIRES</h2>
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-5 text-white gap-5 max-w-[500px] place-self-center w-[90%] relative justify-center">
+                <InterfaceTextInput label='Titre de votre évènement *' placeholder='Atelier création' name="title" options={{...register("title")}} commonError={errors.title} commonErrorMessage={errors.title?.message} labelStyle="text-secondary"/>
                 <InterfaceTextInput label='Nombre de personne *' placeholder='Nombre maximum de participants' name="persons" options={{...register("persons")}} commonError={errors.persons} commonErrorMessage={errors.persons?.message} labelStyle="text-secondary"/>
                 <InterfaceTextInput label='Prix par personne (euros) *' placeholder='Coût individuel par participant' name="price" options={{...register("price")}} commonError={errors.price} commonErrorMessage={errors.price?.message} labelStyle="text-secondary"/>
-                <InterfaceTextArea label='Description *' placeholder="Décrivez vous rapidement et dites nous ce que vous souhaitez proposer comme activité..." name="comment" height={3}  options={{...register("comment")}} commonError={errors.comment} commonErrorMessage={errors.comment?.message} labelStyle="text-secondary"/>
+                <InterfaceTextInput label='Durée *' placeholder={`Durée de l'évènement`} name="duration" options={{...register("duration")}} commonError={errors.duration} commonErrorMessage={errors.duration?.message} labelStyle="text-secondary"/>
+                <div className="pt-5 pb-3">
+                    <ThemeProvider theme={colorTheme}>
+                        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}>
+                            <DateTimePicker disablePast label="Date de la séance" value={begin} onChange={(newValue) => setBegin(newValue)} slotProps={{ textField: { required: true } }} minutesStep={15} />
+                        </LocalizationProvider>
+                    </ThemeProvider> 
+                </div>
+                <InterfaceTextArea label='Description de l’évènement *' placeholder="Décrivez ce que vous proposerez à vos participants" name="comment" height={3}  options={{...register("comment")}} commonError={errors.comment} commonErrorMessage={errors.comment?.message} labelStyle="text-secondary"/>
                 <button type='submit' className='px-[45px] my-4 flex gap-3 rounded-xl py-3 bg-secondary/80 hover:bg-secondary transition-all duration-500 place-self-center'>
                     <p className='font-bold'>Valider</p>
                 </button>

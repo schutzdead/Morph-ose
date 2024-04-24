@@ -6,6 +6,7 @@ import Product from '../../../public/assets/dashboard/product.svg'
 import Orders from '../../../public/assets/dashboard/orders.svg'
 import Category from '../../../public/assets/dashboard/categories.svg'
 import Workshop from '../../../public/assets/dashboard/workshop.svg'
+import Shipping from '../../../public/assets/dashboard/shipping.svg'
 import First from '../../../public/assets/dashboard/first.svg'
 import Rent from '../../../public/assets/dashboard/rent.svg'
 import Pro from '../../../public/assets/dashboard/pro.svg'
@@ -27,14 +28,16 @@ export function Menu () {
                 </Link>
                 <h2 className='text-xl text-white font-light'>{`Morph'ose`}</h2>
             </div>
-            <div className='flex flex-col gap-2 max-h-[540px] overflow-y-auto'>
+            <div className='flex flex-col gap-2 max-h-[70vh] overflow-y-auto'>
                 <MenuButton setActive={setActive} active={active} slug='products' text="Produits" image={Product} link='/admin/products'/>
                 <MenuButton setActive={setActive} active={active} slug='first' text="Produits phares" image={First} link='/admin/first'/>
                 <MenuButton setActive={setActive} active={active} slug='categories' text="Catégories" image={Category} link='/admin/categories'/>
                 <MenuButton setActive={setActive} active={active} slug='orders' text="Commandes" image={Orders} link='/admin/orders'/>
+                <MenuButton setActive={setActive} active={active} slug='orders_event' text="Commandes Event" image={Orders} link='/admin/orders_event'/>
                 <MenuButton setActive={setActive} active={active} slug='pro' text="Commandes Pro" image={Pro} link='/admin/pro'/>
                 <MenuButton setActive={setActive} active={active} slug='workshops' text="Evènements" image={Workshop} link='/admin/workshops'/>
                 <MenuButton setActive={setActive} active={active} slug='rent' text="Location" image={Rent} link='/admin/rent'/>
+                <MenuButton setActive={setActive} active={active} slug='shipping' text="Livraison" image={Shipping} link='/admin/shipping'/>
                 <Link href='/logout' className="rounded-lg py-3 cursor-pointer text-white flex items-center px-4 gap-7 transition-[backgroundColor] duration-300 hover:bg-secondary">
                       <div className='p-2 bg-white rounded-lg'>
                           <Image src={logout} alt='Log out pictogram' className="w-5 h-auto" priority/>

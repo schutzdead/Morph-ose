@@ -42,7 +42,7 @@ export function OpenDay ({day, setSlot, slot, disponibility, setDisponibilities}
                 const result = await fetch(`${API_URL}/room-rentals`, GETRequest).then(r => r.json())
                 const rent = await newRent.json()
                 setDisponibilities(result)
-                setServices(rent.map(dispo => dispo.service))
+                setServices(rent?.map(dispo => dispo.service))
                 setLoading(false)
             }
             setLoading(false)

@@ -54,7 +54,7 @@ export default function ServicesCheckout ({data,workshop}) {
                 <FakeBreadCrumb />
                 <div className="w-full flex justify-evenly text-secondary mb-10 lg:flex-col">
                     <div className="flex flex-col items-center">
-                        <h1 className="text-6xl xl:text-5xl lg:text-4xl md:text-3xl text-center pb-10 font-Quesha gradient-text sm:py-5">Information de livraison</h1>
+                        <h1 className="text-6xl xl:text-5xl lg:text-4xl md:text-3xl text-center pb-10 font-Quesha gradient-text sm:py-5">Informations personnelles</h1>
                         {userData ? ''
                         :
                         <div className="max-w-[450px] w-full mb-20 xl:max-w-[400px] md:mb-14 sm:w-[320px]">
@@ -66,7 +66,7 @@ export default function ServicesCheckout ({data,workshop}) {
                             <ServiceGuestForm userData={userData} workshop={workshop} />
                         </div>
                     </div>
-                    <div className="flex flex-col items-center h-fullwithHeaderCheckout sticky top-[220px] px-12 2xl:px-6 lg:mt-10 lg:relative lg:top-0 lg:flex-col-reverse lg:h-auto md:mt-5 sm:px-0">
+                    <div className="flex flex-col items-center sticky top-[220px] px-12 2xl:px-6 lg:mt-10 lg:relative lg:top-0 lg:flex-col-reverse lg:h-auto md:mt-5 sm:px-0">
                         <ServiceCart workshop={workshop} />
                     </div>
                     <button type='submit' form="guestForm" className='w-fit col-span-1 place-self-center px-10 hidden lg:flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 mt-10'>

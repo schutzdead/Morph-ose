@@ -4,6 +4,8 @@ import deleteDoc from '../../../public/assets/dashboard/delete.svg';
 import { CircularLoading } from "@/utils/loader";
 import { useState } from "react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+
 export function AddFiles ({docId, fileType, setDocId}) {
     const [submitLoading, setSubmitLoading] = useState(false)
     
@@ -123,6 +125,49 @@ export function AddFile ({docId, fileType, setDocId}) {
                 </div>
             </>
             }
+        </div>
+    )
+}
+
+export function AddPDF ({docId, fileType, setDocId}) {
+    const [submitLoading, setSubmitLoading] = useState(false)
+    async function uploadFile(e){
+        const formData = new FormData();
+        if(e?.target?.files?.length > 0) {
+            formData.append("file", e?.target?.files[0]);
+        } else {    
+            return
+        }
+        setSubmitLoading(true)
+        
+        try {
+            const form = await fetch(`${API_URL}/files/upload`, {method: "POST", mode: "cors", body: formData})
+            const register = await form.json()
+            setDocId(register.map(files => ({id:files.id, url:files.download_url})))
+            setSubmitLoading(false)
+        } catch (err) {
+            setSubmitLoading(false)
+            console.error('Request failed:' + err.message)
+        }
+    }
+
+    return(
+        <div className='w-full flex flex-col items-center gap-3 my-4'>
+            {submitLoading 
+                ? <CircularLoading />
+                : 
+                <>
+                <input type="file" id={fileType} hidden onChange={(e) => {uploadFile(e)}}/>
+                <label htmlFor={fileType} className='bg-secondary/70 hover:bg-secondary transition-all place-self-start duration-300 flex items-center text-white py-1.5 pl-2 pr-4 rounded cursor-pointer text-sm w-fit'>
+                <Image src={add} alt="add new document" className="w-7 h-auto" priority />
+                        <p className="font-semibold text-white text-base mb-[2px] sm:text-sm">Ajouter votre RIB</p>
+                </label>
+                {docId.length > 0
+                        ? docId.map(precious => <a key={precious.id} href={precious.url} download className='cursor-pointer py-1.5 place-self-start px-3 bg-secondary/10 rounded-lg w-fit overflow-hidden text-ellipsis whitespace-nowrap hover:bg-secondary/20 transition-all duration-300  hover:max-w-none'>RIB importé</a>
+                    )
+                    : ''
+                }
+            </>}
         </div>
     )
 }

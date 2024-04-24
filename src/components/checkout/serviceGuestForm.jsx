@@ -8,6 +8,7 @@ import { PasswordInput, TextInput } from "../forms/textInput";
 
 import { Loading } from "@/utils/loader";
 import { colorTheme } from "../styles/mui";
+import { useRouter } from "next/router";
 
 const schema = object({
     email:string().required("Requis.").email("Email invalide.").trim().lowercase(),
@@ -45,6 +46,7 @@ export function ServiceGuestForm ({userData, workshop}) {
     const [loading, setLoading] = useState(false)
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState(false)
+    const router = useRouter()
 
     const handleChange = (event) => {
       setChecked(event.target.checked);
@@ -96,6 +98,7 @@ export function ServiceGuestForm ({userData, workshop}) {
                         city: bill_city || "",
                         country: bill_country || ""
                     },
+                    cancel_url:`${process.env.NEXT_PUBLIC_API_URL}/${router.asPath}`
                 })
             })
             const register = await response.json()

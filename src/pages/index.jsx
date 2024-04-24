@@ -6,9 +6,10 @@ import Link from 'next/link'
 import Fullscreen from '../../public/assets/main/fullscreen1.webp'
 import Fullscreen2 from '../../public/assets/main/fullscreen2.webp'
 import Pro from '../../public/assets/main/pro.webp'
-import Women from '../../public/assets/main/women.svg'
 import Logo from '../../public/assets/header/logo1.svg'
-import PictoTest from '../../public/assets/main/picto.svg'
+import Picto1 from '../../public/assets/main/picto.svg'
+import Picto2 from '../../public/assets/main/picto2.svg'
+import Picto3 from '../../public/assets/main/picto3.svg'
 import transi from '../../public/assets/main/trans1.svg'
 import { unlock } from "@/utils/lockScreen";
 
@@ -63,12 +64,12 @@ export default function Home({workshops, first_products}) {
       {
       landing 
         ? 
-        <main className="h-[100vh] w-[100vw] flex items-center justify-center">
-          <div className="h-[97%] w-[98%] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center text-center flex flex-col rounded-3xl items-center justify-center text-white relative lg:gap-10 sm:gap-6 sm:py-0" style={{backgroundImage:`url(${Fullscreen.src})`}}>
+        <main className="h-[100vh] w-[100vw] flex items-center justify-center hsm:h-auto hsm:my-10">
+          <div className="h-[97%] w-[98%] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center text-center flex flex-col rounded-3xl items-center justify-center text-white relative lg:gap-10 sm:gap-6 sm:py-0 hsm:py-10" style={{backgroundImage:`url(${Fullscreen.src})`}}>
             <button className="text-sm font-black hidden bg-background text-primary place-self-center mb-5 rounded-2xl py-5 px-10 sm:px-5 sm:py-3 sm:text-xs sm:font-extrabold sm:block sm:mb-0" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
               VISITER LE SITE
             </button>
-            <h2 className="text-xl px-3">La société Morph’ose Evolution vous propose de découvrir</h2>
+            <h2 className="text-2xl font-bold px-3 md:text-xl">La société Morph’ose Evolution vous propose de découvrir</h2>
             <Image src={Logo} className='h-[50%] w-auto lg:max-h-[250px] sm:h-auto sm:w-[80%]' alt='Logo' priority />
             <div className="flex items-center gap-10 font-Quesha text-8xl xl:text-6xl lg:gap-5 lg:text-5xl sm:text-3xl sm:flex-col sm:gap-0">
               <h1>Bien-être</h1>
@@ -87,12 +88,13 @@ export default function Home({workshops, first_products}) {
           <main className="pt-[1.5vh]">
             <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Fullscreen2.src})`}}>
               <div className="gap-10 flex flex-col px-20 w-full text-center items-center md:gap-5 md:ml-0 lg:px-10 sm:px-5">
-                <div className="flex gap-10 font-Quesha text-7xl whitespace-nowrap gradient-text xl:text-6xl lg:gap-5 lg:text-5xl md:text-4xl sm:text-[26px]">
+                <div className="flex gap-10 font-Quesha text-7xl whitespace-nowrap xl:text-6xl lg:gap-5 lg:text-5xl md:text-4xl sm:text-[26px]">
                   <h1>Bien-être</h1>
                   <h1>Spiritualité</h1>
                   <h1>Esotérisme</h1>
                 </div>
-                <p className="gradient-text2 text-3xl font-bold lg:text-2xl sm:text-lg">Découvrez notre boutique ésotérique : Minéraux, Encens spirituel, Bougies, Librairie...</p>
+                <p className="text-3xl font-semibold lg:text-2xl sm:text-lg max-w-[1000px]">Bienvenue dans un univers où votre bien-être est notre priorité !</p>
+                <p className="text-3xl font-semibold lg:text-2xl sm:text-lg max-w-[1000px]">Explorez notre boutique ésotérique et découvrez nos services conçus pour éclairer votre parcours personnel et spirituel.</p>
               </div>
               <div className="flex gap-3 absolute bottom-3 right-3">
                 <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
@@ -106,9 +108,9 @@ export default function Home({workshops, first_products}) {
 
             <section id="headlight" className="scroll-m-32 flex flex-col items-center gap-14 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
               <Title title='Nos collections phares !' />
-              <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-secondary">
-                <p className="font-medium">Une collection de produits ésotériques et de bien être variée qui vous aidera à vous métamorphoser.</p>
+              <div className="text-2xl flex flex-col gap-5 font-bold lg:text-xl sm:text-lg text-center text-primary">
                 <p>Osez découvrir de nouvelles facettes de votre personnalité.</p>
+                <p className="font-medium text-secondary">Que vous cherchiez des minéraux, des tarots divinatoires, des livres enrichissants ou encore découvrir l’univers Wicca, nos collections phares sont sélectionnées pour vous guider sur votre chemin de développement personnel et spirituel.</p>
               </div>
               <div className="grid grid-cols-3 w-full grid-rows-1 max-h-[700px] h-[55vh] min-h-[430px] gap-10 mt-5 lg:grid-cols-2 sm:grid-cols-1">
                 <div className="sm:hidden">
@@ -126,10 +128,10 @@ export default function Home({workshops, first_products}) {
 
             <section className="flex justify-evenly w-[95vw] mx-[2.5vw] relative sm:mx-5 py-20 sm:flex-col sm:items-center sm:py-10 sm:gap-10">
               <div className="absolute -z-10 bg-pictoGradient blur-[175px] h-[70%] top-[15%] w-full"></div>
-              <Picto image={PictoTest} text="Une livraison rapide grâce à des partenaires reconnus !" title="Livraison express" />
-              <Picto image={PictoTest} text="Une livraison rapide grâce à des partenaires reconnus !" title="Livraison express" />
+              <Picto image={Picto2} text="Un site sécurisé pour vous garantir un paiement sécurisé !" title="Paiement sécurisé !" />
+              <Picto image={Picto1} text="Une livraison rapide grâce à des partenaires reconnus !" title="Livraison express" />
               <div className="sm:hidden">
-                <Picto image={PictoTest} text="Une livraison rapide grâce à des partenaires reconnus !" title="Livraison express" />
+                <Picto image={Picto3} text="Certainement un produit, pour chacune de vos envies..." title="Produits divers !" />
               </div>
             </section>
 

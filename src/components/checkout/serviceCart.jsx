@@ -8,12 +8,16 @@ export function ServiceCart ({workshop}) {
         {!workshop
             ? <Loading />
             : 
-            <div className="flex flex-col gap-3 w-[95vw] max-w-[350px]">
+            <div className="flex flex-col gap-3 w-[95vw] max-w-[450px]">
                 <div className="flex flex-col w-full bg-secondary/70 py-5 px-5 rounded-xl items-center font-medium text-white mt-5 gap-1 text-xl lg:text-base sm:text-sm">
                     <h2 className="lg:text-5xl md:text-4xl lg:font-Quesha font-bold lg:font-medium">{workshop?.title}</h2>
-                    <p className="max-w-[400px] pb-5 text-center">{workshop?.description}</p>
+                    {workshop?.description 
+                        ? <p className="py-5 font-normal text-base">{workshop?.description}</p>
+                        : ''
+                    }
                     <p>{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
-                    <p>Date : {new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
+                    <p className="mt-2">2 rue du foirail - 63800 Cournon-d’Auvergne</p>
+                    <p>{new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
                     <p>Durée : {workshop?.duration} minutes</p>
                     <p className="text-2xl lg:text-lg sm:text-base mt-4 font-semibold">{workshop?.price}€</p>
                 </div>

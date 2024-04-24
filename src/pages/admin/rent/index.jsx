@@ -19,6 +19,15 @@ import { DashboardTitle } from '@/components/littleComponents'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
+export const location_days = [
+    {"id":0, "day":"Lun"},
+    {"id":1, "day":"Mar"},
+    {"id":2, "day":"Mer"},
+    {"id":3, "day":"Jeu"},
+    {"id":4, "day":"Ven"},
+    {"id":5, "day":"Sam Dim"},
+]
+
 export async function getServerSideProps ({req, res}) {
     const Cookies = require('cookies')
     const cookies = new Cookies(req, res)
@@ -130,8 +139,8 @@ export default function Disponibilities({available}) {
                            <Image src={right_chevron} alt="Arrow icon" className='w-8 cursor-pointer' onClick={() => {changeMonth(1)}} />
                         </div>
                     </div>
-                    <div className='grid grid-cols-7 place-items-center mx-5 sm:mx-0'>
-                        {calendar.days.map(day => <h3 key={day.id} className='p-5 text-sm font-bold'><p className='w-6 h-6 flex items-center justify-center'>{day.day.slice(0,3).toLowerCase()}</p></h3>)}
+                    <div className='grid grid-cols-7 place-items-center mx-0'>
+                        {location_days.map(day => <h3 key={day.id} className='p-5 text-sm font-bold'><p className='w-6 h-6 flex items-center justify-center'>{day.day.toLowerCase()}</p></h3>)}
                     </div>
                     <div className='grid grid-cols-7 place-items-center gap-x-[9px] gap-y-5'>
                         {lag === 0 
@@ -140,9 +149,14 @@ export default function Disponibilities({available}) {
                         }
                         {numberOfDays.map(n => 
                             <div key={uuidv4()} 
-                                 onClick={() => {setDate(new Date(currentYear, currentMonth, n+1)); setDisponibility(disponibilities.filter(dispo => new Date(new Date(dispo.date).getFullYear(),new Date(dispo.date).getMonth(),new Date(dispo.date).getDate(),0,0,0,0).getTime() === new Date(currentYear,currentMonth,n+1,0,0,0,0).getTime())); setSlot(true); lock()}} 
+                                 onClick={() => {
+                                    setDate(new Date(currentYear, currentMonth, n+1)); 
+                                    setDisponibility(disponibilities.filter(dispo => new Date(new Date(dispo.date).getFullYear(),new Date(dispo.date).getMonth(),new Date(dispo.date).getDate(),0,0,0,0).getTime() === new Date(currentYear,currentMonth,n+1,0,0,0,0).getTime())); 
+                                    setSlot(true); 
+                                    lock()}} 
                                  className='p-5 border rounded relative border-[#D5D4DF] text-sm flex items-center justify-center cursor-pointer hover:bg-primary/40 transition-all duration-300 md:p-0 md:min-w-[40px] md:min-h-[40px] md:w-full md:h-full 2sm:min-h-[35px] 2sm:min-w-[35px]' 
                                  style={(currentYear === new Date().getFullYear() && currentMonth === new Date().getMonth() && n+1<new Date().getDate())
+                                    || new Date(currentYear,currentMonth,n,0,0,0,0).getDay() === 6
                                   ? {backgroundColor:'rgb(243 244 246)', color:'rgb(156 163 175)', cursor:'default',  pointerEvents: "none"} 
                                   : {}}>
                                 <p className='z-10 w-6 h-6 flex items-center justify-center'>{n+1}</p>

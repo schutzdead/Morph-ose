@@ -9,15 +9,19 @@ import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { AddPDF } from "../forms/addFiles";
 
 const schema = object({
-    country:string().required("Required.").uppercase().min(3, "Invalid country").max(30, "Invalid Country"),
-    post_code:string().required("Required.").matches(/^[0-9]*/, 'Invalid ZIP code.'),
-    city:string().required("Required.").min(3, "Invalid city").uppercase(),
-    street:string().required("Required.").uppercase(),
-    lastname:string().required("Required.").min(3, "3 to 16 characters.").max(16, "3 to 16 characters").trim().uppercase(),
-    firstname:string().required("Required.").min(3, "3 to 16 characters.").max(16, "3 to 16 characters.").trim().uppercase(),
-    phone:string().required("Required.").matches(/^[0-9]*$/, 'Invalid phone number.'),
+    country:string().uppercase().nullable(true),
+    post_code:string().matches(/^[0-9]*/, 'Code postal invalide').nullable(true),
+    city:string().nullable(true),
+    street:string().uppercase().nullable(true),
+    lastname:string().required("Requis.").min(3, "3 à 16 caractères").max(16, "3 à 16 caractères").trim().uppercase(),
+    firstname:string().required("Requis.").min(3, "3 à 16 caractères").max(16, "3 à 16 caractères").trim().uppercase(),
+    phone:string().required("Requis.").matches(/^[0-9]*$/, 'Invalid phone number.'),
+    company_name:string(),
+    company_siret:string().matches(/^[0-9]*$/, 'Siret non valide.').max(14, 'Siret non valide.').min(14, 'Siret non valide.'),
+    company_type:string(),
 }).required();
 
 export default function PersonalForm ({userData}) {
@@ -30,15 +34,25 @@ export default function PersonalForm ({userData}) {
       }, [userData])
     })
 
+    const [docId, setDocId] = useState([])
     useEffect(() => {
         reset(userData)
+        setDocId([])
+        if(userData?.files[0]?.id) {
+            setDocId([{id:userData?.files[0]?.id, url:userData?.files[0]?.download_url}])
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userData])
 
+
     async function onSubmit(data) {
-      const { lastname, firstname, phone, country, post_code, city, street } = data
+      const { lastname, firstname, phone, country, post_code, city, street, company_type, company_siret, company_name } = data
       setLoading(true)
       setError(false)
+      let newObj = {}
+      for(let file of docId) {
+          newObj[file.id] = {title: 'RIB importé'}
+      }
       try {
         const response = await fetch('/api/proxy/auth/users/current', {
             method: "POST",    
@@ -52,11 +66,15 @@ export default function PersonalForm ({userData}) {
                 lastname:lastname,
                 phone:phone,
                 address:{
-                    street: street,
-                    post_code: post_code,
-                    city: city,
-                    country: country
+                    street: street || '',
+                    post_code: post_code || '',
+                    city: city || '',
+                    country: country || ''
                 },
+                company_name:company_name,
+                company_siret:company_siret,
+                company_type:company_type,
+                files:newObj,
             })
         })
         if(response.status !== 200){
@@ -79,7 +97,6 @@ export default function PersonalForm ({userData}) {
         console.error('Request failed:' + err.message)
       }
   }
-
     return(
       <>
         {loading 
@@ -124,7 +141,26 @@ export default function PersonalForm ({userData}) {
                                 render={({field}) => (
                                     <TextInput field={field} name='phone' label="Téléphone" placeholder="0123456789" errors={errors?.phone} style="col-span-2" /> 
                                 )}
-                    />                    
+                    />    
+                    <h1 className="font-semibold text-lg sm:text-base text-secondary mt-10 col-span-2">Informations professionnelles</h1>
+                    <Controller name="company_name" control={control} defaultValue=""
+                                render={({field}) => (
+                                    <TextInput field={field} name='company_name' label="Nom d'entreprise" placeholder="Entrez le nom de votre entreprise" errors={errors?.company_name} /> 
+                                )}
+                    />
+                    <Controller name="company_siret" control={control} defaultValue=""
+                                render={({field}) => (
+                                    <TextInput field={field} name='company_siret' label="SIRET" placeholder="Entrez votre numéro SIRET" errors={errors?.company_siret} /> 
+                                )}
+                    />
+                    <Controller name="company_type" control={control} defaultValue=""
+                                render={({field}) => (
+                                    <TextInput field={field} name='company_type' label="Type d'activité" placeholder="Entrez le type de votre activité" errors={errors?.company_type} /> 
+                                )}
+                    />        
+                    <div className="col-span-2">
+                        <AddPDF fileType='RIB' docId={docId} setDocId={setDocId} />  
+                    </div>    
                     <button type='submit' className='col-span-2 place-self-center w-full mt-5 flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-2 lg:hidden'>
                         <p className='font-medium text-center'>Enregistrer</p>
                     </button>

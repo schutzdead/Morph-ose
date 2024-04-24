@@ -20,9 +20,11 @@ export default function BurgerMenu ({menu, setMenu , setHamburger}) {
                             <Link href='/admin/first'>Produits phares</Link>
                             <Link href='/admin/categories'>Catégories</Link>
                             <Link href='/admin/orders'>Commandes</Link>
+                            <Link href='/admin/orders_event'>Commandes Event</Link>
                             <Link href='/admin/pro'>Commandes Pro</Link>
                             <Link href='/admin/workshops'>Evènements</Link>
                             <Link href='/admin/rent'>Location</Link>
+                            <Link href='/admin/shipping'>Livraison</Link>
                         </li>
                         <li onClick={closeBurger}>
                             <Link href='/logout' className="cursor-pointer relative overflow-hidden mt-1.5 group">

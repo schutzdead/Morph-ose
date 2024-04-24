@@ -48,7 +48,6 @@ export default function Orders({all_orders}) {
   const [loading, setLoading] = useState(false)
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
-
   return (
     <>
     <NoIndexHead />
@@ -66,6 +65,7 @@ export default function Orders({all_orders}) {
             : <>
             {loading ? <Loading />
             : <>
+                <p className="font-semibold place-self-center py-6 text-lg px-5 text-center text-secondary sm:text-base">{`Rappel : les évènements ont lieu au 2 rue du foirail - 63800 Cournon-d’Auvergne`}</p>
                 <div className='grid text-secondary py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden grid-cols-[repeat(4,1fr)] xl:text-sm sm:text-xs'>
                     <p>Titre</p>
                     <p>Durée</p>
@@ -82,6 +82,7 @@ export default function Orders({all_orders}) {
                         <p>{new Date(order.workshops[0]?.date).toLocaleDateString('fr')}</p>
                         <p>{new Date(order.workshops[0]?.date).toLocaleTimeString('fr')}</p>
                       </div>
+                      <p className='col-span-5 sm:col-span-4 px-5 mt-5 text-justify'>{order?.workshops[0]?.description}</p>
                     </div>
                   )
                 }

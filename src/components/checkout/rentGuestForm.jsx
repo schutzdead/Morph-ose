@@ -8,6 +8,8 @@ import { PasswordInput, TextInput } from "../forms/textInput";
 
 import { Loading } from "@/utils/loader";
 import { colorTheme } from "../styles/mui";
+import { AddPDF } from "../forms/addFiles";
+import { useRouter } from "next/router";
 
 const schema = object({
     email:string().required("Requis.").email("Email invalide.").trim().lowercase(),
@@ -15,9 +17,9 @@ const schema = object({
     firstname:string().required("Requis.").min(3, "3 à 16 caractères.").max(16, "3 à 16 caractères.").trim().uppercase(),
     phone:string().required("Requis.").matches(/^[0-9]*$/, 'Téléphone invalide.'),
 
-    company:string().required("Requis."),
-    siret:string().matches(/^[0-9]*$/, 'Siren non valide.').max(14, 'Siren non valide.').min(14, 'Siren non valide.'),
-    activity:string().required("Requis."),
+    company_name:string().required("Requis."),
+    company_siret:string().matches(/^[0-9]*$/, 'Siret non valide.').max(14, 'Siret non valide.').min(14, 'Siret non valide.'),
+    company_type:string().required("Requis."),
 
     bill_name:string().trim().uppercase(),
     bill_country:string().uppercase(),
@@ -40,34 +42,34 @@ export function RentGuestForm ({userData, rent}) {
           }, [userData])
     })
 
-    useEffect(() => {
-        userData ? setNewSchema(schema) : setNewSchema(schema.concat(schemaConnected))
-        reset(userData)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userData])
-
     const [loading, setLoading] = useState(false)
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState(false)
+    const [docId, setDocId] = useState([])
+    const router = useRouter()
+
+    useEffect(() => {
+        userData ? setNewSchema(schema) : setNewSchema(schema.concat(schemaConnected))
+        reset(userData)
+        setDocId([])
+        if(userData?.files[0]?.id) {
+            setDocId([{id:userData?.files[0]?.id, url:userData?.files[0]?.download_url}])
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userData])
 
     const handleChange = (event) => {
       setChecked(event.target.checked);
     };
 
     async function onSubmit(data) {
-        const { email, lastname, firstname, phone, password, company, siret, activity, bill_city, bill_country, bill_name, bill_post_code, bill_street } = data
+        const { email, lastname, firstname, phone, password, company_name, company_siret, company_type, bill_city, bill_country, bill_name, bill_post_code, bill_street } = data
         setLoading(true)
         setError(false)
-        console.log({ 
-            firstname:firstname, 
-            lastname:lastname, 
-            email:email, 
-            phone:phone, 
-            password:password,
-            company_name:company,
-            company_siret:siret,
-            company_type:activity,
-        });
+        let newObj = {}
+        for(let file of docId) {
+            newObj[file.id] = {title: 'RIB importé'}
+        }
         try {
             if(!userData || userData === undefined || userData === null) {
                 const signUp = await fetch(`api/proxy/guest/register`, {
@@ -83,9 +85,10 @@ export function RentGuestForm ({userData, rent}) {
                         email:email, 
                         phone:phone, 
                         password:password,
-                        company_name:company,
-                        company_siret:siret,
-                        company_type:activity,
+                        files:newObj,
+                        company_name:company_name,
+                        company_siret:company_siret,
+                        company_type:company_type,
                     })
                 })
                 if(signUp.status !== 200) {
@@ -106,16 +109,17 @@ export function RentGuestForm ({userData, rent}) {
                     lastname:lastname,
                     email:email,
                     phone:phone,
-                    company_name:company,
-                    company_siret:siret,
-                    company_type:activity,
+                    company_name:company_name,
+                    company_siret:company_siret,
+                    company_type:company_type,
                     billing_address:{
                         firstname: bill_name || '',
                         street: bill_street || '',
                         post_code: bill_post_code || '',
                         city: bill_city || '',
                         country: bill_country || ''
-                    }
+                    },
+                    cancel_url:`${process.env.NEXT_PUBLIC_API_URL}/${router.asPath}`
                 })
             })
             const register = await response.json()
@@ -178,21 +182,22 @@ export function RentGuestForm ({userData, rent}) {
                                 )}
                     />                 
                     <h1 className="col-span-2 -mb-2 mt-10 font-bold text-[13px] text-gray-600 md:mt-4">Informations professionnelle</h1>
-                    <Controller name="company" control={control} defaultValue=""
+                    <Controller name="company_name" control={control} defaultValue=""
                                 render={({field}) => (
-                                        <TextInput field={field} name='company' label="Nom de la société" placeholder="Entrez le nom de votre société" errors={errors?.company} />
+                                        <TextInput field={field} name='company_name' label="Nom de la société" placeholder="Entrez le nom de votre société" errors={errors?.company_name} />
                                 )}
                     />
-                    <Controller name="siret" control={control} defaultValue=""
+                    <Controller name="company_siret" control={control} defaultValue=""
                                 render={({field}) => (
-                                        <TextInput field={field} name='siret' label="N° SIRET" placeholder="Exemple : 12345678900000" errors={errors?.siret} />
+                                        <TextInput field={field} name='company_siret' label="N° SIRET" placeholder="Exemple : 12345678900000" errors={errors?.company_siret} />
                                 )}
                     />
-                    <Controller name="activity" control={control} defaultValue=""
+                    <Controller name="company_type" control={control} defaultValue=""
                                 render={({field}) => (
-                                    <TextInput field={field} name='activity' label="Type d'activité" placeholder="Entrez le type d'activité de votre société" errors={errors?.activity} style="col-span-2" /> 
+                                    <TextInput field={field} name='company_type' label="Type d'activité" placeholder="Entrez le type d'activité de votre société" errors={errors?.company_type} style="col-span-2" /> 
                                 )}
-                    />                    
+                    />
+                    <AddPDF fileType='RIB' docId={docId} setDocId={setDocId} />
                     <div className="text-xs flex items-center col-span-2">
                         <Checkbox size="small" checked={checked} onChange={handleChange} />
                         <p>{`Adresse de pour la facturation.`}</p>

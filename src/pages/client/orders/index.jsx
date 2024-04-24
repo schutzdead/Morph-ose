@@ -38,7 +38,6 @@ export async function getServerSideProps({req, res}) {
       },
   }}
   const user = await response.json()
-  console.log(user);
   const result = await fetch(`${API_URL}/auth/orders`, GETTokenRequest(authToken)).then(r => r.json())
   return {
       props: {

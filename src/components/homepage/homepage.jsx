@@ -57,10 +57,10 @@ export function Newletter () {
   export function Card ({product}) {
     return(
       <div className="flex flex-col group rounded-3xl h-full relative overflow-hidden cursor-pointer">
-        <div className="rounded-3xl bg-homeGradient1 absolute z-10 top-0 w-full h-[35%] min-h-[170px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-1000 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
-          <h2 className="text-3xl font-bold lg:text-2xl sm:text-lg text-center">{product?.title ? product?.title?.toUpperCase() : 'Nos catégories'}</h2>
-          <p className="font-bold text-center px-2 text-ellipsis line-clamp-2 sm:text-sm">{product?.description}</p>
-          <Link href={product ? {pathname: `/categories/${product?.breadcrumb[0]?.slug}/${product?.slug}`, query: { art:product?.id }} : {pathname: `/categories`}} className="absolute right-5 bottom-3">
+        <div className="rounded-3xl bg-homeGradient1 absolute z-10 top-0 w-full h-[25%] min-h-[150px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-1000 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
+          <h2 className="text-3xl font-bold lg:text-2xl sm:text-lg text-center px-3">{product?.breadcrumb[0]?.title ? product?.breadcrumb[0]?.title.toUpperCase() : 'Nos catégories'}</h2>
+          {/* <p className="font-bold text-center px-2 text-ellipsis line-clamp-2 sm:text-sm">{product?.description}</p> */}
+          <Link href={product?.breadcrumb[0]?.slug ? {pathname: `/categories/${product?.breadcrumb[0]?.slug}`, query: { cat:product?.breadcrumb[0]?.id }} : {pathname: `/categories`}} className="absolute right-5 bottom-3">
             <button className="bg-white px-3 py-1 rounded-3xl text-xs font-bold flex gap-1 items-center">
               <p className="gradient-text2">Voir plus</p>
               <Image src={RightArrow} alt='arrow icon' className="mt-[2px]" priority />
@@ -81,7 +81,7 @@ export function Newletter () {
     return(
       <div className="flex flex-col items-center max-w-[300px] text-center lg:max-w-[250px]">
         <Image src={image} alt='pictogram description' className="mt-[2px] w-16 h-auto xl:w-12" priority />
-        <h2 className="font-Quesha text-[#E25E3E] text-6xl xl:text-5xl lg:text-4xl text-center">{title}</h2>
+        <h2 className="font-Quesha text-[#E25E3E] text-6xl xl:text-5xl text-nowrap lg:text-4xl text-center">{title}</h2>
         <p className="text-secondary font-medium lg:text-sm mt-2">{text}</p>
       </div>
     )

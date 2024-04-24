@@ -53,7 +53,7 @@ export default function Checkout ({data}) {
                 <FakeBreadCrumb />
                 <div className="w-full flex justify-evenly text-secondary mb-10 lg:flex-col">
                     <div className="flex flex-col items-center">
-                        <h1 className="text-6xl xl:text-5xl lg:text-4xl md:text-3xl text-center pb-10 font-Quesha gradient-text">Information de livraison</h1>
+                        <h1 className="text-6xl xl:text-5xl lg:text-4xl md:text-3xl text-center pb-10 font-Quesha gradient-text">Informations de livraison</h1>
                         {userData ? ''
                         :
                         <div className="max-w-[450px] w-full mb-20 xl:max-w-[400px] md:mb-14 sm:w-[320px]">

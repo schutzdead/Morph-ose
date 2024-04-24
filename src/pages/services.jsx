@@ -51,7 +51,7 @@ export default function Services({workshops}) {
                 </div>
                 {workshops?.length === 0 || !workshops
                 ? <p className='font-medium place-self-center text-secondary text-center sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
-                : <div className="gap-8 grid grid-cols-3 mt-10 md:mt-5 lg:grid-cols-2 sm:grid-cols-1 w-full place-items-center max-w-[1500px] place-self-center">
+                : <div className="gap-8 grid grid-cols-2 mt-10 md:mt-5 md:grid-cols-1 w-full place-items-center max-w-[1500px] place-self-center">
                     { workshops.map(workshop => <Individual key={workshop.id} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                 </div>
                 }
@@ -66,15 +66,20 @@ export default function Services({workshops}) {
 
 export function Individual ({workshop}) {
     return(
-        <div className="bg-white p-2 w-full flex flex-col relative rounded-3xl overflow-hidden max-w-[450px]">
-            <div className="w-full h-0 pb-[60%] relative">
-                <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-2xl object-cover" priority />
+        <div className="bg-transparent p-2 w-full flex flex-col relative rounded-3xl overflow-hidden h-[680px] max-w-[450px]">
+            <div className="w-full h-0 pb-[60%] relative bg-white rounded-t-2xl">
+                <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-t-2xl object-cover" priority />
             </div>
-            <div className="flex flex-col text-primary mt-5 mx-5 gap-1">
+            <div className="flex bg-white flex-col text-primary font-medium justify-start pt-5 px-5 gap-0.5 rounded-b-2xl">
                 <h2 className="text-xl lg:text-lg sm:text-base font-bold">{workshop?.title}</h2>
-                <p className="text-sm">{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
-                <p>Date : {new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
+                <p className="text-sm font-normal">{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
+                <p className="mt-2">2 rue du foirail - 63800 Cournon-d’Auvergne</p>
+                <p>{new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
                 <p>Durée : {workshop?.duration} minutes</p>
+                {workshop?.description 
+                    ? <p className="line-clamp-4 text-ellipsis font-normal my-3">{workshop?.description}</p>
+                    : ''
+                }
                 <p className="font-semibold mt-3 w-fit border border-primary rounded-md px-3 py-1">{workshop?.price}€ / personne</p>
                 <Link href={{pathname:'/servicesCheckout', query:{id:workshop.id}}} className="place-self-center"><button className="w-fit  px-7 py-2 mb-3 mt-6 bg-mainGradient rounded-[50px] text-white font-medium text-base md:text-sm sm:mb-0 sm:mt-3">Réserver</button></Link>
             </div>

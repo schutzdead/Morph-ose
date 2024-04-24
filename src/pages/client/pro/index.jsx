@@ -69,6 +69,7 @@ export default function ProOrders({all_orders}) {
             : <>
             {loading ? <Loading />
             : <>
+                <p className="font-semibold place-self-center py-6 text-lg px-5 text-center text-secondary sm:text-base">{`Rappel : les évènements ont lieu au 2 rue du foirail - 63800 Cournon-d’Auvergne`}</p>
                 <div className='grid text-secondary py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden grid-cols-[repeat(4,2fr)_1fr] xl:text-sm sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-xs'>
                     <p>Numéro</p>
                     <p>Participants</p>
@@ -80,7 +81,7 @@ export default function ProOrders({all_orders}) {
                     <div key={order.id} className='grid grid-cols-[repeat(4,2fr)_1fr] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-sm' style={orders?.indexOf(order)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
                       <p className='px-4 text-center'>{order.tracking_number}</p>
                       <p className='font-semibold'>{`${order?.room_rental_reservation?.number_of_person}`}</p>
-                      <p className='px-4 text-center sm:hidden'>{order.room_rental_reservation?.price_per_person}</p>
+                      <p className='px-4 text-center sm:hidden'>{order.room_rental_reservation?.price_per_person}€</p>
                       <div className='flex flex-col items-center font-bold sm:text-xs'>
                         <p>{new Date(order.room_rental_reservation?.room_rental?.date).toLocaleDateString('fr')}</p>
                       </div>

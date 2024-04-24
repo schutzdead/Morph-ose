@@ -9,6 +9,7 @@ import { PasswordInput, TextInput } from "../forms/textInput";
 
 import { Loading } from "@/utils/loader";
 import { colorTheme } from "../styles/mui";
+import { useRouter } from "next/router";
 
 const schema = object({
     email:string().required("Requis.").email("Email invalide.").trim().lowercase(),
@@ -40,6 +41,8 @@ export function GuestForm ({userData}) {
           }, [userData])
     })
     
+    const router = useRouter()
+
     useEffect(() => {
         userData ? setNewSchema(schema) : setNewSchema(schema.concat(schemaConnected))
         reset(userData)
@@ -120,6 +123,7 @@ export function GuestForm ({userData}) {
                                 quantity: product.quantity,
                             })
                         ),
+                    cancel_url:`${process.env.NEXT_PUBLIC_API_URL}/${router.asPath}`
                 })
             })
             const register = await response.json()

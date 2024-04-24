@@ -64,7 +64,6 @@ export default (req, res) => {
 						// res.status(200).json({ loggedIn: true })
 						resolve()
 					} 
-					
 					else {
 						res.status(proxyRes.statusCode).json({ loggedIn: false })
 						resolve()

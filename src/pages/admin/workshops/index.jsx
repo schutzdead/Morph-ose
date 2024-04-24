@@ -6,10 +6,8 @@ import { Menu } from '@/components/menus/menu'
 import Link from 'next/link'
 import { GETRequest } from "@/utils/requestHeader"
 import {  useRef, useState } from 'react'
-import { Pagination } from '@mui/material'
 import { PictoButton } from '@/components/littleComponents'
 import { Loading } from '@/utils/loader'
-import Search from '@/components/admin/search'
 import { NoIndexHead } from '@/utils/customHead'
 
 import BurgerMenu from '@/components/menus/burgerMenu'
@@ -58,7 +56,6 @@ export default function Workshops({all_workshops}) {
 
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
-
   return (
     <>
     <NoIndexHead />
@@ -83,7 +80,7 @@ export default function Workshops({all_workshops}) {
                 <div className='grid text-secondary grid-cols-[repeat(4,2fr)_1fr] py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden xl:text-sm sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-xs'>
                     <p className='place-self-start'>Titre</p>
                     <p>Dates</p>
-                    <p>Places</p>
+                    <p>Places réservées</p>
                     <p className='sm:hidden'>Prix</p>
                 </div>
                 {
@@ -94,7 +91,7 @@ export default function Workshops({all_workshops}) {
                         <p>{new Date(workshop.date).toLocaleDateString('fr')}</p>
                         <p>{new Date(workshop.date).toLocaleTimeString('fr')}</p>
                       </div>
-                      <p>{`${workshop.entries_available}`}</p>
+                      <p>{`${workshop.entries_reserved}`}</p>
                       <p className='max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis hover:max-w-none sm:hidden'>{workshop.price}€</p>
                       <Link href={`/admin/workshops/${workshop.id}`}>
                         <button className='group flex gap-1 w-[40px] items-center text-white py-1 justify-center'>

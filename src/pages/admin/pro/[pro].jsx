@@ -70,22 +70,26 @@ export default function ProOrders({order}) {
             <section className='w-full bg-secondary/60 rounded-xl shadow-xl place-self-start py-10 px-14 flex flex-col xl:px-6 xl:py-5 xl:max-w-[650px] lg:place-self-auto'>
               <h2 className="text-3xl font-extrabold text-white mb-5 self-center xl:text-xl sm:text-lg sm:text-center">Informations Location</h2>
               <div className='flex flex-col gap-2 text-sm'>
-                  <div className='flex flex-col gap-1.5 pb-5 border-b border-gray-300'>
+                  <div className='flex flex-col gap-1 pb-5 border-b border-gray-300'>
                       <Informations title="Nombre de participants : " value={order.room_rental_reservation?.number_of_person} />
-                      <Informations title="Prix par participant : " value={order.room_rental_reservation?.price_per_person} />
+                      <Informations title="Prix par participant : " value={`${order.room_rental_reservation?.price_per_person}€`} />
                       <Informations title="Date : " value={new Date(order.room_rental_reservation?.room_rental?.date).toLocaleDateString('fr')} />
                       <Informations title="Commentaire : " value={order.room_rental_reservation?.description} />
                 </div>
               </div>
               <div className='flex flex-col gap-2 text-sm'>
-                  <div className='flex flex-col gap-1.5'>
-                      <h3 className='text-2xl font-semibold my-3 text-secondary xl:text-lg sm:text-base sm:text-center'>Evènement</h3>
+                  <div className='flex flex-col gap-1'>
+                      <h3 className='text-2xl font-semibold my-3 text-secondary xl:text-lg sm:text-base sm:text-center'>Evènement lié</h3>
                       {
-                        order?.room_rental_reservation?.event 
+                        order?.room_rental_reservation?.workshop
                           ?<>
-                            <Informations title="Suivi : " value={order?.tracking_number}  />
-                            <Informations title="Durée : " value={order?.room_rental_reservation?.room_rental?.title}  />
-                            <Informations title="Prix : " value={order?.room_rental_reservation?.room_rental?.price}  />
+                            <Informations title="Titre : " value={order?.room_rental_reservation?.workshop?.title}  />
+                            <Informations title="Prix : " value={`${order?.room_rental_reservation?.workshop?.price}€`}  />
+                            <Informations title="Nom de participants : " value={order?.room_rental_reservation?.workshop?.entries_available}  />
+                            <Informations title="Date : " value={`${new Date(order?.room_rental_reservation?.workshop?.date).toLocaleDateString('fr')}`}  />
+                            <Informations title="Heure : " value={`${new Date(order?.room_rental_reservation?.workshop?.date).toLocaleTimeString('fr')}`}  />
+                            <Informations title="Durée : " value={`${order?.room_rental_reservation?.workshop?.duration} minutes`}  />
+                            <Informations title="Description : " value={order?.room_rental_reservation?.workshop?.description}  />
                           </>
                           : <p className='text-white text-lg sm:text-base font-medium'>{`L'évènement n'a pas encore été crée.`}</p>
                       }
@@ -97,11 +101,11 @@ export default function ProOrders({order}) {
             <section className='w-full bg-white rounded-xl shadow-xl place-self-start py-10 px-14 flex flex-col xl:px-6 xl:py-5 xl:max-w-[650px] lg:place-self-auto'>
               <h2 className="text-3xl font-extrabold text-secondary mb-5 self-center xl:text-xl sm:text-lg sm:text-center">Commande</h2>
               <div className='flex flex-col gap-2 text-sm'>
-                  <div className='flex flex-col gap-1.5 pb-5'>
+                  <div className='flex flex-col gap-1 pb-5'>
                       <h3 className='text-2xl font-semibold my-3 text-secondary xl:text-lg sm:text-base sm:text-center'>Détails de la commande</h3>
                       <Informations title="Suivi : " value={order?.tracking_number}  textColor='#582D3E' />
-                      <Informations title="Durée : " value={order?.room_rental_reservation?.room_rental?.title} textColor='#582D3E' />
-                      <Informations title="Prix : " value={order?.room_rental_reservation?.room_rental?.price}  textColor='#582D3E' />
+                      <Informations title="Période : " value={order?.room_rental_reservation?.room_rental?.title} textColor='#582D3E' />
+                      <Informations title="Prix : " value={`${order?.room_rental_reservation?.room_rental?.price}€`}  textColor='#582D3E' />
                 </div>
               </div>
             </section>

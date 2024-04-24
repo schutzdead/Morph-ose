@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { ThemeProvider } from "@mui/material";
+import { TextField, ThemeProvider } from "@mui/material";
 import { CustomTextArea, TextInput } from '@/components/forms/textInput';
 import { colorTheme } from '@/components/styles/mui';
 import { useEffect, useMemo, useState } from 'react';
@@ -20,7 +20,9 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
     
     const {reset, control, handleSubmit, formState: {errors}} = useForm(formResolver)
     const [docId, setDocId] = useState([])
+    const [rentId, setRentId] = useState(null)
     const [error, setError] = useState(false)
+    const [errorRent, setErrorRent] = useState(false)
     const [begin, setBegin] = useState(parseISO("0"));
 
     useEffect(() => {
@@ -38,6 +40,7 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
     async function onSubmit(data) {
         const { title, price, duration, entries_available, description } = data
         setError(false)
+        setErrorRent(false)
         setLoading(true)
         var tzoffset = (new Date(begin)).getTimezoneOffset() * 60000; //offset in milliseconds
         var localISOTime = (new Date(begin - tzoffset)).toISOString().slice(0, -1);
@@ -61,6 +64,20 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
             })
             const register = await response.json()
             if(response.status === 200){
+                if(rentId && rentId > 0){
+                    const response = await fetch(`/api/proxy/auth/admin/room-rentals/reservations/${rentId}`, {
+                        method: "POST",    
+                        mode: "cors",
+                        headers: {
+                            "Accept": "application/json",
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            workshop_id: register?.id,
+                        })
+                    })
+                }
+                setErrorRent(true)
                 setLoading(false)
                 if(searchTutorData){
                     for(const property in register) {
@@ -83,6 +100,7 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
 
     return( 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8 w-full" >
+        {errorRent ? <div className='col-span-2 text-red-500 place-self-center'>{`Erreur sur l'attribution de l'évènement à une location.`}</div>: ''}
         <ThemeProvider theme={colorTheme}>
             <section className='w-full gap-5 bg-white py-5 px-5 grid grid-cols-4 justify-items-center rounded-xl shadow-xl xl:grid-cols-3 sm:grid-cols-2 2sm:grid-cols-1'>     
                 <H2Title title="Informations générales" />
@@ -93,27 +111,28 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                 <Controller name="price" control={control} defaultValue=""
                     render={({field}) => (
                             <TextInput field={field} label='Prix' placeholder='39.99' errors={errors?.price} style="w-full"/>
-                )}/>  
+                )}/> 
+                <Controller name="entries_available" control={control} defaultValue=""
+                    render={({field}) => (
+                        <TextInput field={field} label="Nombre d'entrée" placeholder='20' errors={errors?.entries_available} style="w-full"/>
+                    )}/>   
+                <TextField id='rent' type="text" variant="standard"  label="Identifiant location" placeholder="ID disponible dans la rubrique location" value={rentId} onChange={(e) => setRentId(e.target.value)} />
+                <Controller name="duration" control={control} defaultValue=""
+                    render={({field}) => (
+                        <TextInput field={field} label='Durée' placeholder='60' errors={errors?.duration} style="w-full"/>
+                    )}/>    
                 <ThemeProvider theme={colorTheme}>
                     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}>
                         <DateTimePicker disablePast label="Date de la séance" value={begin} onChange={(newValue) => setBegin(newValue)} slotProps={{ textField: { required: true } }} minutesStep={15} />
                     </LocalizationProvider>
                 </ThemeProvider>   
-                <Controller name="duration" control={control} defaultValue=""
-                    render={({field}) => (
-                        <TextInput field={field} label='Durée' placeholder='60' errors={errors?.duration} style="w-full"/>
-                    )}/>    
-                <Controller name="entries_available" control={control} defaultValue=""
-                    render={({field}) => (
-                        <TextInput field={field} label="Nombre d'entrée" placeholder='20' errors={errors?.entries_available} style="w-full"/>
-                    )}/>  
                 <Controller name="description" control={control} defaultValue="" render={({field}) => (
                     <CustomTextArea field={field} label='Description' errors={errors?.description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
                 )}/>   
             </section>
 
             <section className="w-full gap-5 bg-white py-5 px-5 flex flex-col rounded-xl shadow-xl">     
-                <H2Title title="Photos du produit" />
+                <H2Title title="Photos de l'évènement" />
                 <AddFile fileType='Photo' docId={docId} setDocId={setDocId} />
             </section>
 

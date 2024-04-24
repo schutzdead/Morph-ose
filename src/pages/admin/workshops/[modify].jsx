@@ -5,7 +5,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from "react";
 import { Loading } from '@/utils/loader';
 
-import NewProduct from '@/components/forms/newProduct';
 import { Back, PictoButton } from '@/components/littleComponents';
 import { GETRequest } from '@/utils/requestHeader';
 import { NoIndexHead } from '@/utils/customHead';
@@ -60,14 +59,14 @@ const schemaEvent = object({
 }).required();
 
 export default function EditProduct({current_event}) {
-    const [event, setEvent] = useState()
-    const [loading, setLoading] = useState(false)
+  const [event, setEvent] = useState()
+  const [loading, setLoading] = useState(false)
 
-    const [menu, setMenu] = useState(false)
-    const [hamburger, setHamburger] = useState(false)
+  const [menu, setMenu] = useState(false)
+  const [hamburger, setHamburger] = useState(false)
 
-    useEffect(() => {
-      !current_event || current_event.message  ? '' : setEvent(current_event)
+  useEffect(() => {
+    !current_event || current_event.message  ? '' : setEvent(current_event)
   }, [current_event])
 
   return (

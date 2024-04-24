@@ -30,9 +30,11 @@ export default function Menu ({menu, setMenu , setHamburger}) {
                 style={menu ? {opacity:1, transition:'opacity 1s'} : {opacity:0, zIndex:-10}} onClick={() => {setMenu(false);unlock();setHamburger(false)}}></div>
                 <menu className="fixed pl-10 pr-10 h-full top-0 bg-white z-50 py-16 flex-col items-center sm:w-full sm:pr-10 md:py-10" style={menu ? {left:"0%", transition:'left 400ms ease-out'} : {left:"-100%"}}>
                 <Image src={Close} onClick={() => {setMenu(false);unlock();setHamburger(false)}} alt="Close pictogram" className='w-8 cursor-pointer self-start'/>
-                <div className="overflow-y-auto overflow-x-hidden px-10 pt-10 md:pt-5 md:px-5">
-                    <ul className="flex flex-col overflow-y-auto overflow-x-hidden scrollbar-thumb-gray-300 scrollbar-thin scrollbar-w-2 max-h-[65vh] tracking-wide w-full pt-10 pr-5 font-semibold sm:text-sm md:pt-5">
-                        <MainCategory data={data} setHamburger={setHamburger} setMenu={setMenu}/>
+                <div className="overflow-y-auto overflow-x-hidden px-5 pt-10 md:pt-5">
+                    <ul className="flex flex-col min-w-[250px] overflow-y-auto overflow-x-hidden scrollbar-thumb-gray-300 scrollbar-thin scrollbar-w-2 max-h-[65vh] tracking-wide w-full pt-10 pr-5 font-semibold sm:text-sm md:pt-5">
+                        <Link href='/categories' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
+                            <Tab level1='BOUTIQUE'/>
+                        </Link>
                         <Link href='/services' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
                             <Tab level1='NOS SERVICES'/>
                         </Link>
