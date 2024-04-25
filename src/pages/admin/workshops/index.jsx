@@ -55,6 +55,7 @@ export default function Workshops({all_workshops}) {
   const filterBox = useRef(null)
 
   const [menu, setMenu] = useState(false)
+  console.log(all_workshops);
   const [hamburger, setHamburger] = useState(false)
   return (
     <>
@@ -84,7 +85,7 @@ export default function Workshops({all_workshops}) {
                     <p className='sm:hidden'>Prix</p>
                 </div>
                 {
-                  workshops?.sort((a, b) => new Date(b.date) - new Date(a.date)).map((workshop) =>
+                  workshops?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((workshop) =>
                     <div key={workshop.id} className='grid grid-cols-[repeat(4,2fr)_1fr] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-sm' style={workshops?.indexOf(workshop)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
                       <p className='font-semibold justify-self-start pl-2'>{`${workshop.title}`}</p>
                       <div className='flex flex-col items-center sm:text-xs'>

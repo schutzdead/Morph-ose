@@ -23,7 +23,7 @@ import { object, number,string } from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { DateTimePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import fr from 'date-fns/locale/fr';
 import parseISO from "date-fns/parseISO";

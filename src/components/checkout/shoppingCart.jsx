@@ -4,16 +4,20 @@ import { CartContext } from "@/utils/cartProvider";
 import { Loading } from "@/utils/loader";
 import { Article } from "../layout/cart";
 
-export function ShoppingCart () {
+export function ShoppingCart ({shipping, free}) {
     const { v4: uuidv4 } = require('uuid');
     const { cart } = useContext(CartContext);
     const [command, setCommand] = useState()
-    const [shipping, setShopping] = useState(4)
+    const [shippingFee, setShippingFee] = useState(shipping ? shipping : 0)
     const router = useRouter()
 
     function subTotal (command) {
-        return command.reduce((accumulator, currentValue) => accumulator + ((currentValue.promo_price ? currentValue.promo_price : currentValue.price) * currentValue.quantity), 0)
+        return command?.reduce((accumulator, currentValue) => accumulator + ((currentValue.promo_price ? currentValue.promo_price : currentValue.price) * currentValue.quantity), 0)
     }
+
+    useEffect(() => {
+        setShippingFee(shipping ? shipping : 0)
+    }, [shipping])
 
     useEffect(() => {
         if(cart.length === 0) {
@@ -38,14 +42,20 @@ export function ShoppingCart () {
                             <p>Sous-total : </p>
                             <p>{subTotal(command).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}€</p>
                         </div>
-                        <div className="flex w-full justify-between font-medium text-xl lg:text-lg sm:text-base">
+                        <div className="flex w-full items-center justify-between font-medium text-xl lg:text-lg sm:text-base">
                             <p>Frais de livraison : </p>
-                            <p>{shipping}€</p>
+                            { subTotal(command) > free.value
+                            ? <p>Offert</p>
+                            : typeof shippingFee === 'number'
+                                ?<p>{shippingFee}€</p>
+                                :<p className="text-base text-end max-w-[200px]">{shippingFee}</p>
+                            }
+                            
                         </div>
                         <div className="h-[1px] bg-homeGradient3 w-full my-2"></div>
                         <div className="flex w-full justify-between font-medium text-xl lg:text-lg sm:text-base">
                             <p>Total : </p>
-                            <p>{(subTotal(command) + shipping).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}€</p>
+                            <p>{(subTotal(command) + (subTotal(command) > free.value ? 0 : shippingFee)).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}€</p>
                         </div>
                     </div>
                 </div>

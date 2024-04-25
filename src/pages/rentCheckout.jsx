@@ -47,6 +47,8 @@ export default function RentCheckout ({data,rent}) {
     }
     ,[data])
 
+    console.log(rent);
+
     return(
         <Layout>
             <main>

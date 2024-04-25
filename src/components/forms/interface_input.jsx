@@ -13,11 +13,11 @@ export function ErrorInput ({error, style}) {
     )
 }
 
-export function InterfaceTextInput ({name, label, placeholder, options, commonError, commonErrorMessage, type='text', style, labelStyle}) {
+export function InterfaceTextInput ({name, label, placeholder, options, commonError, commonErrorMessage, type='text', style, labelStyle, defaultValue=""}) {
     return (
         <div className={`${style} flex flex-col tracking-[0.2px] gap-2`}>
             <label htmlFor={name} className={`${labelStyle} text-lg gap-2 font-medium whitespace-nowrap lg:text-base sm:text-sm`}>{label} {commonError && (<ErrorInput error={commonErrorMessage} />)}</label>
-            <input type={type} name={name} spellCheck='false' id={name} autoComplete='off' placeholder={placeholder} className="text-black border border-secondary bg-white rounded-[10px] p-4 focus-visible:outline-none md:p-2 md:text-sm" {...options}/>
+            <input type={type} defaultValue={defaultValue} name={name} spellCheck='false' id={name} autoComplete='off' placeholder={placeholder} className="text-black border border-secondary bg-white rounded-[10px] p-4 focus-visible:outline-none md:p-2 md:text-sm" {...options}/>
             
         </div>
     )

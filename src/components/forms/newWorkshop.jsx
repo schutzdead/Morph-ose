@@ -13,7 +13,7 @@ import fr from 'date-fns/locale/fr';
 import parseISO from "date-fns/parseISO";
 
 export default function NewWorkshop({setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData}) {
-
+    
     formResolver.defaultValues = useMemo(() => {
         return searchTutorData
     }, [searchTutorData])
@@ -24,7 +24,7 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
     const [error, setError] = useState(false)
     const [errorRent, setErrorRent] = useState(false)
     const [begin, setBegin] = useState(parseISO("0"));
-
+    console.log(searchTutorData);
     useEffect(() => {
         if(searchTutorData) {
             reset(searchTutorData)

@@ -5,7 +5,7 @@ import { CategoriesMenu, CatTitle, ArticleCard } from ".."
 import { Newletter } from "@/components/homepage/homepage"
 
 import Image from "next/image";
-import Service from '../../../../public/assets/main/services.webp'
+import Service from '../../../../public/assets/articles/catBG.webp'
 import Butterfly from '../../../../public/assets/main/butterfly.svg'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
@@ -28,12 +28,11 @@ export default function Category({data, allCat}) {
             <Layout>
             <div className="flex flex-col gap-20 w-full md:gap-14 flex-1">
                 <CategoriesMenu cat={allCat.filter(f => f.id !== data.id)} />
-                <div className="h-[60vh] w-[90vw] max-w-[1400px] -mt-10 md:-mt-5 max-h-[500px] place-self-center flex rounded-3xl lg:max-h-[425px] md:max-h-[350px] sm:max-h-[250px] sm:h-[30vh]" style={{background:'linear-gradient(82.92deg, #DE5B30 0%, #FFF7F1 98%)'}}>
-                    <Image src={Service} alt='Picture categories' className="w-[50%] rounded-3xl object-cover md:hidden" priority/>
-                    <div className="flex justify-center items-center w-full px-4">
+                <div className="h-[60vh] w-[90vw] max-w-[1400px] -mt-10 md:-mt-5 max-h-[500px] place-self-center flex rounded-3xl lg:max-h-[425px] md:max-h-[350px] sm:max-h-[250px] sm:h-[30vh] relative" style={{background:'linear-gradient(82.92deg, #DE5B30 0%, #FFF7F1 98%)'}}>
+                    <Image src={Service} alt='Picture categories' className="rounded-3xl object-cover md:hidden" priority/>
+                    <div className="absolute flex justify-center items-center w-full h-full px-4">
                         <div className="font-Quesha w-fit mx-4 relative text-9xl lg:text-8xl md:text-7xl sm:text-5xl">
-                            <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 -left-[53px] -top-[20px] xl:w-12 xl:-left-[41px] xl:-top-[23px] md:w-8 md:-left-[25px] md:-top-[16px]" priority />
-                            <h1 className="gradient-text2">{data?.title}</h1>
+                            <h1 className="text-primary">{data?.title.toUpperCase()}</h1>
                         </div>
                     </div>
                 </div>

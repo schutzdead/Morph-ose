@@ -9,7 +9,6 @@ import Pro from '../../public/assets/main/pro.webp'
 import Logo from '../../public/assets/header/logo1.svg'
 import Picto1 from '../../public/assets/main/picto.svg'
 import Picto2 from '../../public/assets/main/picto2.svg'
-import Check from '../../public/assets/main/checkColor.svg'
 import seances from '../../public/assets/seances.json'
 import Picto3 from '../../public/assets/main/picto3.svg'
 import transi from '../../public/assets/main/trans1.svg'
@@ -20,7 +19,7 @@ import { DotButton, useDotButton } from "@/utils/emblaDot";
 
 import useEmblaCarousel from 'embla-carousel-react'
 
-import { Newletter, Title, Card, Picto, CustomButton, Service } from "@/components/homepage/homepage";
+import { Newletter, Title, Card, Picto, CustomButton, Service, ProSentence, SeancesComp } from "@/components/homepage/homepage";
 import { GETRequest } from "@/utils/requestHeader";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
@@ -59,8 +58,7 @@ export default function Home({workshops, first_products}) {
   useEffect(() => {
     setLanding(() => load('start'))
   },[])
-  console.log(seances);
-  console.log(workshops);
+
   return (
     <>
       <CustomHead pageName='Accueil' metaResume="Découvrez l'ensemble de notre gamme" />
@@ -142,7 +140,7 @@ export default function Home({workshops, first_products}) {
               <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
               <Title title='Nos services !' butterfly={true} />
               <p className="max-w-[1200px] text-2xl flex flex-col gap-5 font-medium lg:text-xl sm:text-base text-center text-secondary">Chez Merveilles de Morph’ose on met l’accent sur la découverte de soit et l’ouverture d’esprit en mettant à votre disposition les meilleur coachs et experts de l’ésotérisme, du bien-être et du développement personnel! </p>
-              <div className="flex flex-col gap-5 mt-5 place-self-start md:place-self-center md:text-center text-secondary text-lg font-medium sm:text-sm">
+              <div className="flex flex-col gap-5 mt-5 place-self-center text-center text-secondary text-lg font-medium sm:text-sm max-w-[1500px] ">
                 <h3 className="text-4xl font-semibold lg:text-3xl sm:text-xl text-primary">Explorez nos ateliers et événements</h3>
                 <p className="pt-5 sm:pt-2">{`Si vous êtes curieux de découvrir les secrets de l'ésotérisme, participer à des ateliers créatifs ou encore  vous plonger dans le bien-être.`} <span className="font-semibold">Vous êtes au bon endroit !</span> Notre plateforme vous permet de réserver facilement votre place pour participer à des ateliers et événements captivants.</p>
                 <p >{`De la méditation à l'astrologie, nos sessions sont conçues pour enrichir votre esprit et nourrir votre “Etre”. Nos experts vous guideront dans chaque étape de votre parcours. Les places sont limitées pour garantir une expérience personnelle et immersive.`}</p>
@@ -153,7 +151,7 @@ export default function Home({workshops, first_products}) {
                   <div className="overflow-hidden" ref={emblaRef}> 
                   {/* CONTAINER */}
                     <div className="flex touch-pan-y -ml-5">
-                      { workshops.slice(0,7).map(workshop => <Service key={workshop.id} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
+                      { workshops.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0,5).map(workshop => <Service key={workshop.id} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                     </div>
                   </div>
                   <div className="grid grid-cols-[auto_1fr] justify-between items-center gap-[1.2rem] mt-[1.8rem]">
@@ -182,43 +180,7 @@ export default function Home({workshops, first_products}) {
               </div>
             </section>
 
-            <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
-              <div className="flex flex-col gap-5 mt-5 place-self-start md:place-self-center md:text-center text-secondary text-lg font-medium sm:text-sm">
-                <h3 className="text-4xl font-semibold lg:text-3xl sm:text-xl text-primary">Séances personnalisées</h3>
-                <p className="pt-5 sm:pt-2">{`Nos experts  vous accompagnent aux travers de séances personnalisées que nous pouvons dispenser à distance ou dans nos locaux. Il suffit de réserver en ligne... Alors n’attendez plus pour réserver votre place et découvrez  les prestations Merveilles de Morph’ose :  cartomancie, poème d'âme,  chant d'âme, guidance, messages d'âme...`} <span className="font-semibold">Respect et bienveillance</span>, notre mantra !</p>
-                <p className="text-sm sm:text-xs">Petit mot : faites preuve de discernement quoiqu’il puisse vous être conseillé, vous êtes seul(e) décisionnaire de votre vie.</p>
-              </div>
-              {workshops?.length > 0 
-                ? <div className=" max-w-[1200px] m-auto w-full">
-                  {/* VIEWPORT */}
-                  <div className="overflow-hidden" ref={emblaRef}> 
-                  {/* CONTAINER */}
-                    <div className="flex touch-pan-y -ml-10">
-                      { seances.seance.map((s, index) => <SeancesComp key={s.id} seance={s} index={index} />)}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-[auto_1fr] justify-between items-center gap-[1.2rem] mt-[1.8rem]">
-                    <div className="grid grid-cols-2 gap-[0.6rem] items-center h-8 w-fit md:h-6 ">
-                      <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-                      <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-                    </div>
-                    <div className="embla__dots">
-                      {scrollSnaps.map((_, index) => (
-                        <DotButton key={index} onClick={() => onDotButtonClick(index)} className={'embla__dot'
-                          .concat(
-                            index === selectedIndex ? ' embla__dot--selected' : ''
-                          )}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                : <p className="font-semibold text-xl lg:text-lg sm:text-base text-secondary">Aucun évènement disponible dans les prochains jours.</p>
-              }
-              <Link href="/services" className="place-self-center mt-5 mb-10 sm:mb-5">
-                <CustomButton text="Découvrir les séances" butterfly={true} />
-              </Link>
-            </section>
+            <AllSeances workshops={workshops} />
 
             <section id="pro" className="scroll-m-32 flex flex-col items-center gap-14 mx-10 justify-center my-20 sm:gap-8 sm:px-3 md:gap-10 md:mx-5">
               <Title title='Pour les pros' />
@@ -259,24 +221,55 @@ export default function Home({workshops, first_products}) {
   )
 }
 
-function ProSentence ({text}) {
-  return(
-    <div className="flex gap-2 items-center text-base lg:text-sm">
-      <Image src={Check} alt='check icons' className="" /> 
-      <p>{text}</p>
-    </div>
-  )
-}
+function AllSeances ({workshops}) {
 
-function SeancesComp ({seance, index}) {
-  console.log(seance, index);
+  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS)
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick
+  } = usePrevNextButtons(emblaApi)
+
   return(
-    <div className="min-w-0 flex-[0_0_33.33%] h-[150px] pl-10 lg:flex-[0_0_50%] md:flex-[0_0_100%]">
-        <div className=" h-full p-2 flex flex-col justify-center items-center text-center gap-2 relative rounded-3xl overflow-hidden" style={index%2 === 0 ? {backgroundColor:'#E25E3E', color:'white'} : {backgroundColor:"#F9F9F9", color:'#582D3E'}}>
-          <h1 className="text-2xl lg:text-xl sm:text-lg font-semibold">{seance.title}</h1>
-          <p className="sm:text-sm">{seance.description}</p>
-        </div>
+    <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
+    <div className="flex flex-col gap-5 mt-5 place-self-center text-center text-secondary text-lg font-medium sm:text-sm max-w-[1500px]">
+      <h3 className="text-4xl font-semibold lg:text-3xl sm:text-xl text-primary">Séances personnalisées</h3>
+      <p className="pt-5 sm:pt-2">{`Nos experts  vous accompagnent aux travers de séances personnalisées que nous pouvons dispenser à distance ou dans nos locaux. Il suffit de réserver en ligne... Alors n’attendez plus pour réserver votre place et découvrez  les prestations Merveilles de Morph’ose :  cartomancie, poème d'âme,  chant d'âme, guidance, messages d'âme...`} <span className="font-semibold">Respect et bienveillance</span>, notre mantra !</p>
+      <p className="text-sm sm:text-xs">Petit mot : faites preuve de discernement quoiqu’il puisse vous être conseillé, vous êtes seul(e) décisionnaire de votre vie.</p>
     </div>
+    {workshops?.length > 0 
+      ? <div className=" max-w-[1200px] m-auto w-full">
+        {/* VIEWPORT */}
+        <div className="overflow-hidden" ref={emblaRef}> 
+        {/* CONTAINER */}
+          <div className="flex touch-pan-y -ml-10">
+            { seances.seance.map((s, index) => <SeancesComp key={s.id} seance={s} index={index} />)}
+          </div>
+        </div>
+        <div className="grid grid-cols-[auto_1fr] justify-between items-center gap-[1.2rem] mt-[1.8rem]">
+          <div className="grid grid-cols-2 gap-[0.6rem] items-center h-8 w-fit md:h-6 ">
+            <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+            <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+          </div>
+          <div className="embla__dots">
+            {scrollSnaps.map((_, index) => (
+              <DotButton key={index} onClick={() => onDotButtonClick(index)} className={'embla__dot'
+                .concat(
+                  index === selectedIndex ? ' embla__dot--selected' : ''
+                )}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+      : <p className="font-semibold text-xl lg:text-lg sm:text-base text-secondary">Aucun évènement disponible dans les prochains jours.</p>
+    }
+    <Link href="/services" className="place-self-center mt-5 mb-10 sm:mb-5">
+      <CustomButton text="Découvrir les séances" butterfly={true} />
+    </Link>
+  </section>
   )
 }
 

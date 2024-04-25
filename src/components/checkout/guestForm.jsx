@@ -2,7 +2,7 @@ import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { object, string, ref } from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import {  ThemeProvider, Checkbox } from "@mui/material";
+import {  ThemeProvider, Checkbox, InputLabel, Select, FormControl, MenuItem  } from "@mui/material";
 import { useState, useContext, useEffect, useMemo } from "react";
 import { CartContext } from "@/utils/cartProvider";
 import { PasswordInput, TextInput } from "../forms/textInput";
@@ -13,7 +13,6 @@ import { useRouter } from "next/router";
 
 const schema = object({
     email:string().required("Requis.").email("Email invalide.").trim().lowercase(),
-    country:string().required("Requis.").uppercase().min(3, "Pays invalide.").max(30, "Pays invalide."),
     post_code:string().required("Requis.").matches(/^[0-9]*/, 'Code postal invalide.'),
     city:string().required("Requis.").min(3, "Ville invalide.").uppercase(),
     street:string().required("Requis.").uppercase(),
@@ -32,7 +31,10 @@ const schemaConnected = object({
     confirmPassword:string().required("Requis.").oneOf([ref("password"), null], "Non identique.").trim(),
 })
 
-export function GuestForm ({userData}) { 
+const countries = [{title:"FRANCE", id:1}, {title:"AUTRE PAYS", id:2}]
+
+export function GuestForm ({userData, shipping_zone}) {
+
     const [newSchema, setNewSchema] = useState(userData ? schema : schema.concat(schemaConnected))
     const {reset, control, handleSubmit, formState: {errors}} = useForm ({ 
         resolver:  yupResolver(newSchema),
@@ -41,17 +43,25 @@ export function GuestForm ({userData}) {
           }, [userData])
     })
     
+    const [dataCountry, setDataCountry] = useState("")
     const router = useRouter()
+
+    useEffect(() => {
+        shipping_zone(dataCountry)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dataCountry])
 
     useEffect(() => {
         userData ? setNewSchema(schema) : setNewSchema(schema.concat(schemaConnected))
         reset(userData)
+        if(userData?.address?.country) setDataCountry(userData.country) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userData])
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [checked, setChecked] = useState(false);
+
     const { cart } = useContext(CartContext)
 
     const handleChange = (event) => {
@@ -59,7 +69,8 @@ export function GuestForm ({userData}) {
     };
 
     async function onSubmit(data) {
-        const { email, lastname, firstname, phone, password, country, post_code, city, street, bill_city, bill_country, bill_name, bill_post_code, bill_street } = data
+        if(!dataCountry) return
+        const { email, lastname, firstname, phone, password, post_code, city, street, bill_city, bill_country, bill_name, bill_post_code, bill_street } = data
         setLoading(true)
         setError(false)
         try {
@@ -81,7 +92,7 @@ export function GuestForm ({userData}) {
                             street:street,
                             post_code:post_code,
                             city:city,
-                            country:country
+                            country:dataCountry
                         }
                     })
                 })
@@ -107,14 +118,14 @@ export function GuestForm ({userData}) {
                         street: street,
                         post_code: post_code,
                         city: city,
-                        country: country
+                        country: dataCountry
                     },
                     billing_address:{
                         firstname: bill_name || lastname,
                         street: bill_street || street,
                         post_code: bill_post_code || post_code,
                         city: bill_city || city,
-                        country: bill_country || country
+                        country: bill_country || dataCountry
                     },
                     products:
                         cart.map((product) => 
@@ -141,7 +152,7 @@ export function GuestForm ({userData}) {
             console.error('Request failed:' + err.message)
         }
     }
-    
+
     return(
         <>
         {loading 
@@ -170,11 +181,6 @@ export function GuestForm ({userData}) {
                         />
                     </div>
                     <h1 className="col-span-2 -mb-2 mt-8 font-bold text-[13px] text-gray-600 md:mt-4">Informations de livraison</h1>
-                    <Controller name="country" control={control} defaultValue=""
-                                render={({field}) => (
-                                    <TextInput field={field} name='country' label="Pays" placeholder="Entrez votre pays" errors={errors?.country} /> 
-                                )}
-                    />
                     <Controller name="post_code" control={control} defaultValue=""
                                 render={({field}) => (
                                     <TextInput field={field} name='post_code' label="Code postal" placeholder="Entrez votre code postal" errors={errors?.post_code} /> 
@@ -190,7 +196,17 @@ export function GuestForm ({userData}) {
                                         <TextInput field={field} name='street' label="Adresse complète" placeholder="Entrez votre adresse complète" errors={errors?.street} style="col-span-2" /> 
                                 )}
                     />
-                    <h1 className="col-span-2 -mb-2 mt-10 font-bold text-[13px] text-gray-600 md:mt-4">Informations personnelles</h1>
+                    <ThemeProvider theme={colorTheme}>
+                        <FormControl sx={{width:'100%', marginTop:'20px'}}>
+                            <InputLabel>Pays</InputLabel>
+                            <Select label="Pays" defaultValue="" required
+                                    value={dataCountry} onChange={(event) => setDataCountry(event.target.value)}
+                            >
+                            {countries.map((name) => (<MenuItem key={name?.id} value={name?.title}>{name?.title}</MenuItem>))}
+                            </Select>
+                        </FormControl> 
+                    </ThemeProvider>
+                    <h1 className="col-span-2 -mb-2 mt-8 font-bold text-[13px] text-gray-600 md:mt-4">Informations personnelles</h1>
                     <Controller name="firstname" control={control} defaultValue=""
                                 render={({field}) => (
                                         <TextInput field={field} name='firstname' label="Prénom" placeholder="Entrez votre prénom" errors={errors?.firstname} />

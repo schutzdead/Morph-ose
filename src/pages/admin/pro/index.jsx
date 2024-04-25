@@ -78,13 +78,13 @@ export default function ProOrders({all_orders}) {
                 {
                   orders?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((order) =>
                     <div key={order.id} className='grid grid-cols-[repeat(4,2fr)_1fr] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-sm' style={orders?.indexOf(order)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
-                      <p className='px-4 text-center'>{order.id}</p>
+                      <p className='px-4 text-center'>{order?.room_rental_reservation?.id}</p>
                       <p className='font-semibold'>{`${order?.room_rental_reservation?.number_of_person}`}</p>
                       <p className='px-4 text-center sm:hidden'>{order.room_rental_reservation?.price_per_person}</p>
                       <div className='flex flex-col items-center font-bold sm:text-xs'>
                         <p>{new Date(order.room_rental_reservation?.room_rental?.date).toLocaleDateString('fr')}</p>
                       </div>
-                      <Link href={`/admin/pro/${order.tracking_number}`}>
+                      <Link href={`/admin/pro/${order?.id}`}>
                         <button className='group flex gap-1 w-[40px] items-center text-white py-1 justify-center'>
                           <Image src={edit2} alt="details icon" className="group-hover:scale-[1.18] transition-all duration-300 w-6 h-auto mb-[1px]" priority />
                         </button>

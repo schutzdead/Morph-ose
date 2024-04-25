@@ -5,6 +5,7 @@ import Butterfly from '../../../public/assets/main/butterfly.svg'
 import Butterfly2 from '../../../public/assets/main/butterfly2.svg'
 import Plant1 from '../../../public/assets/main/plant1.svg'
 import Services from '../../../public/assets/main/services.webp'
+import Check from '../../../public/assets/main/checkColor.svg'
 import Link from "next/link";
 import { CircularLoading } from "@/utils/loader";
 
@@ -196,5 +197,25 @@ export function Newletter () {
         <Image src={Butterfly2} alt='butterfly icon' className="absolute h-auto w-12 -right-[25px] -top-[23px]" style={butterfly ? {display:'block'} : {display:'none'}} priority />
         {text}
       </button>
+    )
+  }
+
+  export function ProSentence ({text}) {
+    return(
+      <div className="flex gap-2 items-center text-base lg:text-sm">
+        <Image src={Check} alt='check icons' className="" /> 
+        <p>{text}</p>
+      </div>
+    )
+  }
+  
+  export function SeancesComp ({seance, index}) {
+    return(
+      <div className="min-w-0 flex-[0_0_33.33%] h-[150px] pl-10 lg:flex-[0_0_50%] md:flex-[0_0_100%]">
+          <div className=" h-full p-2 flex flex-col justify-center items-center text-center gap-2 relative rounded-3xl overflow-hidden" style={index%2 === 0 ? {backgroundColor:'#E25E3E', color:'white'} : {backgroundColor:"#F9F9F9", color:'#582D3E'}}>
+            <h1 className="text-2xl lg:text-xl sm:text-lg font-semibold">{seance.title}</h1>
+            <p className="sm:text-sm">{seance.description}</p>
+          </div>
+      </div>
     )
   }

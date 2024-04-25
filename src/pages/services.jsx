@@ -28,11 +28,11 @@ export default function Services({workshops}) {
                 <div className="h-full w-full place-self-center relative flex rounded-3xl" style={{background:'linear-gradient(82.92deg, #DE5B30 0%, #FFF7F1 98%)'}}>
                     <Image src={Picture} alt='Picture categories' className="w-[50%] rounded-3xl object-cover md:hidden" priority/>
                     <div className="flex justify-center items-center w-full px-4 relative">
-                        <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 left-1/2 top-40" priority />
+                        <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 left-3/4 top-10" priority />
                         <div className="w-fit mx-4 relative">
                             <div className="flex flex-col gap-3 items-center text-center">
-                                <h1 className="gradient-text2  font-Quesha text-7xl lg:text-6xl md:text-5xl sm:text-4xl">On Vous Accompagne</h1>
-                                <p className="text-primary font-medium text-lg sm:text-base md:text-white">Vous accompagner tout au long de votre cheminement intérieur en vous proposant des services variés qui amorceront votre des changement dans votre vie !</p>
+                                <h1 className="gradient-text2  font-Quesha text-8xl lg:text-7xl md:text-6xl">Nos évènements et ateliers</h1>
+                                <p className="text-secondary font-medium text-lg sm:text-base">{`Curieux d'explorer le monde de l'ésotérisme ou de plonger dans des pratiques de bien-être ? Alors vous êtes au bon endroit ! Que vous débutiez ou que vous soyez déjà avancé dans votre quête spirituelle ou créative, nous avons diverses activités à vous proposer... `}<span className="font-semibold">Etes vous prêt pour ce merveilleux voyage en notre compagnie ?</span></p>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@ export default function Services({workshops}) {
                 {workshops?.length === 0 || !workshops
                 ? <p className='font-medium place-self-center text-secondary text-center sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
                 : <div className="gap-8 grid grid-cols-2 mt-10 md:mt-5 w-full max-w-[1000px] justify-self-center lg:flex lg:flex-col lg:items-center">
-                    { workshops.map(workshop => <Individual key={workshop.id} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
+                    { workshops.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map(workshop => <Individual key={workshop.id} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                 </div>
                 }
             </section>

@@ -11,7 +11,10 @@ import { CartContext, OpenCartContext } from '@/utils/cartProvider'
 import Menu from './menu'
 import { lock, unlock } from '@/utils/lockScreen'
 import Cart from './cart'
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, Skeleton } from '@mui/material'
+import { GETRequest } from '@/utils/requestHeader'
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function Header () {
   const { cart } = useContext(CartContext);
@@ -24,6 +27,7 @@ export default function Header () {
   const [search, setSearch] = useState('')
   const [searchResult, setSearchResult] = useState(null)
   const [load, setLoad] = useState(false)
+  const [freeAmount, setFreeAmount] = useState()
 
   function handleChangeSearch (e) {
     setSearch(e.target.value);
@@ -59,12 +63,27 @@ export default function Header () {
     }
   },[cart])
 
+  async function freeShip () {
+    const free = await fetch(`${API_URL}/settings/value/free_shipping`, GETRequest).then(r => r.json())
+    setFreeAmount(free.value)
+  }
+
+  useEffect(() => {
+    freeShip()
+  }, [])
+
   return (
     <>
       <Menu menu={menu} setMenu={setMenu} setHamburger={setHamburger}/>
       <Cart bag={bag} setBag={setBag} />
       <div className='bg-mainGradient text-white justify-center items-center font-medium text-sm flex relative transition-all duration-500 sm:text-xs sm:justify-start' style={isPub ? {height:'35px', opacity:1} : {height:'0px', opacity:0}}>
-        <p className='sm:max-w-[80%] sm:ml-2 sm:text-center sm:truncate'>{`Livraison offerte dans toute la France à partir de 59€ d'achat !`}</p>
+        {freeAmount 
+          ? <p className='sm:max-w-[80%] sm:ml-2 sm:text-center sm:truncate'>{`Livraison offerte dans toute la France à partir de ${freeAmount}€ d'achat !`}</p>
+          : <div className='max-w-[700px] w-[90vw]'>
+            <Skeleton />
+          </div>
+        }
+        
         <Image src={Close} onClick={() => setIsPub(false)} className='w-5 h-auto absolute right-5' alt='Account pictogram' />
       </div>
       <header className="z-30 h-28 flex justify-between bg-background px-10 items-center font-medium sticky top-0 lg:px-5 text-primary">

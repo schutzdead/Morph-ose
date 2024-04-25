@@ -69,10 +69,13 @@ export default function ProOrders({order}) {
               <h2 className="text-3xl font-extrabold text-white mb-5 self-center xl:text-xl sm:text-lg sm:text-center">Informations Location</h2>
               <div className='flex flex-col gap-2 text-sm'>
                   <div className='flex flex-col gap-1 pb-5 border-b border-gray-300'>
+                    <Informations value={order.room_rental_reservation?.custom_title} />
                       <Informations title="Nombre de participants : " value={order.room_rental_reservation?.number_of_person} />
                       <Informations title="Prix par participant : " value={`${order.room_rental_reservation?.price_per_person}€`} />
                       <Informations title="Date : " value={new Date(order.room_rental_reservation?.room_rental?.date).toLocaleDateString('fr')} />
-                      <Informations title="Commentaire : " value={order.room_rental_reservation?.room_rental?.description} />
+                      <Informations title="Heure du lancement : " value={`${order.room_rental_reservation?.start_time.slice(0,2)}h${order.room_rental_reservation?.start_time.slice(3,5)}`} />
+                      <Informations title="Durée : " value={`${order.room_rental_reservation?.duration} min.`} />
+                      <Informations title="Commentaire : " value={order.room_rental_reservation?.description} />
                 </div>
               </div>
               <div className='flex flex-col gap-2 text-sm'>

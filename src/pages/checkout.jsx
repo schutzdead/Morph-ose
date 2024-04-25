@@ -7,6 +7,7 @@ import Image from "next/image";
 import RightArrow from '../../public/assets/articles/rightSide.svg'
 
 import { useEffect, useState } from "react";
+import { GETRequest } from "@/utils/requestHeader";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -24,15 +25,29 @@ export async function getServerSideProps ({req, res}) {
         }
       })
     const data = await response.json()
+    const ship_fr = await fetch(`${API_URL}/settings/value/shipping_france`, GETRequest).then(r => r.json())
+    const ship = await fetch(`${API_URL}/settings/value/shipping`, GETRequest).then(r => r.json())
+    const free = await fetch(`${API_URL}/settings/value/free_shipping`, GETRequest).then(r => r.json())
     return {
       props: {
           data: data,
+          ship_fr:ship_fr,
+          ship:ship,
+          free:free
       }
     }
   }
 
-export default function Checkout ({data}) {
-    const [userData, setUserData] = useState() 
+export default function Checkout ({data, ship, ship_fr, free}) {
+    const [userData, setUserData] = useState()
+    const [shipping, setShipping] = useState(ship_fr?.value ? Number(ship_fr?.value) : 'Renseignez un pays') 
+    const [zone, setZone] = useState()
+
+    useEffect(() => {
+        if(!zone) return setShipping('Renseignez un pays')
+        zone === 'FRANCE' ? setShipping(Number(ship_fr?.value)) : setShipping(Number(ship?.value))
+    }, [ship?.value, ship_fr?.value, zone])
+
     useEffect(() => {
         if(data.message) return
         for(const property in data) {
@@ -62,11 +77,11 @@ export default function Checkout ({data}) {
                         </div>}
                         <div className="max-w-[500px] w-full py-14 mx-10 px-10 box-content border border-secondary rounded-xl xl:max-w-[400px] md:pt-6 md:pb-10 sm:max-w-[320px] sm:px-0 sm:mx-0 sm:border-none sm:py-5">
                             <h2 className="font-bold text-[15px] mb-3">{userData ? '' : "S'inscrire et payer"}</h2>
-                            <GuestForm userData={userData} />
+                            <GuestForm userData={userData} shipping_zone={setZone} />
                         </div>
                     </div>
                     <div className="flex flex-col items-center h-fullwithHeaderCheckout sticky top-[200px] px-12 2xl:px-6 lg:mt-20 lg:relative lg:top-0 lg:flex-col-reverse lg:h-auto md:mt-10">
-                        <ShoppingCart />
+                        <ShoppingCart shipping={shipping} free={free} />
                     </div>
                     <button type='submit' form="guestForm" className='w-fit col-span-1 place-self-center px-10 hidden lg:flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3'>
                             <p className='font-medium text-center'>Continuer</p>

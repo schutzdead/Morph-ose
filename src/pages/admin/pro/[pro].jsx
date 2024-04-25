@@ -1,7 +1,5 @@
 import pro_icon from '../../../../public/assets/dashboard/pro.svg'
-import ClientBurgerMenu from '@/components/menus/clientBurgerMenu'
-import { ClientMenu } from '@/components/menus/clientMenu'
-import { GETRequest } from "@/utils/requestHeader"
+import { GETTokenRequest } from "@/utils/requestHeader"
 import { useState } from 'react'
 import { Back } from '@/components/littleComponents'
 import { NoIndexHead } from '@/utils/customHead'
@@ -36,8 +34,8 @@ export async function getServerSideProps({req, res, query}) {
       },
   }}
 
+  const result = await fetch(`${API_URL}/auth/admin/orders/${query.pro}`, GETTokenRequest(authToken)).then(r => r.json())
 
-  const result = await fetch(`${API_URL}/orders/tracking/${query.pro}`, GETRequest).then(r => r.json())
   return {
       props: {
         order:result
@@ -72,9 +70,12 @@ export default function ProOrders({order}) {
               <h2 className="text-3xl font-extrabold text-white mb-5 self-center xl:text-xl sm:text-lg sm:text-center">Informations Location</h2>
               <div className='flex flex-col gap-2 text-sm'>
                   <div className='flex flex-col gap-1 pb-5 border-b border-gray-300'>
+                      <Informations value={order.room_rental_reservation?.custom_title} />
                       <Informations title="Nombre de participants : " value={order.room_rental_reservation?.number_of_person} />
                       <Informations title="Prix par participant : " value={`${order.room_rental_reservation?.price_per_person}€`} />
                       <Informations title="Date : " value={new Date(order.room_rental_reservation?.room_rental?.date).toLocaleDateString('fr')} />
+                      <Informations title="Heure du lancement : " value={`${order.room_rental_reservation?.start_time?.slice(0,2)}h${order.room_rental_reservation?.start_time?.slice(3,5)}`} />
+                      <Informations title="Durée : " value={`${order.room_rental_reservation?.duration} min.`} />
                       <Informations title="Commentaire : " value={order.room_rental_reservation?.description} />
                 </div>
               </div>
@@ -107,6 +108,11 @@ export default function ProOrders({order}) {
                       <Informations title="Suivi : " value={order?.tracking_number}  textColor='#582D3E' />
                       <Informations title="Période : " value={order?.room_rental_reservation?.room_rental?.title} textColor='#582D3E' />
                       <Informations title="Prix : " value={`${order?.room_rental_reservation?.room_rental?.price}€`}  textColor='#582D3E' />
+                      {order?.user?.files?.length > 0
+                        ? order?.user?.files?.map(precious => <a key={precious.id} href={precious.url} download className='cursor-pointer py-1.5 place-self-start px-3 bg-secondary/10 rounded-lg w-fit overflow-hidden text-ellipsis mt-5 whitespace-nowrap text-secondary text-lg sm:text-base hover:bg-secondary/20 font-semibold transition-all duration-300  hover:max-w-none'>RIB client</a>
+                      )
+                      : <p className='font-semibold pt-5 text-secondary text-lg sm:text-base'>Pas de RIB</p>
+                      }
                 </div>
               </div>
             </section>

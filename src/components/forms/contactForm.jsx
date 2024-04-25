@@ -6,11 +6,9 @@ import { useState } from "react";
 import { CircularLoading } from "@/utils/loader";
 
 import Image from "next/image";
-import Close from '../../../public/assets/close.svg'
 import Check from '../../../public/assets/check.svg'
-import { lock, unlock } from "@/utils/lockScreen";
 import { InterfaceTextArea, InterfaceTextInput } from "./interface_input";
-import { InputLabel, MenuItem, Select, FormControl, ThemeProvider } from "@mui/material";
+import {  MenuItem, Select, FormControl, ThemeProvider } from "@mui/material";
 import { colorTheme } from "../styles/mui";
 
 const schema = object({
