@@ -1,0 +1,9 @@
+{
+	"seance" : [
+        {"id":0, "title":"Cartomancie", "description":"Et si on tirait vos cartes"},
+        {"id":1, "title":"Guidance", "description":"Un voyage intérieur, ça vous tente ?"},
+        {"id":2, "title":"Poème d’âme", "description":"Envie d’un message poétique ?"},
+        {"id":3, "title":"Chant d’âme", "description":"Une vibration pour se connecter à soi ?"},
+        {"id":4, "title":"Messages de l’âme", "description":"Et si nous allions voir plus loin ?"}
+    ]
+}

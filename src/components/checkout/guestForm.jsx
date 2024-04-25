@@ -123,7 +123,7 @@ export function GuestForm ({userData}) {
                                 quantity: product.quantity,
                             })
                         ),
-                    cancel_url:`${process.env.NEXT_PUBLIC_API_URL}/${router.asPath}`
+                    cancel_url:`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`
                 })
             })
             const register = await response.json()

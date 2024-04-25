@@ -38,6 +38,7 @@ export async function getServerSideProps({req, res}) {
   }}
 
   const result = await fetch(`${API_URL}/auth/admin/orders`, GETTokenRequest(authToken)).then(r => r.json())
+  console.log(result);
   return {
       props: {
           all_orders:result?.filter(r => r.workshops.length !== 0).filter(r => r.room_rental_reservation === null)
@@ -46,6 +47,7 @@ export async function getServerSideProps({req, res}) {
 }
 
 export default function OrdersEvent({all_orders}) {
+  console.log(all_orders);
   const [orders, setProducts] = useState(all_orders)
   const [loading, setLoading] = useState(false)
   const [menu, setMenu] = useState(false)

@@ -29,6 +29,7 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
         if(searchTutorData) {
             reset(searchTutorData)
             setDocId([])
+            setRentId(searchTutorData?.room_rental_reservation?.id)
             setBegin(new Date(searchTutorData?.date))
             if(searchTutorData?.image?.id) {
                 setDocId([searchTutorData?.image])
@@ -97,7 +98,7 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
             console.error('Request failed:' + err.message)
         }
     }
-
+    console.log(rentId);
     return( 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8 w-full" >
         {errorRent ? <div className='col-span-2 text-red-500 place-self-center'>{`Erreur sur l'attribution de l'évènement à une location.`}</div>: ''}
@@ -116,7 +117,11 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                     render={({field}) => (
                         <TextInput field={field} label="Nombre d'entrée" placeholder='20' errors={errors?.entries_available} style="w-full"/>
                     )}/>   
-                <TextField id='rent' type="text" variant="standard"  label="Identifiant location" placeholder="ID disponible dans la rubrique location" value={rentId} onChange={(e) => setRentId(e.target.value)} />
+                <Controller name="rent" control={control} defaultValue=""
+                render={({field}) => (
+                    <TextField id='rent' field={field} variant="standard"  label="Identifiant location" placeholder="ID disponible dans la rubrique location" value={rentId || ''} onChange={(e) => setRentId(e.target.value)} />
+                )}/> 
+                
                 <Controller name="duration" control={control} defaultValue=""
                     render={({field}) => (
                         <TextInput field={field} label='Durée' placeholder='60' errors={errors?.duration} style="w-full"/>

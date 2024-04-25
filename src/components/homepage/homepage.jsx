@@ -6,23 +6,110 @@ import Butterfly2 from '../../../public/assets/main/butterfly2.svg'
 import Plant1 from '../../../public/assets/main/plant1.svg'
 import Services from '../../../public/assets/main/services.webp'
 import Link from "next/link";
+import { CircularLoading } from "@/utils/loader";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { object, string } from "yup";
+
+const schema1 = object({
+  email:string().required("Requis.").email("Email invalide.").trim().lowercase(),
+});
 
 export function Newletter () {
+
+    const [loading, setLoading] = useState(false)
+    const [err, setErr] = useState(false)
+    const [send, setSend] = useState(false)
+    const {reset, handleSubmit, register, formState: {errors}} = useForm({
+        resolver: yupResolver(schema1)
+    })
+
+    async function onSubmit(data) {
+      setErr(false)
+      setLoading(true)
+      const { email } = data
+      //check in the list if email is subcribe
+      try {
+          const checkList = await fetch('/api/profil', {
+          method:'POST',
+          headers: {
+              "Accept": "application/json",
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+              emails:[email]
+          })
+      })
+      const list = await checkList.json();
+      if(list.length > 0) {
+          setLoading(false)
+          reset({email:email})
+          setErr(true)
+          return
+      }
+
+      //if email doesn't exist, subcribe to list
+      const response = await fetch('/api', {
+          method: "POST",  
+          headers: {
+              "Accept": "application/json",
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(
+              { 
+                  profiles:[
+                      {
+                          email:email,
+                      }
+                  ]
+              }
+          )
+      })
+      const auth = await response.json();
+          if(auth.length>0 && auth[0].id){
+              setErr(false)
+              setSend(true);
+          } else {
+              setErr(true)
+          }
+          setLoading(false)
+          reset({email:''})
+      } catch (err) {
+        console.error('Request failed:' + err)
+        setLoading(false)
+      }
+    }
+
     return(
       <section id="newsletter" className="scroll-m-32 flex flex-col gap-10 mx-10 my-32 sm:my-20 md:mx-5">
         <div className="flex gap-20 bg-homeGradient3 rounded-3xl justify-center px-10 lg:gap-10 sm:gap-8 sm:px-3 ">
-          <Image src={Plant1} alt='plant icon' className="self-end w-auto sm:hidden" priority />
-          <div className="flex-col flex gap-10 text-white py-20 md:gap-5 sm:py-10 sm:items-center sm:text-center">
+          <Image src={Plant1} alt='plant icon' className="self-end w-auto md:max-w-[150px] sm:hidden" priority />
+          <div className="flex-col flex gap-10 text-white py-20 sm:py-10 sm:items-center sm:text-center">
             <h1 className="font-Quesha w-fit text-9xl xl:text-6xl md:text-5xl">Gardez la pêche !</h1>
-            <p className="font-bold text-2xl lg:text-xl md:text-base">Recevez régulièrement, gratuitement, votre billet de bonne humeur ! </p>
-            <div className="bg-white rounded-xl w-fit p-1.5 gap-5 h-14 flex items-center">
-              <input type="text" name="" id="" className="appearance-none h-full w-full px-5 text-black" placeholder="Entrez votre adresse email" />
-              <button className="text-lg whitespace-nowrap font-semibold lg:text-base sm:text-sm px-4 h-full bg-primary text-white rounded-lg">{`Je m'inscris !`}</button>
-            </div>
+            <p className="font-bold text-xl lg:text-lg md:text-base">{`Inscrivez-vous à notre billet d'humeur et recevez régulièrement un flux de pensées positives et de motivations  directement dans votre boîte mail.`}</p>
+            {!send 
+            ? <>
+              {err ? <div className='text-red-500 text-sm font-semibold -mb-7 md:mb-0'>Une erreur est survenue.</div>: ''}
+              {loading
+                  ? <CircularLoading />
+                  :
+                  <>
+                    {errors.email && (<p className="text-sm text-red-500 w-fit rounded">{errors.email?.message}</p>)}
+                    <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-xl w-fit p-1.5 gap-5 h-14 flex items-center">
+                      <input type="text" name="email" id="email" className="appearance-none h-full w-full px-5 text-black" placeholder="Entrez votre adresse email" {...register("email")} />
+                      <button type="submit" className="text-lg whitespace-nowrap font-semibold lg:text-base sm:text-sm px-4 h-full bg-primary text-white rounded-lg">{`Je m'inscris !`}</button>
+                    </form>
+                  </>
+              }
+            </>
+            : <p className="text-lg whitespace-nowrap font-semibold lg:text-base sm:text-sm">Vous êtes inscrit, merci !</p>
+            }           
           </div>
         </div>
         <div className="flex flex-col gap-3">
-          <h1 className="font-Quesha w-fit text-8xl xl:text-6xl md:text-4xl text-secondary 2sm:text-3xl">Ou Suivez Nous Sur Instagram...</h1>
+          <h1 className="font-Quesha w-fit text-8xl xl:text-6xl md:text-4xl text-secondary 2sm:text-3xl">Et suivez nous sur les réseaux sociaux... </h1>
           <div className="max-w-screen flex ml-10 gap-5 h-[100px] min-h-[100px] overflow-hidden sm:h-[80px] sm:min-h-[80px] lg:ml-0">
             <div className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[80px]">
               <Image src={Services} alt='plant icon' className="rounded-lg object-cover h-full" priority />
@@ -44,7 +131,7 @@ export function Newletter () {
   
   export function Title ({butterfly=false, title}) {
     return(
-      <div className="relative font-Quesha w-fit text-9xl xl:text-6xl md:text-4xl 2sm:text-center">
+      <div className="relative font-Quesha w-fit text-9xl xl:text-7xl md:text-6xl 2sm:text-center">
         <div className="relative">
           <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 -left-[53px] -top-[20px] xl:w-12 xl:-left-[41px] xl:-top-[23px] md:w-8 md:-left-[25px] md:-top-[16px]" style={butterfly ? {display:'block'} : {display:'none'}} priority />
           <h1 className="gradient-text2 text-center">{title}</h1>
@@ -58,9 +145,8 @@ export function Newletter () {
     return(
       <div className="flex flex-col group rounded-3xl h-full relative overflow-hidden cursor-pointer">
         <div className="rounded-3xl bg-homeGradient1 absolute z-10 top-0 w-full h-[25%] min-h-[150px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-1000 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
-          <h2 className="text-3xl font-bold lg:text-2xl sm:text-lg text-center px-3">{product?.breadcrumb[0]?.title ? product?.breadcrumb[0]?.title.toUpperCase() : 'Nos catégories'}</h2>
-          {/* <p className="font-bold text-center px-2 text-ellipsis line-clamp-2 sm:text-sm">{product?.description}</p> */}
-          <Link href={product?.breadcrumb[0]?.slug ? {pathname: `/categories/${product?.breadcrumb[0]?.slug}`, query: { cat:product?.breadcrumb[0]?.id }} : {pathname: `/categories`}} className="absolute right-5 bottom-3">
+          <h2 className="text-3xl font-bold lg:text-2xl sm:text-lg text-center px-3">{product?.breadcrumb[1]?.title ? product?.breadcrumb[1]?.title.toUpperCase() : 'Nos catégories'}</h2>
+          <Link href={product?.breadcrumb[0]?.slug ? {pathname: `/categories/${product?.breadcrumb[1]?.slug}`, query: { cat:product?.breadcrumb[1]?.id }} : {pathname: `/categories`}} className="absolute right-5 bottom-3">
             <button className="bg-white px-3 py-1 rounded-3xl text-xs font-bold flex gap-1 items-center">
               <p className="gradient-text2">Voir plus</p>
               <Image src={RightArrow} alt='arrow icon' className="mt-[2px]" priority />
@@ -95,7 +181,7 @@ export function Newletter () {
             <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-2xl object-cover" priority />
           </div>
           <h2 className="text-3xl xl:text-2xl lg:text-xl sm:text-lg font-bold text-secondary mt-4">{workshop?.title}</h2>
-          <p className="text-[#A37C99] sm:text-sm text-ellipsis line-clamp-2 h-[50px]">{workshop?.description ? workshop?.description : description}</p>
+          <p className="text-[#A37C99] sm:text-sm text-ellipsis line-clamp-2">{workshop?.description ? workshop?.description : description}</p>
           <Link href="/services" className="bg-secondary cursor-pointer my-3 place-self-end rounded-full w-10 h-10 min-w-10 min-h-10 flex items-center justify-center mx-3">
             <Image src={WRightArrow} alt='arrow icon' priority />
           </Link>

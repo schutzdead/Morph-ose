@@ -1,14 +1,7 @@
 import { CheckoutSignIn } from "@/components/checkout/checkoutSignIn";
-import { GuestForm } from "@/components/checkout/guestForm";
 import Layout from "@/components/layout/layout";
-import Image from "next/image";
-
-import RightArrow from '../../public/assets/articles/rightSide.svg'
-
 import { useEffect, useState } from "react";
-import { ServiceCart } from "@/components/checkout/serviceCart";
 import { GETRequest } from "@/utils/requestHeader";
-import { ServiceGuestForm } from "@/components/checkout/serviceGuestForm";
 import { FakeBreadCrumb } from "./checkout";
 import { RentServiceCart } from "@/components/checkout/rentCart";
 import { RentGuestForm } from "@/components/checkout/rentGuestForm";

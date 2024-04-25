@@ -23,7 +23,7 @@ import { object, number,string } from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { DateTimePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import fr from 'date-fns/locale/fr';
 import parseISO from "date-fns/parseISO";
@@ -317,8 +317,8 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
         setLoading(true)
         // setlogErr(false)
         const { price, persons, comment, title, duration } = data
-        var tzoffset = (new Date(begin)).getTimezoneOffset() * 60000; //offset in milliseconds
-        var localISOTime = (new Date(begin - tzoffset)).toISOString().slice(0, -1);
+        // var tzoffset = (new Date(begin)).getTimezoneOffset() * 60000; //offset in milliseconds
+        // var localISOTime = (new Date(begin - tzoffset)).toISOString().slice(0, -1);
 		try {
             const response = await fetch(`${API_URL}/room-rentals/reservations`, {
                 method: "POST",    
@@ -332,9 +332,9 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                     number_of_person:persons, 
                     price_per_person:price, 
                     description:comment,
-                    title_workshop:title,
+                    custom_title:title,
                     duration:duration,
-                    start_time:localISOTime
+                    start_time:new Date(begin).toLocaleTimeString('fr')
                  })
             })
             const newRent = await response.json()
@@ -367,11 +367,11 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                 <InterfaceTextInput label='Titre de votre évènement *' placeholder='Atelier création' name="title" options={{...register("title")}} commonError={errors.title} commonErrorMessage={errors.title?.message} labelStyle="text-secondary"/>
                 <InterfaceTextInput label='Nombre de personne *' placeholder='Nombre maximum de participants' name="persons" options={{...register("persons")}} commonError={errors.persons} commonErrorMessage={errors.persons?.message} labelStyle="text-secondary"/>
                 <InterfaceTextInput label='Prix par personne (euros) *' placeholder='Coût individuel par participant' name="price" options={{...register("price")}} commonError={errors.price} commonErrorMessage={errors.price?.message} labelStyle="text-secondary"/>
-                <InterfaceTextInput label='Durée *' placeholder={`Durée de l'évènement`} name="duration" options={{...register("duration")}} commonError={errors.duration} commonErrorMessage={errors.duration?.message} labelStyle="text-secondary"/>
+                <InterfaceTextInput label='Durée (en minutes) *' placeholder={`Durée de l'évènement en minutes`} name="duration" options={{...register("duration")}} commonError={errors.duration} commonErrorMessage={errors.duration?.message} labelStyle="text-secondary"/>
                 <div className="pt-5 pb-3">
                     <ThemeProvider theme={colorTheme}>
                         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}>
-                            <DateTimePicker disablePast label="Date de la séance" value={begin} onChange={(newValue) => setBegin(newValue)} slotProps={{ textField: { required: true } }} minutesStep={15} />
+                            <TimePicker disablePast label="Heure de début de séance" value={begin} onChange={(newValue) => setBegin(newValue)} slotProps={{ textField: { required: true } }} minutesStep={15} />
                         </LocalizationProvider>
                     </ThemeProvider> 
                 </div>
