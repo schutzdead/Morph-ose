@@ -46,6 +46,9 @@ export async function getServerSideProps() {
 }
 
 export default function Rent() {
+
+    const TEXTMODAL = [{id:1, title:"Salle modulable pour petits groupes ou grands ateliers"}, {id:2, title:"Équipement audiovisuel pour des présentations interactives"}, {id:3, title:"Connexion Wi-Fi, haute vitesse"}, {id:4, title:"Zones de détente pour des pauses revitalisantes"}]
+
     const [step, setStep] = useState(1)
     const [option, setOption] = useState()
     const [dispo, setDispo] = useState()
@@ -78,16 +81,27 @@ export default function Rent() {
                 </section>
                 <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
                     <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
-                    <Title title='Proposez vos services' butterfly={true} />
-                    <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-primary">
-                        <p className="max-w-[1000px]">Venez proposer votre vos services ou réserver notre local pour proposer un atelier ! Apportez votre expertise.</p>
+                    <div className="flex flex-col gap-5 mt-5 text-secondary text-center text-lg font-medium sm:text-sm max-w-[1500px] sm:place-self-center sm:text-center">
+                        <h3 className="text-5xl font-semibold lg:text-4xl sm:text-2xl text-primary mb-5">Venez proposer vos services</h3>
+                        <p>Chez Merveilles de {`Morph'ose, nous comprenons l'importance`} <span className="font-semibold">{`d'un environnement adapté et inspirant`}</span>{` pour le partage de connaissances et la réalisation d'activités créatives. C’est pourquoi nous offrons à la location un espace versatile et accueillant, idéal pour une variété d'événements tels que des ateliers de méditation, séances de yoga, cours de tarot, workshops créatifs, et bien plus encore.`}</p>
                     </div>
+                    <div className="flex flex-col gap-5 mt-5 text-secondary text-center text-lg font-medium sm:text-sm max-w-[1500px] sm:place-self-center sm:text-center">
+                        <h3 className="text-5xl font-semibold lg:text-4xl sm:text-2xl text-primary mb-5">Des installations adaptées !</h3>
+                        <p className="font-semibold">Notre espace est équipé pour accueillir confortablement vos participants :</p>
+                        <p>{`Vous pouvez personnaliser l'agencement et l'ambiance de notre espace selon le thème et le style de votre événement. Que vous souhaitiez créer une atmosphère relaxante pour des séances de bien-être ou un cadre dynamique pour des ateliers créatifs, nous sommes là pour adapter notre espace à vos spécifications.`}</p>
+                    </div>
+                    <div className="grid grid-cols-4 place-items-center max-w-[1200px] gap-5 place-self-center lg:grid-cols-2 sm:grid-cols-1">
+                        {
+                            TEXTMODAL.map((text) => <div key={text.id} className="p-5 text-secondary text-center font-bold bg-modalRent rounded-2xl flex items-center justify-center min-h-[130px] max-w-[250px] lg:min-h-0 sm:max-w-[97vw]">{text.title}</div>)
+                        }
+                    </div>
+                    <p className="font-bold text-2xl lg:text-xl sm:text-base pt-10 text-center sm:pt-5 text-secondary">Louez notre espace et donnez vie à vos ateliers et événements dans un lieu qui inspire et soutient le développement personnel et créatif.</p>
                     <div id="scroll_rent" className="scroll-m-24 flex flex-col items-center mt-5 relative gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl sm:p-5 sm:gap-5">
                         <button style={step === 1 ? {display:'none'} : {display:'flex'}} onClick={() => setStep(step === 1 ? step : step-1 )} className='pl-2 pr-4 bg-primary/80 hover:bg-primary absolute w-fit top-8 left-10 items-center transition-all duration-500 rounded-xl justify-center text-base text-white py-2 md:top-5 md:left-5 md:pl-0 md:pr-2 md:py-1 md:text-sm md:rounded-md md:bg-primary'>
                             <Image src={left_arrow} alt='left arrow icon' className="md:w-4 h-auto" priority />
                             <p className='font-medium text-center mb-[2px]'>Retour</p>
                         </button>
-                        <h2 className="font-Quesha text-8xl lg:text-7xl md:text-6xl sm:text-5xl text-[#E25E3EB8] md:pt-10">Etape {step}</h2>
+                        <h2 className="font-Quesha text-8xl lg:text-7xl md:text-6xl sm:text-5xl text-primary md:pt-10">Etape {step}</h2>
                         {loading 
                             ? <CircularLoading />
                             : <>
@@ -111,13 +125,13 @@ export function Step1 ({step, setStep}) {
     const router = useRouter()
     return(
         <div className="w-full flex flex-col gap-5" style={step === 1 ? {display:'flex'} : {display:'none'}}>
-            <div className="font-semibold text-2xl bg-[#ECA683] w-full flex items-center justify-center rounded-2xl py-5 sm:text-lg">
+            <div className="font-semibold text-2xl bg-[#ECA68345] w-full flex items-center justify-center rounded-2xl py-5 sm:text-lg">
                 <h2 className="gradient-text2 text-center px-5">QUE SOUHAITEZ VOUS PROPOSER ?</h2>
             </div>
             <div className="flex flex-col items-center rounded-2xl text-white bg-primary gap-5 p-5">
-                <h2 className="font-Quesha text-7xl lg:text-6xl md:text-5xl sm:text-4xl">Réserver un local</h2>
-                <p className="sm:text-sm max-w-[500px] text-center">Je souhaite organiser un atelier ou évènement dans votre local pour organiser un atelier ou un évènement !</p>
-                <button onClick={() => {setStep(2), router.push('#scroll_rent')}} className="w-fit px-5 py-2 bg-[#ECA683] mt-4 rounded-[50px] text-white font-bold text-base">RESERVER</button>
+                <h2 className="font-Quesha text-7xl lg:text-6xl md:text-5xl text-center sm:text-4xl sm:leading-[30px]">Réserver l’espace pour mon évènement!</h2>
+                <p className="sm:text-sm max-w-[500px] text-center">Je souhaite organiser un atelier ou évènement dans votre local pour organiser un atelier ou un évènement!</p>
+                <button onClick={() => {setStep(2), router.push('#scroll_rent')}} className="w-fit px-5 py-2 bg-[#ECA683] mt-4 rounded-[50px] text-white font-bold text-base">JE RESERVE L’ESPACE</button>
             </div>
         </div>
     )

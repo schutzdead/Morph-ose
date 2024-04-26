@@ -213,8 +213,8 @@ export function Newletter () {
     return(
       <div className="min-w-0 flex-[0_0_33.33%] h-[150px] pl-10 lg:flex-[0_0_50%] md:flex-[0_0_100%]">
           <div className=" h-full p-2 flex flex-col justify-center items-center text-center gap-2 relative rounded-3xl overflow-hidden" style={index%2 === 0 ? {backgroundColor:'#E25E3E', color:'white'} : {backgroundColor:"#582D3E", color:'white'}}>
-            <h1 className="text-2xl lg:text-xl sm:text-lg font-semibold">{seance.title}</h1>
-            <p className="sm:text-sm">{seance.description}</p>
+            <h1 className="text-2xl lg:text-xl sm:text-lg font-semibold">{seance?.title}</h1>
+            <p className="sm:text-sm">{seance?.description}</p>
           </div>
       </div>
     )

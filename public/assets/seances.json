@@ -1,9 +1,9 @@
 {
 	"seance" : [
-        {"id":0, "title":"Cartomancie", "description":"Et si on tirait vos cartes"},
-        {"id":1, "title":"Guidance", "description":"Un voyage intérieur, ça vous tente ?"},
-        {"id":2, "title":"Poème d’âme", "description":"Envie d’un message poétique ?"},
-        {"id":3, "title":"Chant d’âme", "description":"Une vibration pour se connecter à soi ?"},
-        {"id":4, "title":"Messages de l’âme", "description":"Et si nous allions voir plus loin ?"}
+        {"id":0, "title":"Cartomancie", "description":"Et si on tirait vos cartes", "content":"Que ce soit pour éclairer votre passé, illuminer votre présent ou anticiper les potentialités de votre avenir, nos séances personnalisées vous offrent un aperçu unique de votre parcours de vie. Utilisant les symboles et les archétypes des cartes, nous vous aiderons à comprendre les dynamiques en jeu et à faire des choix éclairés pour votre futur.", "price1":"1H00 : 60€", "price2":"1H30 : 80€"},
+        {"id":1, "title":"Guidance", "description":"Un voyage intérieur, ça vous tente ?", "content":"Recevez des conseils personnalisés et des insights qui vous aideront à surmonter les obstacles et à avancer vers vos objectifs avec assurance. Nos sessions de guidance sont conçues pour vous fournir un soutien moral et émotionnel, renforçant votre résilience et votre capacité à gérer les complexités du quotidien.", "price1":"1H30 : 80€", "price2":"2H00 : 100€"},
+        {"id":2, "title":"Poème d’âme", "description":"Envie d’un message poétique ?", "content":"Laissez-vous toucher par la beauté d’un poème d'âme rédigé rien que pour vous. Ce poème, unique et personnel, capturera l'essence de votre voyage spirituel, reflétant vos luttes, vos espoirs et vos rêves. C’est une source d’inspiration et un miroir de votre propre histoire, créé pour vous encourager et vous élever à chaque lecture.", "price1":"40€"},
+        {"id":3, "title":"Chant d’âme", "description":"Une vibration pour se connecter à soi ?", "content":"Expérimentez la puissance transformative d’un chant d'âme personnalisé. Composé spécifiquement pour résonner avec les vibrations de votre âme, ce chant est une ode à votre essence spirituelle. Il offre un moment de paix et d'harmonie, fortifiant votre connexion intérieure et vous aidant à retrouver votre équilibre émotionnel et spirituel.", "price1":"40€"},
+        {"id":4, "title":"Messages de l’âme", "description":"Et si nous allions voir plus loin ?", "content":"Recevez des messages profonds qui parlent directement à votre cœur et à votre esprit. Ces messages sont des révélations qui viennent éclairer votre chemin de vie, vous guidant vers la compréhension de soi et la réalisation personnelle. Chaque message est une clé qui ouvre de nouvelles portes de perception et encourage l'exploration de votre potentiel intérieur.",  "price1":"130€"}
     ]
 }

@@ -38,6 +38,9 @@ export default function Menu ({menu, setMenu , setHamburger}) {
                         <Link href='/services' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
                             <Tab level1='NOS SERVICES'/>
                         </Link>
+                        <Link href='/seances' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
+                            <Tab level1='SEANCES PERSONNALISEE'/>
+                        </Link>
                         <Link href='/rent' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
                             <Tab level1='LOCATION'/>
                         </Link>
