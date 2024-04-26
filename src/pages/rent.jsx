@@ -57,7 +57,7 @@ export default function Rent() {
     const [rentId, setRentId] = useState(null)
     return (
         <>
-        <CustomHead pageName='Services' metaResume="Retrouvez l'ensemble de nos services"/>
+        <CustomHead pageName='Location professionnelle' metaResume="Louez notre location pendant une période déterminée."/>
             <Layout>
             <main className="pt-[1.5vh]">
                 <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-center flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5">
@@ -67,14 +67,18 @@ export default function Rent() {
                             <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 left-1/2 top-40" priority />
                             <div className="w-fit mx-4 relative">
                                 <div className="flex flex-col gap-3 items-center text-center">
-                                    <h1 className="gradient-text2  font-Quesha text-7xl lg:text-6xl md:text-5xl sm:text-4xl">On Vous Accompagne</h1>
-                                    <p className="text-primary font-medium text-lg sm:text-base md:text-white">Vous accompagner tout au long de votre cheminement intérieur en vous proposant des services variés qui amorceront votre des changement dans votre vie !</p>
+                                    <h1 className="gradient-text2 leading-[70px] font-Quesha text-8xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px] mb-5">Venez proposer vos services !</h1>
+                                    <p className="text-secondary font-medium text-lg sm:text-base md:text-white">{`Vous êtes un professionnel du bien-être, de l'ésotérisme ou un créatif à la recherche de l'espace parfait pour organiser vos ateliers et événements ? `}</p>
+                                    <p className="text-secondary font-semibold text-lg sm:text-base md:text-white">Découvrez notre espace modulable situé à Cournon d’Auvergne, spécialement aménagé pour répondre à vos besoins.</p>
                                 </div>
                             </div>
                         </div>
                         <div className="flex gap-3 absolute bottom-3 right-3">
+                            <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
+                                SERVICES
+                            </Link>
                             <Link href='/categories' className="text-sm font-black bg-background text-[#A37C99] place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
-                            BOUTIQUE
+                                BOUTIQUE
                             </Link>
                         </div>
                     </div>
@@ -96,8 +100,8 @@ export default function Rent() {
                         }
                     </div>
                     <p className="font-bold text-2xl lg:text-xl sm:text-base pt-10 text-center sm:pt-5 text-secondary">Louez notre espace et donnez vie à vos ateliers et événements dans un lieu qui inspire et soutient le développement personnel et créatif.</p>
-                    <div id="scroll_rent" className="scroll-m-24 flex flex-col items-center mt-5 relative gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl sm:p-5 sm:gap-5">
-                        <button style={step === 1 ? {display:'none'} : {display:'flex'}} onClick={() => setStep(step === 1 ? step : step-1 )} className='pl-2 pr-4 bg-primary/80 hover:bg-primary absolute w-fit top-8 left-10 items-center transition-all duration-500 rounded-xl justify-center text-base text-white py-2 md:top-5 md:left-5 md:pl-0 md:pr-2 md:py-1 md:text-sm md:rounded-md md:bg-primary'>
+                    <div id="scroll_rent" className="scroll-m-24 flex flex-col items-center relative gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl sm:p-0 sm:gap-5 sm:bg-transparent">
+                        <button style={step === 1 ? {display:'none'} : {display:'flex'}} onClick={() => setStep(step === 1 ? step : step-1 )} className='pl-2 pr-4 bg-primary/80 hover:bg-primary absolute w-fit top-8 left-10 items-center transition-all duration-500 rounded-xl justify-center text-base text-white py-2 md:top-5 md:left-0 md:pl-0 md:pr-2 md:py-1 md:text-sm md:rounded-md md:bg-primary'>
                             <Image src={left_arrow} alt='left arrow icon' className="md:w-4 h-auto" priority />
                             <p className='font-medium text-center mb-[2px]'>Retour</p>
                         </button>
@@ -131,7 +135,7 @@ export function Step1 ({step, setStep}) {
             <div className="flex flex-col items-center rounded-2xl text-white bg-primary gap-5 p-5">
                 <h2 className="font-Quesha text-7xl lg:text-6xl md:text-5xl text-center sm:text-4xl sm:leading-[30px]">Réserver l’espace pour mon évènement!</h2>
                 <p className="sm:text-sm max-w-[500px] text-center">Je souhaite organiser un atelier ou évènement dans votre local pour organiser un atelier ou un évènement!</p>
-                <button onClick={() => {setStep(2), router.push('#scroll_rent')}} className="w-fit px-5 py-2 bg-[#ECA683] mt-4 rounded-[50px] text-white font-bold text-base">JE RESERVE L’ESPACE</button>
+                <button onClick={() => {setStep(2), router.push('#scroll_rent')}} className="w-fit px-5 py-2 bg-[#ECA683] mt-4 rounded-[50px] text-white font-bold text-base sm:text-sm">JE RESERVE L’ESPACE</button>
             </div>
         </div>
     )

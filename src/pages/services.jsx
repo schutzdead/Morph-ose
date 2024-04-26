@@ -38,8 +38,8 @@ export default function Services({workshops}) {
                         </div>
                     </div>
                     <div className="flex gap-3 absolute bottom-3 right-3">
-                      <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
-                        SERVICES
+                      <Link href='/seances' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
+                        SEANCES
                       </Link>
                       <Link href='/categories' className="text-sm font-black bg-background text-[#A37C99] place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
                         BOUTIQUE

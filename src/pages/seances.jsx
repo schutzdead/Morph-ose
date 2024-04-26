@@ -20,7 +20,7 @@ export default function Seances() {
                     <div className="flex justify-center items-center w-full px-4 relative">
                         <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 left-3/4 top-10" priority />
                         <div className="w-fit mx-4 relative">
-                            <div className="flex flex-col gap-3 items-center text-start">
+                            <div className="flex flex-col gap-3 items-center text-center">
                                 <h1 className="gradient-text2 leading-[70px] font-Quesha text-8xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px] mb-5">Une séance personnalisée ?</h1>
                                 <p className="text-secondary font-medium text-lg sm:text-base">{`Découvrez le chemin vers votre bien-être intérieur avec nos séances personnalisées de guidance, cartomancie, poème d'âme, chant d'âme et message d'âme, disponibles dès maintenant à la réservation`}</p>
                             </div>
@@ -38,12 +38,12 @@ export default function Seances() {
             </section>
             <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
                 <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
-                <div className="flex flex-col gap-5 mt-5 text-secondary text-lg font-medium sm:text-sm max-w-[1500px] sm:place-self-center sm:text-center">
+                <div className="flex flex-col gap-5 mt-5 text-secondary text-lg font-medium sm:text-sm max-w-[1500px] place-self-center text-center">
                     <h3 className="text-5xl font-semibold lg:text-4xl sm:text-2xl text-primary mb-5">Un peu perdu en ce moment?</h3>
                     <p>Chez Merveilles de {`Morph'ose,`} nous vous invitons <span className="font-semibold">à explorer une expérience unique et personnalisée</span> conçue pour vous guider vers une meilleure compréhension de soi et un épanouissement spirituel.</p>
                     <p>Que vous choisissiez de travailler avec moi ou avec Audrey, notre experte en cartomancie, nous sommes là pour vous accompagner sur votre chemin de découverte intérieure.</p>
                 </div>
-                <div className="flex flex-col gap-5 mt-5 text-secondary text-lg font-medium sm:text-sm max-w-[1500px] sm:place-self-center sm:text-center">
+                <div className="flex flex-col gap-5 mt-5 text-secondary text-lg font-medium sm:text-sm max-w-[1500px] place-self-center text-center">
                     <h3 className="text-5xl font-semibold lg:text-4xl sm:text-2xl text-primary mb-5">Nous proposons une variété de séances adaptées à vos besoins individuels :</h3>
                     <p>Chaque session est une opportunité de croissance, de guérison et de réflexion. </p>
                     <p className="font-semibold">Faites le premier pas vers un changement positif.</p>
@@ -57,7 +57,7 @@ export default function Seances() {
                 <p className="font-bold text-2xl lg:text-xl sm:text-base pt-10 text-center sm:pt-5 text-secondary">Réservez votre séance personnalisée dès {`aujourd'hui`} et commencez votre voyage vers la transformation personnelle.</p>
                 <section className="flex mt-20 md:mt-10 items-center w-full gap-10 relative sm:gap-8">
                     <Image src={Vector} alt='Vector icon' className="max-w-[35%] md:hidden" priority/>
-                    <div className="w-full flex justify-center"><Link href="/seances" className='flex place-self-center items-center gap-3 text-white justify-center bg-homeGradient3 py-4 w-full px-4 text-xl font-semibold rounded-2xl text-center lg:text-lg md:text-md md:w-fit cursor-pointer sm:place-self-center'>Découvrez nos séances personnalisées</Link></div>
+                    <div className="w-full flex justify-center"><Link href="/services" className='flex place-self-center items-center gap-3 text-white justify-center bg-homeGradient3 py-4 w-full px-4 text-xl font-semibold rounded-2xl text-center lg:text-lg md:text-md md:w-fit cursor-pointer sm:place-self-center'>Découvrez nos ateliers et évènements</Link></div>
                     <Image src={Vector} alt='Vector icon' className="max-w-[35%] rotate-180 md:hidden" priority/>
                 </section>
             </section>
