@@ -85,14 +85,14 @@ export function ContactForm () {
                         </div>
                     </>
                 </div> 
-                : <form onSubmit={handleSubmit(onSubmit)} className='w-full grid grid-cols-2 gap-5 relative place-self-center' id="contact">
+                : <form onSubmit={handleSubmit(onSubmit)} className='w-full grid grid-cols-2 gap-5 place-self-center sm:grid-cols-1' id="contact">
                         <InterfaceTextInput label='Nom *' placeholder='Dupont' name="lastname" options={{...register("lastname")}} commonError={errors.lastname} commonErrorMessage={errors.lastname?.message} labelStyle="text-secondary"/>
                         <InterfaceTextInput label='Email *' placeholder='Entrez votre email' name="email" options={{...register("email")}} commonError={errors.email} commonErrorMessage={errors.email?.message} labelStyle="text-secondary"/>
                         <InterfaceTextInput label='Téléphone *' placeholder='0606060606' name="phone" options={{...register("phone")}} commonError={errors.phone} commonErrorMessage={errors.phone?.message} labelStyle="text-secondary"/>
-                        <div className="flex flex-col tracking-[0.2px] gap-2 h-full text-secondary">
-                            <label className="text-lg gap-2 font-medium whitespace-nowrap lg:text-base sm:text-sm">Thématique *</label>
+                        <div className="flex flex-col tracking-[0.2px] gap-2 h-full text-secondary col-span-2 sm:col-span-1">
+                            <label className="text-lg gap-2 font-medium lg:text-base sm:text-sm">Thématique *</label>
                             <ThemeProvider theme={colorTheme}>
-                                <FormControl sx={{width:'100%', height:'100%'}} variant="filled">
+                                <FormControl variant="filled">
                                     <Select label="Thématique" defaultValue="" required
                                             value={dataCategory} onChange={handleChangeCat}
                                     >
@@ -101,9 +101,9 @@ export function ContactForm () {
                                 </FormControl>
                             </ThemeProvider>
                         </div>
-                        <InterfaceTextArea label='Commentaire *' placeholder="Détaillez nous votre problème" name="comment" height={3}  options={{...register("comment")}} commonError={errors.comment} commonErrorMessage={errors.comment?.message} labelStyle="text-secondary"/>
-                        <p className='text-xs font-light col-span-2'>En envoyant ce mail, vous agréez à la <span className='font-bold'>politiques de la protection des données*</span>.</p>
-                        <button type='submit'  className='w-fit px-10 col-span-2 place-self-center gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 mt-10'>
+                        <InterfaceTextArea label='Commentaire *' placeholder="Détaillez nous votre problème" name="comment" height={3}  options={{...register("comment")}} commonError={errors.comment} commonErrorMessage={errors.comment?.message} labelStyle="text-secondary" style="sm:col-span-1"/>
+                        <p className='text-xs font-light col-span-2 sm:col-span-1'>En envoyant ce mail, vous agréez à la <span className='font-bold'>politiques de la protection des données*</span>.</p>
+                        <button type='submit' className='w-fit px-10 col-span-2 place-self-center gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 mt-10 sm:mt-5 sm:col-span-1'>
                                 <p className='font-medium text-center'>Envoyer</p>
                         </button>
                 </form>

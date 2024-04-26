@@ -68,7 +68,7 @@ export default function MailForm () {
                                     <PasswordInput field={field} name='password' label="Mot de passe" placeholder="Entrez votre mot de passe" errors={errors?.password} /> 
                                 )}
                     />
-                    <button type='submit' className='col-span-2 place-self-center w-full mt-5 flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-2 lg:hidden'>
+                    <button type='submit' className='col-span-2 place-self-center w-full mt-5 flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-2'>
                         <p className='font-medium text-center'>Enregistrer</p>
                     </button>
                 </ThemeProvider>

@@ -46,6 +46,7 @@ export default function Article({product}) {
             reference: product?.reference,
             promo_price: product?.promo_price,
             picture: product?.images[0],
+            stock: product?.stock
         })
     }
 
@@ -157,7 +158,7 @@ export default function Article({product}) {
                                     :
                                         <>
                                         <div className="flex gap-5 items-center mt-8 sm:mt-0">
-                                            <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} />
+                                            <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} product={product} />
                                         </div>
                                         <div className="py-5" onClick={() => {updateCart();setBag(true);lock()}}>
                                             <CustomButton butterfly={true} text="Acheter" style={{width:"250px", height:'40px'}} />

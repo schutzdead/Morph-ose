@@ -55,7 +55,6 @@ export default function Workshops({all_workshops}) {
   const filterBox = useRef(null)
 
   const [menu, setMenu] = useState(false)
-  console.log(all_workshops);
   const [hamburger, setHamburger] = useState(false)
   return (
     <>

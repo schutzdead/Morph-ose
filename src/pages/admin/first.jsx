@@ -80,7 +80,6 @@ export default function First({first_product}) {
       console.error('Request failed:' + err)
     }
   } 
-
   return (
     <>
     <NoIndexHead />

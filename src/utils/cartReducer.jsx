@@ -25,6 +25,7 @@ export function cartReducer(state, action) {
                 reference: action.reference,
                 promo_price: action.promo_price,
                 picture: action.picture,
+                stock: action.stock
             }]
       }
 

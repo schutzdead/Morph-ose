@@ -73,7 +73,7 @@ export default function ProOrders({order}) {
                       <Informations title="Nombre de participants : " value={order.room_rental_reservation?.number_of_person} />
                       <Informations title="Prix par participant : " value={`${order.room_rental_reservation?.price_per_person}€`} />
                       <Informations title="Date : " value={new Date(order.room_rental_reservation?.room_rental?.date).toLocaleDateString('fr')} />
-                      <Informations title="Heure du lancement : " value={`${order.room_rental_reservation?.start_time.slice(0,2)}h${order.room_rental_reservation?.start_time.slice(3,5)}`} />
+                      <Informations title="Heure du lancement : " value={`${order.room_rental_reservation?.start_time?.slice(0,2)}h${order.room_rental_reservation?.start_time?.slice(3,5)}`} />
                       <Informations title="Durée : " value={`${order.room_rental_reservation?.duration} min.`} />
                       <Informations title="Commentaire : " value={order.room_rental_reservation?.description} />
                 </div>

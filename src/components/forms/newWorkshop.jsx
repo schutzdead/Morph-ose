@@ -24,7 +24,6 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
     const [error, setError] = useState(false)
     const [errorRent, setErrorRent] = useState(false)
     const [begin, setBegin] = useState(parseISO("0"));
-    console.log(searchTutorData);
     useEffect(() => {
         if(searchTutorData) {
             reset(searchTutorData)
@@ -87,6 +86,7 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                         }
                     }
                     setSearchTutorData({...register})
+                    setRentId(register?.room_rental_reservation?.id)
                 }
                 return
             }
@@ -98,7 +98,6 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
             console.error('Request failed:' + err.message)
         }
     }
-    console.log(rentId);
     return( 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8 w-full" >
         {errorRent ? <div className='col-span-2 text-red-500 place-self-center'>{`Erreur sur l'attribution de l'évènement à une location.`}</div>: ''}

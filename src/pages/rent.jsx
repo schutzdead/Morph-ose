@@ -371,7 +371,7 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                 <div className="pt-5 pb-3">
                     <ThemeProvider theme={colorTheme}>
                         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}>
-                            <TimePicker disablePast label="Heure de début de séance" value={begin} onChange={(newValue) => setBegin(newValue)} slotProps={{ textField: { required: true } }} minutesStep={15} />
+                            <TimePicker label="Heure de début de séance" value={begin} onChange={(newValue) => setBegin(newValue)} slotProps={{ textField: { required: true } }} minutesStep={15} />
                         </LocalizationProvider>
                     </ThemeProvider> 
                 </div>

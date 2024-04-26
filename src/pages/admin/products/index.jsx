@@ -82,8 +82,8 @@ export default function Products({all_products}) {
             : <>
                 <div className='grid text-secondary grid-cols-[repeat(4,2fr)_1fr] py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden xl:text-sm sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-xs'>
                     <p className='place-self-start'>Titre</p>
-                    <p className='sm:hidden'>Catégorie</p>
-                    <p>Publié</p>
+                    <p>Catégorie</p>
+                    <p className='sm:hidden'>Publié</p>
                     <p>Prix</p>
                 </div>
                 {

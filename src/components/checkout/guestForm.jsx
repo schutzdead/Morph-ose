@@ -118,7 +118,7 @@ export function GuestForm ({userData, shipping_zone}) {
                         street: street,
                         post_code: post_code,
                         city: city,
-                        country: dataCountry
+                        country: dataCountry === 'FRANCE' ? 'FR' : 'FOREIGN'
                     },
                     billing_address:{
                         firstname: bill_name || lastname,

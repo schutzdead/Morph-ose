@@ -82,7 +82,7 @@ export default function Shipping({shippingFR, shipping, free}) {
           <div onClick={() => {setMenu(!menu); menu ? unlock() : lock()}} className='hidden z-40 absolute top-7 left-8 lg:block'>
               <BlackHamburger hamburger={hamburger} setHamburger={setHamburger}/>
           </div>
-          <div className='flex bg-white shadow-xl w-full rounded-xl py-10 px-10 gap-10 xl:py-5 lg:px-2 lg:py-2 sm:shadow-none'>
+          <div className='flex bg-white shadow-xl w-full rounded-xl py-10 px-10 gap-y-5 gap-x-20 flex-wrap xl:py-5 lg:py-2 sm:shadow-none lg:gap-x-10 sm:flex-col sm:items-center'>
             <FormShipping label="Frais de livraison - FRANCE" placeholder="Entrez les frais de livraison" validationTitle="shipping_france" current_schema={schema1} current_value={shippingFR} />
             <FormShipping label="Frais de livraison - HORS FRANCE" placeholder="Entrez les frais de livraison" validationTitle="shipping" current_schema={schema2} current_value={shipping} />
             <FormShipping label="Livraison gratuite" placeholder="Indiquez le montant" validationTitle="free_shipping" current_schema={schema3} current_value={free}  />
@@ -114,9 +114,7 @@ function FormShipping ({label, placeholder, validationTitle, current_schema, cur
                   value:data[validationTitle]
               })
           })
-          console.log(response);
           const apiReponse = await response.json()
-          console.log(apiReponse);
           if(response.status === 200){
               setLoading(false)
               return

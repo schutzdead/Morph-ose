@@ -23,9 +23,9 @@ export function InterfaceTextInput ({name, label, placeholder, options, commonEr
     )
 }
 
-export function InterfaceTextArea ({ name, label, placeholder, options, commonError, commonErrorMessage , height, labelStyle}) {
+export function InterfaceTextArea ({ name, label, placeholder, options, commonError, commonErrorMessage , height, labelStyle, style}) {
     return(
-        <div className="col-span-2 flex flex-col tracking-[0.2px] gap-3">
+        <div className={`${style} col-span-2 flex flex-col tracking-[0.2px] gap-3`}>
             <label htmlFor={name} className={`${labelStyle} text-lg gap-2 font-medium whitespace-nowrap lg:text-base sm:text-sm`}>{label} {commonError && (<ErrorInput error={commonErrorMessage} />)}</label>
             <textarea   className="text-typo border border-secondary rounded-[10px] bg-white p-4 focus-visible:outline-none md:p-2 md:text-sm" rows={height} placeholder={placeholder}
                         id={name} {...options}>
