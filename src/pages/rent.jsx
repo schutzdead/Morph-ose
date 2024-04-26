@@ -82,7 +82,7 @@ export default function Rent() {
                     <div className="text-3xl flex flex-col gap-5 font-bold lg:text-2xl sm:text-lg text-center text-primary">
                         <p className="max-w-[1000px]">Venez proposer votre vos services ou réserver notre local pour proposer un atelier ! Apportez votre expertise.</p>
                     </div>
-                    <div className="flex flex-col items-center mt-5 relative gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl sm:p-5 sm:gap-5">
+                    <div id="scroll_rent" className="scroll-m-24 flex flex-col items-center mt-5 relative gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl sm:p-5 sm:gap-5">
                         <button style={step === 1 ? {display:'none'} : {display:'flex'}} onClick={() => setStep(step === 1 ? step : step-1 )} className='pl-2 pr-4 bg-primary/80 hover:bg-primary absolute w-fit top-8 left-10 items-center transition-all duration-500 rounded-xl justify-center text-base text-white py-2 md:top-5 md:left-5 md:pl-0 md:pr-2 md:py-1 md:text-sm md:rounded-md md:bg-primary'>
                             <Image src={left_arrow} alt='left arrow icon' className="md:w-4 h-auto" priority />
                             <p className='font-medium text-center mb-[2px]'>Retour</p>
@@ -108,6 +108,7 @@ export default function Rent() {
 
 
 export function Step1 ({step, setStep}) {
+    const router = useRouter()
     return(
         <div className="w-full flex flex-col gap-5" style={step === 1 ? {display:'flex'} : {display:'none'}}>
             <div className="font-semibold text-2xl bg-[#ECA683] w-full flex items-center justify-center rounded-2xl py-5 sm:text-lg">
@@ -116,13 +117,14 @@ export function Step1 ({step, setStep}) {
             <div className="flex flex-col items-center rounded-2xl text-white bg-primary gap-5 p-5">
                 <h2 className="font-Quesha text-7xl lg:text-6xl md:text-5xl sm:text-4xl">Réserver un local</h2>
                 <p className="sm:text-sm max-w-[500px] text-center">Je souhaite organiser un atelier ou évènement dans votre local pour organiser un atelier ou un évènement !</p>
-                <button onClick={() => setStep(2)} className="w-fit px-5 py-2 bg-[#ECA683] mt-4 rounded-[50px] text-white font-bold text-base">RESERVER</button>
+                <button onClick={() => {setStep(2), router.push('#scroll_rent')}} className="w-fit px-5 py-2 bg-[#ECA683] mt-4 rounded-[50px] text-white font-bold text-base">RESERVER</button>
             </div>
         </div>
     )
   }
 
 export function Step2 ({step, setStep, option, setOption, setDispo, setLoading}) {
+    const router = useRouter()
     async function addDispo (day) {
         if(option === undefined) return
         setLoading(true)
@@ -130,6 +132,7 @@ export function Step2 ({step, setStep, option, setOption, setDispo, setLoading})
             const result = await fetch(`${API_URL}/room-rentals/${day}`, GETRequest).then(r => r.json())
             setDispo(result)
             setStep(3)
+            router.push('#scroll_rent')
             setLoading(false)
         } catch (err) {
             console.error('Request failed:' + err)
@@ -191,6 +194,7 @@ export function ModalStep2 ({title, duration, price, price2, setOption, option, 
 }
 
 export function Step3 ({step, setStep, dispo, setRentId}) {
+    const router = useRouter()
     const { v4: uuidv4 } = require('uuid');
     const [numberOfDays, setNumberOfDays] = useState([])
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
@@ -290,7 +294,7 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                                 <h1 className='text-2xl font-semibold sm:text-center md:text-xl sm:text-lg mb-5'>{`Créneaux disponible du ${date.getDate()} ${calendar.months[date.getMonth()].month.toLowerCase()}`}</h1>
                                 <div className="flex flex-col gap-4 w-full">
                                     {disponibility?.map(dispo =>
-                                        <div key={dispo.id} onClick={() => {setRentId(dispo.id);setStep(4)}} className="flex flex-col w-full font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl text-center items-center hover:bg-primary cursor-pointer duration-500 transition-all">
+                                        <div key={dispo.id} onClick={() => {setRentId(dispo.id);setStep(4);router.push('#scroll_rent')}} className="flex flex-col w-full font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl text-center items-center hover:bg-primary cursor-pointer duration-500 transition-all">
                                             <h3 className="text-lg sm:text-sm">{dispo.title}</h3>
                                             <p className="text-xl font-bold lg:text-lg sm:text-base">{dispo.price}€</p>
                                         </div>
@@ -312,13 +316,12 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
     const  {reset, handleSubmit, register, formState: {errors}} = useForm ({ resolver:  yupResolver(schema)})
     const router = useRouter()
     const [begin, setBegin] = useState(parseISO("0"));
+    const [error, setError] = useState(false)
 
     async function onSubmit(data) {
+        setError(false)
         setLoading(true)
-        // setlogErr(false)
         const { price, persons, comment, title, duration } = data
-        // var tzoffset = (new Date(begin)).getTimezoneOffset() * 60000; //offset in milliseconds
-        // var localISOTime = (new Date(begin - tzoffset)).toISOString().slice(0, -1);
 		try {
             const response = await fetch(`${API_URL}/room-rentals/reservations`, {
                 method: "POST",    
@@ -338,7 +341,7 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                  })
             })
             const newRent = await response.json()
-            if(response.status === 200){
+            if(response.status === 200 || response.status === 201 || newRent){
                 router.push({
                     pathname: '/rentCheckout',
                     query: { id: newRent.id },
@@ -348,12 +351,12 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                 return
             }
             setLoading(false)
-            // setlogErr(true)
+            setError(true)
             reset()
 		} catch (err) {
 			console.error('Request failed:' + err)
             setLoading(false)
-            // setlogErr(true)
+            setError(true)
 		}
 	}
 
@@ -376,6 +379,7 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                     </ThemeProvider> 
                 </div>
                 <InterfaceTextArea label='Description de l’évènement *' placeholder="Décrivez ce que vous proposerez à vos participants" name="comment" height={3}  options={{...register("comment")}} commonError={errors.comment} commonErrorMessage={errors.comment?.message} labelStyle="text-secondary"/>
+                {error ? <div className="text-sm text-[#d32f2f] font-medium text-center place-self-center -mb-3">Une erreur est survenue, réessayez plus tard.</div> : ''}
                 <button type='submit' className='px-[45px] my-4 flex gap-3 rounded-xl py-3 bg-secondary/80 hover:bg-secondary transition-all duration-500 place-self-center'>
                     <p className='font-bold'>Valider</p>
                 </button>

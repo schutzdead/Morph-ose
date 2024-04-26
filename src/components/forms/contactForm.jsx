@@ -103,7 +103,7 @@ export function ContactForm () {
                         </div>
                         <InterfaceTextArea label='Commentaire *' placeholder="Détaillez nous votre problème" name="comment" height={3}  options={{...register("comment")}} commonError={errors.comment} commonErrorMessage={errors.comment?.message} labelStyle="text-secondary" style="sm:col-span-1"/>
                         <p className='text-xs font-light col-span-2 sm:col-span-1'>En envoyant ce mail, vous agréez à la <span className='font-bold'>politiques de la protection des données*</span>.</p>
-                        <button type='submit' className='w-fit px-10 col-span-2 place-self-center gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 mt-10 sm:mt-5 sm:col-span-1'>
+                        <button type='submit' className='w-fit px-10 col-span-2 place-self-center gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 mt-10 sm:my-5 sm:col-span-1'>
                                 <p className='font-medium text-center'>Envoyer</p>
                         </button>
                 </form>
