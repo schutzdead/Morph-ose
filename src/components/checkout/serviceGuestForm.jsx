@@ -98,7 +98,8 @@ export function ServiceGuestForm ({userData, workshop}) {
                         city: bill_city || "",
                         country: bill_country || ""
                     },
-                    cancel_url:`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`
+                    cancel_url:`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
+                    success_url:`${process.env.NEXT_PUBLIC_SITE_URL}/servicesThanks`
                 })
             })
             const register = await response.json()
@@ -194,9 +195,10 @@ export function ServiceGuestForm ({userData, workshop}) {
                         />
                     </>
                     : ''}
-                    <button type='submit' className='px-[25px] col-span-1 col-start-2 w-full mt-5 flex gap-3 place-self-end rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 lg:hidden'>
+                    <button type='submit' className='px-[40px] col-span-2 w-fit mt-5 flex gap-3 place-self-center rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 lg:hidden'>
                         <p className='font-medium text-center'>Continuer</p>
                     </button>
+                    <p className="text-xs col-span-2 place-self-center lg:hidden">* En continuant vous acceptez nos conditions générales de ventes</p>
                 </ThemeProvider>
             </form>
         }

@@ -21,7 +21,7 @@ const schema = object({
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export function ContactForm () {
-    const thematics = [{title:"Thématique 1", id:1}, {title:"Thématique 2", id:2}, {title:"Thématique 3", id:3}]
+    const thematics = [{title:"Boutique", id:1}, {title:"E-commerce", id:2}, {title:"Séances individuelles", id:3}, {title:"Ateliers/évènements", id:4}, {title:"Je suis professionnel(le)", id:5}]
     const [dataCategory, setDataCategory] = useState("")
     const handleChangeCat = (event) => {
         setDataCategory(event.target.value);
@@ -74,16 +74,15 @@ export function ContactForm () {
                 <CircularLoading />
             </div>
             : mailSend  
-                ? <div className="flex flex-col w-[400px] bg-background text-secondary p-6 rounded-xl place-self-center relative sm:w-[90%]">
-                    <>
-                        <div className="mt-3 mb-7 h-9 w-9 self-center flex items-center justify-center border-2 border-primary-color animate-[2s_forwards_rotation]">
-                            <Image src={Check} alt="Validate pictogram" />
-                        </div>
-                        <div className="text-center flex flex-col font-medium mb-5 items-center gap-1">
-                            <p>Votre demande a bien été envoyée.</p>
-                            <p>Nous vous répondrons dès que possible.</p>
-                        </div>
-                    </>
+                ? <div className="flex flex-col text-secondary w-[90vw] p-6 rounded-xl place-self-center text-center relative sm:w-[95vw]">
+                    <div className="px-5">
+                        <h1 className="font-Quesha text-7xl xl:text-6xl md:text-5xl">Votre message a bien été transmis !</h1>
+                        <p className="text-xl flex flex-col pb-10 gap-5 lg:text-lg sm:text-base ">Nous revenons vers vous rapidement...</p>
+                    </div>
+                    <div className="px-5">
+                        <h1 className="font-Quesha text-6xl xl:text-5xl md:text-4xl">A bientôt</h1>
+                        <p className="text-lg font-semibold flex flex-col pb-10 gap-5 lg:text-base sm:text-sm">L’équipe Merveilles de Morph’ose</p>
+                    </div>
                 </div> 
                 : <form onSubmit={handleSubmit(onSubmit)} className='w-full grid grid-cols-2 gap-5 place-self-center sm:grid-cols-1' id="contact">
                         <InterfaceTextInput label='Nom *' placeholder='Dupont' name="lastname" options={{...register("lastname")}} commonError={errors.lastname} commonErrorMessage={errors.lastname?.message} labelStyle="text-secondary"/>
@@ -92,8 +91,8 @@ export function ContactForm () {
                         <div className="flex flex-col tracking-[0.2px] gap-2 h-full text-secondary col-span-2 sm:col-span-1">
                             <label className="text-lg gap-2 font-medium lg:text-base sm:text-sm">Thématique *</label>
                             <ThemeProvider theme={colorTheme}>
-                                <FormControl variant="filled">
-                                    <Select label="Thématique" defaultValue="" required
+                                <FormControl variant="filled" sx={{background:'white', borderRadius:'6px 6px 0 0'}}>
+                                    <Select label="Thématique" defaultValue="" required sx={{background:'white', borderRadius:'6px 6px 0 0'}}
                                             value={dataCategory} onChange={handleChangeCat}
                                     >
                                     {thematics.map((name) => (<MenuItem key={name.id} value={name.id}>{name.title}</MenuItem>))}

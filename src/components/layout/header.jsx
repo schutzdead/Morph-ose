@@ -72,6 +72,11 @@ export default function Header () {
     freeShip()
   }, [])
 
+  const [body, setBody] = useState()
+  useEffect(() => {
+      setBody(document?.querySelector('body'))
+  },[])
+
   return (
     <>
       <Menu menu={menu} setMenu={setMenu} setHamburger={setHamburger}/>
@@ -130,7 +135,7 @@ export default function Header () {
                 <Image src={User} className='pb-[2px] w-6 h-auto mt-1' alt='Account pictogram' />
               </Link>
             </li>
-            <li className='cursor-pointer flex items-center gap-2 relative sm:hidden overflow-hidden h-full group' onClick={() => {setBag(!bag); bag ? unlock() : lock()}}>
+            <li className='cursor-pointer flex items-center gap-2 relative sm:hidden overflow-hidden h-full group' onClick={() => {setBag(!bag); bag ? body.style.overflow = 'unset' : body.style.overflow = 'hidden'}}>
               <Image src={Bag} className='pb-[2px] w-5 h-auto' alt='Account pictogram' />
               <span>
               {` (${cartCount})`}
@@ -147,7 +152,7 @@ export default function Header () {
           {/* RESPONSIVE */}
           <ul className='hidden gap-10 items-center md:flex md:gap-4'>
             <div className='flex items-center cursor-pointer gap-1'>
-              <Image src={Bag} className='w-5 h-auto' alt='Cart pictogram' onClick={() => {setBag(!bag); bag ? unlock() : lock()}} />
+              <Image src={Bag} className='w-5 h-auto' alt='Cart pictogram' onClick={() => {setBag(!bag); bag ? body.style.overflow = 'unset' : body.style.overflow = 'hidden'}} />
               <span>
               {` (${cartCount})`}
               </span>

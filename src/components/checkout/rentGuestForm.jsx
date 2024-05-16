@@ -119,7 +119,8 @@ export function RentGuestForm ({userData, rent}) {
                         city: bill_city || '',
                         country: bill_country || ''
                     },
-                    cancel_url:`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`
+                    cancel_url:`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
+                    success_url:`${process.env.NEXT_PUBLIC_SITE_URL}/rentThanks`
                 })
             })
             const register = await response.json()
@@ -165,7 +166,7 @@ export function RentGuestForm ({userData, rent}) {
                                     )}
                         />
                     </div>
-                    <h1 className="col-span-2 -mb-2 mt-10 font-bold text-[13px] text-gray-600 md:mt-4">Informations professionnelle</h1>
+                    <h1 className="col-span-2 -mb-2 mt-10 font-bold text-[13px] text-gray-600 md:mt-4">Informations générales</h1>
                     <Controller name="firstname" control={control} defaultValue=""
                                 render={({field}) => (
                                         <TextInput field={field} name='firstname' label="Prénom" placeholder="Entrez votre prénom" errors={errors?.firstname} />
@@ -181,7 +182,6 @@ export function RentGuestForm ({userData, rent}) {
                                     <TextInput field={field} name='phone' label="Téléphone" placeholder="Entrez votre téléphone" errors={errors?.phone} style="col-span-2" /> 
                                 )}
                     />                 
-                    <h1 className="col-span-2 -mb-2 mt-10 font-bold text-[13px] text-gray-600 md:mt-4">Informations professionnelle</h1>
                     <Controller name="company_name" control={control} defaultValue=""
                                 render={({field}) => (
                                         <TextInput field={field} name='company_name' label="Nom de la société" placeholder="Entrez le nom de votre société" errors={errors?.company_name} />
@@ -232,9 +232,10 @@ export function RentGuestForm ({userData, rent}) {
                         />
                     </>
                     : ''}
-                    <button type='submit' className='px-[25px] col-span-1 col-start-2 w-full mt-5 flex gap-3 place-self-end rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 lg:hidden'>
+                    <button type='submit' className='px-[40px] col-span-2 w-fit mt-5 flex gap-3 place-self-center rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 lg:hidden'>
                         <p className='font-medium text-center'>Continuer</p>
                     </button>
+                    <p className="text-xs col-span-2 place-self-center lg:hidden">* En continuant vous acceptez nos conditions générales de ventes</p>
                 </ThemeProvider>
             </form>
         }

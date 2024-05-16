@@ -53,7 +53,6 @@ export default (req, res) => {
 						const bodyToken = JSON.parse(apiResponseBody)
 						const authToken = bodyToken.token.plainTextToken
 						const userData = bodyToken.user
-						
 						const cookies = new Cookies(req, res)
 						cookies.set('auth-token', authToken, {
 							httpOnly: true,

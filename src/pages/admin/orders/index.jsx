@@ -41,7 +41,7 @@ export async function getServerSideProps({req, res}) {
   const result = await fetch(`${API_URL}/auth/admin/orders`, GETTokenRequest(authToken)).then(r => r.json())
   return {
       props: {
-          all_orders:result.filter(r => r.workshops?.length === 0).filter(r => !r.room_rental_reservation)
+          all_orders:result.filter(r => r.workshops?.length === 0).filter(r => !r.room_rental_reservation).filter(r => r.items?.length > 0)
       }
   }
 }

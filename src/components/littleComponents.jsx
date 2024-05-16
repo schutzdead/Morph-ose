@@ -44,7 +44,7 @@ export function MenuButton ({text, image, active, slug, setActive, link}) {
     }
     
     return (
-        <Link href={link} className='rounded-lg py-2 cursor-pointer text-white flex justify-start items-center px-3 gap-7 transition-[backgroundColor] duration-300 hover:bg-secondary'
+        <Link href={link} className='rounded-lg py-2 cursor-pointer text-white flex justify-start items-center px-3 gap-4 transition-[backgroundColor] duration-300 hover:bg-secondary'
                 onClick={() => {setActive('');setActive(slug)}}
                 style={isExactMatch(active, slug) ? {backgroundColor:'#582D3E' } : {}}>
             <div className='p-2 bg-white rounded-xl'>

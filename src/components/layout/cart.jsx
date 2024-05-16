@@ -2,7 +2,6 @@ import Image from "next/image"
 import RightArrow from '../../../public/assets/articles/rightSide.svg'
 import Link from "next/link"
 
-import { unlock } from "@/utils/lockScreen"
 import { CartContext } from "@/utils/cartProvider";
 import { UpdateButton } from '@/components/articles/updateButton';
 import { removeCart } from "@/utils/cartReducer";
@@ -21,11 +20,16 @@ export default function Card ({bag, setBag}) {
         setCommand(cart)
     }, [bag, cart])
 
+    const [body, setBody] = useState()
+    useEffect(() => {
+        setBody(document?.querySelector('body'))
+    },[])
+
     return(
         <>
-            <div className="fixed w-full h-full left-0 top-0 z-40 bg-black/60 cursor-pointer" style={bag ? {opacity:1, transition:'opacity 1s'} : {opacity:0, zIndex:-10}}  onClick={() => {setBag(false), unlock()}}></div>
+            <div className="fixed w-full h-full left-0 top-0 z-40 bg-black/60 cursor-pointer" style={bag ? {opacity:1, transition:'opacity 1s'} : {opacity:0, zIndex:-10}}  onClick={() => {setBag(false), body.style.overflow = 'unset'}}></div>
             <menu className="fixed h-full z-50 bg-white text-black flex flex-col py-10 md:py-5 sm:w-full" style={bag ? {right:"0%", transition:'right 400ms ease-out'} : {right:'-100%'}}>
-                    <div className="flex items-center text-xs self-end pr-3 cursor-pointer" onClick={() => {setBag(false);unlock()}}>
+                    <div className="flex items-center text-xs self-end pr-3 cursor-pointer" onClick={() => {setBag(false);body.style.overflow = 'unset'}}>
                         <p className="text-secondary mb-[3px] font-medium">Boutique</p>
                         <Image src={RightArrow} alt="Right arrow pictogram" className='w-5'/>
                     </div>
@@ -55,7 +59,7 @@ export default function Card ({bag, setBag}) {
                             ).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}€</p>
                             <p className="text-[10px] text-gray-500">Prix ​​TTC, hors frais de livraison</p>
                         </div>
-                        <Link href='/checkout/' onClick={() => {unlock();setBag(false)}} className="place-self-center">
+                        <Link href='/checkout/' onClick={() => {body.style.overflow = 'unset';setBag(false)}} className="place-self-center">
                             <CustomButton butterfly={true} text="Continuer" style={{width:"250px", height:'40px'}} />
                         </Link>
                     </div>

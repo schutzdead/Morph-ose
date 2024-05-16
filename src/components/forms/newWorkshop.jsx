@@ -11,9 +11,11 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3"
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import fr from 'date-fns/locale/fr';
 import parseISO from "date-fns/parseISO";
+import { GETRequest } from "@/utils/requestHeader";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function NewWorkshop({setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData}) {
-    
     formResolver.defaultValues = useMemo(() => {
         return searchTutorData
     }, [searchTutorData])
@@ -38,7 +40,7 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
     },[searchTutorData])
 
     async function onSubmit(data) {
-        const { title, price, duration, entries_available, description } = data
+        const { title, price, duration, entries_available, description, speaker_name } = data
         setError(false)
         setErrorRent(false)
         setLoading(true)
@@ -60,6 +62,7 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                     entries_available:entries_available,
                     date:localISOTime,
                     image_id:docId[0] ? docId[0].id : null,
+                    speaker_name:speaker_name
                 })
             })
             const register = await response.json()
@@ -76,9 +79,12 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                             workshop_id: register?.id,
                         })
                     })
-                }
-                setErrorRent(true)
-                setLoading(false)
+                    const event = await fetch(`${API_URL}/workshops/${register?.id}`, GETRequest).then(r => r.json())
+                    if(searchTutorData){
+                        setSearchTutorData({...event})
+                        setRentId(event?.room_rental_reservation?.id)
+                    }
+                } 
                 if(searchTutorData){
                     for(const property in register) {
                     if(register[property] === null) {
@@ -86,8 +92,8 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                         }
                     }
                     setSearchTutorData({...register})
-                    setRentId(register?.room_rental_reservation?.id)
                 }
+                setLoading(false)
                 return
             }
             setError(true)
@@ -98,6 +104,7 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
             console.error('Request failed:' + err.message)
         }
     }
+
     return( 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8 w-full" >
         {errorRent ? <div className='col-span-2 text-red-500 place-self-center'>{`Erreur sur l'attribution de l'évènement à une location.`}</div>: ''}
@@ -120,7 +127,10 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                 render={({field}) => (
                     <TextField id='rent' field={field} variant="standard"  label="Identifiant location" placeholder="ID disponible dans la rubrique location" value={rentId || ''} onChange={(e) => setRentId(e.target.value)} />
                 )}/> 
-                
+                <Controller name="speaker_name" control={control} defaultValue=""
+                    render={({field}) => (
+                            <TextInput field={field} label='Organisateur' placeholder='Bob' errors={errors?.speaker_name} style="w-full"/>
+                )}/> 
                 <Controller name="duration" control={control} defaultValue=""
                     render={({field}) => (
                         <TextInput field={field} label='Durée' placeholder='60' errors={errors?.duration} style="w-full"/>

@@ -2,7 +2,7 @@ import Layout from "@/components/layout/layout";
 import Image from "next/image";
 import { CustomHead } from "@/components/customHead";
 import Link from 'next/link'
-import Picture from '../../public/assets/contact/contact.webp'
+import Picture from '../../public/assets/about/bg-who.webp'
 import Test from '../../public/assets/about/test.webp'
 import Butterfly from '../../public/assets/main/butterfly.svg'
 import Vector from '../../public/assets/about/vector.svg'
@@ -14,28 +14,20 @@ export default function About() {
       <CustomHead pageName='A propos' metaResume="Retrouvez ici l'ensemble des informations nous concernant, notre équipe, notre savoir-faire..."/>
         <Layout>
           <main className="pt-[1.5vh] flex flex-col items-center">
-            <section className="h-home w-[98vw] gap-16 pt-5 bg-no-repeat bg-cover bg-center flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5">
-                <div className="h-full w-full place-self-center relative flex rounded-3xl" style={{background:'linear-gradient(82.92deg, #DE5B30 0%, #FFF7F1 98%)'}}>
-                    <Image src={Picture} alt='Picture categories' className="w-[50%] rounded-3xl object-cover md:hidden" priority/>
-                    <div className="flex justify-center items-center w-full px-4 relative">
-                        <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 left-1/2 top-40" priority />
-                        <div className="w-fit mx-4 relative">
-                            <div className="flex flex-col gap-3 items-center text-center">
-                                <h1 className="gradient-text2  font-Quesha text-8xl xl:text-7xl lg:text-6xl md:text-6xl sm:text-5xl">QUI SOMMES-NOUS</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex gap-3 absolute bottom-3 right-3">
-                      <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
+            <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Picture.src})`}}>
+                <div className="flex flex-col text-center justify-center items-center w-full px-4 gap-10 md:gap-0">
+                    <h1 className="text-white leading-[100px] bg-black/50 rounded-2xl py-5 px-8 font-Quesha text-9xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px] mb-5">Qui sommes-nous?</h1>
+                </div>
+                <div className="flex gap-3 absolute bottom-3 right-3">
+                    <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
                         SERVICES
-                      </Link>
-                      <Link href='/categories' className="text-sm font-black bg-background text-[#A37C99] place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
+                    </Link>
+                    <Link href='/categories' className="text-sm font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
                         BOUTIQUE
-                      </Link>
-                    </div>
+                    </Link>
                 </div>
             </section>
-            <section className="flex justify-center relative my-28 md:my-10 md:flex-col md:w-[95%] md:max-w-[600px] md:gap-5">
+            <section id="me" className="scroll-m-32 flex justify-center relative my-28 md:my-10 md:flex-col md:w-[95%] md:max-w-[600px] md:gap-5">
                 <Image src={Picture} alt='Boss' className="relative z-0 w-1/2 rounded-3xl object-cover md:w-full" priority/>
                 <div className="flex flex-col w-[40%] max-w-[700px] relative z-10 pb-10 md:w-full">
                     <Image src={Butterfly} alt='butterfly icon' className="place-self-center h-auto w-16 md:w-12" priority />
@@ -55,7 +47,7 @@ export default function About() {
                     </div>
                 </div>
             </section>
-            <section className="flex flex-col items-center gap-14 mx-10 justify-center relative sm:gap-8 sm:px-0 md:mx-5">
+            <section id="team" className="scroll-m-32 flex flex-col items-center gap-14 mx-10 justify-center relative sm:gap-8 sm:px-0 md:mx-5">
                 <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
                 <Title title='Une équipe' butterfly={true} />
                 <div className="text-2xl flex flex-col gap-10 font-medium lg:text-xl sm:text-base text-center text-secondary">
@@ -73,7 +65,7 @@ export default function About() {
                 <div className="w-full flex justify-center"><button type='submit' className='flex place-self-center items-center gap-3 text-white justify-center bg-homeGradient3 py-4 w-full px-5 max-w-[250px] text-xl font-semibold rounded-md lg:text-lg md:text-md sm:text-sm sm:font-medium cursor-pointer sm:w-fit sm:place-self-center'>Réserver une séance</button></div>
                 <Image src={Vector} alt='Vector icon' className="max-w-[35%] rotate-180 sm:hidden" priority/>
             </section>
-            <section className="flex flex-col  my-28 md:my-16 items-center gap-14 mx-10 justify-center relative sm:gap-8 sm:px-0 md:mx-5">
+            <section id="values" className="scroll-m-32 flex flex-col  my-28 md:my-16 items-center gap-14 mx-10 justify-center relative sm:gap-8 sm:px-0 md:mx-5">
                 <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
                 <Title title='Mais surtout des valeurs' butterfly={true} />
                 <div className="flex gap-10 items-center md:flex-col-reverse sm:gap-10">
@@ -88,7 +80,7 @@ export default function About() {
                     </div>
                 </div>
             </section>
-            <section className="flex justify-center flex-row-reverse relative md:flex-col-reverse md:w-[95%] md:max-w-[600px] md:gap-5">
+            <section id="goal" className="scroll-m-32 flex justify-center flex-row-reverse relative md:flex-col-reverse md:w-[95%] md:max-w-[600px] md:gap-5">
                 <Image src={Picture} alt='Boss' className="relative z-0 w-1/2 rounded-3xl object-cover md:w-full" priority/>
                 <div className="flex flex-col w-[40%] max-w-[700px] relative z-10 pb-10 md:w-full">
                     <Image src={Butterfly} alt='butterfly icon' className="place-self-center h-auto w-16 md:w-12" priority />

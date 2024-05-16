@@ -63,10 +63,10 @@ export default function Section({data}) {
 
 export function CategoriesMenu ({cat}) {
     return(
-        <div className="flex gap-5 px-10 sticky top-28 bg-background z-20 items-center scrollbar-thumb-gray-200 overflow-x-scroll scrollbar scrollbar-thumb-rounded-full scrollbar-corner-rounded py-8 md:px-5">
-            <Link href="/categories"><button className="bg-menuGradient text-center font-bold text-white px-4 py-2 rounded-lg cursor-pointer">Toutes les catégories</button></Link>
+        <div className="flex gap-5 px-10 sticky top-28 bg-background z-20 items-center great-scrollbar-y py-8 md:px-5 sm:pb-4">
+            <Link href="/categories"><button className="bg-menuGradient text-center whitespace-nowrap font-bold text-white px-4 py-2 rounded-lg cursor-pointer">Toutes les catégories</button></Link>
             {cat.map(c =>
-                <Link key={c.id} href={{pathname: `/categories/${c?.slug}`, query: { cat:c?.id }}}><button className="bg-menuGradient font-bold text-white px-4 py-2 rounded-lg cursor-pointer">{c.title}</button></Link>
+                <Link key={c.id} href={{pathname: `/categories/${c?.slug}`, query: { cat:c?.id }}}><button className="bg-menuGradient whitespace-nowrap font-bold text-white px-4 py-2 rounded-lg cursor-pointer">{c.title}</button></Link>
             )}
         </div>
     )   

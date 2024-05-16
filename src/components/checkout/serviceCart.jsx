@@ -18,6 +18,7 @@ export function ServiceCart ({workshop}) {
                     <p>{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
                     <p className="mt-2">2 rue du foirail - 63800 Cournon-d’Auvergne</p>
                     <p>{new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
+                    {workshop?.speaker_name ? <p>Organisateur : {workshop?.speaker_name}</p> : ''}
                     <p>Durée : {workshop?.duration} minutes</p>
                     <p className="text-2xl lg:text-lg sm:text-base mt-4 font-semibold">{workshop?.price}€</p>
                 </div>

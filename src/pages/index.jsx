@@ -94,21 +94,21 @@ export default function Home({workshops, first_products}) {
                   <h1>Spiritualité</h1>
                   <h1>Esotérisme</h1>
                 </div>
-                <p className="text-3xl font-semibold lg:text-2xl sm:text-lg max-w-[1000px]">Bienvenue dans un univers où votre bien-être est notre priorité !</p>
+                <p className="text-3xl font-semibold lg:text-2xl sm:text-lg max-w-[1000px]">Bienvenue dans un univers où votre enchantement est notre priorité !</p>
                 <p className="text-3xl font-semibold lg:text-2xl sm:text-lg max-w-[1000px]">Explorez notre boutique ésotérique et découvrez nos services conçus pour éclairer votre parcours personnel et spirituel.</p>
               </div>
               <div className="flex gap-3 absolute bottom-3 right-3">
                 <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
                   SERVICES
                 </Link>
-                <Link href='/categories' className="text-sm font-black bg-background text-[#A37C99] place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
+                <Link href='/categories' className="text-sm font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
                   BOUTIQUE
                 </Link>
               </div>
             </section>
 
             <section id="headlight" className="scroll-m-32 flex flex-col items-center gap-14 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
-              <Title title='Nos collections phares !' />
+              <Title title='Nos collections phares' />
               <div className="text-2xl flex flex-col gap-5 font-bold lg:text-xl sm:text-lg text-center text-primary">
                 <p>Osez découvrir de nouvelles facettes de votre personnalité.</p>
                 <p className="font-medium text-secondary">Que vous cherchiez des minéraux, des tarots divinatoires, des livres enrichissants ou encore découvrir l’univers Wicca, nos collections phares sont sélectionnées pour vous guider sur votre chemin de développement personnel et spirituel.</p>
@@ -129,7 +129,7 @@ export default function Home({workshops, first_products}) {
 
             <section className="flex justify-evenly w-[95vw] mx-[2.5vw] relative sm:mx-5 py-20 sm:flex-col sm:items-center sm:py-10 sm:gap-10">
               <div className="absolute -z-10 bg-pictoGradient blur-[175px] h-[70%] top-[15%] w-full"></div>
-              <Picto image={Picto2} text="Un site sécurisé pour vous garantir un paiement sécurisé !" title="Paiement sécurisé !" />
+              <Picto image={Picto2} text="Un site sécurisé garantissant un paiement sécurisé !" title="Paiement sécurisé !" />
               <Picto image={Picto1} text="Une livraison rapide grâce à des partenaires reconnus !" title="Livraison express" />
               <div className="sm:hidden">
                 <Picto image={Picto3} text="Certainement un produit, pour chacune de vos envies..." title="Produits divers !" />
@@ -138,10 +138,10 @@ export default function Home({workshops, first_products}) {
 
             <section id="service" className="scroll-m-32 flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
               <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
-              <Title title='Nos services !' butterfly={true} />
-              <p className="max-w-[1200px] text-2xl flex flex-col gap-5 font-medium lg:text-xl sm:text-base text-center text-secondary">Chez Merveilles de Morph’ose on met l’accent sur la découverte de soit et l’ouverture d’esprit en mettant à votre disposition les meilleur coachs et experts de l’ésotérisme, du bien-être et du développement personnel! </p>
+              <Title title='Nos services' butterfly={true} />
+              <p className="max-w-[1200px] text-2xl flex flex-col gap-5 font-medium lg:text-xl sm:text-base text-center text-secondary">Chez merveilles de Morph’ose nous mettons l’accent sur la découverte de soi et l’ouverture d’esprit en mettant à votre disposition des professionnels du bien-être, du développement personnel et bien plus encore !</p>
               <div className="flex flex-col gap-5 mt-5 place-self-center text-center text-secondary text-lg font-medium sm:text-sm max-w-[1500px] ">
-                <h3 className="text-4xl font-semibold lg:text-3xl sm:text-xl text-primary">Explorez nos ateliers et événements</h3>
+                <h3 className="text-4xl font-semibold lg:text-3xl sm:text-xl text-primary">Osez explorer nos ateliers et évènements</h3>
                 <p className="pt-5 sm:pt-2">{`Si vous êtes curieux de découvrir les secrets de l'ésotérisme, participer à des ateliers créatifs ou encore  vous plonger dans le bien-être.`} <span className="font-semibold">Vous êtes au bon endroit !</span> Notre plateforme vous permet de réserver facilement votre place pour participer à des ateliers et événements captivants.</p>
                 <p >{`De la méditation à l'astrologie, nos sessions sont conçues pour enrichir votre esprit et nourrir votre “Etre”. Nos experts vous guideront dans chaque étape de votre parcours. Les places sont limitées pour garantir une expérience personnelle et immersive.`}</p>
               </div>
@@ -183,22 +183,22 @@ export default function Home({workshops, first_products}) {
             <AllSeances workshops={workshops} />
 
             <section id="pro" className="scroll-m-32 flex flex-col items-center gap-14 mx-10 justify-center my-20 sm:gap-8 sm:px-3 md:gap-10 md:mx-5">
-              <Title title='Pour les pros' />
+              <Title title='Pour les professionnels' />
               <div className="max-w-[1200px] text-2xl flex flex-col gap-5 mb-5 font-medium lg:text-xl sm:text-base text-center text-secondary">
-                <p className="">{`Vous êtes un professionnel du bien-être, de l'ésotérisme ou simplement créatif ? Chez Merveilles de Morph’ose, nous vous faisons profiter de nos locaux situés à Cournon d’Auvergne  pour que vous puissiez organiser vos ateliers, évènements holistiques, séances et conférences. En bref vous l’aurez compris, notre espace devient le votre...`}</p>
+                <p className="">{`Vous êtes un professionnel du bien-être, de l'ésotérisme, écrivain ou simplement créatif ? Chez Merveilles de Morph’ose, nous vous faisons profiter de nos locaux situés à Cournon d’Auvergne  pour que vous puissiez organiser vos ateliers, évènements holistiques, séances et conférences. En bref vous l’aurez compris, notre espace devient le votre...`}</p>
                 <p className="font-bold">Touchez une communauté engagée et passionnée !</p>
               </div>
               <div className="flex items-center justify-center md:flex-col md:gap-10">
                 <div className="flex flex-col w-[60%] py-10 shadow-2xl rounded-l-2xl lg:w-1/2 md:rounded-2xl lg:py-5 md:w-full">
-                  <h2 className="text-primary font-Quesha text-6xl xl:text-5xl lg:text-4xl md:text-3xl px-10 sm:px-5">Et si nous avancions ensemble?!</h2>
+                  <h2 className="text-primary font-Quesha text-6xl xl:text-5xl lg:text-4xl md:text-3xl px-10 sm:px-5">Et si nous avancions ensemble?</h2>
                   <div className="bg-primary h-[3px] w-[80%] my-10 place-self-end lg:my-5 md:place-self-start"></div>
                   <div className="text-secondary px-10 flex flex-col gap-3 sm:px-5">
                     <p className="text-xl lg:text-lg sm:text-base lg:max-w-full pb-2 font-semibold">Œuvrer ensemble c’est vous permettre de...</p>
-                    <ProSentence text="Gagnez en visibilité." />
-                    <ProSentence text="Partagez votre expertise." />
-                    <ProSentence text="Réduisez vos coûts en louant notre espace tout équipé quand vous en avez  besoin !" />
-                    <ProSentence text="Vous fixez vos tarifs et le nombre de participants que vous souhaitez accompagner. " />
-                    <ProSentence text="Vos participants réservent et paient en un clic depuis notre site web. " />
+                    <ProSentence text="Gagner en visibilité." />
+                    <ProSentence text="Partager votre expertise." />
+                    <ProSentence text="Réduire vos coûts en louant notre espace tout équipé quand vous en avez besoin." />
+                    <ProSentence text="Fixer vos tarifs et le nombre de participants que vous souhaitez accompagner. " />
+                    <ProSentence text="Faciliter la réservation et le paiement des participants directement sur ce site web." />
                   </div>
                 </div>
                 <div className="w-[40%] h-full shadow-2xl overflow-hidden rounded-2xl lg:w-1/2 md:w-full md:max-w-[500px]">
@@ -235,9 +235,9 @@ function AllSeances ({workshops}) {
   return(
     <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
     <div className="flex flex-col gap-5 mt-5 place-self-center text-center text-secondary text-lg font-medium sm:text-sm max-w-[1500px]">
-      <h3 className="text-4xl font-semibold lg:text-3xl sm:text-xl text-primary">Séances personnalisées</h3>
-      <p className="pt-5 sm:pt-2">{`Nos experts  vous accompagnent aux travers de séances personnalisées que nous pouvons dispenser à distance ou dans nos locaux. Il suffit de réserver en ligne... Alors n’attendez plus pour réserver votre place et découvrez  les prestations Merveilles de Morph’ose :  cartomancie, poème d'âme,  chant d'âme, guidance, messages d'âme...`} <span className="font-semibold">Respect et bienveillance</span>, notre mantra !</p>
-      <p className="text-sm sm:text-xs">Petit mot : faites preuve de discernement quoiqu’il puisse vous être conseillé, vous êtes seul(e) décisionnaire de votre vie.</p>
+      <h3 className="text-4xl font-semibold lg:text-3xl sm:text-xl text-primary">Séances individuelles</h3>
+      <p className="pt-5 sm:pt-2">{`Nos experts vous accompagnent au travers de séances individuelles que nous pouvons dispenser à distance ou dans nos locaux. Il suffit de réserver en ligne... Alors n’attendez plus pour prendre votre place et découvrir les prestations proposées par Merveilles de Morph’ose : cartomancie, poème d'âme, chant d'âme, guidance, messages d'âme...`} <span className="font-semibold">Respect et bienveillance</span>, notre mantra !</p>
+      <p className="text-sm sm:text-xs">Petit mot : merci de bien vouloir faire preuve de discernement quoiqu’il puisse vous être conseillé, vous êtes seul(e) décisionnaire de votre vie.</p>
     </div>
     {workshops?.length > 0 
       ? <div className=" max-w-[1200px] m-auto w-full">
@@ -266,7 +266,7 @@ function AllSeances ({workshops}) {
       </div>
       : <p className="font-semibold text-xl lg:text-lg sm:text-base text-secondary">Aucun évènement disponible dans les prochains jours.</p>
     }
-    <Link href="/services" className="place-self-center mt-5 mb-10 sm:mb-5">
+    <Link href="/seances" className="place-self-center mt-5 mb-10 sm:mb-5">
       <CustomButton text="Découvrir les séances" butterfly={true} />
     </Link>
   </section>

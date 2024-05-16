@@ -2,7 +2,7 @@ import Layout from "@/components/layout/layout";
 import Image from "next/image";
 import { CustomHead } from "@/components/customHead";
 import Link from 'next/link'
-import Picture from '../../public/assets/main/pro.webp'
+import Picture from '../../public/assets/rent/bg.webp'
 import Butterfly from '../../public/assets/main/butterfly.svg'
 import { Newletter, Title} from "@/components/homepage/homepage";
 import { GETRequest } from "@/utils/requestHeader";
@@ -11,6 +11,12 @@ import { Checkbox, ThemeProvider } from "@mui/material";
 import { colorTheme } from "@/components/styles/mui";
 import { CircularLoading } from "@/utils/loader";
 import { location_days } from "./admin/rent";
+
+import computer from '../../public/assets/rent/computer.svg'
+import shop from '../../public/assets/rent/shop.svg'
+import coffee from '../../public/assets/rent/coffee.svg'
+import chair from '../../public/assets/rent/chair.svg'
+import eye from '../../public/assets/rent/eye.svg'
 
 import left_chevron from '../../public/assets/rent/left_chevron.svg'
 import gray_left_chevron from '../../public/assets/rent/gray_left_chevron.svg'
@@ -47,7 +53,7 @@ export async function getServerSideProps() {
 
 export default function Rent() {
 
-    const TEXTMODAL = [{id:1, title:"Salle modulable pour petits groupes ou grands ateliers"}, {id:2, title:"Équipement audiovisuel pour des présentations interactives"}, {id:3, title:"Connexion Wi-Fi, haute vitesse"}, {id:4, title:"Zones de détente pour des pauses revitalisantes"}]
+    const TEXTMODAL = [{id:1, title:"20 personnes assises - 15 personnes attablées - 7 personnes allongées", image:shop}, {id:2, title:"Projecteur et écran sur demande ", image:computer}, {id:3, title:"Equipements  à disposition : tables, chaise, tapis, coussins...", image:chair}, {id:4, title:"Pour vos moments de pause, la cafetière est à votre disposition", image:coffee}]
 
     const [step, setStep] = useState(1)
     const [option, setOption] = useState()
@@ -60,44 +66,46 @@ export default function Rent() {
         <CustomHead pageName='Location professionnelle' metaResume="Louez notre location pendant une période déterminée."/>
             <Layout>
             <main className="pt-[1.5vh]">
-                <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-center flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5">
-                    <div className="h-full w-full place-self-center relative flex rounded-3xl" style={{background:'linear-gradient(82.92deg, #DE5B30 0%, #FFF7F1 98%)'}}>
-                        <Image src={Picture} alt='Picture categories' className="w-[50%] rounded-3xl object-cover md:hidden" priority/>
-                        <div className="flex justify-center items-center w-full px-4 relative">
-                            <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 left-1/2 top-40" priority />
-                            <div className="w-fit mx-4 relative">
-                                <div className="flex flex-col gap-3 items-center text-center">
-                                    <h1 className="gradient-text2 leading-[70px] font-Quesha text-8xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px] mb-5">Venez proposer vos services !</h1>
-                                    <p className="text-secondary font-medium text-lg sm:text-base md:text-white">{`Vous êtes un professionnel du bien-être, de l'ésotérisme ou un créatif à la recherche de l'espace parfait pour organiser vos ateliers et événements ? `}</p>
-                                    <p className="text-secondary font-semibold text-lg sm:text-base md:text-white">Découvrez notre espace modulable situé à Cournon d’Auvergne, spécialement aménagé pour répondre à vos besoins.</p>
-                                </div>
-                            </div>
+                <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Picture.src})`}}>
+                    <div className="flex flex-col text-center justify-center items-center w-full px-4 gap-10 md:gap-0">
+                        <h1 className="text-white leading-[100px] font-Quesha text-9xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px] mb-5">Venez proposer vos services !</h1>
+                        <div className="flex flex-col gap-5 items-center text-center bg-black/50 rounded-3xl px-10 py-5 md:px-5 max-w-[800px]">
+                            <p className="text-white font-medium text-xl lg:text-lg sm:text-base md:text-white">{`Vous êtes un professionnel du bien-être, de l'ésotérisme ou un créatif à la recherche de l'espace parfait pour organiser vos ateliers et événements?`}</p>
+                            <p className="text-white font-semibold text-xl lg:text-lg sm:text-base md:text-white">Découvrez notre espace modulable situé à Cournon d’Auvergne, spécialement aménagé pour répondre à vos besoins.</p>
                         </div>
-                        <div className="flex gap-3 absolute bottom-3 right-3">
-                            <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
-                                SERVICES
-                            </Link>
-                            <Link href='/categories' className="text-sm font-black bg-background text-[#A37C99] place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
-                                BOUTIQUE
-                            </Link>
-                        </div>
+                    </div>
+                    <div className="flex gap-3 absolute bottom-3 right-3">
+                        <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
+                            SERVICES
+                        </Link>
+                        <Link href='/categories' className="text-sm font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
+                            BOUTIQUE
+                        </Link>
                     </div>
                 </section>
                 <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
-                    <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
                     <div className="flex flex-col gap-5 mt-5 text-secondary text-center text-lg font-medium sm:text-sm max-w-[1500px] sm:place-self-center sm:text-center">
-                        <h3 className="text-5xl font-semibold lg:text-4xl sm:text-2xl text-primary mb-5">Venez proposer vos services</h3>
-                        <p>Chez Merveilles de {`Morph'ose, nous comprenons l'importance`} <span className="font-semibold">{`d'un environnement adapté et inspirant`}</span>{` pour le partage de connaissances et la réalisation d'activités créatives. C’est pourquoi nous offrons à la location un espace versatile et accueillant, idéal pour une variété d'événements tels que des ateliers de méditation, séances de yoga, cours de tarot, workshops créatifs, et bien plus encore.`}</p>
+                        <h3 className="text-primary mb-5 leading-[80px] font-Quesha text-8xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px]">Notre cocon</h3>
+                        <p>Chez Merveilles de {`Morph'ose, nous comprenons l'importance`} <span className="font-semibold">{`d'un environnement adapté et inspirant`}</span>{` pour le partage de connaissances et la réalisation d'activités créatives. Pour cela nous offrons à la location un espace accueillant, idéal pour une variété d'événements tels que des ateliers de méditation, séances de yoga, découverte du tarot, ateliers créatifs, et bien plus encore...`}</p>
                     </div>
                     <div className="flex flex-col gap-5 mt-5 text-secondary text-center text-lg font-medium sm:text-sm max-w-[1500px] sm:place-self-center sm:text-center">
-                        <h3 className="text-5xl font-semibold lg:text-4xl sm:text-2xl text-primary mb-5">Des installations adaptées !</h3>
+                        <h3 className="text-primary mb-5 leading-[80px] font-Quesha text-8xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px]">Des installations adaptées</h3>
                         <p className="font-semibold">Notre espace est équipé pour accueillir confortablement vos participants :</p>
-                        <p>{`Vous pouvez personnaliser l'agencement et l'ambiance de notre espace selon le thème et le style de votre événement. Que vous souhaitiez créer une atmosphère relaxante pour des séances de bien-être ou un cadre dynamique pour des ateliers créatifs, nous sommes là pour adapter notre espace à vos spécifications.`}</p>
+                        <p>Vous pouvez <b>{`personnaliser l'agencement et l'ambiance de notre espace`}</b> selon le thème et le style de votre événement. Que vous souhaitiez créer une atmosphère relaxante pour des séances de bien-être ou un cadre dynamique pour des ateliers créatifs, nous vous proposons un espaces adaptable à vos spécificités.</p>
                     </div>
                     <div className="grid grid-cols-4 place-items-center max-w-[1200px] gap-5 place-self-center lg:grid-cols-2 sm:grid-cols-1">
                         {
-                            TEXTMODAL.map((text) => <div key={text.id} className="p-5 text-secondary text-center font-bold bg-modalRent rounded-2xl flex items-center justify-center min-h-[130px] max-w-[250px] lg:min-h-0 sm:max-w-[97vw]">{text.title}</div>)
+                            TEXTMODAL.map((text) => 
+                                <div key={text.id} className="p-5 text-center font-semibold bg-modalRent rounded-2xl flex flex-col items-center justify-center min-h-[160px] gap-3 max-w-[250px] sm:min-w-[93vw]">
+                                    <Image src={text.image} alt='icons' className="w-8 h-auto" priority />
+                                    <p className="gradient-text">{text.title}</p>
+                                </div>
+                            )
                         }
+                        <div className="col-span-2 col-start-2 lg:col-start-1 w-full p-5 text-secondary text-center font-semibold bg-modalRent rounded-2xl flex items-center justify-center lg:min-h-0 sm:min-w-[93vw] sm:col-span-1 flex-col gap-3">
+                            <Image src={eye} alt='icons' className="w-8 h-auto" priority />
+                            <p className="gradient-text">Profitez de notre communication pour vous faire connaître</p>
+                        </div>
                     </div>
                     <p className="font-bold text-2xl lg:text-xl sm:text-base pt-10 text-center sm:pt-5 text-secondary">Louez notre espace et donnez vie à vos ateliers et événements dans un lieu qui inspire et soutient le développement personnel et créatif.</p>
                     <div id="scroll_rent" className="scroll-m-24 flex flex-col items-center relative gap-10 w-full max-w-[1000px] bg-background p-10 rounded-2xl sm:p-0 sm:gap-5 sm:bg-transparent">
@@ -134,7 +142,7 @@ export function Step1 ({step, setStep}) {
             </div>
             <div className="flex flex-col items-center rounded-2xl text-white bg-primary gap-5 p-5">
                 <h2 className="font-Quesha text-7xl lg:text-6xl md:text-5xl text-center sm:text-4xl sm:leading-[30px]">Réserver l’espace pour mon évènement!</h2>
-                <p className="sm:text-sm max-w-[500px] text-center">Je souhaite organiser un atelier ou évènement dans votre local pour organiser un atelier ou un évènement!</p>
+                <p className="sm:text-sm max-w-[500px] text-center">Je souhaite organiser un atelier ou évènement dans votre local !</p>
                 <button onClick={() => {setStep(2), router.push('#scroll_rent')}} className="w-fit px-5 py-2 bg-[#ECA683] mt-4 rounded-[50px] text-white font-bold text-base sm:text-sm">JE RESERVE L’ESPACE</button>
             </div>
         </div>
@@ -396,7 +404,8 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                         </LocalizationProvider>
                     </ThemeProvider> 
                 </div>
-                <InterfaceTextArea label='Description de l’évènement *' placeholder="Décrivez ce que vous proposerez à vos participants" name="comment" height={3}  options={{...register("comment")}} commonError={errors.comment} commonErrorMessage={errors.comment?.message} labelStyle="text-secondary"/>
+                <InterfaceTextArea label='Description de l’évènement *' placeholder="Renseignez-nous quelles activités vous souhaiteriez proposer : ateliers, conférences, séances..., tout en expliquant le déroulé !" name="comment" height={3}  options={{...register("comment")}} commonError={errors.comment} commonErrorMessage={errors.comment?.message} labelStyle="text-secondary"/>
+                <p className="text-secondary text-justify font-semibold mt-5">Les participants effectuent leurs réservations et paiement en ligne ; ensuite, nous transférons les fonds sur votre compte, déduction faite des frais liés aux transactions en ligne (voir les conditions dans nos CGV).</p>
                 {error ? <div className="text-sm text-[#d32f2f] font-medium text-center place-self-center -mb-3">Une erreur est survenue, réessayez plus tard.</div> : ''}
                 <button type='submit' className='px-[45px] my-4 flex gap-3 rounded-xl py-3 bg-secondary/80 hover:bg-secondary transition-all duration-500 place-self-center'>
                     <p className='font-bold'>Valider</p>

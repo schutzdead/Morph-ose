@@ -6,6 +6,12 @@ import Butterfly2 from '../../../public/assets/main/butterfly2.svg'
 import Plant1 from '../../../public/assets/main/plant1.svg'
 import Services from '../../../public/assets/main/services.webp'
 import Check from '../../../public/assets/main/checkColor.svg'
+
+import Facebook from '../../../public/assets/footer/facebook.svg'
+import Instagram from '../../../public/assets/footer/instagram_white.svg'
+import Tiktok from '../../../public/assets/footer/tiktok.svg'
+import Yt from '../../../public/assets/footer/yt.svg'
+
 import Link from "next/link";
 import { CircularLoading } from "@/utils/loader";
 
@@ -22,7 +28,7 @@ export function Newletter () {
 
     const [loading, setLoading] = useState(false)
     const [err, setErr] = useState(false)
-    const [send, setSend] = useState(false)
+    const [send, setSend] = useState(true)
     const {reset, handleSubmit, register, formState: {errors}} = useForm({
         resolver: yupResolver(schema1)
     })
@@ -85,11 +91,11 @@ export function Newletter () {
 
     return(
       <section id="newsletter" className="scroll-m-32 flex flex-col gap-10 mx-10 my-32 sm:my-20 md:mx-5">
-        <div className="flex gap-20 bg-homeGradient3 rounded-3xl justify-center px-10 lg:gap-10 sm:gap-8 sm:px-3 ">
+        <div className="flex gap-20 bg-homeGradient3 rounded-3xl justify-center px-10 lg:gap-10 sm:gap-8 sm:px-0">
           <Image src={Plant1} alt='plant icon' className="self-end w-auto md:max-w-[150px] sm:hidden" priority />
-          <div className="flex-col flex gap-10 text-white py-20 sm:py-10 sm:items-center sm:text-center">
+          <div className="flex-col flex gap-10 text-white py-20 sm:py-10 sm:items-center sm:text-center sm:w-[95%]">
             <h1 className="font-Quesha w-fit text-9xl xl:text-6xl md:text-5xl">Gardez la pêche !</h1>
-            <p className="font-bold text-xl lg:text-lg md:text-base">{`Inscrivez-vous à notre billet d'humeur et recevez régulièrement un flux de pensées positives et de motivations  directement dans votre boîte mail.`}</p>
+            <p className="font-bold text-xl lg:text-lg md:text-base">{`Inscrivez-vous à notre billet d'humeur et recevez régulièrement un flux de pensées positives et de motivations directement dans votre boîte mail.`}</p>
             {!send 
             ? <>
               {err ? <div className='text-red-500 text-sm font-semibold -mb-7 md:mb-0'>Une erreur est survenue.</div>: ''}
@@ -105,25 +111,31 @@ export function Newletter () {
                   </>
               }
             </>
-            : <p className="text-lg whitespace-nowrap font-semibold lg:text-base sm:text-sm">Vous êtes inscrit, merci !</p>
+            : <div className="flex flex-col text-secondary rounded-xl relative mt-5">
+                <div>
+                    <h1 className="font-Quesha text-7xl xl:text-6xl md:text-5xl">Merci de votre inscription !</h1>
+                    <p className="text-xl flex flex-col pb-10 gap-5 lg:text-lg sm:text-base ">Vous recevrez  gratuitement toutes les semaines par mail, un petit message qui égaillera votre journée.</p>
+                </div>
+                <h1 className="font-Quesha text-6xl xl:text-5xl md:text-4xl">A bientôt !</h1>
+            </div> 
             }           
           </div>
         </div>
         <div className="flex flex-col gap-3">
           <h1 className="font-Quesha w-fit text-8xl xl:text-6xl md:text-4xl text-secondary 2sm:text-3xl">Et suivez nous sur les réseaux sociaux... </h1>
-          <div className="max-w-screen flex ml-10 gap-5 h-[100px] min-h-[100px] overflow-hidden sm:h-[80px] sm:min-h-[80px] lg:ml-0">
-            <div className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[80px]">
-              <Image src={Services} alt='plant icon' className="rounded-lg object-cover h-full" priority />
-            </div>
-            <div className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[80px]">
-              <Image src={Services} alt='plant icon' className="rounded-lg object-cover h-full" priority />
-            </div>
-            <div className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[80px]">
-              <Image src={Services} alt='plant icon' className="rounded-lg object-cover h-full" priority />
-            </div>
-            <div className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[80px]">
-              <Image src={Services} alt='plant icon' className="rounded-lg object-cover h-full" priority />
-            </div>
+          <div className="max-w-screen flex ml-10 gap-5 h-[100px] min-h-[100px] overflow-hidden sm:h-[60px] sm:min-h-[60px] lg:ml-0">
+            <Link href="/" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-primary items-center justify-center flex rounded-xl">
+              <Image src={Facebook} alt='plant icon' className="h-2/3 w-auto" priority />
+            </Link>
+            <Link href="/" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-[#A37C99] items-center justify-center flex rounded-xl">
+              <Image src={Instagram} alt='plant icon' className="h-2/3 w-auto" priority />
+            </Link>
+            <Link href="https://www.youtube.com/@MorphoseEvolution" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-primary items-center justify-center flex rounded-xl">
+              <Image src={Yt} alt='plant icon' className="h-[40%] w-auto" priority />
+            </Link>
+            <Link href="https://www.tiktok.com/@morphose.evolution?_t=8mOQ1Vab2yO&_r=1" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-[#A37C99] items-center justify-center flex rounded-xl">
+              <Image src={Tiktok} alt='plant icon' className="h-2/3 w-auto" priority />
+            </Link>
           </div>
         </div>
         </section>
@@ -144,15 +156,15 @@ export function Newletter () {
   
   export function Card ({product}) {
     return(
-      <div className="flex flex-col group rounded-3xl h-full relative overflow-hidden cursor-pointer">
+      <Link href={product?.breadcrumb[0]?.slug ? {pathname: `/categories/${product?.breadcrumb[1]?.slug}`, query: { cat:product?.breadcrumb[1]?.id }} : {pathname: `/categories`}} className="flex flex-col group rounded-3xl h-full relative overflow-hidden cursor-pointer">
         <div className="rounded-3xl bg-homeGradient1 absolute z-10 top-0 w-full h-[25%] min-h-[150px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-1000 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
           <h2 className="text-3xl font-bold lg:text-2xl sm:text-lg text-center px-3">{product?.breadcrumb[1]?.title ? product?.breadcrumb[1]?.title.toUpperCase() : 'Nos catégories'}</h2>
-          <Link href={product?.breadcrumb[0]?.slug ? {pathname: `/categories/${product?.breadcrumb[1]?.slug}`, query: { cat:product?.breadcrumb[1]?.id }} : {pathname: `/categories`}} className="absolute right-5 bottom-3">
+          <div className="absolute right-5 bottom-3">
             <button className="bg-white px-3 py-1 rounded-3xl text-xs font-bold flex gap-1 items-center">
               <p className="gradient-text2">Voir plus</p>
               <Image src={RightArrow} alt='arrow icon' className="mt-[2px]" priority />
             </button>
-          </Link>
+          </div>
         </div>
         <div className="w-full h-full transition-all relative duration-1000 hover:scale-105">
           {product?.images[0]?.url
@@ -160,7 +172,7 @@ export function Newletter () {
             : <Image src={Services} alt='categories picture' fill className="object-cover" priority />
           }
         </div>
-      </div>
+      </Link>
     )
   }
   

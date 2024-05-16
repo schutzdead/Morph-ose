@@ -60,7 +60,8 @@ export default function RentCheckout ({data,rent}) {
                             <h2 className="font-bold text-[15px] mb-3">Déjà client ?</h2>
                             <CheckoutSignIn setUserData={setUserData} />
                         </div>}
-                        <div className="max-w-[500px] w-full py-14 mx-10 px-10 box-content border border-secondary rounded-xl xl:max-w-[400px] md:pt-6 md:pb-10 sm:max-w-[320px] sm:px-0 sm:mx-0 sm:border-none sm:py-5">
+                        <div className="max-w-[500px] w-full py-10 mx-10 px-10 box-content border border-secondary rounded-xl xl:max-w-[400px] md:pt-6 md:pb-10 sm:max-w-[320px] sm:px-0 sm:mx-0 sm:border-none sm:py-5">
+                            <h2 className="font-bold text-lg sm:text-base text-[#ECA683] mb-5">Toutes ces infos faciliteront nos prochaines collaborations...</h2>
                             <h2 className="font-bold text-[15px] mb-3">{userData ? '' : "S'inscrire et payer"}</h2>
                             <RentGuestForm userData={userData} rent={rent} />
                         </div>
@@ -71,6 +72,7 @@ export default function RentCheckout ({data,rent}) {
                     <button type='submit' form="guestForm" className='w-fit col-span-1 place-self-center px-10 hidden lg:flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3 mt-10'>
                             <p className='font-medium text-center'>Continuer</p>
                     </button>
+                    <p className="hidden lg:flex text-xs mt-5 place-self-center">* En continuant vous acceptez nos conditions générales de ventes</p>
                 </div>
             </main>
         </Layout>

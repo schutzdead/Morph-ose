@@ -24,6 +24,16 @@
     src: url('/font/Quesha.woff2') format('woff2');
   }
 
+  .great-scrollbar-y {
+    @apply overflow-y-auto;
+    @apply scrollbar;
+    @apply scrollbar-thumb-gray-300;
+    @apply scrollbar-w-2;
+    @apply scrollbar-thumb-rounded-full;
+    @apply scrollbar-track-rounded-full;
+    @apply scrollbar-corner-rounded;
+  }
+
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
       display: none;

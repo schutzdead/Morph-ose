@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Main_picture from "../../public/assets/thanks/thanks.webp"
+import Main_picture from "../../public/assets/services/bg.webp"
 import Link from "next/link"
 import Logo from "../../public/assets/header/logo1.svg"
 
@@ -11,7 +11,7 @@ import Instagram from '../../public/assets/footer/instagram_white.svg'
 import Tiktok from '../../public/assets/footer/tiktok.svg'
 import Yt from '../../public/assets/footer/yt.svg'
 
-export default function Thanks () {
+export default function ServicesThanks () {
     const { dispatch } = useContext(CartContext);
     const clearCart = () => {
         dispatch({
@@ -33,15 +33,15 @@ export default function Thanks () {
             <div className="pt-10 pb-5 flex flex-col items-center">
                 <div className="flex flex-col text-secondary w-[90vw] p-6 rounded-xl place-self-center text-center relative sm:w-[95vw]">
                     <h1 className="font-Quesha text-7xl xl:text-6xl md:text-5xl">Merci de votre confiance !</h1>
-                    <p className="text-xl flex flex-col pb-10 gap-5 lg:pb-0 lg:text-lg sm:text-base ">Votre commande a été reçue et nous nous occupons de la préparer avec le plus grand soin.</p>
+                    <p className="text-xl flex flex-col pb-10 gap-5 lg:pb-0 lg:text-lg sm:text-base ">Votre place a été réservée avec succès.</p>
                 </div> 
             </div>
             <div className="max-w-[1000px] w-[90%] mb-10 text-center flex flex-col items-center gap-5 bg-secondary text-white relative rounded-3xl justify-center pt-10 px-28 lg:px-10 sm:px-5">
-                <p className="text-xl lg:text-lg md:text-base">Vous recevrez bientôt un e-mail avec les détails de votre commande et le suivi de livraison.</p>
-                <p className="text-xl lg:text-lg md:text-base">En attendant, nous vous invitons à continuer à explorer notre site pour découvrir nos ateliers et évènements à venir.</p>
+                <p className="text-xl lg:text-lg md:text-base">{`Vous recevrez bientôt un e-mail de confirmation avec tous les détails nécessaires pour participer à l'événement, y compris la date, l'heure et le lieu.`}</p>
+                <p className="text-xl lg:text-lg md:text-base">En attendant, explorez notre site pour découvrir nos séances individuelles, qui pourraient également vous intéresser !</p>
                 <div className="flex gap-5 -mb-[25px] mt-5 text-white font-medium text-lg lg:text-base md:text-sm md:-mb-[20px]">
                     <Link href='/client' className="px-10 h-[50px] md:h-[40px] md:px-5 w-fit bg-primary rounded-[50px] flex items-center justify-center sm:hidden" onClick={clearCart}>Espace client</Link>
-                    <Link href='/services' className="px-10 h-[50px] md:h-[40px] md:px-5 w-fit bg-primary rounded-[50px] flex items-center justify-center" onClick={clearCart}>Nos évènement et ateliers</Link>
+                    <Link href='/seances' className="px-10 h-[50px] md:h-[40px] md:px-5 w-fit bg-primary rounded-[50px] flex items-center justify-center" onClick={clearCart}>Nos séances individuelles </Link>
                 </div>
             </div>
             <div className="flex flex-col text-secondary w-[90vw] p-6 rounded-xl place-self-center text-center relative sm:w-[95vw]">

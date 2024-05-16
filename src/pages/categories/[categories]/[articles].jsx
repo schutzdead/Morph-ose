@@ -5,7 +5,6 @@ import { useEffect, useRef, useContext, useState, useCallback } from "react";
 import { UpdateButton } from "@/components/articles/updateButton";
 import { CustomHead } from "@/components/customHead";
 import { CustomButton } from "@/components/homepage/homepage"
-import { lock, unlock } from "@/utils/lockScreen";
 import { CartContext, OpenCartContext } from "@/utils/cartProvider";
 import { Newletter } from "@/components/homepage/homepage";
 import { Thumb } from "@/utils/emblaThumb"
@@ -85,7 +84,7 @@ export default function Article({product}) {
     const [body, setBody] = useState()
 
     useEffect(() => {
-        setBody(document?.querySelector('html'))
+        setBody(document?.querySelector('body'))
     },[])
 
     return (
@@ -103,7 +102,6 @@ export default function Article({product}) {
                         <div className="flex md:flex-col gap-20 lg:gap-10">
                             <div className=" max-w-[1200px] m-auto w-1/2 md:w-full h-full">
                                 {/* VIEWPORT */}
-                            
                                 <div className="overflow-hidden rounded-2xl h-full" ref={emblaRef}>
                                     {/* CONTAINER */}
                                     <div className="flex touch-pan-y h-full">
@@ -153,14 +151,14 @@ export default function Article({product}) {
                                 </div>
                             
                                 <div className="flex flex-col">
-                                    {product?.stock === 0 ?
+                                    {product?.stock <= 0 ?
                                     <p className="py-5 text-secondary font-semibold">{`Ce produit n'est plus en stock.`}</p>
                                     :
                                         <>
                                         <div className="flex gap-5 items-center mt-8 sm:mt-0">
                                             <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} product={product} />
                                         </div>
-                                        <div className="py-5" onClick={() => {updateCart();setBag(true);lock()}}>
+                                        <div className="py-5" onClick={() => {updateCart();setBag(true);body.style.overflow = 'hidden'}}>
                                             <CustomButton butterfly={true} text="Acheter" style={{width:"250px", height:'40px'}} />
                                         </div>
                                         </>
@@ -192,7 +190,7 @@ export default function Article({product}) {
     )
 }
 
-function ModalFAQ ({setModal, modal, position, body}) {
+export function ModalFAQ ({setModal, modal, position, body}) {
     const [height, setHeight] = useState(position)
 
 
@@ -203,7 +201,7 @@ function ModalFAQ ({setModal, modal, position, body}) {
 
     return (
         <div className="w-[100vw] h-[100vh] bg-black/90 absolute flex-col items-center top-0 text-white z-50" style={modal ? {display:'flex', top:`${height}px`} : {display:'none', top:`${height}px`}}>
-            <div className="w-8 h-8 cursor-pointer flex justify-center items-center absolute top-3 right-5" onClick={() => {body.style.overflow = 'auto';setModal(false);unlock()}}>
+            <div className="w-8 h-8 cursor-pointer flex justify-center items-center absolute top-3 right-5" onClick={() => {body.style.overflow = 'unset';setModal(false)}}>
                 <Image src={Close} alt="Close pictogram" className='w-8'/>
             </div>
             <section className='flex flex-col gap-5 max-w-[800px] items-center sm:px-5 my-5 lg:max-w-[80vw] md:max-w-[95vw] md:mt-14'>

@@ -86,6 +86,7 @@ export default function Checkout ({data, ship, ship_fr, free}) {
                     <button type='submit' form="guestForm" className='w-fit col-span-1 place-self-center px-10 hidden lg:flex gap-3 rounded-md justify-center text-base bg-mainGradient transition-all duration-300 text-white py-3'>
                             <p className='font-medium text-center'>Continuer</p>
                     </button>
+                    <p className="hidden lg:flex text-xs mt-5 place-self-center">* En continuant vous acceptez nos conditions générales de ventes</p>
                 </div>
             </main>
         </Layout>
