@@ -51,7 +51,7 @@ export default function ProOrders({all_orders}) {
   const [loading, setLoading] = useState(false)
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
-
+  console.log(all_orders);
   return (
     <>
     <NoIndexHead />
@@ -72,24 +72,34 @@ export default function ProOrders({all_orders}) {
                 <p className="font-semibold place-self-center py-6 text-lg px-5 text-center text-secondary sm:text-base">{`Rappel : les évènements ont lieu au 2 rue du foirail - 63800 Cournon-d’Auvergne`}</p>
                 <div className='grid text-secondary py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden grid-cols-[repeat(4,2fr)_1fr] xl:text-sm sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-xs'>
                     <p>Numéro</p>
-                    <p>Participants</p>
-                    <p className='sm:hidden'>Prix</p>
+                    <p className='sm:hidden'>Participants</p>
+                    <p>Validation</p>
                     <p>Date</p>
                 </div>
                 {
                   orders?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((order) =>
                     <div key={order.id} className='grid grid-cols-[repeat(4,2fr)_1fr] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-sm' style={orders?.indexOf(order)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
-                      <p className='px-4 text-center'>{order.tracking_number}</p>
-                      <p className='font-semibold'>{`${order?.room_rental_reservation?.number_of_person}`}</p>
-                      <p className='px-4 text-center sm:hidden'>{order.room_rental_reservation?.price_per_person}€</p>
+                      <p className='px-4 text-center sm:px-2 sm:max-w-[100px] sm:text-ellipsis sm:overflow-hidden sm:hover:max-w-none'>{order.tracking_number}</p>
+                      <p className='font-semibold sm:hidden'>{`${order?.room_rental_reservation?.number_of_person}`}</p>
+                      { order?.is_checked !== null
+                        ? order?.is_checked 
+                          ? order?.status === "Payée"
+                            ? <p className='px-4 text-center text-green-600 sm:px-2'>Confirmé</p>
+                            : <p className='px-4 text-center sm:px-2'>En attente de paiement...</p>
+                          : <p className='px-4 text-center text-red-400 sm:px-2'>Refusé</p>
+                        : <p className='px-4 text-center sm:px-2'>En cours de traitement...</p>
+                      }
                       <div className='flex flex-col items-center font-bold sm:text-xs'>
                         <p>{new Date(order.room_rental_reservation?.room_rental?.date).toLocaleDateString('fr')}</p>
                       </div>
-                      <Link href={`/client/pro/${order.tracking_number}`}>
-                        <button className='group flex gap-1 w-[40px] items-center text-white py-1 justify-center'>
-                          <Image src={edit2} alt="details icon" className="group-hover:scale-[1.18] transition-all duration-300 w-6 h-auto mb-[1px]" priority />
-                        </button>
-                      </Link>
+                      { order?.is_checked !== null
+                        ? <Link href={`/client/pro/${order.tracking_number}`}>
+                          <button className='group flex gap-1 w-[40px] items-center text-white py-1 justify-center'>
+                            <Image src={edit2} alt="details icon" className="group-hover:scale-[1.18] transition-all duration-300 w-6 h-auto mb-[1px]" priority />
+                          </button>
+                        </Link>
+                        : ''
+                      }
                     </div>
                   )
                 }

@@ -34,8 +34,8 @@ export default function Footer () {
                         <h2 className='text-4xl text-white font-Quesha xl:text-3xl lg:text-2xl sm:text-xl'>Merveilles de Morph’ose</h2>
                         <p className='max-w-[400px] text-[#9F324799] text-lg lg:text-base sm:text-sm'>Osez l’art de la transformation</p>
                         <div className='flex gap-3 mt-2 lg:mt-3'>
-                            <Link href="" target='_blank' className='w-7 h-7 flex items-center justify-center rounded-full bg-[#BF6869]'><Image src={Facebook} alt="Facebook" className='h-3/4' /></Link>
-                            <Link href="" target='_blank' className='w-7 h-7 flex items-center justify-center rounded-full bg-white'><Image src={Instagram} alt="Instagram" className='h-[60%]' /></Link>
+                            <Link href="https://www.facebook.com/profile.php?id=61560375578587" target='_blank' className='w-7 h-7 flex items-center justify-center rounded-full bg-[#BF6869]'><Image src={Facebook} alt="Facebook" className='h-3/4' /></Link>
+                            <Link href="https://www.instagram.com/merveillesdemorph_ose?fbclid=IwY2xjawD7cjZleHRuA2FlbQIxMAABHdR-RC3lxstptIyiFNRkKrivrNLz-8Waskq1jPRHbVXi-xT1VbAQT7UfBg_aem_uuswALQFkuNHAADMezSzaw" target='_blank' className='w-7 h-7 flex items-center justify-center rounded-full bg-white'><Image src={Instagram} alt="Instagram" className='h-[60%]' /></Link>
                         </div>
                     </div>
                     <div className="text-gray flex flex-col place-self-center sm:items-center sm:text-center">
@@ -49,7 +49,7 @@ export default function Footer () {
                 </div>
                 <div className='text-secondary font-medium flex flex-col'>
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>ACCUEIL</h3>
-                    <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:justify-center'>
+                    <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:gap-y-3 sm:flex-wrap sm:justify-center'>
                         <Link href='/#headlight'>Nos collections phares</Link>
                         <Link href='/#service'>Nos services</Link>
                         <Link href='/#pro'>Pour les professionnels</Link>
@@ -58,7 +58,7 @@ export default function Footer () {
                 </div>
                 <div className='text-secondary font-medium flex flex-col'>
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>BOUTIQUE</h3>
-                    <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:justify-center'>
+                    <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:gap-y-3 sm:justify-center'>
                     {data
                         ? data?.slice(0,4).map(d => <Link key={d.id} href={{pathname: `/categories/${d?.slug}`, query: { cat:d?.id }}}>{d?.title}</Link>)
                         :
@@ -72,14 +72,14 @@ export default function Footer () {
                 </div>
                 <div className='text-secondary font-medium flex flex-col'>
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>SERVICES</h3>
-                    <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:justify-center'>
+                    <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:gap-y-3 sm:justify-center'>
                         <Link href='/services'>Evènements & Ateliers</Link>
                         <Link href='/rent'>Proposer vos services</Link>
                     </div>
                 </div>
                 <div className='text-secondary font-medium flex flex-col'>
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>QUI SOMMES NOUS?</h3>
-                    <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:justify-center'>
+                    <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:gap-y-3 sm:justify-center'>
                         <Link href='/about#me'>Fondatrice</Link>
                         <Link href='/about#team'>{`L'équipe`}</Link>
                         <Link href='/about#values'>Nos valeurs</Link>
@@ -88,7 +88,7 @@ export default function Footer () {
                 </div>
                 <div className='text-secondary font-medium flex flex-col'>
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>INFORMATIONS</h3>
-                    <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:justify-center'>
+                    <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:gap-y-3 sm:justify-center'>
                         <Link href='/politics'>Politique générales de ventes</Link>
                         <Link href='/politics'>Politique de confidentialité</Link>
                         <Link href='/mentions'>Mentions légales</Link>

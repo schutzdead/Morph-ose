@@ -25,23 +25,26 @@ export default function Services({workshops}) {
       <CustomHead pageName='Services' metaResume="Retrouvez l'ensemble de nos services"/>
         <Layout>
           <main className="pt-[1.5vh]">
-            <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Picture.src})`}}>
-                <div className="flex flex-col text-center justify-center items-center w-full px-4 gap-10 md:gap-0">
-                    <h1 className="text-white leading-[100px] font-Quesha text-9xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px] mb-5">Nos évènements et ateliers</h1>
-                    <div className="flex flex-col gap-5 items-center text-center bg-black/50 rounded-3xl px-10 py-5 md:px-5 max-w-[800px]">
-                        <p className="text-white font-medium text-xl lg:text-lg sm:text-base md:text-white md:hidden">{`Curieux d'explorer le monde de l'ésotérisme, de plonger dans des pratiques de bien-être ou simplement parfaire vos connaissances ? Alors vous êtes au bon endroit !`}</p>
-                        <p className="text-white font-medium text-xl lg:text-lg sm:text-base md:text-white">{`Que vous débutiez ou que vous soyez déjà avancé dans votre quête spirituelle, créative ou vers votre mieux-être, nous avons diverses activités à vous proposer...`}</p>
-                        <p className="text-white font-semibold text-xl lg:text-lg sm:text-base md:text-white">Etes vous prêt pour ce merveilleux voyage en notre compagnie ?</p>
-                    </div>
+            <section className="h-home w-[98vw] items-end ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Picture.src})`}}>
+              <div className=" w-[500px] mr-20 md:mr-0 sm:max-w-[500px] sm:w-[90%]">
+                <div  className="backdrop-blur-sm rounded-3xl pt-4 pb-5 bg-[#582D3E80]">
+                  <div className="flex flex-col gap-7 px-7 w-full items-center md:gap-5">
+                  <h1 className="text-white leading-[60px] font-Quesha text-7xl md:text-5xl md:leading-[35px]">Nos évènements et ateliers</h1>
+                    <div className="h-[2px] bg-white place-self-start w-full"></div>
+                    <p className="font-medium text-lg md:text-base sm:text-sm">{`Curieux d'explorer le monde de l'ésotérisme, de plonger dans des pratiques de bien-être ou simplement parfaire vos connaissances ? Alors vous êtes au bon endroit !`}</p>
+                    <p className="font-medium text-lg md:text-base sm:text-sm">Que vous débutiez ou que vous soyez déjà avancé dans votre quête spirituelle, créative ou vers votre mieux-être, nous avons diverses activités à vous proposer...</p>
+                    <p className="font-bold text-lg md:text-base sm:text-sm">Etes vous prêt pour ce merveilleux voyage en notre compagnie ?</p>
+                  </div>
                 </div>
-                <div className="flex gap-3 absolute bottom-3 right-3">
-                  <Link href='/seances' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
-                    SEANCES
+                <div className="flex gap-5 w-full mt-3">
+                  <Link href='/services' className="w-1/2 flex justify-center border-2 border-primary text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 md:py-3 md:font-extrabold">
+                    SERVICES
                   </Link>
-                  <Link href='/categories' className="text-sm font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
+                  <Link href='/categories' className="w-1/2 flex justify-center text-sm border-2 border-secondary font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:font-extrabold">
                     BOUTIQUE
                   </Link>
                 </div>
+              </div>
             </section>
             <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
                 <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
@@ -84,7 +87,6 @@ export function Individual ({workshop}) {
             <div className="flex bg-white flex-col text-primary font-medium justify-start pt-5 px-5 gap-0.5 rounded-b-2xl">
                 <h2 className="text-xl lg:text-lg sm:text-base font-bold">{workshop?.title}</h2>
                 <p className="text-sm font-normal">{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
-                <p className="mt-2">2 rue du foirail - 63800 Cournon-d’Auvergne</p>
                 <p>{new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
                 {workshop?.speaker_name ? <p>Organisateur : {workshop?.speaker_name}</p> : ''}
                 <p>Durée : {workshop?.duration} minutes</p>

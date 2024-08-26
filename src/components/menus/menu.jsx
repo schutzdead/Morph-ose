@@ -17,7 +17,7 @@ export function Menu () {
     const [active, setActive] = useState("")
     const router = useRouter()
     useEffect(() => {
-        if(active === '') setActive(router.asPath.split("/admin/")[1])
+        if(active === '') setActive(router.asPath.split("/admin/orders")[1])
     },[active, router.asPath])
 
     return (

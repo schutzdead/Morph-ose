@@ -28,7 +28,7 @@ export function Newletter () {
 
     const [loading, setLoading] = useState(false)
     const [err, setErr] = useState(false)
-    const [send, setSend] = useState(true)
+    const [send, setSend] = useState(false)
     const {reset, handleSubmit, register, formState: {errors}} = useForm({
         resolver: yupResolver(schema1)
     })
@@ -124,10 +124,10 @@ export function Newletter () {
         <div className="flex flex-col gap-3">
           <h1 className="font-Quesha w-fit text-8xl xl:text-6xl md:text-4xl text-secondary 2sm:text-3xl">Et suivez nous sur les réseaux sociaux... </h1>
           <div className="max-w-screen flex ml-10 gap-5 h-[100px] min-h-[100px] overflow-hidden sm:h-[60px] sm:min-h-[60px] lg:ml-0">
-            <Link href="/" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-primary items-center justify-center flex rounded-xl">
+            <Link href="https://www.facebook.com/profile.php?id=61560375578587" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-primary items-center justify-center flex rounded-xl">
               <Image src={Facebook} alt='plant icon' className="h-2/3 w-auto" priority />
             </Link>
-            <Link href="/" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-[#A37C99] items-center justify-center flex rounded-xl">
+            <Link href="https://www.instagram.com/merveillesdemorph_ose?fbclid=IwY2xjawD7cjZleHRuA2FlbQIxMAABHdR-RC3lxstptIyiFNRkKrivrNLz-8Waskq1jPRHbVXi-xT1VbAQT7UfBg_aem_uuswALQFkuNHAADMezSzaw" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-[#A37C99] items-center justify-center flex rounded-xl">
               <Image src={Instagram} alt='plant icon' className="h-2/3 w-auto" priority />
             </Link>
             <Link href="https://www.youtube.com/@MorphoseEvolution" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-primary items-center justify-center flex rounded-xl">

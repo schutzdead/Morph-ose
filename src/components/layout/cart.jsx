@@ -25,6 +25,8 @@ export default function Card ({bag, setBag}) {
         setBody(document?.querySelector('body'))
     },[])
 
+    console.log(command);
+
     return(
         <>
             <div className="fixed w-full h-full left-0 top-0 z-40 bg-black/60 cursor-pointer" style={bag ? {opacity:1, transition:'opacity 1s'} : {opacity:0, zIndex:-10}}  onClick={() => {setBag(false), body.style.overflow = 'unset'}}></div>
@@ -54,8 +56,8 @@ export default function Card ({bag, setBag}) {
                         : 
                     <div className="flex flex-col gap-8 w-full px-5 pt-6 text-primary md:gap-4 md:py-5 sm:mb-14">
                         <div className="gap-1">
-                            <p className="font-semibold text-lg sm:text-base">Sous-total : {command.reduce((accumulator, currentValue) =>
-                                accumulator + ((currentValue.promo_price ? currentValue.promo_price : currentValue.price) * currentValue.quantity), 0
+                            <p className="font-semibold text-lg sm:text-base">Sous-total : {command?.reduce((accumulator, currentValue) =>
+                                accumulator + ((currentValue?.promo_price ? currentValue?.promo_price : currentValue?.price) * currentValue?.quantity), 0
                             ).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}€</p>
                             <p className="text-[10px] text-gray-500">Prix ​​TTC, hors frais de livraison</p>
                         </div>
@@ -76,12 +78,14 @@ export function Article (data) {
         <div className="flex flex-col gap-10 w-full md:gap-7">
             <div className='text-xs flex gap-5 items-center w-full'>
                 <section className="w-28 h-28 min-h-28 min-w-28 relative md:w-20 md:h-20 md:min-h-20 md:min-w-20">
-                    <Image
+                   { data.data.picture.url ? 
+                   <Image
                         src={data.data.picture.url}
                         alt="Article picture"
                         fill
                         className="rounded-2xl object-cover"
                         />
+                    : ''}
                 </section>
                 <section className='flex flex-col h-full justify-between w-full flex-1 text-secondary md:h-20'>
                         <div className="flex flex-col gap-1 w-full">

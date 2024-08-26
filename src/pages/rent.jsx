@@ -66,22 +66,25 @@ export default function Rent() {
         <CustomHead pageName='Location professionnelle' metaResume="Louez notre location pendant une période déterminée."/>
             <Layout>
             <main className="pt-[1.5vh]">
-                <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Picture.src})`}}>
-                    <div className="flex flex-col text-center justify-center items-center w-full px-4 gap-10 md:gap-0">
-                        <h1 className="text-white leading-[100px] font-Quesha text-9xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px] mb-5">Venez proposer vos services !</h1>
-                        <div className="flex flex-col gap-5 items-center text-center bg-black/50 rounded-3xl px-10 py-5 md:px-5 max-w-[800px]">
-                            <p className="text-white font-medium text-xl lg:text-lg sm:text-base md:text-white">{`Vous êtes un professionnel du bien-être, de l'ésotérisme ou un créatif à la recherche de l'espace parfait pour organiser vos ateliers et événements?`}</p>
-                            <p className="text-white font-semibold text-xl lg:text-lg sm:text-base md:text-white">Découvrez notre espace modulable situé à Cournon d’Auvergne, spécialement aménagé pour répondre à vos besoins.</p>
+                <section className="h-home w-[98vw] items-end ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Picture.src})`}}>
+                <div className=" w-[500px] mr-20 md:mr-0 sm:max-w-[500px] sm:w-[90%]">
+                    <div  className="backdrop-blur-sm rounded-3xl pt-4 pb-5 bg-[#582D3E80]">
+                        <div className="flex flex-col gap-7 px-7 w-full items-center md:gap-5">
+                        <h1 className="text-white leading-[60px] font-Quesha text-7xl md:text-5xl md:leading-[35px]">Venez proposer vos services !</h1>
+                            <div className="h-[2px] bg-white place-self-start w-full"></div>
+                            <p className="font-medium text-lg md:text-base sm:text-sm">{`Vous êtes un professionnel du bien-être, de l'ésotérisme ou un créatif à la recherche de l'espace parfait pour organiser vos ateliers et événements ?`}</p>
+                            <p className="font-bold text-lg md:text-base sm:text-sm">Découvrez notre espace modulable situé à Cournon d’Auvergne, spécialement aménagé pour répondre à vos besoins.</p>
                         </div>
                     </div>
-                    <div className="flex gap-3 absolute bottom-3 right-3">
-                        <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
-                            SERVICES
-                        </Link>
-                        <Link href='/categories' className="text-sm font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
-                            BOUTIQUE
-                        </Link>
+                    <div className="flex gap-5 w-full mt-3">
+                    <Link href='/services' className="w-1/2 flex justify-center border-2 border-primary text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 md:py-3 md:font-extrabold">
+                        SERVICES
+                    </Link>
+                    <Link href='/categories' className="w-1/2 flex justify-center text-sm border-2 border-secondary font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:font-extrabold">
+                        BOUTIQUE
+                    </Link>
                     </div>
+                </div>
                 </section>
                 <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
                     <div className="flex flex-col gap-5 mt-5 text-secondary text-center text-lg font-medium sm:text-sm max-w-[1500px] sm:place-self-center sm:text-center">
@@ -141,8 +144,9 @@ export function Step1 ({step, setStep}) {
                 <h2 className="gradient-text2 text-center px-5">QUE SOUHAITEZ VOUS PROPOSER ?</h2>
             </div>
             <div className="flex flex-col items-center rounded-2xl text-white bg-primary gap-5 p-5">
-                <h2 className="font-Quesha text-7xl lg:text-6xl md:text-5xl text-center sm:text-4xl sm:leading-[30px]">Réserver l’espace pour mon évènement!</h2>
-                <p className="sm:text-sm max-w-[500px] text-center">Je souhaite organiser un atelier ou évènement dans votre local !</p>
+                <h2 className="font-Quesha text-7xl lg:text-6xl md:text-5xl text-center sm:text-4xl sm:leading-[30px]">Réserver l’espace pour mon évènement</h2>
+                <p className="text-lg font-semibold sm:text-base text-center">Je souhaite organiser un atelier ou évènement dans votre local !*</p>
+                <p className="sm:text-sm text-center">{`* Pour être à l'aise, merci de réserver l'espace au moins 1 mois avant votre évènement !`}</p>
                 <button onClick={() => {setStep(2), router.push('#scroll_rent')}} className="w-fit px-5 py-2 bg-[#ECA683] mt-4 rounded-[50px] text-white font-bold text-base sm:text-sm">JE RESERVE L’ESPACE</button>
             </div>
         </div>

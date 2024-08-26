@@ -105,8 +105,10 @@ export default function ProOrders({order}) {
                   <div className='flex flex-col gap-1 pb-5'>
                       <h3 className='text-2xl font-semibold my-3 text-secondary xl:text-lg sm:text-base sm:text-center'>Détails de la commande</h3>
                       <Informations title="Suivi : " value={order?.tracking_number}  textColor='#582D3E' />
-                      <Informations title="Période : " value={order?.room_rental_reservation?.room_rental?.title} textColor='#582D3E' />
+                      <Informations title="Status : " value={order?.status}  textColor='#582D3E' />
+                      <div className='mt-4'></div>
                       <Informations title="Prix : " value={`${order?.room_rental_reservation?.room_rental?.price}€`}  textColor='#582D3E' />
+                      <Informations title="Période : " value={order?.room_rental_reservation?.room_rental?.title} textColor='#582D3E' />
                       {order?.user?.files?.length > 0
                         ? order?.user?.files?.map(precious => <a key={precious.id} href={precious.url} download className='cursor-pointer py-1.5 place-self-start px-3 bg-secondary/10 rounded-lg w-fit overflow-hidden text-ellipsis mt-5 whitespace-nowrap text-secondary text-lg sm:text-base hover:bg-secondary/20 font-semibold transition-all duration-300  hover:max-w-none'>RIB client</a>
                       )

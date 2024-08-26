@@ -16,7 +16,7 @@ export async function getServerSideProps() {
     const getCategories =  await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
     return {
         props: {
-            data: getCategories,
+            data: getCategories.filter(c => c?.title !== "Services"),
         }
     }
 }

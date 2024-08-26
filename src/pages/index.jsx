@@ -66,44 +66,48 @@ export default function Home({workshops, first_products}) {
       landing 
         ? 
         <main className="h-[100vh] w-[100vw] flex items-center justify-center hsm:h-auto hsm:my-10">
-          <div className="h-[97%] w-[98%] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center text-center flex flex-col rounded-3xl items-center justify-center text-white relative lg:gap-10 sm:gap-6 sm:py-0 hsm:py-10" style={{backgroundImage:`url(${Fullscreen.src})`}}>
-            <button className="text-sm font-black hidden bg-background text-primary place-self-center mb-5 rounded-2xl py-5 px-10 sm:px-5 sm:py-3 sm:text-xs sm:font-extrabold sm:block sm:mb-0" onClick={() => {window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false); unlock()}}>
-              VISITER LE SITE
-            </button>
-            <h2 className="text-2xl font-bold px-3 md:text-xl">La société Morph’ose Evolution vous propose de découvrir</h2>
-            <Image src={Logo} className='h-[50%] w-auto lg:max-h-[250px] sm:h-auto sm:w-[80%]' alt='Logo' priority />
-            <div className="flex items-center gap-10 font-Quesha text-8xl xl:text-6xl lg:gap-5 lg:text-5xl sm:text-3xl sm:flex-col sm:gap-0">
-              <h1>Bien-être</h1>
-              <Image src={transi} alt='animation icon' className="sm:h-auto sm:w-6" priority />
-              <h1>Spiritualité</h1>
-              <Image src={transi} alt='animation icon' className="sm:h-auto sm:w-6" priority />
-              <h1>Esotérisme</h1>
+          <div className="h-[97%] w-[98%] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center text-center flex flex-col rounded-3xl items-center justify-center text-white relative lg:gap-10 sm:gap-6 sm:py-5 hsm:py-10 sm:justify-start" style={{backgroundImage:`url(${Fullscreen2.src})`}}>
+              <h2 className="text-2xl font-semibold px-3 md:text-lg">La société Morph’ose Evolution vous propose de découvrir</h2>
+              <Image src={Logo} className='h-[50%] flex-1 w-auto lg:max-h-[250px] sm:h-auto sm:w-[80%] sm:mt-10' alt='Logo' priority />
+              <div className="flex items-center gap-10 font-Quesha text-8xl xl:text-6xl lg:gap-5 lg:text-5xl sm:text-[27px] sm:gap-2 sm:-mt-6">
+                <h1 className="text-white">Bien-être</h1>
+                <Image src={transi} alt='animation icon' className="sm:h-auto sm:w-4" priority />
+                <h1 className="text-white">Spiritualité</h1>
+                <Image src={transi} alt='animation icon' className="sm:h-auto sm:w-4" priority />
+                <h1 className="text-white">Esotérisme</h1>
+              </div>
+              <button className="text-sm font-black bg-background text-primary place-self-end absolute bottom-3 right-3 rounded-2xl py-5 px-10 sm:px-5 sm:py-3 sm:text-xs sm:font-extrabold sm:place-self-center sm:static" onClick={() => {unlock(); window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false)}}>
+                VISITER LE SITE
+              </button>
             </div>
-            <button className="text-sm font-black bg-background text-primary place-self-end absolute bottom-3 right-3 rounded-2xl py-5 px-10 sm:px-5 sm:py-3 sm:text-xs sm:font-extrabold sm:hidden" onClick={() => {unlock(); window.sessionStorage.setItem('start', JSON.stringify(false)); setLanding(false)}}>
-              VISITER LE SITE
-            </button>
-          </div>
         </main>
         :
         <Layout>
           <main className="pt-[1.5vh]">
-            <section className="h-home w-[98vw] ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover pb-20 bg-center flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Fullscreen2.src})`}}>
-              <div className="gap-10 flex flex-col px-20 w-full text-center items-center md:gap-5 md:ml-0 lg:px-10 sm:px-5">
-                <div className="flex gap-10 font-Quesha text-7xl whitespace-nowrap xl:text-6xl lg:gap-5 lg:text-5xl md:text-4xl sm:text-[26px]">
-                  <h1>Bien-être</h1>
-                  <h1>Spiritualité</h1>
-                  <h1>Esotérisme</h1>
+            <section className="h-home w-[98vw] ml-[1vw] bg-no-repeat bg-cover bg-center flex flex-col relative rounded-3xl justify-center text-white md:items-center" style={{backgroundImage:`url(${Fullscreen2.src})`}}>
+              <div className=" w-[500px] ml-20 md:ml-0 sm:max-w-[500px] sm:w-[90%]">
+                <div  className="backdrop-blur-sm rounded-3xl pt-4 pb-5 bg-[#582D3E80]">
+                  <div className="flex flex-col gap-7 px-7 w-full items-center md:gap-5">
+                    <div className="flex font-Quesha w-full text-6xl xl:text-5xl gap-2 md:text-4xl sm:text-3xl flex-wrap">
+                      <h1>Holistique</h1>
+                      <span>-</span>
+                      <h1>Apprentissage</h1>
+                      <span>-</span>
+                      <h1>Développement Personnel</h1>
+                    </div>
+                    <div className="h-[2px] bg-white place-self-start w-full"></div>
+                    <p className="font-medium text-xl sm:text-lg">Bienvenue dans un univers où votre enchantement est notre priorité !</p>
+                    <p className="font-medium text-xl sm:text-lg">Explorez notre boutique ésotérique et découvrez nos services conçus pour éclairer votre parcours personnel et spirituel.</p>
+                  </div>
                 </div>
-                <p className="text-3xl font-semibold lg:text-2xl sm:text-lg max-w-[1000px]">Bienvenue dans un univers où votre enchantement est notre priorité !</p>
-                <p className="text-3xl font-semibold lg:text-2xl sm:text-lg max-w-[1000px]">Explorez notre boutique ésotérique et découvrez nos services conçus pour éclairer votre parcours personnel et spirituel.</p>
-              </div>
-              <div className="flex gap-3 absolute bottom-3 right-3">
-                <Link href='/services' className="text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
-                  SERVICES
-                </Link>
-                <Link href='/categories' className="text-sm font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:text-xs md:font-extrabold">
-                  BOUTIQUE
-                </Link>
+                <div className="flex gap-5 w-full mt-5">
+                  <Link href='/services' className="w-1/2 flex justify-center border-2 border-primary text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 md:py-3 md:font-extrabold">
+                    SERVICES
+                  </Link>
+                  <Link href='/categories' className="w-1/2 flex justify-center text-sm border-2 border-secondary font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:font-extrabold">
+                    BOUTIQUE
+                  </Link>
+                </div>
               </div>
             </section>
 
@@ -189,9 +193,9 @@ export default function Home({workshops, first_products}) {
                 <p className="font-bold">Touchez une communauté engagée et passionnée !</p>
               </div>
               <div className="flex items-center justify-center md:flex-col md:gap-10">
-                <div className="flex flex-col w-[60%] py-10 shadow-2xl rounded-l-2xl lg:w-1/2 md:rounded-2xl lg:py-5 md:w-full">
+                <div className="flex flex-col w-[70%] py-10 shadow-2xl rounded-l-2xl lg:w-1/2 md:rounded-2xl lg:py-5 md:w-full">
                   <h2 className="text-primary font-Quesha text-6xl xl:text-5xl lg:text-4xl md:text-3xl px-10 sm:px-5">Et si nous avancions ensemble?</h2>
-                  <div className="bg-primary h-[3px] w-[80%] my-10 place-self-end lg:my-5 md:place-self-start"></div>
+                  <div className="bg-primary h-[3px] w-[95%] my-10 place-self-end lg:my-5 md:w-full md:place-self-start"></div>
                   <div className="text-secondary px-10 flex flex-col gap-3 sm:px-5">
                     <p className="text-xl lg:text-lg sm:text-base lg:max-w-full pb-2 font-semibold">Œuvrer ensemble c’est vous permettre de...</p>
                     <ProSentence text="Gagner en visibilité." />
@@ -201,7 +205,7 @@ export default function Home({workshops, first_products}) {
                     <ProSentence text="Faciliter la réservation et le paiement des participants directement sur ce site web." />
                   </div>
                 </div>
-                <div className="w-[40%] h-full shadow-2xl overflow-hidden rounded-2xl lg:w-1/2 md:w-full md:max-w-[500px]">
+                <div className="w-[40%] max-w-[350px] h-full shadow-2xl overflow-hidden rounded-2xl lg:w-1/2 md:w-full">
                   <div className="w-full h-[450px] md:h-auto">
                     <Image src={Pro} alt='categories picture' className="h-full w-full object-cover" priority />
                   </div>

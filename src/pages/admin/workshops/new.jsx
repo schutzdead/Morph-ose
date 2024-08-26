@@ -17,6 +17,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 const schemaEvent = object({
   title:string().required("Requis."),
+  speaker_name:string().nullable(),
   price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 questionnaire.'),
   duration:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 minute.'),
   entries_available:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 entrée.'),

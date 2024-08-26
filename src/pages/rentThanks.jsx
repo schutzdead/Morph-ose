@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Main_picture from "../../public/assets/rent/bg.webp"
+import Main_picture from "../../public/assets/thanks/thanksPro.webp"
 import Link from "next/link"
 import Logo from "../../public/assets/header/logo1.svg"
 

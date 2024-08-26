@@ -12,11 +12,10 @@ export function ServiceCart ({workshop}) {
                 <div className="flex flex-col w-full bg-secondary/70 py-5 px-5 rounded-xl items-center font-medium text-white mt-5 gap-1 text-xl lg:text-base sm:text-sm">
                     <h2 className="lg:text-5xl md:text-4xl lg:font-Quesha font-bold lg:font-medium">{workshop?.title}</h2>
                     {workshop?.description 
-                        ? <p className="py-5 font-normal text-base">{workshop?.description}</p>
+                        ? <p className="py-5 font-normal text-base text-center">{workshop?.description}</p>
                         : ''
                     }
                     <p>{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
-                    <p className="mt-2">2 rue du foirail - 63800 Cournon-d’Auvergne</p>
                     <p>{new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
                     {workshop?.speaker_name ? <p>Organisateur : {workshop?.speaker_name}</p> : ''}
                     <p>Durée : {workshop?.duration} minutes</p>

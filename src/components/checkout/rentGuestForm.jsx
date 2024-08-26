@@ -120,13 +120,11 @@ export function RentGuestForm ({userData, rent}) {
                         country: bill_country || ''
                     },
                     cancel_url:`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
-                    success_url:`${process.env.NEXT_PUBLIC_SITE_URL}/rentThanks`
+                    success_url:`${process.env.NEXT_PUBLIC_SITE_URL}/rentThanksPayed`
                 })
             })
-            const register = await response.json()
             if(response.status === 200)  { 
-                const url = await register.stripe_session.url
-                location.assign(url)
+                router.push('/rentThanks')
                 setLoading(false)
                 return
             }
