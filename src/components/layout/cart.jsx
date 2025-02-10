@@ -1,5 +1,4 @@
 import Image from "next/image"
-import RightArrow from '../../../public/assets/articles/rightSide.svg'
 import Link from "next/link"
 
 import { CartContext } from "@/utils/cartProvider";
@@ -7,12 +6,13 @@ import { UpdateButton } from '@/components/articles/updateButton';
 import { removeCart } from "@/utils/cartReducer";
 
 import { useContext, useEffect, useState } from "react"
-import { CustomButton } from "../homepage/homepage"
 
 import Trash from '../../../public/assets/articles/trash.svg'
+import SideModal from "../modal";
+import { DialogTitle } from "@headlessui/react";
+import { formatPrice } from "@/utils/helpFunction";
 
 export default function Card ({bag, setBag}) {
-    const { v4: uuidv4 } = require('uuid');
     const { cart } = useContext(CartContext);
     const [command, setCommand] = useState()    
     useEffect(() => {
@@ -20,54 +20,59 @@ export default function Card ({bag, setBag}) {
         setCommand(cart)
     }, [bag, cart])
 
-    const [body, setBody] = useState()
-    useEffect(() => {
-        setBody(document?.querySelector('body'))
-    },[])
-
-    console.log(command);
-
     return(
-        <>
-            <div className="fixed w-full h-full left-0 top-0 z-40 bg-black/60 cursor-pointer" style={bag ? {opacity:1, transition:'opacity 1s'} : {opacity:0, zIndex:-10}}  onClick={() => {setBag(false), body.style.overflow = 'unset'}}></div>
-            <menu className="fixed h-full z-50 bg-white text-black flex flex-col py-10 md:py-5 sm:w-full" style={bag ? {right:"0%", transition:'right 400ms ease-out'} : {right:'-100%'}}>
-                    <div className="flex items-center text-xs self-end pr-3 cursor-pointer" onClick={() => {setBag(false);body.style.overflow = 'unset'}}>
-                        <p className="text-secondary mb-[3px] font-medium">Boutique</p>
-                        <Image src={RightArrow} alt="Right arrow pictogram" className='w-5'/>
-                    </div>
-                    <div className="mt-5 mb-12 pl-10 gradient-text md:mb-8 sm:hidden">
-                        <p className="font-Quesha text-8xl xl:text-6xl md:text-4xl 2sm:text-3xl">Votre</p>
-                        <p className="font-semibold text-6xl md:text-4xl">Panier</p>
-                    </div>
-                    <div className="mt-2 mb-12 hidden pl-10 gradient-text md:mb-8 sm:flex">
-                        <p className="font-Quesha text-8xl xl:text-6xl md:text-4xl">Votre Panier</p>
-                    </div>
-                    {!command || command.length === 0
-                        ? <p className="w-[400px] h-full flex pt-40 justify-center sm:w-auto">Aucun article.</p>
-                        : 
-                        <div className="flex overflow-y-auto">
-                            <div className="px-5 overflow-y-scroll scrollbar-thumb-gray-300 scrollbar-thin scrollbar-w-2 flex flex-col gap-10 w-[400px] sm:w-full sm:gap-0">
-                                {command.map(article => <Article key={uuidv4()} data={article}/>)}
-                            </div>
+        <SideModal open={bag} setOpen={setBag}>
+        <div className="flex h-full flex-col overflow-y-auto bg-white px-4 py-6 sm:px-6 shadow-xl">
+            <div className="flex items-start justify-between">
+                <DialogTitle className="text-lg font-medium text-typo">Votre panier</DialogTitle>
+                <div className="ml-3 flex h-7 items-center">
+                <button type="button" className="relative -m-2 p-2 text-typo" 
+                        onClick={() => setBag(false)}>
+                    <span className="absolute -inset-0.5" />
+                    <span className="sr-only">Close panel</span>
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                </div>
+            </div>
+
+            <div className="mt-14 flex-1">
+            {!command || command?.length === 0
+                ? <p className="text-gray-400">Aucun article.</p>
+                : 
+                <ul role="list" className="-my-6 divide-y divide-gray-200 great-scrollbar-y">
+                    {command?.map((article, index) => <Article key={index} data={article}/>)}
+                </ul>
+            }
+            </div>
+            
+            {!command || command?.length === 0
+                ? ''
+                : 
+                <div className="border-t border-gray-200 px-4 pt-6 pb-2 mt-6 sm:px-6">
+                    <div>
+                        <div className="flex justify-between text-base font-medium text-gray-900">
+                            <p>Sous-total</p>
+                            <p className="font-Roboto">{formatPrice(command?.reduce((accumulator, currentValue) =>
+                            accumulator + ((currentValue.promo_price ? Number(currentValue.promo_price) : Number(currentValue.price)*Number(currentValue.quantity))), 0
+                            ))}</p>
                         </div>
-                    }
-                    {!command || command.length === 0
-                        ? ''
-                        : 
-                    <div className="flex flex-col gap-8 w-full px-5 pt-6 text-primary md:gap-4 md:py-5 sm:mb-14">
-                        <div className="gap-1">
-                            <p className="font-semibold text-lg sm:text-base">Sous-total : {command?.reduce((accumulator, currentValue) =>
-                                accumulator + ((currentValue?.promo_price ? currentValue?.promo_price : currentValue?.price) * currentValue?.quantity), 0
-                            ).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}€</p>
-                            <p className="text-[10px] text-gray-500">Prix ​​TTC, hors frais de livraison</p>
+                        <p className="mt-0.5 text-sm text-gray-500">Prix ​​TTC, hors frais de livraison</p>
+                        <div className="mt-6">
+                            <Link href='/checkout' onClick={() => setBag(false)} className="flex items-center w-full justify-center rounded-md border border-transparent bg-primary px-6 py-3 text-base font-semibold text-white shadow-sm">Continuer</Link>
                         </div>
-                        <Link href='/checkout/' onClick={() => {body.style.overflow = 'unset';setBag(false)}} className="place-self-center">
-                            <CustomButton butterfly={true} text="Continuer" style={{width:"250px", height:'40px'}} />
-                        </Link>
+                        <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                            <p>
+                            ou{' '}
+                            <Link href="/categories" className="font-medium text-tertiary hover:text-primary" onClick={() => setBag(false)}> Continuer vos achats</Link>
+                            </p>
+                        </div>
                     </div>
-                    }
-            </menu>
-        </>
+                </div>
+            }
+        </div>
+    </SideModal>
     )
 }
 
@@ -89,7 +94,7 @@ export function Article (data) {
                 </section>
                 <section className='flex flex-col h-full justify-between w-full flex-1 text-secondary md:h-20'>
                         <div className="flex flex-col gap-1 w-full">
-                            <h3 className="font-bold text-lg lg:text-base leading-none sm:text-sm">{data?.data?.title}</h3>
+                            <h3 className="text-base font-medium text-gray-900 line-clamp-2 overflow-ellipsis">{data?.data?.title}</h3>
                             <h3 className="whitespace-nowrap sm:text-sm ">Référence : {data?.data?.reference ? data?.data?.reference : 0}</h3>
                         </div>
                         <div className="flex items-center gap-2 text-primary">
@@ -101,7 +106,7 @@ export function Article (data) {
                             
                         </div>
                 </section>
-                <section className='flex flex-col items-end justify-between w-fit h-full md:h-20'>
+                <section className='flex flex-col items-end justify-between w-fit h-20 min-h-20'>
                     <Image src={Trash} onClick={() => dispatch(removeCart(data.data))} alt="Remove article pictogram" className="w-5"/>
                     <div className="flex gap-5 items-center">
                         <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={true} article={data.data} />

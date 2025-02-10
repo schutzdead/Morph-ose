@@ -18,14 +18,7 @@ export default function App ({ Component, pageProps }) {
     Router.events.on("routeChangeStart", start);
     Router.events.on("routeChangeComplete", end);
     Router.events.on("routeChangeError", end);
-
-    if(loading){
-      window?.scrollTo({top: 0, left: 0});
-      lock()
-    } else {
-      unlock()
-    }
-
+    
     return () => {
       Router.events.off("routeChangeStart", start);
       Router.events.off("routeChangeComplete", end);

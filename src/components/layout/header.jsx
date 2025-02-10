@@ -9,7 +9,6 @@ import { useState, useContext, useEffect } from 'react'
 import { Hamburger } from './hamburger'
 import { CartContext, OpenCartContext } from '@/utils/cartProvider'
 import Menu from './menu'
-import { lock, unlock } from '@/utils/lockScreen'
 import Cart from './cart'
 import { CircularProgress, Skeleton } from '@mui/material'
 import { GETRequest } from '@/utils/requestHeader'
@@ -93,7 +92,7 @@ export default function Header () {
       </div>
       <header className="z-30 h-28 flex justify-between bg-background px-10 items-center font-medium sticky top-0 lg:px-5 text-primary">
         <nav className='flex gap-8 md:hidden'>
-          <div onClick={() => {setMenu(!menu); menu ? unlock() : lock()}} className='flex items-center'>
+          <div onClick={() => setMenu(!menu)} className='flex items-center'>
             <Hamburger hamburger={hamburger} setHamburger={setHamburger}/>
           </div>
           <div className='flex flex-col gap-4 relative'>
@@ -152,12 +151,12 @@ export default function Header () {
           {/* RESPONSIVE */}
           <ul className='hidden gap-10 items-center md:flex md:gap-4'>
             <div className='flex items-center cursor-pointer gap-1'>
-              <Image src={Bag} className='w-5 h-auto' alt='Cart pictogram' onClick={() => {setBag(!bag); bag ? body.style.overflow = 'unset' : body.style.overflow = 'hidden'}} />
+              <Image src={Bag} className='w-5 h-auto' alt='Cart pictogram' onClick={() => setBag(!bag)} />
               <span>
               {` (${cartCount})`}
               </span>
             </div>            
-            <div onClick={() => {setMenu(!menu); menu ? unlock() : lock()}}>
+            <div onClick={() => setMenu(!menu)}>
               <Hamburger hamburger={hamburger} setHamburger={setHamburger}/>
             </div>
           </ul>

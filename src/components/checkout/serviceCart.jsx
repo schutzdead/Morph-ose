@@ -19,7 +19,7 @@ export function ServiceCart ({workshop}) {
                     <p>{new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
                     {workshop?.speaker_name ? <p>Organisateur : {workshop?.speaker_name}</p> : ''}
                     <p>Durée : {workshop?.duration} minutes</p>
-                    <p className="text-2xl lg:text-lg sm:text-base mt-4 font-semibold">{workshop?.price}€</p>
+                    <p className="text-2xl lg:text-lg sm:text-base mt-4 font-semibold">{workshop?.price}€ TTC</p>
                 </div>
                 <Link href="/services" className="">
                     <button className='bg-secondary w-full items-center transition-all duration-500 rounded-xl justify-center text-base text-white py-2'>

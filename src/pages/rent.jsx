@@ -214,8 +214,8 @@ export function ModalStep2 ({title, duration, price, price2, setOption, option, 
                     </ThemeProvider>
                     <div className="w-full font-medium flex flex-col justify-center h-full items-center text-secondary">
                         <p className="font-semibold">{duration}</p>
-                        <p className="text-base">{price}€</p>
-                        <p className="text-base">{price2 ? `${price2}€` : ""}</p>
+                        <p className="text-base">{price}€ TTC</p>
+                        <p className="text-base">{price2 ? `${price2}€ TTC` : ""}</p>
                     </div>
                 </div>
             </div>
@@ -326,7 +326,7 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                                     {disponibility?.map(dispo =>
                                         <div key={dispo.id} onClick={() => {setRentId(dispo.id);setStep(4);router.push('#scroll_rent')}} className="flex flex-col w-full font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl text-center items-center hover:bg-primary cursor-pointer duration-500 transition-all">
                                             <h3 className="text-lg sm:text-sm">{dispo.title}</h3>
-                                            <p className="text-xl font-bold lg:text-lg sm:text-base">{dispo.price}€</p>
+                                            <p className="text-xl font-bold lg:text-lg sm:text-base">{dispo.price}€ TTC</p>
                                         </div>
                                     )}
                                 </div>

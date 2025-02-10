@@ -20,6 +20,8 @@ export async function getServerSideProps() {
 }
 
 export default function Services({workshops}) {
+  const today = new Date();
+
   return (
     <>
       <CustomHead pageName='Services' metaResume="Retrouvez l'ensemble de nos services"/>
@@ -54,7 +56,7 @@ export default function Services({workshops}) {
                     <p>Et bien c’est ce que nous vous proposons et bien plus encore !! Nos ateliers et événements sont pensés pour <b>vous accompagner au mieux</b> dans vos apprentissages et votre croissance personnelle ou simplement pour vous proposer des moments de convivialité. Tout cela dans une ambiance bienveillante, respectueuse et professionnelle. Venez découvrir ces merveilleux espaces et faire un pas de plus vers l’art de votre transformation…</p>
                 </div>
                 {workshops?.length === 0 || !workshops
-                ? <p className='font-medium place-self-center text-secondary text-center sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
+                ? <p className='font-medium place-self-center text-secondary text-center pt-10 sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
                 : <div className="gap-8 grid grid-cols-2 mt-10 md:mt-5 w-full max-w-[1000px] justify-self-center lg:flex lg:flex-col lg:items-center">
                     { workshops.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map(workshop => <Individual key={workshop.id} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                 </div>
@@ -84,17 +86,17 @@ export function Individual ({workshop}) {
                 <Skeleton sx={{width:'100%', height:'100%', transform:'none', borderRadius:'16px 16px 0 0'}} />
               </div>
             }
-            <div className="flex bg-white flex-col text-primary font-medium justify-start pt-5 px-5 gap-0.5 rounded-b-2xl">
+            <div className="flex bg-white flex-col text-primary font-medium justify-start pt-5 px-5 gap-0.5 rounded-b-2xl min-h-[380px]">
                 <h2 className="text-xl lg:text-lg sm:text-base font-bold">{workshop?.title}</h2>
                 <p className="text-sm font-normal">{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
                 <p>{new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
                 {workshop?.speaker_name ? <p>Organisateur : {workshop?.speaker_name}</p> : ''}
                 <p>Durée : {workshop?.duration} minutes</p>
                 {workshop?.description 
-                    ? <p className="line-clamp-3 text-ellipsis font-normal my-3">{workshop?.description}</p>
+                    ? <p className="line-clamp-3 text-ellipsis flex-1 h-full font-normal my-3">{workshop?.description}</p>
                     : ''
                 }
-                <p className="font-semibold mt-3 w-fit border border-primary rounded-md px-3 py-1">{workshop?.price}€ / personne</p>
+                <p className="font-semibold mt-3 w-fit border border-primary rounded-md px-3 py-1">{workshop?.price}€ TTC / personne</p>
                 {workshop?.entries_available - workshop?.entries_reserved === 0 
                   ? <p className="my-5 place-self-center font-bold text-lg md:text-base">Cet évènement est complet.</p>
                   : <>

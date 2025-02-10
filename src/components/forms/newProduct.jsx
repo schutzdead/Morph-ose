@@ -129,8 +129,8 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                     <CustomTextArea field={field} label='Grande description' errors={errors?.big_description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
                 )}/>
                 <FormControl sx={{width:'100%'}}>
-                    <InputLabel>Catégorie</InputLabel>
-                    <Select label="Catégorie" defaultValue="" required
+                    <InputLabel>Sous-catégorie</InputLabel>
+                    <Select label="Sous-catégorie" defaultValue="" required
                             value={dataCategory} onChange={handleChangeCat}
                     >
                     {all_categories?.map((name) => (<MenuItem key={name.id} value={name.id}>{name.title}</MenuItem>))}

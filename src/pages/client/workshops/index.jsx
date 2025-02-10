@@ -77,7 +77,7 @@ export default function Orders({all_orders}) {
                     <div key={order.id} className='grid grid-cols-[repeat(4,1fr)] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:text-sm' style={orders?.indexOf(order)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
                       <p className='px-4 text-center'>{order?.workshops[0]?.title}</p>
                       <p className='font-semibold'>{`${order?.workshops[0]?.duration}min.`}</p>
-                      <p className='px-4 text-center'>{order.workshops[0]?.price}€</p>
+                      <p className='px-4 text-center'>{order.workshops[0]?.price}€ TTC</p>
                       <div className='flex flex-col items-center font-bold sm:text-xs'>
                         <p>{new Date(order.workshops[0]?.date).toLocaleDateString('fr')}</p>
                         <p>{new Date(order.workshops[0]?.date).toLocaleTimeString('fr')}</p>

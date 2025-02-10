@@ -73,7 +73,7 @@ export function DeleteButton ({api, id, setLoading, backLink, text=''}) {
 
 export function Back ({title, linkTo}) {
     return(
-        <Link href={linkTo} className='rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white pl-1 pr-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:pl-0 sm:pr-2 sm:font-medium'>
+        <Link href={linkTo} className='rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white pl-1 pr-3 py-2 text-sm bg-secondary  sm:py-1.5 sm:gap-0 sm:pl-0 sm:pr-2 sm:font-medium'>
             <Image src={leftArrow} className='w-6 h-auto sm:w-4' alt='Left chevron pictogram' />
             <p className='pb-[2px]'>{title}</p>
         </Link>

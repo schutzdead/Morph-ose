@@ -1,6 +1,10 @@
 import { useContext, useState } from "react";
 import { CartContext } from "@/utils/cartProvider";
 import { removeCart } from "@/utils/cartReducer";
+import Image from "next/image";
+import add from '../../../public/assets/essentials-icons/add.svg'
+import less from '../../../public/assets/essentials-icons/less.svg'
+
 
 export function UpdateButton ({quantityValue, setQuantityValue, updateFct, article, product}) {
     const { cart, dispatch } = useContext(CartContext);
@@ -33,11 +37,14 @@ export function UpdateButton ({quantityValue, setQuantityValue, updateFct, artic
 
     return (
         <div className="flex flex-col items-center">
-            {logErr ? <div className="text-sm text-[#d32f2f] text-center">Stock atteint.</div> : ''}
-            <div className="z-10 flex items-center gap-0.5 rounded-full bg-[#F5F5F5] px-2 py-2 select-none">
-                <div className="cursor-pointer pl-1 pr-2" onClick={() => {updateQuantity(-1), updateCommand(article, -1)}}>-</div>
-                <div className="text-center font-semibold">{quantityValue}</div>
-                <div className="cursor-pointer pr-1 pl-2" onClick={() => {updateQuantity(1), updateCommand(article, +1)}}>+</div>
+            <div className="z-10 flex justify-evenly items-center rounded-lg text-white select-none">
+                <button type="button" className="w-[26px] h-[26px] bg-primary/50 rounded-md flex items-center justify-center cursor-pointer" onClick={() => {updateQuantity(-1), updateCommand(article, -1)}}>
+                    <Image src={less} alt="Less icon" className="mb-[2px] w-2 cursor-pointer flex items-center justify-center" />
+                </button>
+                <div className="font-Roboto px-2 flex items-center justify-center text-base font-medium md:text-sm text-black/90">{quantityValue}</div>
+                <button type="button" disabled={logErr} className="w-[26px] h-[26px] bg-primary/50 rounded-md flex items-center justify-center cursor-pointer disabled:bg-gray-200 disabled:text-black/90" onClick={() => {updateQuantity(1), updateCommand(article, +1)}}>
+                    <Image src={add} alt="More icon" className="w-3 cursor-pointer" />
+                </button>
             </div>
         </div>
     )

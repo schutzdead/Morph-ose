@@ -52,7 +52,7 @@ export default function Footer () {
                     <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:gap-y-3 sm:flex-wrap sm:justify-center'>
                         <Link href='/#headlight'>Nos collections phares</Link>
                         <Link href='/#service'>Nos services</Link>
-                        <Link href='/#pro'>Pour les professionnels</Link>
+                        {/* <Link href='/#pro'>Pour les professionnels</Link> */}
                         <Link href='/#newsletter'>{`Billets d'humeur`}</Link>
                     </div>
                 </div>

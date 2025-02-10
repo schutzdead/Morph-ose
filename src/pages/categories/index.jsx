@@ -115,9 +115,9 @@ export function ArticleCard ({articleParams, link}) {
                     <div className="text-secondary font-semibold mt-2">
                         <h2 className="sm:text-sm">{article?.title}</h2>
                         <div className="flex items-center gap-2">
-                            <p className="text-sm sm:text-xs">{article?.promo_price ? article?.promo_price : article?.price}€</p>
+                            <p className="text-sm sm:text-xs">{article?.promo_price ? article?.promo_price : article?.price}€ TTC</p>
                             { article?.promo_price 
-                                ? <p className="text-sm text-[#6C7275] font-medium line-through sm:text-xs">{article?.price}€</p>
+                                ? <p className="text-sm text-[#6C7275] font-medium line-through sm:text-xs">{article?.price}€ TTC</p>
                                 : ''
                             }
                         </div>

@@ -2,61 +2,57 @@ import { useEffect, useRef, useState } from "react"
 import Plus from '../../../public/assets/header/plus.svg'
 import Image from "next/image"
 import Link from "next/link"
-import { unlock } from "@/utils/lockScreen"
-import { GETRequest } from "@/utils/requestHeader"
-import Close from '../../../public/assets/close.svg'
 import { Skeleton } from "@mui/material"
+import { DialogTitle } from "@headlessui/react"
+import SideModal from "../modal"
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function Menu ({menu, setMenu , setHamburger}) {
-
-    const [data, setData] = useState()
-    async function fetchCategories() {
-		try {
-            const getCategories =  await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
-            setData(getCategories)
-		} catch (err) {
-			console.error('Request failed:' + err)
-		}
-	}
-
-    useEffect(() => {
-        fetchCategories()
-    }, [])
     return (
-        <>
-                <div className="fixed w-full h-full left-0 top-0 z-40 bg-black/60 cursor-pointer"
-                style={menu ? {opacity:1, transition:'opacity 1s'} : {opacity:0, zIndex:-10}} onClick={() => {setMenu(false);unlock();setHamburger(false)}}></div>
-                <menu className="fixed pl-10 pr-10 h-full top-0 bg-white z-50 py-16 flex-col items-center sm:w-full sm:pr-10 md:py-10" style={menu ? {left:"0%", transition:'left 400ms ease-out'} : {left:"-100%"}}>
-                <Image src={Close} onClick={() => {setMenu(false);unlock();setHamburger(false)}} alt="Close pictogram" className='w-8 cursor-pointer self-start'/>
-                <div className="overflow-y-auto overflow-x-hidden px-5 pt-10 md:pt-5">
-                    <ul className="flex flex-col min-w-[250px] overflow-y-auto overflow-x-hidden scrollbar-thumb-gray-300 scrollbar-thin scrollbar-w-2 max-h-[65vh] tracking-wide w-full pt-10 pr-5 font-semibold sm:text-sm md:pt-5">
-                        <Link href='/categories' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
+        <SideModal open={menu} setOpen={setMenu}>
+            <div className="flex h-full flex-col overflow-y-auto great-scrollbar-y bg-white px-8 py-6 shadow-xl">
+                <div className="flex items-start justify-between">
+                    <DialogTitle className="text-lg font-medium text-primary">Menu</DialogTitle>
+                    <div className="ml-3 flex h-7 items-center">
+                    <button type="button" className="relative -m-2 p-2 text-primary" 
+                            onClick={() => {setHamburger(false);setMenu(false)}}>
+                        <span className="absolute -inset-0.5" />
+                        <span className="sr-only">Close panel</span>
+                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    </div>
+                </div>
+                
+                <nav className="pt-3">
+                    <ul className="flex flex-col font-medium w-full divide-y text-lg sm:text-base">
+                        <Link href='/categories' onClick={() => {setHamburger(false);setMenu(false)}}>
                             <Tab level1='BOUTIQUE'/>
                         </Link>
-                        <Link href='/services' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
+                        <Link href='/services' onClick={() => {setHamburger(false);setMenu(false)}}>
                             <Tab level1='NOS SERVICES'/>
                         </Link>
-                        <Link href='/seances' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
+                        <Link href='/seances' onClick={() => {setHamburger(false);setMenu(false)}}>
                             <Tab level1='SEANCES INDIVIDUELLES'/>
                         </Link>
-                        <Link href='/rent' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
+                        {/* <Link href='/rent' onClick={() => {setHamburger(false);setMenu(false)}}>
                             <Tab level1='LOCATIONS PROFESSIONNELLES'/>
-                        </Link>
-                        <Link href='/about' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
+                        </Link> */}
+                        <Link href='/about' onClick={() => {setHamburger(false);setMenu(false)}}>
                             <Tab level1='A PROPOS'/>
                         </Link>
-                        <Link href='/client' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
+                        <Link href='/client' onClick={() => {setHamburger(false);setMenu(false)}}>
                             <Tab level1='COMPTE CLIENT'/>
                         </Link>
-                        <Link href='/contact' onClick={() => {setHamburger(false);setMenu(false);unlock()}}>
+                        <Link href='/contact' onClick={() => {setHamburger(false);setMenu(false)}}>
                             <Tab level1='CONTACT'/>
                         </Link>
                     </ul>
+                </nav>
                 </div>
-            </menu>
-        </>
+    </SideModal>
     )
 }
 
@@ -88,7 +84,7 @@ function MainCategory ({data, setHamburger, setMenu}) {
 
 function NestedTab ({id, setHamburger, setMenu, setResetAll, resetAll, childs, each_data}) {
     const [cross, setCross] = useState(true)
-    const closeBurger = () => {setHamburger(false);setMenu(false);unlock()}
+    const closeBurger = () => {setHamburger(false);setMenu(false)}
     const [open, setOpen] = useState(false)
     const [heightDetails, setHeightDetails] = useState()
     const details = useRef(null)
@@ -101,7 +97,7 @@ function NestedTab ({id, setHamburger, setMenu, setResetAll, resetAll, childs, e
     return (
         <div className="flex w-full flex-col mt-5">
             <div className="flex justify-between items-center cursor-pointer gap-5" onClick={() => {setHeightDetails(details?.current?.offsetHeight); setOpen(!open); setResetAll(id)}}>
-                <li className="" onClick={(e) => {e.stopPropagation();unlock();closeBurger()}}>
+                <li className="" onClick={(e) => {e.stopPropagation();closeBurger()}}>
                     <Link href={{pathname: `/categories/${each_data?.slug}`, query: { cat:each_data?.id }}}>{each_data?.title.toUpperCase()}</Link>
                 </li>
                 {cross ? 

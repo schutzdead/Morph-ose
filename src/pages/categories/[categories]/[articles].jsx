@@ -135,9 +135,9 @@ export default function Article({product}) {
                                     <h2 className="font-extrabold  text-3xl xl:text-2xl lg:text-xl sm:text-base">{product?.title}</h2>
                                     <p className="sm:text-sm">{product?.description}</p>
                                     <div className="flex items-center gap-2 mt-5">
-                                        <p className="text-2xl font-medium lg:text-xl sm:text-base">{product?.promo_price ? product?.promo_price : product?.price}€</p>
+                                        <p className="text-2xl font-medium lg:text-xl sm:text-base">{product?.promo_price ? product?.promo_price : product?.price}€ TTC</p>
                                         { product?.promo_price
-                                            ? <p className="text-xl text-[#A57A95] font-medium line-through lg:text-lg sm:text-sm">{product?.price}€</p>
+                                            ? <p className="text-xl text-[#A57A95] font-medium line-through lg:text-lg sm:text-sm">{product?.price}€ TTC</p>
                                             : ''
                                         }
                                     </div>

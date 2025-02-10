@@ -59,6 +59,9 @@ export default function Categories({all_cat}) {
     setAllCategories(all_cat)
   }, [all_cat])
 
+  console.log(all_cat);
+  
+
   return (
     <>
     <NoIndexHead />
