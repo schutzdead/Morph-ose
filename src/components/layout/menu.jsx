@@ -55,7 +55,7 @@ export default function Menu ({menu, setMenu , setHamburger}) {
 
                             <div className="flex flex-col py-5">
                                 <section className="flex justify-between text-start gap-3 items-center cursor-pointer w-full group" onClick={() => {setHeightDetails(details?.current?.offsetHeight); setOpenDetails(!openDetails)}}>
-                                    <Link href='/categories' onClick={() => {setHamburger(false);setMenu(false)}}>
+                                    <Link href='/categories' >
                                         <p>BOUTIQUE</p>
                                     </Link>
                                     <div className='flex flex-col justify-between h-4 w-4 min-h-4 min-w-4 relative cursor-pointer lg:w-3 lg:h-3 lg:min-w-3 lg:min-h-3'>
@@ -65,7 +65,7 @@ export default function Menu ({menu, setMenu , setHamburger}) {
                                 </section>
                                 <section className="flex justify-start text-start items-start w-full overflow-hidden pr-6 text-lg sm:text-base" style={openDetails ? {maxHeight:`${heightDetails}px`, transition:'all 500ms'} : { maxHeight:0, transition:'all 300ms'}}>
                                     <div ref={details} className="flex flex-col text-end divide-y divide-gray-200 w-full text-base font-normal">
-                                        {data?.map((cat,index) => <Link key={index} href={`/categories/${cat.slug}`} className="py-3">{capitalizeFirst(cat.title)}</Link>)}
+                                        {data?.map((cat,index) => <Link key={index} onClick={() => {setHamburger(false);setOpenDetails(false);setMenu(false)}} href={{pathname: `/categories/${cat.slug}`, query: { cat:cat?.id }}} className="py-3">{capitalizeFirst(cat.title)}</Link>)}
                                     </div>
                                 </section>
                             </div>
