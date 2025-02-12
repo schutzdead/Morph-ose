@@ -33,7 +33,7 @@ export default function Section({data}) {
                         ? <p>Aucun article</p>
                         : <div className="flex flex-col gap-28 md:gap-10">
                             {data?.map((m, index) => 
-                                <section key={m.id} className="flex flex-col gap-10 relative">
+                                <section key={index} className="flex flex-col gap-10 relative">
                                     <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
                                     <div style={index%2 === 0 ? {justifyContent:'start'} : {justifyContent:'end'}} className="w-full flex">
                                         <CatTitle title={m.title.toUpperCase()} butterfly={true} reverse={index%2 === 0} />
@@ -41,8 +41,8 @@ export default function Section({data}) {
                                     <div className="flex ml-5 mr-10 overflow-x-hidden md:mr-5 md:ml-0">
                                         {m?.childs.map(c => c.products).flat().length === 0 
                                         ? <p className="text-lg font-semibold text-secondary sm:text-base pl-10 md:pl-5">Aucun article.</p>
-                                        : m?.childs.map(c => c.products).flat().filter(np => np.is_published).slice(0,6).map(article => 
-                                            <ArticleCard articleParams={article} key={article.id} link={{pathname: `/categories/${m?.slug}/${article?.slug}`, query: { art:article?.id }}} />
+                                        : m?.childs.map(c => c.products).flat().filter(np => np.is_published).slice(0,6).map((article, index) => 
+                                            <ArticleCard articleParams={article} key={index} link={{pathname: `/categories/${m?.slug}/${article?.slug}`, query: { art:article?.id }}} />
                                         )}
                                     </div>
                                     <Link href={{pathname: `/categories/${m?.slug}`, query: { cat:m?.id }}} className="cursor-pointer flex gap-1 items-center text-primary place-self-end mx-10 md:mx-5 font-semibold lg:text-sm underline underline-offset-2 sm:text-xs">
@@ -62,13 +62,29 @@ export default function Section({data}) {
 }
 
 export function CategoriesMenu ({cat}) {
+    const [selectedSubCat, setSelectedSubCat] = useState([])
+    const [selectedCat, setSelectedCat] = useState(null)
+    
     return(
-        <div className="flex gap-5 px-10 sticky top-28 bg-background z-20 items-center great-scrollbar-y py-8 md:px-5 sm:pb-4">
-            <Link href="/categories"><button className="bg-menuGradient text-center whitespace-nowrap font-bold text-white px-4 py-2 rounded-lg cursor-pointer">Toutes les catégories</button></Link>
-            {cat.map(c =>
-                <Link key={c.id} href={{pathname: `/categories/${c?.slug}`, query: { cat:c?.id }}}><button className="bg-menuGradient whitespace-nowrap font-bold text-white px-4 py-2 rounded-lg cursor-pointer">{c.title}</button></Link>
-            )}
+        <div className="px-10 sticky top-28 bg-background z-40 items-center py-8 md:px-5 sm:pb-4" onMouseLeave={() => {setSelectedSubCat([]);setSelectedCat(null)}}>
+            <div className="overflow-x-auto overflow-y-hidden flex gap-5 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner-rounded scrollbar-thumb-primary/20 scrollbar-w-1 scrollbar pb-3">
+                <Link href="/categories"><button className="bg-menuGradient text-center whitespace-nowrap font-bold text-white px-4 py-2 rounded-lg cursor-pointer">Toutes les catégories</button></Link>
+                {cat.map((c, index) =>
+                    <Link key={index} href={{pathname: `/categories/${c.slug}`, query: { cat:c.id }}}><button className="bg-menuGradient whitespace-nowrap font-bold text-white px-4 py-2 rounded-lg cursor-pointer" onMouseOver={() => {setSelectedSubCat(c.childs);setSelectedCat({id:c.id, slug:c.slug})}}>{c.title}</button></Link>
+                )}
+            </div>
+            <div className="absolute top-[100px] bg-background w-full left-0 py-3">
+                {selectedSubCat.length > 0
+                    ? <div className="flex text-lg md:text-base font-semibold divide-y divide-primary/30 pt-3 w-full flex-col items-center">
+                            {selectedSubCat.map((subC, index) =>
+                                <Link key={index} className="px-3 py-4 w-full text-center hover:bg-primary/20" href={{pathname: `/categories/${selectedCat.slug}`, query: { cat:selectedCat?.id, subCat:subC.id }}}>{subC.title}</Link>
+                            )}
+                        </div>
+                    : ""
+                }
+            </div>
         </div>
+
     )   
 }
 

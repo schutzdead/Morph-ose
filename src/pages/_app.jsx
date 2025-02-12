@@ -49,7 +49,7 @@ export default function App ({ Component, pageProps }) {
       <OpenCartProvider>
         <CartProvider>
           {loading ?
-          <div className='absolute flex items-center justify-center z-[100] w-[100vw] h-[100vh] bg-black/80'><CircularProgress /></div>
+          <div className='absolute flex items-center justify-center z-[100] top-0 left-0 right-0 bottom-0 w-[100vw] h-[100vh] bg-black/80'><CircularProgress /></div>
           : ''}
           <div className='overflow-x-clip'>
             <Component {...pageProps} />

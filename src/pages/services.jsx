@@ -58,7 +58,7 @@ export default function Services({workshops}) {
                 {workshops?.length === 0 || !workshops
                 ? <p className='font-medium place-self-center text-secondary text-center pt-10 sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
                 : <div className="gap-8 grid grid-cols-2 mt-10 md:mt-5 w-full max-w-[1000px] justify-self-center lg:flex lg:flex-col lg:items-center">
-                    { workshops.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map(workshop => <Individual key={workshop.id} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
+                    { workshops.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((workshop, index) => <Individual key={index} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                 </div>
                 }
                 <section className="flex mt-28 md:mt-10 items-center w-full gap-10 relative sm:gap-8">

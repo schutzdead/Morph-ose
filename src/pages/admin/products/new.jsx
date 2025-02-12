@@ -51,11 +51,12 @@ export async function getServerSideProps({req, res}) {
   }}
 
   const cat = await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
-  const all = cat?.map(c => c.childs).flat()
+  let childs = []
+  childs = cat?.map(c => ({title:c.title, childs:c.childs})).map(cate => cate.childs.map(child => ({id:child.id, title:`${cate.title} - ${child.title}`}))).flat()
 
   return {
     props: {
-      all_categories : all
+      all_categories : childs
     }
   }
 }

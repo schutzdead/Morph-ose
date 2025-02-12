@@ -7,6 +7,8 @@ import { Newletter } from "@/components/homepage/homepage";
 import Image from "next/image";
 import Service from "../../../../public/assets/articles/catBG.webp";
 import Butterfly from "../../../../public/assets/main/butterfly.svg";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -27,6 +29,20 @@ export async function getServerSideProps({ query }) {
 }
 
 export default function Category({ data, allCat }) {
+
+
+  const router = useRouter();
+  const { subCat } = router.query;
+
+  useEffect(() => {
+    if (subCat) {
+      const element = document.getElementById(subCat); 
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [subCat]);
+
   return (
     <>
       <CustomHead
@@ -50,7 +66,7 @@ export default function Category({ data, allCat }) {
             />
             <div className="absolute flex justify-center items-center w-full h-full px-4">
               <div className="font-Quesha w-fit mx-4 relative text-9xl lg:text-8xl md:text-7xl sm:text-5xl">
-                <h1 className="text-secondary">{data?.title.toUpperCase()}</h1>
+                <h1 className="text-secondary">{data?.title?.toUpperCase()}</h1>
               </div>
             </div>
           </div>
@@ -63,7 +79,7 @@ export default function Category({ data, allCat }) {
             ) : (
               <div className="flex flex-col gap-28 md:gap-10">
                 {data?.childs?.map((m, index) => (
-                  <section key={m.id} className="flex flex-col gap-10">
+                  <section key={m.id} className="flex flex-col gap-10" id={m.id}>
                     <div
                       style={
                         index % 2 === 0

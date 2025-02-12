@@ -68,8 +68,6 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
             const register = await response.json()
             if(response.status === 200){
                 if(rentId && rentId > 0){
-                    console.log(`/api/proxy/auth/admin/room-rentals/reservations/${rentId}`);
-                    console.log(register?.id);
                     const response = await fetch(`/api/proxy/auth/admin/room-rentals/reservations/${rentId}`, {
                         method: "POST",    
                         mode: "cors",
@@ -88,8 +86,6 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                                 event[property] = ''
                             }
                         }
-                        console.log(event);
-                        console.log(event?.room_rental_reservation?.id);                        
                         setSearchTutorData({...event})
                         setRentId(event?.room_rental_reservation?.id)
                     }

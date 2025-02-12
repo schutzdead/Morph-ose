@@ -201,7 +201,7 @@ export function ModalFAQ ({setModal, modal, position, body}) {
 
     return (
         <div className="w-[100vw] h-[100vh] bg-black/90 absolute flex-col items-center top-0 text-white z-50" style={modal ? {display:'flex', top:`${height}px`} : {display:'none', top:`${height}px`}}>
-            <div className="w-8 h-8 cursor-pointer flex justify-center items-center absolute top-3 right-5" onClick={() => {body.style.overflow = 'unset';setModal(false)}}>
+            <div className="w-8 h-8 cursor-pointer flex justify-center items-center absolute top-3 right-5" onClick={() => {setModal(false)}}>
                 <Image src={Close} alt="Close pictogram" className='w-8'/>
             </div>
             <section className='flex flex-col gap-5 max-w-[800px] items-center sm:px-5 my-5 lg:max-w-[80vw] md:max-w-[95vw] md:mt-14'>

@@ -47,7 +47,7 @@ export default function Contact() {
                   <h1 className="gradient-text2 text-center">Une interrogation ?</h1>
                 </div>
                 <div className="text-2xl flex flex-col pb-10 gap-5 font-medium lg:text-xl sm:text-lg text-center text-secondary">
-                    <p className="max-w-[1000px]">La relation client est une thématique centrale de notre établissement. Vous avez pris connaissance <Link href="/cgv" target="_blank" className="font-bold cursor-pointer">des conditions générales de vente</Link> ainsi que de la <span onClick={() => {setModal(true); setPosition(Math.max(window.screenY, document.documentElement.scrollTop, document.body.scrollTop)); body.style.overflow = 'hidden'}} className="font-bold cursor-pointer">FAQ</span> et votre interrogation reste sans réponse ? Nous vous répondrons dans le plus bref délai.</p>
+                    <p className="max-w-[1000px]">La relation client est une thématique centrale de notre établissement. Vous avez pris connaissance <Link href="/cgv" target="_blank" className="font-bold cursor-pointer">des conditions générales de vente</Link> ainsi que de la <span onClick={() => {setModal(true); setPosition(Math.max(window.screenY, document.documentElement.scrollTop, document.body.scrollTop))}} className="font-bold cursor-pointer">FAQ</span> et votre interrogation reste sans réponse ? Nous vous répondrons dans le plus bref délai.</p>
                 </div>
                 <div className="max-w-[800px] w-full flex flex-col justify-center">
                   <ContactForm />

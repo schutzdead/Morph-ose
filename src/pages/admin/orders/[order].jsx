@@ -71,9 +71,7 @@ export default function Orders({order}) {
     }
     try {
       const response = await fetch(`/api/proxy/auth/admin/orders/${order?.id}/label`, GETRequest)
-      console.log(response);
       const label = await response.json()
-      console.log(label);
       if(label){
         setTrackingAndPDF(label)
         setLoading(false)
@@ -87,10 +85,6 @@ export default function Orders({order}) {
       setlogErr(true)
     }
   }
-
-  console.log(trackingAndPDF);
-  console.log(order);
-  
 
   return (
     <>

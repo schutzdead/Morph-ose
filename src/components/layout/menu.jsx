@@ -5,10 +5,34 @@ import Link from "next/link"
 import { Skeleton } from "@mui/material"
 import { DialogTitle } from "@headlessui/react"
 import SideModal from "../modal"
+import { GETRequest } from "@/utils/requestHeader"
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
+const capitalizeFirst = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+
 export default function Menu ({menu, setMenu , setHamburger}) {
+    const [data, setData] = useState()
+    async function fetchCategories() {
+        try {
+            const getCategories =  await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
+            setData(getCategories)
+        } catch (err) {
+            console.error('Request failed:' + err)
+        }
+    }
+
+    useEffect(() => {
+        fetchCategories()
+    }, [])
+    
+    console.log(data);
+
+    const details = useRef(null)
+    const [heightDetails, setHeightDetails] = useState()
+    const [openDetails, setOpenDetails] = useState(false)
+
     return (
         <SideModal open={menu} setOpen={setMenu}>
             <div className="flex h-full flex-col overflow-y-auto great-scrollbar-y bg-white px-8 py-6 shadow-xl">
@@ -26,11 +50,25 @@ export default function Menu ({menu, setMenu , setHamburger}) {
                     </div>
                 </div>
                 
-                <nav className="pt-3">
-                    <ul className="flex flex-col font-medium w-full divide-y text-lg sm:text-base">
-                        <Link href='/categories' onClick={() => {setHamburger(false);setMenu(false)}}>
-                            <Tab level1='BOUTIQUE'/>
-                        </Link>
+                <nav className="pt-8">
+                    <ul className="flex flex-col font-medium w-full divide-y divide-primary text-lg sm:text-base">
+
+                            <div className="flex flex-col py-5">
+                                <section className="flex justify-between text-start gap-3 items-center cursor-pointer w-full group" onClick={() => {setHeightDetails(details?.current?.offsetHeight); setOpenDetails(!openDetails)}}>
+                                    <Link href='/categories' onClick={() => {setHamburger(false);setMenu(false)}}>
+                                        <p>BOUTIQUE</p>
+                                    </Link>
+                                    <div className='flex flex-col justify-between h-4 w-4 min-h-4 min-w-4 relative cursor-pointer lg:w-3 lg:h-3 lg:min-w-3 lg:min-h-3'>
+                                        <BlackHamburgerLine animation={openDetails ? {transform:'rotate(180deg)'} : {transform:'rotate(90deg)'}}/>
+                                        <BlackHamburgerLine />
+                                    </div>
+                                </section>
+                                <section className="flex justify-start text-start items-start w-full overflow-hidden pr-6 text-lg sm:text-base" style={openDetails ? {maxHeight:`${heightDetails}px`, transition:'all 500ms'} : { maxHeight:0, transition:'all 300ms'}}>
+                                    <div ref={details} className="flex flex-col text-end divide-y divide-gray-200 w-full text-base font-normal">
+                                        {data?.map((cat,index) => <Link key={index} href={`/categories/${cat.slug}`} className="py-3">{capitalizeFirst(cat.title)}</Link>)}
+                                    </div>
+                                </section>
+                            </div>
                         <Link href='/services' onClick={() => {setHamburger(false);setMenu(false)}}>
                             <Tab level1='NOS SERVICES'/>
                         </Link>
@@ -121,11 +159,15 @@ function NestedTab ({id, setHamburger, setMenu, setResetAll, resetAll, childs, e
 
 function Tab ({level1}) {
     return(
-        <>
-            <div className="flex justify-between items-center cursor-pointer mt-5">
+            <div className="flex justify-between items-center cursor-pointer py-5">
                 <li className="">{level1}</li>
             </div>
-            <div className="w-full bg-homeGradient3 h-[1px] mt-2"></div>
-        </>
     )
 }
+
+export function BlackHamburgerLine ({animation}) {
+    return(
+    <span className={`bg-primary h-[2px] top-2 w-full absolute transition-all lg:top-[5px]`}
+          style={animation}></span>
+    )
+  }

@@ -22,7 +22,6 @@ export default (req, res) => {
 		const cookies = new Cookies(req, res)
 		const authToken = cookies.get('auth-token')
 
-		console.log(pathname);
 		req.url = req.url.replace(/^\/api\/proxy/, '')
 		req.headers.cookie = ''
 

@@ -38,8 +38,6 @@ export function AddFiles ({docId, fileType, setDocId}) {
         }
     }
 
-    console.log(docId);
-
     return(
         <div className='w-full flex flex-col gap-3 mb-10 sm:mb-5'>
             {submitLoading ? <CircularLoading />

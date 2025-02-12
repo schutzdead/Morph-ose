@@ -12,6 +12,7 @@ import SideModal from "../modal";
 import { DialogTitle } from "@headlessui/react";
 import { formatPrice } from "@/utils/helpFunction";
 
+
 export default function Card ({bag, setBag}) {
     const { cart } = useContext(CartContext);
     const [command, setCommand] = useState()    
@@ -19,6 +20,7 @@ export default function Card ({bag, setBag}) {
         if(cart === undefined) return
         setCommand(cart)
     }, [bag, cart])
+    
 
     return(
         <SideModal open={bag} setOpen={setBag}>

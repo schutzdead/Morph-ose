@@ -36,15 +36,15 @@ export async function getServerSideProps() {
   }
 }
 
-function load(key) {
-  const once = window.sessionStorage.getItem(key);
-  return once != null ? JSON.parse(once) : true;
-}
+// function load(key) {
+//   const once = window.sessionStorage.getItem(key);
+//   return once != null ? JSON.parse(once) : true;
+// }
 
 const OPTIONS = { slidesToScroll: 'auto' }
 
 export default function Home({workshops, first_products}) {
-  const [landing, setLanding] = useState(true);
+  // const [landing, setLanding] = useState(true);
   
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS)
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
@@ -55,14 +55,14 @@ export default function Home({workshops, first_products}) {
     onNextButtonClick
   } = usePrevNextButtons(emblaApi)
 
-  useEffect(() => {
-    setLanding(() => load('start'))
-  },[])
+  // useEffect(() => {
+  //   setLanding(() => load('start'))
+  // },[])
 
   return (
     <>
       <CustomHead pageName='Accueil' metaResume="Découvrez l'ensemble de notre gamme" />
-      {
+      {/* {
       landing 
         ? 
         <main className="h-[100vh] w-[100vw] flex items-center justify-center hsm:h-auto hsm:my-10">
@@ -81,7 +81,7 @@ export default function Home({workshops, first_products}) {
               </button>
             </div>
         </main>
-        :
+        : */}
         <Layout>
           <main className="pt-[1.5vh]">
             <section className="h-home w-[98vw] ml-[1vw] bg-no-repeat bg-cover bg-center flex flex-col relative rounded-3xl justify-center text-white md:items-center" style={{backgroundImage:`url(${Fullscreen2.src})`}}>
@@ -155,7 +155,7 @@ export default function Home({workshops, first_products}) {
                   <div className="overflow-hidden" ref={emblaRef}> 
                   {/* CONTAINER */}
                     <div className="flex touch-pan-y -ml-5">
-                      { workshops.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0,5).map(workshop => <Service key={workshop.id} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
+                      { workshops.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0,5).map((workshop, index) => <Service key={index} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                     </div>
                   </div>
                   <div className="grid grid-cols-[auto_1fr] justify-between items-center gap-[1.2rem] mt-[1.8rem]">
@@ -220,7 +220,7 @@ export default function Home({workshops, first_products}) {
             <Newletter />
           </main>
         </Layout>
-      }
+      {/* } */}
     </>
   )
 }
@@ -249,7 +249,7 @@ function AllSeances ({workshops}) {
         <div className="overflow-hidden" ref={emblaRef}> 
         {/* CONTAINER */}
           <div className="flex touch-pan-y -ml-10">
-            { seances.seance.map((s, index) => <SeancesComp key={s.id} seance={s} index={index} />)}
+            { seances.seance.map((s, index) => <SeancesComp key={index} seance={s} index={index} />)}
           </div>
         </div>
         <div className="grid grid-cols-[auto_1fr] justify-between items-center gap-[1.2rem] mt-[1.8rem]">

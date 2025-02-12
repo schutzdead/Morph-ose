@@ -13,6 +13,7 @@ import Cart from './cart'
 import { CircularProgress, Skeleton } from '@mui/material'
 import { GETRequest } from '@/utils/requestHeader'
 
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function Header () {
@@ -134,7 +135,7 @@ export default function Header () {
                 <Image src={User} className='pb-[2px] w-6 h-auto mt-1' alt='Account pictogram' />
               </Link>
             </li>
-            <li className='cursor-pointer flex items-center gap-2 relative sm:hidden overflow-hidden h-full group' onClick={() => {setBag(!bag); bag ? body.style.overflow = 'unset' : body.style.overflow = 'hidden'}}>
+            <li className='cursor-pointer flex items-center gap-2 relative sm:hidden overflow-hidden h-full group' onClick={() => {setBag(!bag)}}>
               <Image src={Bag} className='pb-[2px] w-5 h-auto' alt='Account pictogram' />
               <span>
               {` (${cartCount})`}

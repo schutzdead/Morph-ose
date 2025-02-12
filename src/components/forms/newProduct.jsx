@@ -9,7 +9,7 @@ import { AddFiles } from "./addFiles";
 
 export default function NewProduct ({setLoading, formResolver, validationButton, api, searchTutorData,setSearchTutorData, all_categories}) {
     
-    const [dataCategory, setDataCategory] = useState("")
+    const [dataCategory, setDataCategory] = useState([])
     const handleChangeCat = (event) => {
         setDataCategory(event.target.value);
     };
@@ -31,7 +31,7 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
             reset(searchTutorData)
             // setDocId([])
             searchTutorData?.is_published ? setChecked(true) : setChecked(false)
-            setDataCategory(searchTutorData?.categories[0]?.id)
+            setDataCategory(searchTutorData?.categories.map(c => c.id))
             if(searchTutorData?.images?.length > 0) {
                 setDocId(searchTutorData?.images)
             }
@@ -68,7 +68,7 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                     images:newObj,
                     description:description,
                     big_description:big_description,
-                    categories:[dataCategory]
+                    categories:dataCategory
                 })
             })
             const register = await response.json()
@@ -130,10 +130,10 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
                 )}/>
                 <FormControl sx={{width:'100%'}}>
                     <InputLabel>Sous-catégorie</InputLabel>
-                    <Select label="Sous-catégorie" defaultValue="" required
+                    <Select label="Sous-catégorie" required multiple
                             value={dataCategory} onChange={handleChangeCat}
                     >
-                    {all_categories?.map((name) => (<MenuItem key={name.id} value={name.id}>{name.title}</MenuItem>))}
+                    {all_categories?.map((name, index) => (<MenuItem key={index} value={name.id}>{name.title}</MenuItem>))}
                     </Select>
                 </FormControl>    
                 <div className="flex items-center place-self-start col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1">

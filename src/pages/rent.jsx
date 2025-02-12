@@ -292,12 +292,12 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                             </div>
                         </div>
                         <div className='grid grid-cols-7 place-items-center'>
-                            {location_days.map(day => <h3 key={day.id} className='p-5 text-sm font-bold'><p className='w-6 h-6 flex items-center justify-center'>{day.day.toLowerCase()}</p></h3>)}
+                            {location_days.map((day, index) => <h3 key={index} className='p-5 text-sm font-bold'><p className='w-6 h-6 flex items-center justify-center'>{day.day.toLowerCase()}</p></h3>)}
                         </div>
                         <div className='grid grid-cols-7 place-items-center gap-x-[9px] gap-y-5'>
                             {lag === 0 
                                 ? ''
-                                : lag?.map(n => <h3 key={n} className='p-5 text-sm font-bold md:p-0 md:min-w-[40px] md:min-h-[40px] md:w-full md:h-full'><p className='w-6 h-6 flex items-center justify-center'></p></h3>)
+                                : lag?.map((n, index) => <h3 key={index} className='p-5 text-sm font-bold md:p-0 md:min-w-[40px] md:min-h-[40px] md:w-full md:h-full'><p className='w-6 h-6 flex items-center justify-center'></p></h3>)
                             }
                             {numberOfDays.map(n => 
                                 <div key={uuidv4()} 
@@ -323,8 +323,8 @@ export function Step3 ({step, setStep, dispo, setRentId}) {
                             <div className="flex flex-col items-center mt-10 sm:mt-5">
                                 <h1 className='text-2xl font-semibold sm:text-center md:text-xl sm:text-lg mb-5'>{`Créneaux disponible du ${date.getDate()} ${calendar.months[date.getMonth()].month.toLowerCase()}`}</h1>
                                 <div className="flex flex-col gap-4 w-full">
-                                    {disponibility?.map(dispo =>
-                                        <div key={dispo.id} onClick={() => {setRentId(dispo.id);setStep(4);router.push('#scroll_rent')}} className="flex flex-col w-full font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl text-center items-center hover:bg-primary cursor-pointer duration-500 transition-all">
+                                    {disponibility?.map((dispo, index) =>
+                                        <div key={index} onClick={() => {setRentId(dispo.id);setStep(4);router.push('#scroll_rent')}} className="flex flex-col w-full font-semibold text-white bg-primary/60 px-4 py-2 rounded-xl text-center items-center hover:bg-primary cursor-pointer duration-500 transition-all">
                                             <h3 className="text-lg sm:text-sm">{dispo.title}</h3>
                                             <p className="text-xl font-bold lg:text-lg sm:text-base">{dispo.price}€ TTC</p>
                                         </div>

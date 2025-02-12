@@ -51,7 +51,7 @@ export default function ProOrders({all_orders}) {
   const [loading, setLoading] = useState(false)
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
-  console.log(all_orders);
+  
   return (
     <>
     <NoIndexHead />

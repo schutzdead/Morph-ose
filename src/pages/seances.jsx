@@ -52,7 +52,7 @@ export default function Seances() {
                 {seances?.length === 0 || !seances
                 ? <p className='font-medium place-self-center text-secondary text-center sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
                 : <div className="gap-8 grid grid-cols-2 mt-5 w-full max-w-[1050px] justify-items-center lg:flex lg:flex-col lg:items-center">
-                    { seances?.seance?.map((seance, index) => <SeancesIndividual key={seance.id} seance={seance} index={index} />)}
+                    { seances?.seance?.map((seance, index) => <SeancesIndividual key={index} seance={seance} index={index} />)}
                     <div className="w-[480px] rounded-3xl flex flex-col text-white gap-5 items-center justify-center bg-no-repeat bg-center text-center sm:w-[97vw] lg:hidden" style={{backgroundImage:`url(${Picture2.src})`}}>
                       <h1 className="font-Quesha text-6xl bg-primary/30 flex items-center justify-center h-full w-full rounded-3xl leading-[40px] md:text-6xl">Bienveillance et respect sont nos mantras</h1>
                     </div>
@@ -74,7 +74,6 @@ export default function Seances() {
 
 
 export function SeancesIndividual ({seance, index}) {
-  console.log(seance?.link);
     return(
         <div className="px-5 py-7 w-[480px] rounded-3xl flex flex-col gap-5 items-center text-center sm:w-[95vw]" style={index%2 === 0 ? {backgroundColor:'#E25E3E', color:'white'} : {backgroundColor:"#582D3E", color:'white'}}>
             <h1 className="font-Quesha text-6xl leading-[40px] md:text-6xl">{seance.title.toUpperCase()}</h1>
