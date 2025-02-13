@@ -27,14 +27,16 @@ export default function Menu ({menu, setMenu , setHamburger}) {
         fetchCategories()
     }, [])
     
-    console.log(data);
-
     const details = useRef(null)
     const [heightDetails, setHeightDetails] = useState()
     const [openDetails, setOpenDetails] = useState(false)
 
+    function close () {
+        setHamburger(false);setMenu(false)
+    }
+
     return (
-        <SideModal open={menu} setOpen={setMenu}>
+        <SideModal open={menu} setOpen={close}>
             <div className="flex h-full flex-col overflow-y-auto great-scrollbar-y bg-white px-8 py-6 shadow-xl">
                 <div className="flex items-start justify-between">
                     <DialogTitle className="text-lg font-medium text-primary">Menu</DialogTitle>
@@ -55,9 +57,7 @@ export default function Menu ({menu, setMenu , setHamburger}) {
 
                             <div className="flex flex-col py-5">
                                 <section className="flex justify-between text-start gap-3 items-center cursor-pointer w-full group" onClick={() => {setHeightDetails(details?.current?.offsetHeight); setOpenDetails(!openDetails)}}>
-                                    <Link href='/categories' >
-                                        <p>BOUTIQUE</p>
-                                    </Link>
+                                    <p>BOUTIQUE</p>
                                     <div className='flex flex-col justify-between h-4 w-4 min-h-4 min-w-4 relative cursor-pointer lg:w-3 lg:h-3 lg:min-w-3 lg:min-h-3'>
                                         <BlackHamburgerLine animation={openDetails ? {transform:'rotate(180deg)'} : {transform:'rotate(90deg)'}}/>
                                         <BlackHamburgerLine />

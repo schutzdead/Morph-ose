@@ -95,7 +95,7 @@ export function Newletter () {
           <Image src={Plant1} alt='plant icon' className="self-end w-auto md:max-w-[150px] sm:hidden" priority />
           <div className="flex-col flex gap-10 text-white py-20 sm:py-10 sm:items-center sm:text-center sm:w-[95%]">
             <h1 className="font-Quesha w-fit text-9xl xl:text-6xl md:text-5xl">Gardez la pêche !</h1>
-            <p className="font-bold text-xl lg:text-lg md:text-base">{`Inscrivez-vous à notre billet d'humeur et recevez régulièrement un flux de pensées positives et de motivations directement dans votre boîte mail.`}</p>
+            <p className="font-bold text-xl lg:text-lg md:text-base">Inscrivez-vous à notre billet d’humeur et recevez notre programmation et un flux de pensées positives directement dans votre boîte mail.</p>
             {!send 
             ? <>
               {err ? <div className='text-red-500 text-sm font-semibold -mb-7 md:mb-0'>Une erreur est survenue.</div>: ''}
@@ -122,7 +122,7 @@ export function Newletter () {
           </div>
         </div>
         <div className="flex flex-col gap-3">
-          <h1 className="font-Quesha w-fit text-8xl xl:text-6xl md:text-4xl text-secondary 2sm:text-3xl">Et suivez nous sur les réseaux sociaux... </h1>
+          <h1 className="font-Quesha w-fit text-8xl xl:text-6xl md:text-4xl text-secondary 2sm:text-3xl">Nous sommes aussi sur les réseaux Sociaux ! Suivez-nous</h1>
           <div className="max-w-screen flex ml-10 gap-5 h-[100px] min-h-[100px] overflow-hidden sm:h-[60px] sm:min-h-[60px] lg:ml-0">
             <Link href="https://www.facebook.com/profile.php?id=61560375578587" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-primary items-center justify-center flex rounded-xl">
               <Image src={Facebook} alt='plant icon' className="h-2/3 w-auto" priority />
@@ -157,7 +157,7 @@ export function Newletter () {
   export function Card ({product}) {
     return(
       <Link href={product?.breadcrumb[0]?.slug ? {pathname: `/categories/${product?.breadcrumb[1]?.slug}`, query: { cat:product?.breadcrumb[1]?.id }} : {pathname: `/categories`}} className="flex flex-col group rounded-3xl h-full relative overflow-hidden cursor-pointer">
-        <div className="rounded-3xl bg-homeGradient1 absolute z-10 top-0 w-full h-[25%] min-h-[150px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-1000 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
+        <div className="rounded-t-3xl bg-primary absolute z-10 top-0 w-full h-[25%] min-h-[150px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-300 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
           <h2 className="text-3xl font-bold lg:text-2xl sm:text-lg text-center px-3">{product?.breadcrumb[1]?.title ? product?.breadcrumb[1]?.title.toUpperCase() : 'Nos catégories'}</h2>
           <div className="absolute right-5 bottom-3">
             <button className="bg-white px-3 py-1 rounded-3xl text-xs font-bold flex gap-1 items-center">
@@ -188,13 +188,15 @@ export function Newletter () {
   
   export function Service ({workshop, description}) {
     return(
-      <div className="min-w-0 flex-[0_0_33.33%] pl-5 h-fit lg:flex-[0_0_50%] md:flex-[0_0_100%]">
+      <div className="min-w-0 flex-[0_0_33.33%] pl-5 lg:flex-[0_0_50%] md:flex-[0_0_100%]">
         <div className="bg-white h-full p-2 flex flex-col relative rounded-3xl overflow-hidden">
           <div className="w-full h-0 pb-[60%] relative">
             <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-2xl object-cover" priority />
           </div>
-          <h2 className="text-3xl xl:text-2xl lg:text-xl sm:text-lg font-bold text-secondary mt-4">{workshop?.title}</h2>
-          <p className="text-[#A37C99] sm:text-sm text-ellipsis line-clamp-2">{workshop?.description ? workshop?.description : description}</p>
+          <div className="flex-1">
+            <h2 className="text-3xl xl:text-2xl lg:text-xl sm:text-lg font-bold text-secondary mt-4">{workshop?.title}</h2>
+            <p className="text-[#A37C99] sm:text-sm text-ellipsis line-clamp-2">{workshop?.description ? workshop?.description : description}</p>
+          </div>
           <Link href="/services" className="bg-secondary cursor-pointer my-3 place-self-end rounded-full w-10 h-10 min-w-10 min-h-10 flex items-center justify-center mx-3">
             <Image src={WRightArrow} alt='arrow icon' priority />
           </Link>

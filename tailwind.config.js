@@ -19,6 +19,7 @@ module.exports = {
       '2sm': {'max': '430px'},
       'h2xl': {'raw': '(max-height: 1000px)'},
       'hxl': {'raw': '(max-height: 800px)'},
+      'hlg': {'raw': '(max-height: 650px)'},
       'hsm': {'raw': '(max-height: 550px)'},
     },
     extend: {

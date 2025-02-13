@@ -10,8 +10,9 @@ import { Newletter } from "@/components/homepage/homepage";
 import { Thumb } from "@/utils/emblaThumb"
 import { Breadcrumbs } from "@mui/material";
 import Link from "next/link";
-import Close from '../../../../public/assets/articles/close.svg'
+import Close from '../../../../public/assets/essentials-icons/close.svg'
 import useEmblaCarousel from 'embla-carousel-react'
+import { CenterModal } from "@/components/modal";
 
 
 const QUESTION_COUNT = 4
@@ -80,17 +81,10 @@ export default function Article({product}) {
     //THUMBNAILS EMBLA
 
     const [modal, setModal] = useState(false)
-    const [position, setPosition] = useState()
-    const [body, setBody] = useState()
-
-    useEffect(() => {
-        setBody(document?.querySelector('body'))
-    },[])
-
     return (
         <>
             <CustomHead pageName='Boutique' metaResume="Détails de l'article selectionné" />
-            <ModalFAQ modal={modal} setModal={setModal} position={position} body={body} />
+            <ModalFAQ modal={modal} setModal={setModal} />
             <Layout>
                 <main className="w-full mt-10 mb-20 xl:mb-10 sm:mt-5">
                     <section className="bg-background p-10 overflow-hidden mx-10 rounded-3xl flex gap-5 flex-col sm:p-5 sm:m-5 2sm:p-2">
@@ -158,7 +152,7 @@ export default function Article({product}) {
                                         <div className="flex gap-5 items-center mt-8 sm:mt-0">
                                             <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} product={product} />
                                         </div>
-                                        <div className="py-5" onClick={() => {updateCart();setBag(true);body.style.overflow = 'hidden'}}>
+                                        <div className="py-5" onClick={() => {updateCart();setBag(true)}}>
                                             <CustomButton butterfly={true} text="Acheter" style={{width:"250px", height:'40px'}} />
                                         </div>
                                         </>
@@ -173,7 +167,7 @@ export default function Article({product}) {
                     <section className="mx-10 flex flex-col gap-10 pt-20 lg:gap-10 sm:pt-10 sm:mx-5">
                         <div className="flex w-fit px-8 font-semibold text-lg lg:text-base rounded-xl gap-10 bg-homeGradient3 py-3 sm:gap-8 sm:px-3">
                             <p className="underline underline-offset-2 text-white cursor-pointer">Informations supplémentaire</p>
-                            <p onClick={() => {setModal(true); setPosition(Math.max(window.screenY, document.documentElement.scrollTop, document.body.scrollTop)); body.style.overflow = 'hidden'}} className="underline underline-offset-2 text-secondary cursor-pointer">Question</p>
+                            <p onClick={() => {setModal(true)}} className="underline underline-offset-2 text-secondary cursor-pointer">Question</p>
                         </div>
                         <div className="w-full flex flex-col text-secondary gap-5">
                             <h2 className="px-8 w-fit font-extrabold text-2xl lg:text-xl sm:text-base sm:px-4">A propos de ce produit</h2>
@@ -190,35 +184,30 @@ export default function Article({product}) {
     )
 }
 
-export function ModalFAQ ({setModal, modal, position, body}) {
-    const [height, setHeight] = useState(position)
-
-
-    useEffect(() => {
-        setHeight(position)
-    }, [position])
-
-
+export function ModalFAQ ({setModal, modal}) {
     return (
-        <div className="w-[100vw] h-[100vh] bg-black/90 absolute flex-col items-center top-0 text-white z-50" style={modal ? {display:'flex', top:`${height}px`} : {display:'none', top:`${height}px`}}>
-            <div className="w-8 h-8 cursor-pointer flex justify-center items-center absolute top-3 right-5" onClick={() => {setModal(false)}}>
-                <Image src={Close} alt="Close pictogram" className='w-8'/>
-            </div>
-            <section className='flex flex-col gap-5 max-w-[800px] items-center sm:px-5 my-5 lg:max-w-[80vw] md:max-w-[95vw] md:mt-14'>
-                <div className="flex items-center justify-center w-full p-10 border-[3px]  text-center bg-white border-[#C63D2F] rounded-2xl">
-                    <h1 className="font-Quesha text-[#C63D2F] max-w-[600px] text-7xl xl:text-6xl md:text-4xl 2sm:text-3xl">QUESTIONS FREQUENTES</h1>
-                </div>
-                <div className="bg-menuGradient p-10 rounded-2xl w-full max-h-[50vh] scrollbar-thumb-gray-300 overflow-y-scroll scrollbar scrollbar-w-2 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner-rounded sm:p-5">
-                    <div className="bg-homeGradient3 flex flex-col gap-5 rounded-xl px-5 pt-5 sm:px-0">
-                        {QUESTION.map((q, index) => 
-                            <div key={index} className="border-gray border-b mx-10 sm:mx-5" style={index === QUESTION.length-1 ? {border:'none'} : {}}>
-                                <Question />
-                            </div>
-                        )}
+
+        <CenterModal open={modal} setOpen={setModal}>
+            <div className="flex flex-col max-w-[1280px] w-full rounded-xl overflow-hidden text-white px-10 relative md:max-w-[95vw] md:px-3 2sm:w-screen">
+                <Image src={Close} alt="Close pictogram" 
+                       onClick={() => {setModal(false)}} 
+                       className='self-end h-7 w-auto cursor-pointer' />
+                <section className='flex flex-col gap-5 max-w-[800px] items-center sm:px-5 my-5 lg:max-w-[80vw] md:max-w-[95vw]'>
+                    <div className="flex items-center justify-center w-full p-10 border-[3px]  text-center bg-white border-[#C63D2F] rounded-2xl">
+                        <h1 className="font-Quesha text-[#C63D2F] max-w-[600px] text-7xl xl:text-6xl md:text-4xl 2sm:text-3xl">QUESTIONS FREQUENTES</h1>
                     </div>
-                </div>
-            </section>
-        </div>
+                    <div className="bg-menuGradient p-10 rounded-2xl w-full max-h-[50vh] scrollbar-thumb-gray-300 overflow-y-scroll scrollbar scrollbar-w-2 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner-rounded sm:pt-5">
+                        <div className="bg-homeGradient3 flex flex-col gap-5 rounded-xl px-5 pt-5 sm:px-0">
+                            {QUESTION.map((q, index) => 
+                                <div key={index} className="border-gray border-b mx-10 sm:mx-5" style={index === QUESTION.length-1 ? {border:'none'} : {}}>
+                                    <Question />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </CenterModal>
     )
 }
 

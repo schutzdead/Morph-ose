@@ -24,7 +24,7 @@ export default function About() {
       <CustomHead pageName='A propos' metaResume="Retrouvez ici l'ensemble des informations nous concernant, notre équipe, notre savoir-faire..."/>
         <Layout>
           <main className="pt-[1.5vh] flex flex-col items-center">
-            <section className="h-home w-[98vw] ml-[1vw] items-end gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Picture.src})`}}>
+            <section className="h-home w-[98vw] ml-[1vw] items-end gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5 hlg:h-auto hlg:py-10" style={{backgroundImage:`url(${Picture.src})`}}>
                 <div className=" w-[500px] mr-20 md:mr-0 sm:max-w-[500px] sm:w-[90%]">
                     <div  className="backdrop-blur-sm rounded-3xl pt-4 pb-5 bg-[#582D3E80]">
                         <div className="flex flex-col gap-7 px-7 w-full items-center md:gap-5">

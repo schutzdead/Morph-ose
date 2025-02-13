@@ -21,21 +21,21 @@ export async function getServerSideProps() {
 
 export default function Services({workshops}) {
   const today = new Date();
-
+  
   return (
     <>
       <CustomHead pageName='Services' metaResume="Retrouvez l'ensemble de nos services"/>
         <Layout>
           <main className="pt-[1.5vh]">
-            <section className="h-home w-[98vw] items-end ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5" style={{backgroundImage:`url(${Picture.src})`}}>
+            <section className="h-home w-[98vw] items-end ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5  hlg:h-auto hlg:py-10" style={{backgroundImage:`url(${Picture.src})`}}>
               <div className=" w-[500px] mr-20 md:mr-0 sm:max-w-[500px] sm:w-[90%]">
                 <div  className="backdrop-blur-sm rounded-3xl pt-4 pb-5 bg-[#582D3E80]">
                   <div className="flex flex-col gap-7 px-7 w-full items-center md:gap-5">
-                  <h1 className="text-white leading-[60px] font-Quesha text-7xl md:text-5xl md:leading-[35px]">Nos évènements et ateliers</h1>
+                  <h1 className="text-white leading-[60px] font-Quesha text-7xl md:text-5xl md:leading-[35px]">Nos ateliers et événements collectifs</h1>
                     <div className="h-[2px] bg-white place-self-start w-full"></div>
-                    <p className="font-medium text-lg md:text-base sm:text-sm">{`Curieux d'explorer le monde de l'ésotérisme, de plonger dans des pratiques de bien-être ou simplement parfaire vos connaissances ? Alors vous êtes au bon endroit !`}</p>
+                    <p className="font-medium text-lg md:text-base sm:text-sm">Curieux d’explorer le monde du bien-être, de plonger dans des pratiques ésotériques et holistiques ou simplement parfaire vos connaissances ? Alors vous êtes au bon endroit !</p>
                     <p className="font-medium text-lg md:text-base sm:text-sm">Que vous débutiez ou que vous soyez déjà avancé dans votre quête spirituelle, créative ou vers votre mieux-être, nous avons diverses activités à vous proposer...</p>
-                    <p className="font-bold text-lg md:text-base sm:text-sm">Etes vous prêt pour ce merveilleux voyage en notre compagnie ?</p>
+                    <p className="font-bold text-lg md:text-base sm:text-sm"><b>Êtes-vous prêt pour ce merveilleux voyage en notre compagnie ?</b></p>
                   </div>
                 </div>
                 <div className="flex gap-5 w-full mt-3">
@@ -52,13 +52,17 @@ export default function Services({workshops}) {
                 <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
                 <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm max-w-[1500px] place-self-center text-center">
                     <h3 className="text-primary mb-5 leading-[80px] font-Quesha text-8xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px]">Qu’avons-nous à vous proposer?</h3>
-                    <p>Chez Merveilles de Morph’ose nous vous proposons des <b>ateliers, conférences, services, évènements…</b> aux thématiques variées, animés par du <b>personnel certifié</b> ! En ligne ou dans notre cocon situé à Cournon-d’Auvergne, vous trouverez certainement votre bonheur ! Vous vous intéressez à la méditation, aux soins énergétiques, au yoga, à la médiumnité ? Ou peut-être à la cartomancie, aux pendules, aux minéraux, aux activités créatives ?</p>
-                    <p>Et bien c’est ce que nous vous proposons et bien plus encore !! Nos ateliers et événements sont pensés pour <b>vous accompagner au mieux</b> dans vos apprentissages et votre croissance personnelle ou simplement pour vous proposer des moments de convivialité. Tout cela dans une ambiance bienveillante, respectueuse et professionnelle. Venez découvrir ces merveilleux espaces et faire un pas de plus vers l’art de votre transformation…</p>
+                    <p>Chez Merveilles de Morph’ose, nous vous proposons des <b>ateliers, événements, conférences...</b> aux thématiques variées et <b>animés par du personnel certifié !</b> Que ce soit en ligne, dans notre cocon au 28 rue du commerce à Cournon-D’Auvergne (63) ou ailleurs <b>vous trouverez surement votre bonheur</b> !</p>
+                    <p>Vous vous intéressez aux constellations familiales, aux pratiques énergétiques, à la communication 
+                    bienveillante, au bien être au naturel ? Ou peut-être à la cartomancie, la médiumnité, l’écriture intuitive, aux activités créatives ? Et bien c’est ce que nous vous proposons et bien plus encore !</p>
+
+                    <p>Nos ateliers et événements sont pensés <b>pour vous accompagner au mieux </b>dans vos apprentissages et dans votre croissance personnelle ! Ceci, en vous guidant dans votre évolution ou simplement en vous proposant de chaleureux moments de convivialité. Tout cela, toujours <b>dans les meilleures conditions</b> : une ambiance <b>bienveillante, respectueuse et professionnelle. </b></p>
+                    <p>Venez découvrir ces merveilleux espaces et faire un pas de plus vers l’art de votre transformation…</p>
                 </div>
-                {workshops?.length === 0 || !workshops
+                {workshops?.filter(workshop => new Date(workshop.date) >= today).length === 0 || !workshops
                 ? <p className='font-medium place-self-center text-secondary text-center pt-10 sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
                 : <div className="gap-8 grid grid-cols-2 mt-10 md:mt-5 w-full max-w-[1000px] justify-self-center lg:flex lg:flex-col lg:items-center">
-                    { workshops.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((workshop, index) => <Individual key={index} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
+                    { workshops.filter(workshop => new Date(workshop.date) >= today).sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((workshop, index) => <Individual key={index} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                 </div>
                 }
                 <section className="flex mt-28 md:mt-10 items-center w-full gap-10 relative sm:gap-8">
