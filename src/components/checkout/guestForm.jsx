@@ -74,6 +74,19 @@ export function GuestForm ({userData, shipping_zone}) {
         setLoading(true)
         setError(false)
         try {
+            console.log({ 
+                firstname:firstname, 
+                lastname:lastname, 
+                email:email, 
+                phone:phone, 
+                password:password,
+                address:{
+                    street:street,
+                    post_code:post_code,
+                    city:city,
+                    country:dataCountry
+                }
+            });
             if(!userData || userData === undefined || userData === null) {
                 const signUp = await fetch(`api/proxy/guest/register`, {
                     method: "POST",    
@@ -138,7 +151,11 @@ export function GuestForm ({userData, shipping_zone}) {
                     success_url:`${process.env.NEXT_PUBLIC_SITE_URL}/thanks`
                 })
             })
+            console.log(response);
+            
             const register = await response.json()
+            console.log(register);
+            
             if(response.status === 200)  { 
                 const url = await register.stripe_session.url
                 location.assign(url)

@@ -82,23 +82,26 @@ export function Article (data) {
     const { dispatch } = useContext(CartContext);
     const [quantityValue, setQuantityValue] = useState(data.data.quantity)
     return(
-        <div className="flex flex-col gap-10 w-full md:gap-7">
-            <div className='text-xs flex gap-5 items-center w-full'>
-                <section className="w-28 h-28 min-h-28 min-w-28 relative md:w-20 md:h-20 md:min-h-20 md:min-w-20">
-                   { data.data.picture.url ? 
-                   <Image
-                        src={data.data.picture.url}
-                        alt="Article picture"
-                        fill
-                        className="rounded-2xl object-cover"
-                        />
-                    : ''}
-                </section>
-                <section className='flex flex-col h-full justify-between w-full flex-1 text-secondary md:h-20'>
-                        <div className="flex flex-col gap-1 w-full">
-                            <h3 className="text-base font-medium text-gray-900 line-clamp-2 overflow-ellipsis">{data?.data?.title}</h3>
-                            <h3 className="whitespace-nowrap sm:text-sm ">Référence : {data?.data?.reference ? data?.data?.reference : 0}</h3>
+        <li className='flex py-6 gap-3'>
+            <div className="flex flex-col gap-2">
+                <div className="flex-shrink-0 overflow-hidden rounded-md w-24 h-24 min-h-24 min-w-24 relative md:w-20 md:h-20 md:min-h-20 md:min-w-20">
+                {data?.data?.picture
+                    ? <Image src={data.data.picture.url} width={100} height={100} className='h-full w-full object-cover' alt='Image produit' />
+                    : ""
+                }
+                </div>
+            </div>
+            <div className='ml-4 flex flex-1 flex-col'>
+                <div className="flex-1 flex">
+                    <div className="flex-1 text-sm text-gray-500">
+                        <h3 className=" text-base font-medium text-gray-900">
+                            <Link href="/" className=" line-clamp-2 overflow-ellipsis">{data?.data?.title}</Link>
+                        </h3>
+                        <div className="flex flex-col text-sm">
+                            <p>Référence : {data?.data?.reference ? data?.data?.reference : 0}</p>
                         </div>
+                    </div>
+                    <div className="flex flex-col items-end h-24 pl-3 sm:h-20 justify-between">
                         <div className="flex items-center gap-2 text-primary">
                             <p className="font-medium text-lg sm:text-base">{data?.data?.promo_price ? data?.data?.promo_price : data?.data?.price}€</p>
                             { data?.data?.promo_price 
@@ -107,15 +110,10 @@ export function Article (data) {
                             }
                             
                         </div>
-                </section>
-                <section className='flex flex-col items-end justify-between w-fit h-20 min-h-20'>
-                    <Image src={Trash} onClick={() => dispatch(removeCart(data.data))} alt="Remove article pictogram" className="w-5"/>
-                    <div className="flex gap-5 items-center">
                         <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={true} article={data.data} />
                     </div>
-                </section>
+                </div>
             </div>
-            <div className="bg-secondaryLight h-[1px] w-full"></div>
-        </div>
+        </li>
     )
 }
