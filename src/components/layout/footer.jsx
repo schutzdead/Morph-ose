@@ -89,9 +89,8 @@ export default function Footer () {
                 <div className='text-secondary font-medium flex flex-col'>
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>INFORMATIONS</h3>
                     <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:gap-y-3 sm:justify-center'>
-                        <Link href='/politics'>Politique générales de ventes</Link>
-                        <Link href='/politics'>Politique de confidentialité</Link>
-                        <Link href='/mentions'>Mentions légales</Link>
+                        <Link href='/politics'>CGV</Link>
+                        <Link href='/mentions'>Politique de confidentialité</Link>
                         <Link href='/contact'>Nous contacter</Link>
                     </div>
                 </div>

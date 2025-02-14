@@ -15,8 +15,91 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { CenterModal } from "@/components/modal";
 
 
-const QUESTION_COUNT = 4
-const QUESTION = Array.from(Array(QUESTION_COUNT).keys())
+// const QUESTION_COUNT = 4
+export const QUESTION = [
+    {
+        title:"Quels types de produits proposez-vous ?",
+        text:"Nous proposons une variété de produits axés sur le développement personnel, la créativité, le bien-être, incluant : cristaux, livres au thématiques variés, encens, tarots, oracles, pendules, bijoux, articles pour enfants, articles de méditation, articles d’occasion. "
+    },
+    {
+        title:"Comment puis-je savoir quel produit me convient ?",
+        text:"Nous vous recommandons de lire les descriptions détaillées de nos produits et leurs bénéfices potentiels. Pour des conseils personnalisés, faites appel à nos services via la séance individuelle de votre choix. Aucune indication sur ce site ne se substituera à un avis médical."
+    },
+    {
+        title:"Les produits sont-ils éthiques et durables ?",
+        text:"Nous nous engageons à fournir des produits le plus éthiquement sourcés et durables. Nous travaillons avec des fournisseurs qui respectent notre éthique et nos valeurs."
+    },
+    {
+        title:"Quelles sont vos politiques de livraison ?",
+        text:"Nous livrons partout en France et à l'international. Les frais de livraison sont calculés à la caisse selon le poids de la commande et la destination. Les délais de livraison peuvent varier de 3 à 10 jours ouvrés en France Métropolitaine. A partir d’une certaines sommes, la livraison est gratuite en France Métropolitaine. Cette somme est susceptible de varier."
+    },
+    {
+        title:"Les cartons d’emballage utilisés sont-ils écologiques et respectueux de l’environnement ?",
+        text:"L’entreprise que nous avons sélectionnée a une démarche environnementale volontaire, globale et concrète et vise à réduire efficacement l’impact de son activité sur l’environnement."
+    },
+    {
+        title:"Comment puis-je suivre ma commande ?",
+        text:"Une fois votre commande effectuée, vous recevrez un numéro de suivi par email. Vous pourrez utiliser ce numéro sur notre site web pour suivre le statut de votre commande."
+    },
+    {
+        title:"Quelles sont vos politiques de retour et de remboursement ?",
+        text:"L’acheteur dispose d'un délai de quatorze jours ouvrables à compter de la livraison de leur commande pour exercer son droit de rétractation.Pour obtenir plus d’éléments à ce sujet, vous pouvez vous vous rendre à l’Article 6 des conditions générales de vente du site."
+    },
+    {
+        title:"Comment puis-je effectuer un paiement sécurisé sur votre site ?",
+        text:"Nous utilisons une technologie de cryptage SSL pour sécuriser toutes les transactions. Vous pouvez payer par carte de crédit, PayPal ou autres méthodes de paiement électronique disponibles."
+    },
+    {
+        title:"Offrez-vous des promotions ou des réductions ?",
+        text:"Nous offrons en effet des promotions et des réductions. Inscrivez-vous à notre newsletter et suivez-nous sur les réseaux sociaux pour recevoir des alertes promotionnelles ainsi que des offres exclusives."
+    },
+    {
+        title:"Comment puis-je vous contacter si j'ai des questions supplémentaires ?",
+        text:"Pour obtenir plus d’informations, vous pouvez lire les conditions générales de vente ou la politique de confidentialité.Si votre question reste sans réponse, vous pouvez nous contacter via la page « contact » de notre site internet. Nous vous répondrons dans les plus brefs délais. "
+    },
+    {
+        title:"Quels types de services proposez-vous ?",
+        text:"Nous proposons différents services avec une distribution variée : séances individuelles, services personnalisés et des ateliers/événements/conférences collectifs : créativité, développement des capacités subtiles, découvertes de livres inspirants, apprentissages divers, approfondissement des connaissances, ..."
+    },
+    {
+        title:"Comment puis-je savoir quel service me convient ?",
+        text:"Nous vous recommandons de lire les descriptions de nos services et leurs bénéfices potentiels. Les thématiques et les approches abordées sont variées, vous trouverez surement votre bonheur. "
+    },
+
+    {
+        title:"Quelle sont nos valeurs et notre éthique ?",
+        text:"Bienveillance, respect, partage, confiance sont des valeurs qui nous sont chères. Nous vous proposons des espaces confidentiels où vous pourrez être vous-même en toute sérénité et sécurité. Nous vous accompagnons au mieux pour que vous preniez vos décisions de façon éclairée, nous souhaitons que vous deveniez de plus en plus autonome dans la quête de votre bien être. Vous êtes et resterez les seul(e)s décisionnaires de votre vie."
+    },
+    {
+        title:"Ces services sont-ils accessibles en ligne ou en présentiel ?",
+        text:"Pour répondre à tous les besoins, la distribution est différente selon les services : en présentiel, en visio, par retour mail."
+    },
+    {
+        title:"Où retrouver les éléments utiles concernant mon rendez-vous ?",
+        text:"Suite à votre inscription, les éléments utiles vous seront envoyés par mail. Date, lieu, numéro de commande, …"
+    },
+    {
+        title:"Comment puis-je m’inscrire à vos services ?",
+        text:"Les réservations et les paiements se font directement en ligne sur notre site internet ou en boutique (nous n’acceptons pas les chèques)."
+    },
+
+    {
+        title:" Quelles sont vos politiques de remboursement ?",
+        text:"Tout achat de prestations de services est définitif : produits digitaux, séances individuelles, inscription à des ateliers/évènements collectifs."
+    },
+    {
+        title:"Comment puis-je effectuer un paiement sécurisé sur votre site ?",
+        text:"Nous utilisons une technologie de cryptage SSL pour sécuriser toutes les transactions. Vous pouvez payer par carte de crédit, PayPal ou autres méthodes de paiement électronique disponibles."
+    },
+    {
+        title:"Offrez-vous des promotions ou des réductions ?",
+        text:"Nous offrons en effet des promotions et des réductions. Inscrivez-vous à notre newsletter et suivez-nous sur les réseaux sociaux pour recevoir des alertes promotionnelles ainsi que des offres exclusives."
+    },
+    {
+        title:"Comment puis-je vous contacter si j'ai des questions supplémentaires ?",
+        text:"Pour obtenir plus d’informations, vous pouvez lire les conditions générales de vente, les mentions légales ou la politique de confidentialité.Si votre question reste sans réponse, vous pouvez nous contacter via la page « contact » de notre site internet. Nous vous répondrons dans les plus brefs délais. "
+    },
+]
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -81,10 +164,13 @@ export default function Article({product}) {
     //THUMBNAILS EMBLA
 
     const [modal, setModal] = useState(false)
+
+    console.log(QUESTION);
+    
     return (
         <>
             <CustomHead pageName='Boutique' metaResume="Détails de l'article selectionné" />
-            <ModalFAQ modal={modal} setModal={setModal} />
+            <ModalFAQ data={QUESTION} modal={modal} setModal={setModal} />
             <Layout>
                 <main className="w-full mt-10 mb-20 xl:mb-10 sm:mt-5">
                     <section className="bg-background p-10 overflow-hidden mx-10 rounded-3xl flex gap-5 flex-col sm:p-5 sm:m-5 2sm:p-2">
@@ -184,7 +270,7 @@ export default function Article({product}) {
     )
 }
 
-export function ModalFAQ ({setModal, modal}) {
+export function ModalFAQ ({data, setModal, modal}) {
     return (
 
         <CenterModal open={modal} setOpen={setModal}>
@@ -192,15 +278,15 @@ export function ModalFAQ ({setModal, modal}) {
                 <Image src={Close} alt="Close pictogram" 
                        onClick={() => {setModal(false)}} 
                        className='self-end h-7 w-auto cursor-pointer' />
-                <section className='flex flex-col gap-5 max-w-[800px] items-center sm:px-5 my-5 lg:max-w-[80vw] md:max-w-[95vw]'>
+                <section className='flex flex-col gap-5 max-w-[800px] items-center md:px-0 my-5 lg:max-w-[80vw] md:max-w-[95vw]'>
                     <div className="flex items-center justify-center w-full p-10 border-[3px]  text-center bg-white border-[#C63D2F] rounded-2xl">
                         <h1 className="font-Quesha text-[#C63D2F] max-w-[600px] text-7xl xl:text-6xl md:text-4xl 2sm:text-3xl">QUESTIONS FREQUENTES</h1>
                     </div>
-                    <div className="bg-menuGradient p-10 rounded-2xl w-full max-h-[50vh] scrollbar-thumb-gray-300 overflow-y-scroll scrollbar scrollbar-w-2 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner-rounded sm:pt-5">
+                    <div className="bg-menuGradient p-10 rounded-2xl w-full max-h-[50vh] scrollbar-thumb-gray-300 overflow-y-scroll scrollbar scrollbar-w-2 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner-rounded md:p-3">
                         <div className="bg-homeGradient3 flex flex-col gap-5 rounded-xl px-5 pt-5 sm:px-0">
-                            {QUESTION.map((q, index) => 
+                            {data.map((q, index) => 
                                 <div key={index} className="border-gray border-b mx-10 sm:mx-5" style={index === QUESTION.length-1 ? {border:'none'} : {}}>
-                                    <Question />
+                                    <Question data={q} />
                                 </div>
                             )}
                         </div>
@@ -211,15 +297,18 @@ export function ModalFAQ ({setModal, modal}) {
     )
 }
 
-function Question () {
+function Question ({data}) {
     const details = useRef(null)
     const [heightDetails, setHeightDetails] = useState()
     const [openDetails, setOpenDetails] = useState(false)
+
+    console.log(data);
+    
     return(
         <div className="flex flex-col pb-5">
             <section className="flex justify-between items-center cursor-pointer w-full group" onClick={() => {setHeightDetails(details?.current?.offsetHeight); setOpenDetails(!openDetails)}}>
                 <div className="text-lg lg:text-base font-semibold text-white flex flex-col">
-                <p>Question 1</p>
+                <p>{data?.title}</p>
                 </div>
                 <div className='flex flex-col justify-between h-4 w-4 relative cursor-pointer lg:w-3 lg:h-3'>
                     <BlackHamburgerLine animation={openDetails ? {transform:'rotate(180deg)'} : {transform:'rotate(90deg)'}}/>
@@ -228,7 +317,7 @@ function Question () {
             </section>
             <section className="flex items-start w-full justify-center overflow-hidden" style={openDetails ? {maxHeight:`${heightDetails}px`, transition:'all 1s'} : { maxHeight:0, transition:'all 700ms'}}>
                 <div ref={details} className="flex w-full justify-center pt-5">
-                    <p className="sm:text-sm">Lorem ipsum dolor sit amet consectetur. Vestibulum purus aliquam purus vel sed. Eu ornare enim tincidunt hendrerit libero commodo vitae netus magnis. Id at eget est id velit non in nulla tincidunt. Ultricies neque ac adipiscing ugiat leo scelerisque vulputate posuere. Habitant pellentesque posuere et nunc. Amet erat nibh scelerisque proin sollicitudin nisl vitae. Pretium eget dolor auctor velit commodo blandit lacus adipiscing. Mollis tristique orci varius urna integer egestas sagittis. Mauris iaculis diam feugiat gravida aliquam lobortis viverra. Volutpat ultrices libero augue ut justo cursus eget a. Mi sed tortor ac sed massa venenatis sed pretium. Lorem ipsum dolor sit amet consectetur. Vestibulum purus aliquam purus vel sed. Eu ornare enim tincidunt hendrerit libero commodo vitae netus magnis. Id at eget est id velit non in nulla tincidunt. Ultricies neque ac adipiscing turpis nunc orci fringilla tristique. In scelerisque velit dui eleifend pellentesque volutpat cras vitae. Diam urna purus cursus sit.</p>
+                    <p className="sm:text-sm">{data?.text}</p>
                 </div>
             </section>
         </div>

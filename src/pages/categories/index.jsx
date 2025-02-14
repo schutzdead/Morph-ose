@@ -1,6 +1,6 @@
 import { CustomHead } from "@/components/customHead"
 import { GETRequest } from "@/utils/requestHeader"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Layout from "@/components/layout/layout"
 import { Loading } from "@/utils/loader"
 import Image from "next/image";
@@ -9,6 +9,7 @@ import Butterfly from '../../../public/assets/main/butterfly.svg'
 import RightArrow from '../../../public/assets/articles/right.svg'
 import { Newletter } from "@/components/homepage/homepage"
 import Services from '../../../public/assets/main/services.webp'
+import Close  from '../../../public/assets/essentials-icons/close.svg'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -22,12 +23,20 @@ export async function getServerSideProps() {
 }
 
 export default function Section({data}) {
+
+    const filterBox = useRef(null)
+    const [selectedSubCat, setSelectedSubCat] = useState([])
+    const [selectedCat, setSelectedCat] = useState(null)
+
     return(
         <>
             <CustomHead pageName='Boutique' metaResume="Retrouvez l'ensemble des articles" />
-            <Layout>
-            <div className="flex flex-col gap-20 w-full md:gap-14 flex-1">
-                <CategoriesMenu cat={data} />
+            <div onClick={(e) => { if (filterBox.current && !filterBox.current.contains(e.target)) {setSelectedSubCat([]);setSelectedCat(null)} }}>
+            <Layout >
+            <div className="flex flex-col gap-20 w-full md:gap-14 flex-1" >
+                <div className="px-10 sticky top-28 bg-background z-40 items-center py-8 md:px-5 sm:pb-4 text-secondary" ref={filterBox}>
+                    <CategoriesMenu cat={data} selectedCat={selectedCat} setSelectedCat={setSelectedCat} setSelectedSubCat={setSelectedSubCat} selectedSubCat={selectedSubCat} />
+                </div>
                 <div>
                     {data?.length === 0 || !data 
                         ? <p>Aucun article</p>
@@ -57,33 +66,36 @@ export default function Section({data}) {
             </div>
             <Newletter />
         </Layout>
+        </div>
         </>
     )
 }
 
-export function CategoriesMenu ({cat}) {
-    const [selectedSubCat, setSelectedSubCat] = useState([])
-    const [selectedCat, setSelectedCat] = useState(null)
-    
+export function CategoriesMenu ({cat, selectedCat, setSelectedCat, setSelectedSubCat, selectedSubCat}) {
     return(
-        <div className="px-10 sticky top-28 bg-background z-40 items-center py-8 md:px-5 sm:pb-4" onMouseLeave={() => {setSelectedSubCat([]);setSelectedCat(null)}}>
+        <>
             <div className="overflow-x-auto overflow-y-hidden flex gap-5 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner-rounded scrollbar-thumb-primary/20 scrollbar-w-1 scrollbar pb-3">
                 <Link href="/categories"><button className="bg-menuGradient text-center whitespace-nowrap font-bold text-white px-4 py-2 rounded-lg cursor-pointer">Toutes les catégories</button></Link>
                 {cat.map((c, index) =>
-                    <Link key={index} href={{pathname: `/categories/${c.slug}`, query: { cat:c.id }}}><button className="bg-menuGradient whitespace-nowrap font-bold text-white px-4 py-2 rounded-lg cursor-pointer" onMouseOver={() => {setSelectedSubCat(c.childs);setSelectedCat({id:c.id, slug:c.slug})}}>{c.title}</button></Link>
+                    <div key={index}><button className="bg-menuGradient whitespace-nowrap font-bold text-white px-4 py-2 rounded-lg cursor-pointer"
+                    onClick={() => {setSelectedSubCat(c.childs);setSelectedCat({id:c.id, slug:c.slug})}}>{c.title}</button></div>
                 )}
             </div>
             <div className="absolute top-[100px] bg-background w-full left-0 py-3">
-                {selectedSubCat.length > 0
+
+                {selectedSubCat?.length > 0
                     ? <div className="flex text-lg md:text-base font-semibold divide-y divide-primary/30 pt-3 w-full flex-col items-center">
-                            {selectedSubCat.map((subC, index) =>
-                                <Link key={index} className="px-3 py-4 w-full text-center hover:bg-primary/20" href={{pathname: `/categories/${selectedCat.slug}`, query: { cat:selectedCat?.id, subCat:subC.id }}}>{subC.title}</Link>
+                            <div className="w-screen flex justify-end px-3">
+                                <Image src={Close} alt="Close pictogram" onClick={() => {setSelectedSubCat([]);setSelectedCat(null);}} className='h-6 w-auto cursor-pointer' />
+                            </div>
+                            {selectedSubCat?.map((subC, index) =>
+                                <Link key={index} className="px-3 py-4 w-full text-center hover:bg-primary/20" href={{pathname: `/categories/${selectedCat.slug}`, query: { cat:selectedCat?.id, subCat:subC.id }}} onClick={() => {setSelectedSubCat([]);setSelectedCat(null);}}>{subC.title}</Link>
                             )}
                         </div>
                     : ""
                 }
             </div>
-        </div>
+        </>
 
     )   
 }
