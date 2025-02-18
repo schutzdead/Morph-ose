@@ -10,19 +10,19 @@ export const seance = [
                     id:0,
                     title:"Séance découverte - 20min",
                     price:30,
-                    link:null
+                    link:"https://calendly.com/mina-merveillesdemorphose/guidance-sensation-clone-1"
                 },
                 {
                     id:1,
                     title:"Séance sensation - 1h",
                     price:60,
-                    link:null
+                    link:"https://calendly.com/mina-merveillesdemorphose/cartomancie-decouverte-clone"
                 },
                 {
                     id:2,
                     title:"Séance exploration - 1h30",
                     price:80,
-                    link:null
+                    link:"https://calendly.com/mina-merveillesdemorphose/cartomancie-sensation-clone"
                 }
             ],
         },
@@ -36,19 +36,19 @@ export const seance = [
                     id:0,
                     title:"Séance découverte - 20min",
                     price:30,
-                    link:null
+                    link:"https://calendly.com/mina-merveillesdemorphose/guidance-decouverte"
                 },
                 {
                     id:1,
                     title:"Séance sensation - 1h",
                     price:60,
-                    link:null
+                    link:"https://calendly.com/mina-merveillesdemorphose/merveillesdemorphose-guidance-sensation"
                 },
                 {
                     id:2,
                     title:"Séance exploration - 1h30",
                     price:80,
-                    link:null
+                    link:"https://calendly.com/mina-merveillesdemorphose/guidance-sensation-clone"
                 }
             ],
         },
@@ -63,7 +63,7 @@ export const seance = [
                     id:0,
                     title:"Recevoir mon poème d'âme",
                     price:40,
-                    link:"/categories/poeme-dame/poeme-dame?art=67"
+                    link:"/categories/poeme-dame/poeme-dame?art=93"
                 },
             ],
         },
@@ -88,7 +88,7 @@ export const seance = [
                     id:0,
                     title:"Recevoir mon message",
                     price:130,
-                    link:null
+                    link:"/categories/message-dame/message-dame?art=94"
                 },
             ],
         }

@@ -23,7 +23,7 @@ export async function getServerSideProps({ query }) {
   return {
     props: {
       data: getCategory,
-      allCat: getCategories,
+      allCat: getCategories.filter(c => c?.title !== "Services"),
     },
   };
 }

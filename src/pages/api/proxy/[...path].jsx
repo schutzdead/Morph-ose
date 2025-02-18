@@ -26,11 +26,11 @@ export default (req, res) => {
 		req.headers.cookie = ''
 
 		if (authToken) {
-			console.log('send API request with token');
+			// console.log('send API request with token');
 			req.headers['Authorization'] = `Bearer ${authToken}`
 		}
 		if (isLogin) {
-			console.log('try to connect');
+			// console.log('try to connect');
 			proxy.once('proxyRes', interceptLoginResponse)
 		}
 

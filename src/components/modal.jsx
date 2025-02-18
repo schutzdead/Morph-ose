@@ -165,3 +165,29 @@ export function NavModal () {
         </PopoverGroup>
     )
 }
+
+export function CenterModal2 ({open, setOpen, children}) {
+    
+    return(
+        <>
+            <Transition show={open} as={Fragment}>
+                {/* BACKGROUND */}
+                <Dialog className="relative z-50" onClose={() => setOpen(false)}>
+
+                    <TransitionChild as="div" enter="ease-in-out duration-500" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in-out duration-500" leaveFrom="opacity-100" leaveTo="opacity-0" >
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 duration-100 transition-opacity" />
+                    </TransitionChild>
+
+                    <div className="pointer-events-none fixed inset-y-[2.5vh] flex max-w-full w-full h-full overflow-y-auto">
+                        <TransitionChild as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enterTo="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 translate-y-0 sm:scale-100" leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" >
+                            {/* THE MODAL, CLICK OUT CLOSE MODAL */}
+                            <DialogPanel className="pointer-events-auto left-1/2 -translate-x-1/2 rounded-lg relative w-fit bg-white h-fit max-h-[95vh] overflow-y-auto sm:max-w-[95vw]">
+                               {children}
+                            </DialogPanel>
+                        </TransitionChild>
+                    </div>
+                </Dialog>
+            </Transition>
+        </>
+    )
+}

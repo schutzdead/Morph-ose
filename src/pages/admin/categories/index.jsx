@@ -12,6 +12,17 @@ import { lock, unlock } from '@/utils/lockScreen'
 import { DashboardTitle } from '@/components/littleComponents'
 import { useForm } from "react-hook-form";
 
+import { CenterModal2 } from '@/components/modal'
+import { POSTRequest } from '@/utils/requestHeader'
+import { InterfaceTextInput } from '@/components/forms/interface_input'
+
+import close from "../../../../public/assets/essentials-icons/close.svg"
+import edit from "../../../../public/assets/essentials-icons/edit.svg"
+
+import { number, object, string } from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import Image from "next/image";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export async function getServerSideProps({req, res}) {
@@ -59,12 +70,18 @@ export default function Categories({all_cat}) {
     setAllCategories(all_cat)
   }, [all_cat])
 
+  const [openCategory, setOpenCategory] = useState(false)
+  const [currentCategoryID, setCurrentCategoryID] = useState(null)
+  const [currentCategoryTitle, setCurrentCategoryTitle] = useState(null)
+  const [currentCategoryPos, setCurrentCategoryPos] = useState(null)
+
   return (
     <>
     <NoIndexHead />
     <main className='w-[100vw] bg-cover bg-center flex'>
         <Menu />
         <BurgerMenu menu={menu} setMenu={setMenu} setHamburger={setHamburger}/>
+        <CategoryCard open={openCategory} setOpen={setOpenCategory} id={currentCategoryID} currentCategoryTitle={currentCategoryTitle} currentCategoryPos={currentCategoryPos} setAllCategories={setAllCategories} />
         <section className='w-full min-h-[100vh] px-5 py-28 ml-[320px] lg:ml-0 lg:px-2 lg:py-20'>
           <DashboardTitle text='Catégories' image={category_icon}/>
           <div onClick={() => {setMenu(!menu); menu ? unlock() : lock()}} className='hidden z-40 absolute top-7 left-8 lg:block'>
@@ -74,19 +91,29 @@ export default function Categories({all_cat}) {
             <CatInput setLoading={setLoading} setAllCategories={setAllCategories} />
             <h2 className="text-secondary text-3xl font-bold lg:text-2xl sm:text-xl mb-5 md:mb-0">Liste des catégories</h2>
             {allCategories?.map(cat =>
-            <div key={cat.id} className='bg-secondary/60 shadow-2xl text-white rounded-xl px-5 py-3 flex flex-col'>
+            <div key={cat.id} className='bg-secondary/30 shadow-lg text-white rounded-xl px-5 py-3 flex flex-col'>
               <div className='flex justify-between w-full items-center'>
                 <p className='text-xl font-bold lg:text-lg sm:text-base'>{cat.title}</p>
-                <DeleteButton api='auth/admin/categories' id={cat?.id} setLoading={setLoading} backLink={'/admin/categories'} />
+                <div className='flex gap-2'>
+                  <button type='button' onClick={() => {setCurrentCategoryID(cat.id);setCurrentCategoryTitle(cat.title);setCurrentCategoryPos(cat.position);setOpenCategory(true)}} className='rounded-lg flex items-center justify-center text-white cursor-pointer bg-secondary/80 hover:bg-tertiary h-full px-2.5 w-full py-2.5 text-sm gap-3 place-self-end'>
+                      <Image src={edit} className='w-4 h-auto mb-[2px] sm:w-3.5' alt='Editer un produit' />
+                  </button>
+                  <DeleteButton api='auth/admin/categories' id={cat?.id} setLoading={setLoading} backLink={'/admin/categories'} />
+                </div>
               </div>
               <div className='ml-3 flex flex-col sm:ml-2'>
                 {loading ? <CircularLoading />
                 :
                 <>
                   {cat?.childs?.map(sub_cat =>
-                    <div key={sub_cat.id} className='flex mt-2 gap-4 bg-secondary/70 w-fit items-center py-1 pr-1 pl-3 rounded-lg'>
+                    <div key={sub_cat.id} className='flex mt-2 gap-10 bg-secondary/50 w-fit items-center py-1 pr-1 pl-3 rounded-lg'>
                       <p className='font-medium flex items-center h-10 sm:h-8'>{sub_cat.title}</p>
-                      <DeleteButton api='auth/admin/categories' id={sub_cat?.id} setLoading={setLoading} backLink={'/admin/categories'} />
+                      <div className='flex gap-2'>
+                        <button type='button' onClick={() => {setCurrentCategoryID(sub_cat.id);setCurrentCategoryTitle(sub_cat.title);setCurrentCategoryPos(sub_cat.position);setOpenCategory(true)}} className='rounded-lg flex items-center justify-center text-white cursor-pointer bg-secondary/80 hover:bg-tertiary h-full px-2.5 w-full py-2.5 text-sm gap-3 place-self-end'>
+                            <Image src={edit} className='w-4 h-auto mb-[2px] sm:w-3.5' alt='Editer un produit' />
+                        </button>
+                        <DeleteButton api='auth/admin/categories' id={sub_cat?.id} setLoading={setLoading} backLink={'/admin/categories'} />
+                      </div>
                     </div>
                   )}
                   <SubcatInput categoryId={cat.id} setLoading={setLoading} setAllCategories={setAllCategories} />
@@ -240,4 +267,78 @@ function CatInput ({setLoading, setAllCategories}) {
       </form>
     </div>
   )
+}
+
+const schema = object({
+    category:string().required("Requis."),
+    position:number().typeError("Doit être un nombre").nullable()
+})
+
+export function CategoryCard ({open, setOpen, currentCategoryTitle, currentCategoryPos, id, setAllCategories}) {
+
+    const methods = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+          category: currentCategoryTitle || "",
+          position: currentCategoryPos || 0,
+        },
+      });
+
+    const { reset, register, handleSubmit, setValue, formState: { errors } } = methods
+
+    useEffect(() => {
+        if (currentCategoryTitle !== null) {
+          setValue('category', currentCategoryTitle);
+          setValue('position', currentCategoryPos);
+        } else {
+            reset()
+        }
+    }, [currentCategoryPos, currentCategoryTitle, reset, setValue]);
+
+    const [loading, setLoading] = useState(false)
+    const [err, setErr] = useState(false)
+
+    async function onSubmit(data) {
+        setLoading(true)
+        try {
+            const response = await fetch(`/api/proxy/auth/admin/categories${id ? `/${id}` : ""}`, POSTRequest({
+                title:data.category,
+                position:data.position,
+            }))
+            
+            if(response.status === 200) {
+                const result = await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
+                setAllCategories(result)
+                setLoading(false)
+                setOpen(false)
+                return
+            }
+            setErr(true)
+            setLoading(false)
+        } catch (err) {
+            setErr(true)
+            setLoading(false)
+            console.error('Request failed:' + err)
+        }
+    }
+ 
+    return(
+        <CenterModal2 open={open} setOpen={setOpen}>
+            {loading 
+                ? <div className="py-6 px-8">
+                    <CircularLoading size={80} />
+                </div>
+                : <div className="flex flex-col p-5 w-fit place-self-center items-center justify-center gap-3 text-center relative sm:py-4 sm:px-0">
+                    <Image src={close} onClick={() => setOpen(false)} className="w-5 h-auto cursor-pointer absolute right-3 top-3"  alt="Close modal" />
+                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center w-[300px] px-6 pt-4 gap-5">
+                        {err ? <div className="text-sm text-[#d32f2f] text-center">Une erreur est survenue. Réessayez plus tard ou contacter un développeur.</div> : ''}
+                        <InterfaceTextInput label="Titre de la catégorie" name="category" options={{...register("category")}} commonError={errors.category} commonErrorMessage={errors.category?.message} />
+                        <InterfaceTextInput label="Position de la catégorie" name="position" options={{...register("position")}} commonError={errors.position} commonErrorMessage={errors.position?.message} />
+                        <button type='submit' className='px-4 h-10 mb-4 flex gap-3 items-center justify-center rounded-xl md:p-2 font-bold text-white bg-secondary'>Modifier</button>
+                    </form>
+                </div>
+            }
+
+        </CenterModal2>
+    )
 }

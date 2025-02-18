@@ -59,7 +59,6 @@ export default function ProOrders({all_orders}) {
   const [error, setError] = useState(false)
 
   async function confirmation (choice, rendID) {
-    console.log(rendID);
     setLoading(true);setError(false);
     try {
       const seance = await fetch(`/api/proxy/auth/admin/orders/${rendID}`, {
@@ -85,8 +84,6 @@ export default function ProOrders({all_orders}) {
       console.error('Request failed:' + err)
     }
   }
-  console.log(orders);
-
   return (
     <>
     <NoIndexHead />

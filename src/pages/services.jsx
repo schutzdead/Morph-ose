@@ -90,16 +90,16 @@ export function Individual ({workshop}) {
                 <Skeleton sx={{width:'100%', height:'100%', transform:'none', borderRadius:'16px 16px 0 0'}} />
               </div>
             }
-            <div className="flex bg-white flex-col text-primary font-medium justify-start pt-5 px-5 gap-0.5 rounded-b-2xl min-h-[380px]">
+            <div className="flex bg-white flex-col text-primary font-medium justify-start pt-5 px-5 gap-0.5 rounded-b-2xl">
                 <h2 className="text-xl lg:text-lg sm:text-base font-bold">{workshop?.title}</h2>
                 <p className="text-sm font-normal">{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
                 <p>{new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>
                 {workshop?.speaker_name ? <p>Organisateur : {workshop?.speaker_name}</p> : ''}
                 <p>Durée : {workshop?.duration} minutes</p>
-                {workshop?.description 
+                {/* {workshop?.description 
                     ? <p className="line-clamp-3 text-ellipsis flex-1 h-full font-normal my-3">{workshop?.description}</p>
                     : ''
-                }
+                } */}
                 <p className="font-semibold mt-3 w-fit border border-primary rounded-md px-3 py-1">{workshop?.price}€ TTC / personne</p>
                 {workshop?.entries_available - workshop?.entries_reserved === 0 
                   ? <p className="my-5 place-self-center font-bold text-lg md:text-base">Cet évènement est complet.</p>

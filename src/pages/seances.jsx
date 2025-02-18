@@ -86,7 +86,7 @@ export function SeancesIndividual ({seance, index}) {
                     <Link key={index} href={s?.link ? `${s?.link}` : "/seances"} target="_blank" className="py-2 w-full bg-mainGradient rounded-[50px] text-white font-medium text-lg relative md:text-sm">
                       <Image src={Butterfly2} alt='butterfly icon' className="absolute h-auto w-12 -right-[25px] -top-[23px]" priority />
                         <p>{s?.title}</p>
-                        <p className="text-sm">{s?.price}</p>
+                        <p className="text-base">{s?.price}€</p>
                     </Link>
                   )
                   : <p>Aucune séance pour le moment.</p>

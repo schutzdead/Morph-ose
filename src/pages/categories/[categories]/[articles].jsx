@@ -165,8 +165,6 @@ export default function Article({product}) {
 
     const [modal, setModal] = useState(false)
 
-    console.log(QUESTION);
-    
     return (
         <>
             <CustomHead pageName='Boutique' metaResume="Détails de l'article selectionné" />
@@ -225,7 +223,7 @@ export default function Article({product}) {
                                         ? <p className="font-bold text-lg sm:text-base">{`Il n'en reste plus que un.`}</p>
                                         : <div className="flex flex-col mt-5">
                                             <p className="font-medium sm:text-sm">Quantités disponibles</p>
-                                            <p className="font-bold text-lg sm:text-base">{product?.stock}</p>
+                                            <p className="font-bold text-lg sm:text-base">{product?.stock < 0 ? 0 : product?.stock}</p>
                                         </div>
                                     }
                                 </div>
@@ -302,8 +300,6 @@ function Question ({data}) {
     const [heightDetails, setHeightDetails] = useState()
     const [openDetails, setOpenDetails] = useState(false)
 
-    console.log(data);
-    
     return(
         <div className="flex flex-col pb-5">
             <section className="flex justify-between items-center cursor-pointer w-full group" onClick={() => {setHeightDetails(details?.current?.offsetHeight); setOpenDetails(!openDetails)}}>

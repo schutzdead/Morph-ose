@@ -23,7 +23,8 @@ export async function getServerSideProps() {
 }
 
 export default function Section({data}) {
-
+    console.log(data);
+    
     const filterBox = useRef(null)
     const [selectedSubCat, setSelectedSubCat] = useState([])
     const [selectedCat, setSelectedCat] = useState(null)
