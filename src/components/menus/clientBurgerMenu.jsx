@@ -21,9 +21,9 @@ export default function ClientBurgerMenu ({menu, setMenu , setHamburger}) {
                         <li className='cursor-pointer flex flex-col gap-6 items-center relative overflow-hidden mt-1.5 group' onClick={closeBurger}>
                             <Link href='/client/workshops'>Evènements</Link>
                         </li>
-                        <li className='cursor-pointer flex flex-col gap-6 items-center relative overflow-hidden mt-1.5 group' onClick={closeBurger}>
+                        {/* <li className='cursor-pointer flex flex-col gap-6 items-center relative overflow-hidden mt-1.5 group' onClick={closeBurger}>
                             <Link href='/client/pro'>Location (pro)</Link>
-                        </li>
+                        </li> */}
                         <li className='cursor-pointer flex flex-col gap-6 items-center relative overflow-hidden mt-1.5 group' onClick={closeBurger}>
                             <Link href='/client/account'>Profil</Link>
                         </li>

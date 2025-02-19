@@ -10,6 +10,7 @@ import { PasswordInput, TextInput } from "../forms/textInput";
 import { Loading } from "@/utils/loader";
 import { colorTheme } from "../styles/mui";
 import { useRouter } from "next/router";
+import LogoutButton from "../logoutButton";
 
 const schema = object({
     email:string().required("Requis.").email("Email invalide.").trim().lowercase(),
@@ -61,6 +62,7 @@ export function GuestForm ({userData, shipping_zone}) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [checked, setChecked] = useState(false);
+    const [emailError, setEmailError] = useState(null)
 
     const { cart } = useContext(CartContext)
 
@@ -73,6 +75,7 @@ export function GuestForm ({userData, shipping_zone}) {
         const { email, lastname, firstname, phone, password, post_code, city, street, bill_city, bill_country, bill_name, bill_post_code, bill_street } = data
         setLoading(true)
         setError(false)
+        setEmailError(null)
         try {
             if(!userData || userData === undefined || userData === null) {
                 const signUp = await fetch(`api/proxy/guest/register`, {
@@ -95,8 +98,12 @@ export function GuestForm ({userData, shipping_zone}) {
                             country:dataCountry
                         }
                     })
-                })
+                })               
                 if(signUp.status !== 200) {
+                    const responseSignUp = await signUp.json()
+                    if(responseSignUp?.message){
+                        setEmailError(responseSignUp?.message)
+                    }
                     setError(true)
                     setLoading(false)
                     return
@@ -139,6 +146,7 @@ export function GuestForm ({userData, shipping_zone}) {
                 })
             })
             const register = await response.json()
+            console.log(register);
             
             if(response.status === 200)  { 
                 const url = await register.stripe_session.url
@@ -154,6 +162,8 @@ export function GuestForm ({userData, shipping_zone}) {
             console.error('Request failed:' + err.message)
         }
     }
+    console.log(emailError);
+    
 
     return(
         <>
@@ -161,27 +171,31 @@ export function GuestForm ({userData, shipping_zone}) {
             ? <Loading />
             : 
             <form onSubmit={handleSubmit(onSubmit)} id="guestForm" className='w-full grid grid-cols-2 gap-5 relative place-self-center'>
-                {error ? <div className='col-span-2 text-red-500 place-self-center'>{`Erreur, veuillez réessayer plus tard.`}</div>: ''}
+                {error ? <div className='col-span-2 text-red-500 place-self-center'>{emailError ? emailError : `Erreur, veuillez réessayer plus tard.`}</div>: ''}
+             
                 <ThemeProvider theme={colorTheme}>
                     <Controller name="email" control={control} defaultValue=''
                                 render={({field}) => (
                                         <TextInput field={field} name='email' label='Email' placeholder="Entrez votre email" errors={errors?.email} style="col-span-2"/>
                                 )}
                     />
-                    <div style={userData ? {display:'none'} : {display:'block'}}>
-                    <Controller name="password" control={control} defaultValue=''
-                                render={({field}) => (
-                                        <PasswordInput field={field} name='password' secureTextEntry={true} label='Mot de passe' placeholder="Entrez votre mot de passe" errors={errors?.password}/>
-                                )}
-                    />
+                    <div style={!userData ? {display:'none'} : {display:'block'}}>
+                        <LogoutButton />    
                     </div>
                     <div style={userData ? {display:'none'} : {display:'block'}}>
-                        <Controller name="confirmPassword" control={control} defaultValue=''
+                        <Controller name="password" control={control} defaultValue=''
                                     render={({field}) => (
-                                            <PasswordInput field={field} name='confirmPassword' secureTextEntry={true} label='Confirmation' placeholder="Confirmez votre mot de passe" errors={errors?.confirmPassword}/>
+                                            <PasswordInput field={field} name='password' secureTextEntry={true} label='Mot de passe' placeholder="Entrez votre mot de passe" errors={errors?.password}/>
                                     )}
                         />
-                    </div>
+                        </div>
+                        <div style={userData ? {display:'none'} : {display:'block'}}>
+                            <Controller name="confirmPassword" control={control} defaultValue=''
+                                        render={({field}) => (
+                                                <PasswordInput field={field} name='confirmPassword' secureTextEntry={true} label='Confirmation' placeholder="Confirmez votre mot de passe" errors={errors?.confirmPassword}/>
+                                        )}
+                            />
+                        </div>
                     <h1 className="col-span-2 -mb-2 mt-8 font-bold text-[13px] text-gray-600 md:mt-4">Informations de livraison</h1>
                     <Controller name="post_code" control={control} defaultValue=""
                                 render={({field}) => (

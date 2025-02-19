@@ -54,6 +54,7 @@ export default function Home({workshops, first_products}) {
 
   const today = new Date();
 
+console.log(first_products);
 
   return (
     <>
@@ -153,8 +154,8 @@ export default function Home({workshops, first_products}) {
                   {/* VIEWPORT */}
                   <div className="overflow-hidden" ref={emblaRef}> 
                   {/* CONTAINER */}
-                    <div className="flex touch-pan-y -ml-5">
-                      { workshops.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0,5).map((workshop, index) => <Service key={index} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
+                    <div className="flex touch-pan-y -ml-5 justify-center">
+                      { workshops.filter(workshop => new Date(workshop.date) >= today).sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0,5).map((workshop, index) => <Service key={index} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                     </div>
                   </div>
                   <div className="flex justify-between items-center gap-[1.2rem] mt-[1.8rem]">

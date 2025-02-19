@@ -30,7 +30,7 @@ export function ClientMenu () {
             <div className='flex flex-col gap-2 max-h-[540px] overflow-y-auto'>
                 <MenuButton setActive={setActive} active={active} slug='orders' text="Commandes" image={Orders} link='/client/orders'/>
                 <MenuButton setActive={setActive} active={active} slug='workshops' text="Evènements" image={Workshops} link='/client/workshops'/>
-                <MenuButton setActive={setActive} active={active} slug='pro' text="Location (pro)" image={Pro} link='/client/pro'/>
+                {/* <MenuButton setActive={setActive} active={active} slug='pro' text="Location (pro)" image={Pro} link='/client/pro'/> */}
                 <MenuButton setActive={setActive} active={active} slug='account' text="Profil" image={Profil} link='/client/account'/>
                 <Link href='/logout' className="rounded-lg py-3 cursor-pointer text-white flex items-center px-4 gap-7 transition-[backgroundColor] duration-300 hover:bg-secondary">
                       <div className='p-2 bg-white rounded-lg'>

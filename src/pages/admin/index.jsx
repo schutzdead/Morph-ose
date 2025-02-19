@@ -8,6 +8,10 @@ export async function getServerSideProps({req, res}) {
   const cookies = new Cookies(req, res)
   const authToken = cookies.get('auth-token') || ''
 
+  console.log(authToken);
+  
+  
+
   const response = await fetch(`${API_URL}/auth/users/current`, {
     method:'GET',
     mode: "cors",
@@ -18,6 +22,9 @@ export async function getServerSideProps({req, res}) {
     }
   })
   const person = await response.json()
+  console.log(person);
+  console.log(response);
+  
   if(response.status === 200 && person.is_admin) {
     return { 
       redirect: {
