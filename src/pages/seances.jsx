@@ -4,7 +4,7 @@ import { CustomHead } from "@/components/customHead";
 import Link from 'next/link'
 import Picture from '../../public/assets/services/bg-perso.webp'
 import Picture2 from '../../public/assets/services/cardbg.webp'
-import { Newletter} from "@/components/homepage/homepage";
+import { Newletter, Title} from "@/components/homepage/homepage";
 import Vector from '../../public/assets/about/vector.svg'
 import { seance } from "../../public/assets/seances";
 import Butterfly2 from '../../public/assets/main/butterfly2.svg'
@@ -15,6 +15,7 @@ export default function Seances() {
       <CustomHead pageName='Séances individuelles' metaResume="Retrouvez l'ensemble de nos séances individuelles"/>
         <Layout>
           <main className="pt-[1.5vh]">
+
             <section className="h-home w-[98vw] items-end ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5 hlg:h-auto hlg:py-10" style={{backgroundImage:`url(${Picture.src})`}}>
               <div className=" w-[500px] mr-20 md:mr-0 sm:max-w-[500px] sm:w-[90%]">
                 <div  className="backdrop-blur-sm rounded-3xl pt-4 pb-5 bg-[#582D3E80]">
@@ -36,16 +37,17 @@ export default function Seances() {
                 </div>
               </div>
             </section>
-            <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
+
+            <section className="flex flex-col gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
                 <div className="absolute -z-10 bg-pictoGradient blur-[450px] h-[70%] top-[15%] w-full"></div>
-                <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm max-w-[1500px] place-self-center text-center">
-                  <h3 className="text-primary mb-5 leading-[80px] font-Quesha text-8xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px]">Qu’avons-nous à vous proposer?</h3>
+                <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm">
+                  <Title title='Qu’avons-nous à vous proposer?' />
                     <p>Chez Merveilles de Morphose, nous vous accompagnons quel que soit votre quête : la splendide aventure de la (re)découverte de vous-même, l’ouverture des champs des possibles, l’accueil du changement… </p>
                     <p>Besoin <b>d’éclaircir ou de débloquer</b> une situation, besoin de clés pour <b>faire vos propres choix</b> ou juste par <b>curiosité </b>? <b> En Visio, dans nos locaux</b> au 28 rue du commerce à Cournon-d’Auvergne (63) ou <b>par retour mail</b>, vous trouverez surement l’approche qui vous correspond.</p>
                     <p className="text-base font-normal sm:text-sm">Petit mot : merci de bien vouloir faire preuve de discernement, quoiqu’il puisse vous être conseillé, vous êtes et resterez le/la seul(e) décisionnaire de votre vie.</p>
                 </div>
-                <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm max-w-[1500px] place-self-center text-center">
-                    <h3 className="text-primary mb-5 leading-[80px] font-Quesha text-8xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px]">Nous proposons une variété de séances adaptées à vos besoins</h3>
+                <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm">
+                    <h3 className="text-primary mb-5 font-semibold text-2xl lg:text-xl md:text-lg">Nous proposons une variété de séances adaptées à vos besoins</h3>
                     <p>Chaque session est une opportunité de croissance, d’évolution et de réflexion.</p>
                     <p className="font-semibold">Faites le premier pas vers un changement positif.</p>
                 </div>

@@ -68,7 +68,7 @@ export default function About() {
                             <p>Fondatrice de la société Morph’ose Évolution et créatrice de la boutique Merveilles de Morph’ose.</p>
                         </div>
                     </div>
-                    <div className="flex gap-5 flex-wrap m-10">
+                    <div className="flex gap-5 flex-wrap m-10 justify-center">
                         <Image src={shop1} alt='image de la boutique' className="w-[300px] object-cover rounded-xl" priority />
                         <Image src={shop2} alt='image de la boutique' className="w-[300px] object-cover rounded-xl" priority />
                         <Image src={shop3} alt='image de la boutique' className="w-[300px] object-cover rounded-xl" priority />

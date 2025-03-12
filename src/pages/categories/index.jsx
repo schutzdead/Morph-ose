@@ -103,14 +103,14 @@ export function CategoriesMenu ({cat, selectedCat, setSelectedCat, setSelectedSu
 
 export function CatTitle ({butterfly=false, title, reverse}) {
     return(
-      <div className="relative font-Quesha w-fit text-9xl xl:text-6xl md:text-4xl">
-        <div className="relative pl-20 md:pl-10" style={reverse ? {} : {paddingLeft:0, paddingRight:'40px'}}>
+      <div className="relative w-fit font-bold text-5xl xl:text-4xl md:text-2xl">
+        <div className="relative pl-20 md:pl-5" style={reverse ? {} : {paddingLeft:0, paddingRight:'20px'}}>
           <div style={butterfly ? {display:'block'} : {display:'none'}}>
-              <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 left-[27px] -top-[30px] xl:w-12 xl:left-[41px] xl:-top-[30px] md:w-8 md:left-[15px] md:-top-[16px]" priority style={reverse ? {} : {display:'none'}} />
+              <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-10 left-[45px] -top-[30px] xl:w-8 xl:left-[55px] xl:-top-[25px] md:hidden" priority style={reverse ? {} : {display:'none'}} />
           </div>
-          <h1 className="gradient-text2">{title}</h1>
+          <h1 className="gradient-categories">{title}</h1>
         </div>
-        <div className="h-[3px] w-full bg-mainGradient"></div>
+        <div className="h-[3px] w-full bg-categories"></div>
       </div>
     )
   }
@@ -148,7 +148,7 @@ export function ArticleCard ({articleParams, link}) {
                         
                     </div>
                     <div className="text-secondary font-semibold mt-2">
-                        <h2 className="sm:text-sm">{article?.title}</h2>
+                        <h2 className="sm:text-sm line-clamp-2 overflow-ellipsis">{article?.title}</h2>
                         <div className="flex items-center gap-2">
                             <p className="text-sm sm:text-xs">{article?.promo_price ? article?.promo_price : article?.price}€ TTC</p>
                             { article?.promo_price 

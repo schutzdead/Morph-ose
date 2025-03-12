@@ -76,7 +76,7 @@ export default function Products({all_products}) {
               <div ref={filterBox} className='w-full'>
                 <Search result={productSearch} setResult={setProductSearch} apiPath='products' />
               </div>
-              <PictoButton image={add} linkTo="/admin/products/new" />
+              {/* <PictoButton image={add} linkTo="/admin/products/new" /> */}
             </div>
             {loading ? <Loading />
             : <>

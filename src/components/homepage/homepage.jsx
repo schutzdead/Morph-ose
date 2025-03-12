@@ -15,7 +15,7 @@ import Yt from '../../../public/assets/footer/yt.svg'
 import Link from "next/link";
 import { CircularLoading } from "@/utils/loader";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object, string } from "yup";
@@ -122,7 +122,7 @@ export function Newletter () {
           </div>
         </div>
         <div className="flex flex-col gap-3">
-          <h1 className="font-Quesha w-fit text-8xl xl:text-6xl md:text-4xl text-secondary 2sm:text-3xl">Nous sommes aussi sur les réseaux Sociaux ! Suivez-nous</h1>
+          <h1 className="font-Quesha w-fit text-8xl xl:text-6xl md:text-4xl text-secondary 2sm:text-3xl">Et suivez nous sur les réseaux sociaux... </h1>
           <div className="max-w-screen flex ml-10 gap-5 h-[100px] min-h-[100px] overflow-hidden sm:h-[60px] sm:min-h-[60px] lg:ml-0">
             <Link href="https://www.facebook.com/profile.php?id=61560375578587" target="_blank" className="flex-[0_0_25%] max-w-[100px] h-full sm:max-w-[60px] bg-primary items-center justify-center flex rounded-xl">
               <Image src={Facebook} alt='plant icon' className="h-2/3 w-auto" priority />
@@ -144,12 +144,12 @@ export function Newletter () {
   
   export function Title ({butterfly=false, title}) {
     return(
-      <div className="relative font-Quesha w-fit text-9xl xl:text-7xl md:text-6xl 2sm:text-center">
+      <div className="relative font-Quesha w-fit text-8xl xl:text-7xl md:text-6xl">
         <div className="relative">
           <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 -left-[53px] -top-[20px] xl:w-12 xl:-left-[41px] xl:-top-[23px] md:w-8 md:-left-[25px] md:-top-[16px]" style={butterfly ? {display:'block'} : {display:'none'}} priority />
-          <h1 className="gradient-text2 text-center">{title}</h1>
+          <h1 className="gradient-categories">{title}</h1>
         </div>
-        <div className="h-[3px] w-full bg-mainGradient"></div>
+        {/* <div className="h-[3px] w-full bg-mainGradient"></div> */}
       </div>
     )
   }
@@ -157,7 +157,7 @@ export function Newletter () {
   export function Card ({product}) {
     return(
       <Link href={product?.breadcrumb[0]?.slug ? {pathname: `/categories/${product?.breadcrumb[1]?.slug}`, query: { cat:product?.breadcrumb[1]?.id }} : {pathname: `/categories`}} className="flex flex-col group rounded-3xl h-full relative overflow-hidden cursor-pointer">
-        <div className="rounded-t-3xl bg-primary absolute z-10 top-0 w-full h-[25%] min-h-[150px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-300 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
+        <div className="rounded-t-3xl bg-homeGradient1 backdrop-blur-md absolute z-10 top-0 w-full h-[25%] min-h-[150px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-300 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
           <h2 className="text-3xl font-bold lg:text-2xl sm:text-lg text-center px-3">{product?.breadcrumb[1]?.title ? product?.breadcrumb[1]?.title.toUpperCase() : 'Nos catégories'}</h2>
           <div className="absolute right-5 bottom-3">
             <button className="bg-white px-3 py-1 rounded-3xl text-xs font-bold flex gap-1 items-center">
@@ -194,15 +194,44 @@ export function Newletter () {
   }
   
   export function Service ({workshop, description}) {
+
+    useEffect(() => {
+      const updateSlidesToShow = () => {
+        if (window.matchMedia("(max-width: 640px)").matches) {
+          setSlidesToShow(1);
+        } else if (window.matchMedia("(max-width: 1024px)").matches) {
+          setSlidesToShow(2);
+        } else {
+          setSlidesToShow(3);
+        }
+      };
+  
+      updateSlidesToShow();
+      window.addEventListener("resize", updateSlidesToShow);
+      return () => window.removeEventListener("resize", updateSlidesToShow);
+    }, [])
+  
+    const [slidesToShow, setSlidesToShow] = useState(3);
+    const gapSize = "24";
+    const totalGap = (slidesToShow - 1)*gapSize;
+    const slidePercent = `calc(${100 / slidesToShow}% - ${totalGap / slidesToShow}px)`
+
+    const title = workshop?.title || 'Titre indisponible';
+    const workshopDescription = workshop?.description || "";
+
     return(
-      <div className="min-w-0 flex-[0_0_33.33%] pl-5 lg:flex-[0_0_50%] md:flex-[0_0_100%]">
+      <div style={{ flex: `0 0 calc(${slidePercent})` }}>
         <div className="bg-white h-full p-2 flex flex-col relative rounded-3xl overflow-hidden">
           <div className="w-full h-0 pb-[60%] relative">
-            <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-2xl object-cover" priority />
+            {workshop?.image?.url
+              ? <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-2xl object-cover" priority />
+              : <div className="flex h-0 pb-[60%] w-full items-center justify-center bg-gray-100 rounded-lg"></div>
+            }
+            
           </div>
           <div className="flex-1">
-            <h2 className="text-3xl xl:text-2xl lg:text-xl sm:text-lg font-bold text-secondary mt-4">{workshop?.title}</h2>
-            <p className="text-[#A37C99] sm:text-sm text-ellipsis line-clamp-2">{workshop?.description ? workshop?.description : description}</p>
+            <h2 className="text-2xl xl:text-xl lg:text-lg sm:text-base font-bold text-secondary mt-4">{title}</h2>
+            <p className="text-[#A37C99] sm:text-sm text-ellipsis line-clamp-2">{workshopDescription}</p>
           </div>
           <Link href="/services" className="bg-secondary cursor-pointer my-3 place-self-end rounded-full w-10 h-10 min-w-10 min-h-10 flex items-center justify-center mx-3">
             <Image src={WRightArrow} alt='arrow icon' priority />

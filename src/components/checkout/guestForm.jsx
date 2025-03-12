@@ -145,6 +145,8 @@ export function GuestForm ({userData, shipping_zone}) {
                     success_url:`${process.env.NEXT_PUBLIC_SITE_URL}/thanks`
                 })
             })
+            console.log(response);
+            
             const register = await response.json()
             console.log(register);
             

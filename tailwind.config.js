@@ -68,7 +68,9 @@ module.exports = {
         pictoGradient:'linear-gradient(90deg, #ECA683 0%, #C8B3C2 100%)',
         menuGradient:'linear-gradient(180deg, #A8798F 0%, #E25E3E 100%)',
         modalRent:"linear-gradient(180deg, rgba(163, 124, 153, 0.6) 0%, rgba(236, 166, 131, 0.6) 100%)",
-        footer:'linear-gradient(87.62deg, #ECA683 0%, #FFF7F1 85%)'
+        footer:'linear-gradient(87.62deg, #ECA683 0%, #FFF7F1 85%)',
+        categories:'linear-gradient(90deg, #A37C99 0%, #ECA683 30.5%)'
+
       },
       width: {
         'rightSide':'calc(100% - 250px)'

@@ -70,7 +70,7 @@ export default function Menu ({menu, setMenu , setHamburger}) {
                                 </section>
                             </div>
                         <Link href='/services' onClick={() => {setHamburger(false);setMenu(false)}}>
-                            <Tab level1='NOS SERVICES'/>
+                            <Tab level1='ATELIERS ET EVENEMENTS'/>
                         </Link>
                         <Link href='/seances' onClick={() => {setHamburger(false);setMenu(false)}}>
                             <Tab level1='SEANCES INDIVIDUELLES'/>

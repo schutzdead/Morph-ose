@@ -74,7 +74,7 @@ export default function Category({ data, allCat }) {
             />
             <div className="absolute flex justify-center items-center w-full h-full px-4">
               <div className="font-Quesha w-fit mx-4 relative text-9xl lg:text-8xl md:text-7xl sm:text-5xl">
-                <h1 className="text-secondary">{data?.title?.toUpperCase()}</h1>
+                <h1 className="text-secondary text-center">{data?.title?.toUpperCase()}</h1>
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function Category({ data, allCat }) {
                       style={
                         index % 2 === 0
                           ? { justifyContent: "start" }
-                          : { justifyContent: "end" }
+                          : { justifyContent: "end", paddingLeft:"10px" }
                       }
                       className="w-full flex"
                     >

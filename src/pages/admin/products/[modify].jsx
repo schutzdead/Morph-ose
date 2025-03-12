@@ -61,15 +61,15 @@ export async function getServerSideProps({req, res, query}) {
 }
 
 const schemaProduct = object({
-  title:string().required("Requis."),
-  price:number().required("Requis.").typeError("Doit être un nombre").min(1, 'Minimum 1 questionnaire.'),
+  title:string(),
+  price:number(),
   promo_price:string(),
   vat_percent:string(),
   stock:string(),
   reference:string(),
   description:string(),
   big_description:string(),
-}).required();
+});
 
 export default function EditProduct({current_product, all_categories}) {
     const [productData, setProductData] = useState()

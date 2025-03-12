@@ -3,7 +3,7 @@ import Image from "next/image";
 import { CustomHead } from "@/components/customHead";
 import Link from 'next/link'
 import Picture from '../../public/assets/services/bg.webp'
-import { Newletter} from "@/components/homepage/homepage";
+import { Newletter, Title} from "@/components/homepage/homepage";
 import { GETRequest } from "@/utils/requestHeader";
 import Vector from '../../public/assets/about/vector.svg'
 import { Skeleton } from "@mui/material";
@@ -27,6 +27,7 @@ export default function Services({workshops}) {
       <CustomHead pageName='Services' metaResume="Retrouvez l'ensemble de nos services"/>
         <Layout>
           <main className="pt-[1.5vh]">
+
             <section className="h-home w-[98vw] items-end ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5  hlg:h-auto hlg:py-10" style={{backgroundImage:`url(${Picture.src})`}}>
               <div className=" w-[500px] mr-20 md:mr-0 sm:max-w-[500px] sm:w-[90%]">
                 <div  className="backdrop-blur-sm rounded-3xl pt-4 pb-5 bg-[#582D3E80]">
@@ -48,10 +49,11 @@ export default function Services({workshops}) {
                 </div>
               </div>
             </section>
-            <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
+
+            <section className="flex flex-col gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
                 <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
-                <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm max-w-[1500px] place-self-center text-center">
-                    <h3 className="text-primary mb-5 leading-[80px] font-Quesha text-8xl lg:text-7xl lg:leading-[50px] md:text-6xl md:leading-[40px]">Qu’avons-nous à vous proposer?</h3>
+                <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm max-w-[1500px]">
+                    <Title title='Qu’avons-nous à vous proposer?' />
                     <p>Chez Merveilles de Morph’ose, nous vous proposons des <b>ateliers, événements, conférences...</b> aux thématiques variées et <b>animés par du personnel certifié !</b> Que ce soit en ligne, dans notre cocon au 28 rue du commerce à Cournon-D’Auvergne (63) ou ailleurs <b>vous trouverez surement votre bonheur</b> !</p>
                     <p>Vous vous intéressez aux constellations familiales, aux pratiques énergétiques, à la communication 
                     bienveillante, au bien être au naturel ? Ou peut-être à la cartomancie, la médiumnité, l’écriture intuitive, aux activités créatives ? Et bien c’est ce que nous vous proposons et bien plus encore !</p>
@@ -61,7 +63,7 @@ export default function Services({workshops}) {
                 </div>
                 {workshops?.filter(workshop => new Date(workshop.date) >= today).length === 0 || !workshops
                 ? <p className='font-medium place-self-center text-secondary text-center pt-10 sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
-                : <div className="gap-8 grid grid-cols-2 mt-10 md:mt-5 w-full max-w-[1000px] justify-self-center lg:flex lg:flex-col lg:items-center">
+                : <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-6 mt-10 md:mt-5 w-full justify-self-center">
                     { workshops.filter(workshop => new Date(workshop.date) >= today).sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((workshop, index) => <Individual key={index} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                 </div>
                 }
@@ -81,7 +83,7 @@ export default function Services({workshops}) {
 
 export function Individual ({workshop}) {
     return(
-        <div className="bg-transparent p-2 w-full flex flex-col relative rounded-3xl overflow-hidden max-w-[550px]">
+        <div className="bg-transparent p-2 w-full flex flex-col relative rounded-3xl overflow-hidden max-w-[450px]">
             {workshop?.image 
             ? <div className="w-full h-0 pb-[60%] relative bg-white rounded-t-2xl">
                  <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-t-2xl object-cover" priority />

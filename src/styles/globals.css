@@ -53,6 +53,12 @@
     -webkit-text-fill-color: transparent;
   }
 
+  .gradient-categories{
+    background: -webkit-linear-gradient(0deg, #A37C99 0%, #ECA683 50%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   .embla__dots {
     display: flex;
     flex-wrap: wrap;

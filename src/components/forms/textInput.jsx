@@ -27,6 +27,7 @@ export function CustomTextArea ({field, label, errors, style=''}) {
             helperText= {errors ? errors.message : ""}
             error={errors ? Boolean(true) : Boolean(false)}
             className={`${style}`}
+            variant="outlined"
         />
     )
 }

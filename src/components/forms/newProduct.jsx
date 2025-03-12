@@ -26,6 +26,9 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
       setChecked(event.target.checked);
     };
 
+    console.log(searchTutorData);
+    
+
     useEffect(() => {
         if(searchTutorData) {
             reset(searchTutorData)
@@ -98,35 +101,35 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
         <ThemeProvider theme={colorTheme}>
             <section className='w-full gap-5 bg-white py-5 px-5 grid grid-cols-4 justify-items-center rounded-xl shadow-xl xl:grid-cols-3 sm:grid-cols-2 2sm:grid-cols-1'>     
                 <H2Title title="Informations générales" />
-                <Controller name="title" control={control} defaultValue=""
+                <Controller name="title" disabled control={control} defaultValue=""
                     render={({field}) => (
-                            <TextInput field={field} label='Nom du produit' placeholder='Collier en argent' errors={errors?.title} style="w-full xl:col-span-3 sm:col-span-2 2sm:col-span-1"/>
+                            <TextInput field={field} disabled label='Nom du produit'  placeholder='Collier en argent' errors={errors?.title} style="w-full xl:col-span-3 sm:col-span-2 2sm:col-span-1"/>
                 )}/>    
-                <Controller name="price" control={control} defaultValue=""
+                <Controller name="price" disabled control={control} defaultValue=""
                     render={({field}) => (
-                            <TextInput field={field} label='Prix' placeholder='10.99' errors={errors?.price} style="w-full"/>
+                            <TextInput field={field} disabled label='Prix' placeholder='10.99' errors={errors?.price} style="w-full"/>
                 )}/>
-                <Controller name="promo_price" control={control} defaultValue=""
+                <Controller name="promo_price" disabled control={control} defaultValue=""
                     render={({field}) => (
-                            <TextInput field={field} label='Prix promotion' placeholder='5.99' errors={errors?.promo_price} style="w-full"/>
+                            <TextInput field={field} disabled label='Prix promotion' placeholder='5.99' errors={errors?.promo_price} style="w-full"/>
                 )}/>    
-                <Controller name="reference" control={control} defaultValue=""
+                <Controller name="reference" disabled control={control} defaultValue=""
                     render={({field}) => (
-                        <TextInput field={field} label='Référence' placeholder='125286' errors={errors?.reference} style="w-full"/>
+                        <TextInput field={field} disabled label='Référence' placeholder='125286' errors={errors?.reference} style="w-full"/>
                     )}/>    
-                <Controller name="stock" control={control} defaultValue=""
+                <Controller name="stock" disabled control={control} defaultValue=""
                     render={({field}) => (
-                        <TextInput field={field} label='Stock' placeholder='20' errors={errors?.stock} style="w-full"/>
+                        <TextInput field={field} disabled label='Stock' placeholder='20' errors={errors?.stock} style="w-full"/>
                     )}/>    
-                <Controller name="vat_percent" control={control} defaultValue=""
+                <Controller name="vat_percent" disabled control={control} defaultValue=""
                     render={({field}) => (
-                        <TextInput field={field} label='TVA' placeholder='5.5' errors={errors?.vat_percent} style="w-full"/>
+                        <TextInput field={field} disabled label='TVA' placeholder='5.5' errors={errors?.vat_percent} style="w-full"/>
                     )}/>    
-                <Controller name="description" control={control} defaultValue="" render={({field}) => (
-                    <CustomTextArea field={field} label='Petite description' errors={errors?.description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
+                <Controller name="description" disabled control={control} defaultValue="" render={({field}) => (
+                    <CustomTextArea field={field} disabled label='Petite description' errors={errors?.description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
                 )}/>   
-                <Controller name="big_description" control={control} render={({field}) => (
-                    <CustomTextArea field={field} label='Grande description' errors={errors?.big_description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
+                <Controller name="big_description" disabled control={control} defaultValue="" render={({field}) => (
+                    <CustomTextArea field={field} disabled label='Grande description' errors={errors?.big_description} style="w-full col-span-4 xl:col-span-3 sm:col-span-2 2sm:col-span-1" />
                 )}/>
                 <FormControl sx={{width:'100%'}}>
                     <InputLabel>Sous-catégorie</InputLabel>
@@ -150,9 +153,9 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
             <section className="place-self-end">
                 {error ? <div className='col-span-4 justify-self-end text-red-500 self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>{`Erreur (contactez un développeur)`}</div>: ''}
                 <div className='flex gap-3 col-span-4 justify-self-end xl:col-span-3 sm:col-span-2 2sm:col-span-1'>
-                    <button onClick={() => {reset({title:'', price:'', promo_price:'', reference:'', stock:'', vat_percent:'', description:'', big_description:''});}} className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>
+                    {/* <button onClick={() => {reset({title:'', price:'', promo_price:'', reference:'', stock:'', vat_percent:'', description:'', big_description:''});}} className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>
                         <p>Vider les champs</p>
-                    </button>
+                    </button> */}
                     <button type='submit' className='font-semibold rounded flex items-center gap-1 place-self-start mb-5 cursor-pointer z-10 text-white px-3 py-2 text-sm bg-secondary sm:text-xs sm:py-1.5 sm:gap-0 sm:px-2 sm:font-medium'>
                         <p>{validationButton}</p>
                     </button>
