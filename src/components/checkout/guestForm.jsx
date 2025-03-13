@@ -145,10 +145,8 @@ export function GuestForm ({userData, shipping_zone}) {
                     success_url:`${process.env.NEXT_PUBLIC_SITE_URL}/thanks`
                 })
             })
-            console.log(response);
             
             const register = await response.json()
-            console.log(register);
             
             if(response.status === 200)  { 
                 const url = await register.stripe_session.url
@@ -164,8 +162,6 @@ export function GuestForm ({userData, shipping_zone}) {
             console.error('Request failed:' + err.message)
         }
     }
-    console.log(emailError);
-    
 
     return(
         <>

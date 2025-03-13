@@ -5,6 +5,7 @@ import Logo from '../../../public/assets/header/logo1.svg'
 import Bag from '../../../public/assets/header/icon2.svg'
 import User from '../../../public/assets/header/icon1.svg'
 import Close from '../../../public/assets/header/close.svg'
+import Close_brown from '../../../public/assets/essentials-icons/close_brown.svg'
 import { useState, useContext, useEffect } from 'react'
 import { Hamburger } from './hamburger'
 import { CartContext, OpenCartContext } from '@/utils/cartProvider'
@@ -107,12 +108,19 @@ export default function Header () {
                 <CircularProgress size="1rem"/>
               </div>
               : ''}
+              {
+                searchResult === null || searchResult.length === 0 || search === ''
+                  ? ""
+                  : <div onClick={() => {setSearchResult(null); setSearch(""); setLoad(false)}} className='absolute h-[25px] top-0 right-0 cursor-pointer rounded-md flex items-center'>
+                      <Image src={Close_brown} alt="Annuler la recherche" />
+                    </div>
+              }
               <UnderlineHover />
             </div>
             {
               searchResult === null || searchResult.length === 0 || search === ''
               ? ''
-              : <div className='absolute mt-10 flex flex-col bg-white border rounded-lg border-primary py-2 '>
+              : <div className='absolute mt-10 max-h-[80vh] overflow-y-auto flex flex-col bg-white border rounded-lg border-primary py-2 '>
                   {searchResult ?
                   searchResult.map((s, index) =>
                     <Link key={s.id} href={{pathname:`/categories/recherche/${s.slug}`, query:{art:s.id}}} className='cursor-pointer hover:bg-primary/10 duration-500 transition-all px-4'>

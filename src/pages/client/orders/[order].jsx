@@ -49,6 +49,9 @@ export default function Orders({order}) {
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
 
+  console.log(order);
+  
+
   return (
     <>
     <NoIndexHead />

@@ -39,6 +39,9 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[searchTutorData])
 
+    console.log(docId);
+    
+
     async function onSubmit(data) {
         const { title, price, duration, entries_available, description, speaker_name } = data
         setError(false)
@@ -46,6 +49,7 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
         setLoading(true)
         var tzoffset = (new Date(begin)).getTimezoneOffset() * 60000; //offset in milliseconds
         var localISOTime = (new Date(begin - tzoffset)).toISOString().slice(0, -1);
+
         try {
             const response = await fetch(`/api/proxy/${api}`, {
                 method: "POST",    
@@ -91,6 +95,14 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
                     }
                 } 
                 setLoading(false)
+                if(searchTutorData){
+                    for(const property in register) {
+                    if(register[property] === null) {
+                            register[property] = ''
+                        }
+                    }
+                    setSearchTutorData({...register})
+                }
                 return
             }
             setError(true)

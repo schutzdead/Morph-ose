@@ -49,7 +49,7 @@ export default function Home({workshops, first_products}) {
         <Layout>
           <main className="pt-[1.5vh] flex flex-col items-center">
 
-            <section className="h-home w-[98vw] bg-no-repeat bg-cover bg-center flex flex-col relative rounded-3xl justify-center text-white md:items-center hlg:h-auto hlg:py-10" style={{backgroundImage:`url(${Fullscreen2.src})`}}>
+            <section className="h-home w-[98vw] bg-no-repeat bg-cover bg-center flex flex-col relative rounded-3xl justify-center text-white md:items-center hxl:h-auto hxl:py-10" style={{backgroundImage:`url(${Fullscreen2.src})`}}>
               <div className=" w-[500px] ml-20 md:ml-0 sm:max-w-[500px] sm:w-[90%]">
                 <div  className="backdrop-blur-sm rounded-3xl pt-4 pb-5 bg-[#582D3E80]">
                   <div className="flex flex-col gap-7 px-7 w-full items-center md:gap-5">
@@ -66,22 +66,22 @@ export default function Home({workshops, first_products}) {
                     <p className="font-medium text-xl sm:text-lg">Explorez notre boutique holistique et découvrez nos produits ainsi que nos services conçus pour éclairer votre parcours personnel et spirituel.</p>
                   </div>
                 </div>
-                <div className="flex gap-5 w-full mt-5">
-                  <Link href='/services' className="w-1/2 flex justify-center border-2 border-primary text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 md:py-3 md:font-extrabold">
+                <div className="flex gap-5 w-full mt-3">
+                  <Link href='/services' className="w-1/2 flex justify-center border-2 border-primary text-sm font-black bg-background text-primary place-self-end rounded-2xl py-3 md:py-3 md:font-extrabold">
                     SERVICES
                   </Link>
-                  <Link href='/categories' className="w-1/2 flex justify-center text-sm border-2 border-secondary font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:font-extrabold">
+                  <Link href='/categories' className="w-1/2 flex justify-center text-sm border-2 border-secondary font-black bg-background text-secondary place-self-end rounded-2xl py-3 px-10 md:px-5 md:py-3 md:font-extrabold">
                     BOUTIQUE
                   </Link>
                 </div>
               </div>
             </section>
 
-            <section id="headlight" className="scroll-m-32 flex flex-col gap-10 mx-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
+            <section id="headlight" className="scroll-m-32 max-w-[1280px] flex flex-col gap-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 mx-5">
               <Title title='Nos collections phares !' />
               <div className="text-xl flex flex-col gap-5 font-bold lg:text-lg sm:text-base text-primary">
                 <p>Envie de découvrir nos magnifiques produits ?</p>
-                <p className="font-medium text-secondary">Vous souhaitez vous faire plaisir et/ou faire plaisir ? Que vous cherchiez des livres enrichissants, des produits digitaux, des pierres et minéraux, des cartes pour la cartomancie, de l’encens, des accessoires de méditation ou des bougies, ... nos collections phares sont sélectionnées pour vous guidez vers les incontournables des produits bien-être !</p>
+                <p className="font-medium text-secondary">Vous souhaitez vous faire plaisir et/ou faire plaisir ? Que vous cherchiez des livres enrichissants, des produits digitaux, des pierres et minéraux, des cartes pour la cartomancie, de l’encens, des accessoires de méditation ou des bougies, ... Nos collections phares sont sélectionnées pour vous guider vers les incontournables des produits bien-être !</p>
               </div>
               <div className="grid grid-cols-3 w-full grid-rows-1 max-h-[350px] h-[55vh] min-h-[430px] gap-10 mt-5 lg:grid-cols-2 sm:grid-cols-1">
                 <div className="sm:hidden">
@@ -97,8 +97,7 @@ export default function Home({workshops, first_products}) {
               </div>
             </section>
 
-            <section className="flex justify-evenly w-[95vw] mx-[2.5vw] relative sm:mx-5 py-20 sm:flex-col sm:items-center sm:py-10 sm:gap-10">
-              <div className="absolute -z-10 bg-pictoGradient blur-[175px] h-[70%] top-[15%] w-full"></div>
+            <section className="flex justify-evenly w-[95vw] mx-[2.5vw] relative sm:mx-5 py-10 sm:flex-col sm:items-center sm:gap-10">
               <Picto image={Picto2} text="Un site sécurisé garantissant un paiement sécurisé !" title="Paiement sécurisé !" />
               <Picto image={Picto1} text="Une livraison rapide grâce à des partenaires reconnus !" title="Livraison express" />
               <div className="sm:hidden">
@@ -106,14 +105,13 @@ export default function Home({workshops, first_products}) {
               </div>
             </section>
 
-            <section id="service" className="scroll-m-32 flex flex-col gap-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
-              <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
+            <section id="service" className="scroll-m-32 flex flex-col gap-10 justify-center relative mt-20 sm:mt-10 sm:gap-8 sm:px-3 max-w-[1280px] mx-5">
               <div className="flex flex-col gap-10 sm:gap-8 px-10">
                 <Title title='Nos derniers évènements' butterfly={true} />
                 <p className="max-w-[1200px] text-xl font-medium lg:text-lg sm:text-base text-secondary">Chez Merveilles de Morph’ose, nous mettons l’accent sur <b>la confiance, le partage, le respect et la bienveillance</b>. C’est pour cela que nous mettons à votre disposition des <b>professionnels sérieux et certifiés</b> du bien-être, du développement personnel, du développement spirituel et bien plus encore. Nous souhaitons que chaque intervention ait un impact concret sur votre vie : ouverture d’esprit, (re)connexion à soi et apprentis-sages.</p>
                 <div className="flex flex-col gap-5 mt-5 text-secondary text-lg font-medium sm:text-sm max-w-[1500px] ">
-                  <h3 className="text-4xl font-semibold lg:text-3xl sm:text-xl text-primary">De merveilleux ateliers et événements collectifs</h3>
-                  <p className="pt-5 sm:pt-2">Envie de participer à des <b>ateliers, conférences et évènements captivants</b>. Et bien, vous êtes au bon endroit ! Venez partager de <b>chaleureux moments</b> autour de thématiques variées : la créativité, la spiritualité, le développement personnel, les pratiques ésotériques et holistiques...
+                  <p className="text-xl font-bold lg:text-lg sm:text-base text-primary">De merveilleux ateliers et événements collectifs</p>
+                  <p className="">Envie de participer à des <b>ateliers, conférences et évènements captivants</b>. Et bien, vous êtes au bon endroit ! Venez partager de <b>chaleureux moments</b> autour de thématiques variées : la créativité, la spiritualité, le développement personnel, les pratiques ésotériques et holistiques...
                   Réservez vos places en quelques clics !</p>
                   <p >Constellations familiales, méditation, numérologie, communication bienveillante ou encore initiations de toutes sortes, partage de méthodes, ateliers créatifs…<b> nos sessions sont conçues pour enrichir votre esprit et nourrir votre ÊTRE</b>.
                   Les places sont limitées pour garantir une <b>expérience personnelle et immersive</b>. Alors n’attendez plus !</p>
@@ -179,7 +177,7 @@ function AllSeances ({workshops}) {
   } = usePrevNextButtons(emblaApi)
 
   return(
-    <section className="flex flex-col gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-3 md:mx-5">
+    <section className="flex flex-col gap-14 justify-center relative mt-20 sm:my-10 sm:gap-8 sm:px-3 max-w-[1280px] mx-5">
     <div className="flex flex-col gap-5 mt-5 text-secondary text-lg font-medium sm:text-sm max-w-[1500px]">
       <Title title='Nos splendides séances individuelles' />
       <p className="pt-5 sm:pt-2">Besoin <b>d’éclaircir ou de débloquer une situation</b>, besoin de clés pour <b>faire vos propres choix</b> ou juste par curiosité, nos experts vous accompagnent au travers de nos séances individuelles : <b>dans nos locaux à Cournon-D’Auvergne (63), en Visio ou par retour mail</b>. N’attendez plus pour réserver en ligne et découvrir nos prestations : cartomancie, guidance (ou coaching intuitif et créatif), message d’âme, poème d’âme, ... </p>

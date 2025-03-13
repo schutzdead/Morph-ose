@@ -84,7 +84,7 @@ export function ContactForm () {
                         <p className="text-lg font-semibold flex flex-col pb-10 gap-5 lg:text-base sm:text-sm">L’équipe Merveilles de Morph’ose</p>
                     </div>
                 </div> 
-                : <form onSubmit={handleSubmit(onSubmit)} className='w-full grid grid-cols-2 gap-5 place-self-center sm:grid-cols-1' id="contact">
+                : <form onSubmit={handleSubmit(onSubmit)} className='w-full grid grid-cols-2 bg-primary/30 px-6 py-10  rounded-lg gap-5 md:bg-transparent md:rounded-none md:p-0 place-self-center sm:grid-cols-1' id="contact">
                         <InterfaceTextInput label='Nom *' placeholder='Dupont' name="lastname" options={{...register("lastname")}} commonError={errors.lastname} commonErrorMessage={errors.lastname?.message} labelStyle="text-secondary"/>
                         <InterfaceTextInput label='Email *' placeholder='Entrez votre email' name="email" options={{...register("email")}} commonError={errors.email} commonErrorMessage={errors.email?.message} labelStyle="text-secondary"/>
                         <InterfaceTextInput label='Téléphone *' placeholder='0606060606' name="phone" options={{...register("phone")}} commonError={errors.phone} commonErrorMessage={errors.phone?.message} labelStyle="text-secondary"/>

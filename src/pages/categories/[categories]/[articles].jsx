@@ -116,9 +116,8 @@ const OPTIONS = { slidesToScroll: 'auto' }
 
 export default function Article({product}) {
     const { setBag } = useContext(OpenCartContext);
-    const [quantityValue, setQuantityValue] = useState(1)
 
-    const { dispatch } = useContext(CartContext);
+    const { cart, dispatch } = useContext(CartContext);
     const updateCart = () => {
         dispatch({
             type: 'ADD_TO_CART',
@@ -164,6 +163,35 @@ export default function Article({product}) {
     //THUMBNAILS EMBLA
 
     const [modal, setModal] = useState(false)
+
+
+    //STOCK
+    const [quantityFromCart, setQuantityFromCart] = useState(0)
+    const [quantityValue, setQuantityValue] = useState(1)
+    const [currentStock, setCurrentStock] = useState(0)
+
+    useEffect(() => {
+        let totalStock = product?.stock - quantityFromCart;
+        setCurrentStock(totalStock);
+    }, [quantityFromCart, product]); 
+
+    useEffect(() => {
+        const currentProductFromCart = cart?.filter(cartArt => cartArt.id === product.id)
+        if(currentProductFromCart?.length > 0) {
+            setQuantityFromCart(currentProductFromCart?.map(art => art.quantity).reduce((acc, current) => acc + current, 0))
+            return
+        }
+        setQuantityFromCart(null)
+    }, [cart, product])
+
+    useEffect(() => {
+        if((currentStock < quantityValue) && currentStock){
+            setQuantityValue(currentStock)
+        }
+        if(quantityValue < 0) {
+            setQuantityValue(0)
+        }
+    }, [currentStock, quantityValue])   
 
     return (
         <>
@@ -232,7 +260,7 @@ export default function Article({product}) {
                                         ? <p className="font-bold text-lg sm:text-base">{`Il n'en reste plus que un.`}</p>
                                         : <div className="flex flex-col mt-5">
                                             <p className="font-medium sm:text-sm">Quantités disponibles</p>
-                                            <p className="font-bold text-lg sm:text-base">{product?.stock < 0 ? 0 : product?.stock}</p>
+                                            <p className="font-bold text-lg sm:text-base">{currentStock}</p>
                                         </div>
                                     }
                                 </div>
@@ -243,7 +271,7 @@ export default function Article({product}) {
                                     :
                                         <>
                                         <div className="flex gap-5 items-center mt-8 sm:mt-0">
-                                            <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={false} article={[]} product={product} />
+                                            <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} stock={currentStock} />
                                         </div>
                                         <div className="py-5" onClick={() => {updateCart();setBag(true)}}>
                                             <CustomButton butterfly={true} text="Acheter" style={{width:"250px", height:'40px'}} />

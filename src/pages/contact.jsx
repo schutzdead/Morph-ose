@@ -6,6 +6,7 @@ import { ContactForm } from "@/components/forms/contactForm";
 import { ModalFAQ } from "./categories/[categories]/[articles]";
 import { useEffect, useState } from "react";
 import { QUESTION } from "./categories/[categories]/[articles]";
+import { Title } from "@/components/homepage/homepage";
 
 export default function Contact() {
   const [modal, setModal] = useState(false)
@@ -35,15 +36,14 @@ export default function Contact() {
                   </div>
               </div>
             </section>
-            <section className="flex flex-col items-center gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
-                <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
+            <section className="flex flex-col gap-14 place-self-center max-w-[1280px] justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 mx-5">
                 <div className="relative font-Quesha w-fit px-5 text-9xl xl:text-6xl md:text-4xl 2sm:text-center">
-                  <h1 className="gradient-text2 text-center">Une interrogation ?</h1>
+                  <Title title='Une interrogation ?'/>
                 </div>
-                <div className="text-2xl flex flex-col pb-10 gap-5 font-medium lg:text-xl sm:text-lg text-center text-secondary">
-                    <p className="max-w-[1000px]">La relation client est une thématique centrale de notre établissement. Vous avez pris connaissance <Link href="/politics" target="_blank" className="font-bold cursor-pointer">des conditions générales de vente</Link> ainsi que de la <span onClick={() => {setModal(true)}} className="font-bold cursor-pointer">FAQ</span> et votre interrogation reste sans réponse ? Nous vous répondrons dans les plus brefs délais.</p>
+                <div className="text-2xl flex flex-col pb-10 gap-5 font-medium lg:text-xl sm:text-lg text-secondary">
+                    <p>La relation client est une thématique centrale de notre établissement. Vous avez pris connaissance <Link href="/politics" target="_blank" className="font-bold cursor-pointer">des conditions générales de vente</Link> ainsi que de la <span onClick={() => {setModal(true)}} className="font-bold cursor-pointer">FAQ</span> et votre interrogation reste sans réponse ? Nous vous répondrons dans les plus brefs délais.</p>
                 </div>
-                <div className="max-w-[800px] w-full flex flex-col justify-center">
+                <div className="max-w-[1000px] place-self-center w-full flex flex-col justify-center">
                   <ContactForm />
                 </div>
             </section>

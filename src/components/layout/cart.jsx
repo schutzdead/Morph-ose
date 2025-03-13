@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { CartContext } from "@/utils/cartProvider";
-import { UpdateButton } from '@/components/articles/updateButton';
+// import { UpdateButton } from '@/components/articles/updateButton';
 import { removeCart } from "@/utils/cartReducer";
 
 import { useContext, useEffect, useState } from "react"
@@ -11,7 +11,8 @@ import Trash from '../../../public/assets/articles/trash.svg'
 import SideModal from "../modal";
 import { DialogTitle } from "@headlessui/react";
 import { formatPrice } from "@/utils/helpFunction";
-
+import add from '../../../public/assets/essentials-icons/add.svg'
+import less from '../../../public/assets/essentials-icons/less.svg'
 
 export default function Card ({bag, setBag}) {
     const { cart } = useContext(CartContext);
@@ -79,8 +80,7 @@ export default function Card ({bag, setBag}) {
 }
 
 export function Article (data) {
-    const { dispatch } = useContext(CartContext);
-    const [quantityValue, setQuantityValue] = useState(data.data.quantity)
+    const { cart } = useContext(CartContext);
     return(
         <li className='flex py-6 gap-3'>
             <div className="flex flex-col gap-2">
@@ -110,10 +110,78 @@ export function Article (data) {
                             }
                             
                         </div>
-                        <UpdateButton quantityValue={quantityValue} setQuantityValue={setQuantityValue} updateFct={true} article={data.data} />
+                        <UpdateButton product={data.data} cart={cart} />
                     </div>
                 </div>
             </div>
         </li>
+    )
+}
+
+export function UpdateButton ({product, cart}) {
+    const { dispatch } = useContext(CartContext);
+
+    const [stockErr, setStockErr] = useState(false)
+    const [buttonQuantity, setButtonQuantity] = useState(0)
+    const [cartArticle, setCartArticle] = useState([])
+    const [stockFromCart, setStockFromCart] = useState(0)
+
+    useEffect(() => {
+        const currentProductFromCart = cart?.filter(cartArt => cartArt.id === product.id)
+        if(currentProductFromCart?.length > 0) {
+            setStockFromCart(product?.stock - currentProductFromCart?.map(art => art.quantity).reduce((acc, current) => acc + current, 0))
+        }
+    }, [cart, product])    
+
+    useEffect(() => {
+        setCartArticle(cart?.filter(art => art?.id === product?.id))
+    }, [cart, product])
+
+    useEffect(() => {
+        if(cartArticle && cartArticle?.length > 0) {
+            setButtonQuantity(cartArticle?.reduce((accumulator, currentValue) => accumulator + (currentValue.quantity), 0))
+        } else {
+            setButtonQuantity(0)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [cartArticle])
+
+    const updateCommand = (article, orientation) => {
+        setStockErr(false)
+        //STOCK
+        if(stockFromCart === 0 && orientation === 1) return setStockErr(true)
+        //LIMIT
+        if(buttonQuantity === 0 && orientation === -1) return setButtonQuantity(buttonQuantity);
+        if(buttonQuantity === 1 && orientation === -1) {
+            dispatch(removeCart(article))
+            return
+        }
+        dispatch({ 
+            type:'UPDATE_CART', 
+            id:article.id, 
+            price:article?.price,
+            quantity:buttonQuantity+orientation,
+            custom:article?.custom ? article?.custom : [{key:""}]
+        })
+    }
+
+    return (
+        <CartButton quantity={buttonQuantity} product={product} updateCommand={updateCommand} stockErr={stockErr} />
+    )
+}
+
+function CartButton ({quantity, product, updateCommand, stockErr}) {
+    return (
+        <div className="flex flex-col">
+            <div className="z-10 flex justify-evenly items-center rounded-lg text-white select-none">
+                <button type="button" className="w-[26px] h-[26px] bg-primary/20 rounded-md flex items-center justify-center cursor-pointer" onClick={() => {updateCommand(product, -1)}}>
+                    <Image src={less} alt="Less icon" className="mb-[2px] w-2 cursor-pointer flex items-center justify-center" />
+                </button>
+                <div className="font-Roboto px-2 flex items-center justify-center text-base font-medium md:text-sm text-black/90">{quantity}</div>
+                <button type="button" disabled={stockErr} className="w-[26px] h-[26px] bg-primary/20 rounded-md flex items-center justify-center cursor-pointer disabled:bg-gray-200 disabled:text-black/90" onClick={() => {updateCommand(product, +1)}}>
+                    <Image src={add} alt="More icon" className="w-3 cursor-pointer" />
+                </button>
+            </div>
+        </div>
     )
 }

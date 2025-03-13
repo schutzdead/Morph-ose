@@ -81,15 +81,16 @@ export function AddFile ({docId, fileType, setDocId}) {
         setSubmitLoading(true)
         
         try {
-            const form = await fetch(`/api/proxy/auth/admin/images/upload`, {
+            const form = await fetch(`${API_URL}/images/upload`, {
                 method: "POST", 
                 headers: {
                     "Accept": "application/json",
                 },
-                mode: "cors", 
                 body: formData
             })
+            
             const register = await form.json()
+            
             setDocId(register.map(image => ({id:image.id, url:image.url})))
             setSubmitLoading(false)
         } catch (err) {

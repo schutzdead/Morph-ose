@@ -43,11 +43,10 @@ export default function Category({ data, allCat }) {
     }
   }, [subCat]);
 
-    const filterBox = useRef(null)
-    const [selectedSubCat, setSelectedSubCat] = useState([])
-    const [selectedCat, setSelectedCat] = useState(null)
+  const filterBox = useRef(null)
+  const [selectedSubCat, setSelectedSubCat] = useState([])
+  const [selectedCat, setSelectedCat] = useState(null)
   
-
   return (
     <>
       <CustomHead

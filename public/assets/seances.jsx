@@ -10,19 +10,19 @@ export const seance = [
                     id:0,
                     title:"Séance découverte - 20min",
                     price:30,
-                    link:"https://calendly.com/mina-merveillesdemorphose/guidance-sensation-clone-1"
+                    link:"https://calendly.com/mina-merveillesdemorphose/guidance-decouverte"
                 },
                 {
                     id:1,
                     title:"Séance sensation - 1h",
                     price:60,
-                    link:"https://calendly.com/mina-merveillesdemorphose/cartomancie-decouverte-clone"
+                    link:"https://calendly.com/mina-merveillesdemorphose/cartomancie-sensation"
                 },
                 {
                     id:2,
                     title:"Séance exploration - 1h30",
                     price:80,
-                    link:"https://calendly.com/mina-merveillesdemorphose/cartomancie-sensation-clone"
+                    link:"https://calendly.com/mina-merveillesdemorphose/cartomancie-exploration"
                 }
             ],
         },
@@ -36,19 +36,19 @@ export const seance = [
                     id:0,
                     title:"Séance découverte - 20min",
                     price:30,
-                    link:"https://calendly.com/mina-merveillesdemorphose/guidance-decouverte"
+                    link:"https://calendly.com/mina-merveillesdemorphose/guidance-decouverte-"
                 },
                 {
                     id:1,
                     title:"Séance sensation - 1h",
                     price:60,
-                    link:"https://calendly.com/mina-merveillesdemorphose/merveillesdemorphose-guidance-sensation"
+                    link:"https://calendly.com/mina-merveillesdemorphose/guidance-sensation"
                 },
                 {
                     id:2,
                     title:"Séance exploration - 1h30",
                     price:80,
-                    link:"https://calendly.com/mina-merveillesdemorphose/guidance-sensation-clone"
+                    link:"https://calendly.com/mina-merveillesdemorphose/guidance-exploration-"
                 }
             ],
         },

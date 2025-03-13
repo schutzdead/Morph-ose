@@ -3,7 +3,6 @@ import Image from "next/image";
 import { CustomHead } from "@/components/customHead";
 import Link from 'next/link'
 import Picture from '../../public/assets/services/bg-perso.webp'
-import Picture2 from '../../public/assets/services/cardbg.webp'
 import { Newletter, Title} from "@/components/homepage/homepage";
 import Vector from '../../public/assets/about/vector.svg'
 import { seance } from "../../public/assets/seances";
@@ -16,44 +15,42 @@ export default function Seances() {
         <Layout>
           <main className="pt-[1.5vh]">
 
-            <section className="h-home w-[98vw] items-end ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5 hlg:h-auto hlg:py-10" style={{backgroundImage:`url(${Picture.src})`}}>
-              <div className=" w-[500px] mr-20 md:mr-0 sm:max-w-[500px] sm:w-[90%]">
+            <section className="h-home w-[98vw] items-start ml-[1vw] gap-16 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5 hlg:h-auto hlg:py-10" style={{backgroundImage:`url(${Picture.src})`}}>
+              <div className=" w-[500px] ml-20 md:ml-0 sm:max-w-[500px] sm:w-[90%]">
                 <div  className="backdrop-blur-sm rounded-3xl pt-4 pb-5 bg-[#582D3E80]">
-                  <div className="flex flex-col gap-7 px-7 w-full items-center md:gap-5">
+                  <div className="flex flex-col gap-5 px-7 w-full items-center md:gap-5">
                   <h1 className="text-white leading-[70px] font-Quesha text-8xl md:text-6xl md:leading-[40px]">Nos séances individuelles</h1>
                     <div className="h-[2px] bg-white place-self-start w-full"></div>
                     <p className="font-medium text-lg md:text-base sm:text-sm">Nous vous invitons à explorer une expérience unique et personnalisée conçue pour vous guider vers une meilleure compréhension de vous-même et votre épanouissement.</p>
-                    <p className="font-medium text-lg md:text-base sm:text-sm">Êtes-vous prêt pour ce merveilleux voyage en notre compagnie ?</p>
+                    {/* <p className="font-medium text-lg md:text-base sm:text-sm">Êtes-vous prêt pour ce merveilleux voyage en notre compagnie ?</p> */}
                     <p className="font-bold text-lg md:text-base sm:text-sm">Êtes-vous prêt à entamer la quête vers la nouvelle version de vous-même ?</p>
                   </div>
                 </div>
-                <div className="flex gap-5 w-full mt-5">
-                  <Link href='/services' className="w-1/2 flex justify-center border-2 border-primary text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 md:py-3 md:font-extrabold">
+                <div className="flex gap-5 w-full mt-2">
+                  <Link href='/services' className="w-1/2 flex justify-center border-2 border-primary text-sm font-black bg-background text-primary place-self-end rounded-2xl py-3 md:font-extrabold">
                     SERVICES
                   </Link>
-                  <Link href='/categories' className="w-1/2 flex justify-center text-sm border-2 border-secondary font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:font-extrabold">
+                  <Link href='/categories' className="w-1/2 flex justify-center text-sm border-2 border-secondary font-black bg-background text-secondary place-self-end rounded-2xl py-3 px-10 md:px-5 md:font-extrabold">
                     BOUTIQUE
                   </Link>
                 </div>
               </div>
             </section>
 
-            <section className="flex flex-col gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
-                <div className="absolute -z-10 bg-pictoGradient blur-[450px] h-[70%] top-[15%] w-full"></div>
+            <section className="flex flex-col gap-14 items-center place-self-center justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 mx-5 max-w-[1280px]">
                 <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm">
                   <Title title='Qu’avons-nous à vous proposer?' />
                     <p>Chez Merveilles de Morphose, nous vous accompagnons quel que soit votre quête : la splendide aventure de la (re)découverte de vous-même, l’ouverture des champs des possibles, l’accueil du changement… </p>
                     <p>Besoin <b>d’éclaircir ou de débloquer</b> une situation, besoin de clés pour <b>faire vos propres choix</b> ou juste par <b>curiosité </b>? <b> En Visio, dans nos locaux</b> au 28 rue du commerce à Cournon-d’Auvergne (63) ou <b>par retour mail</b>, vous trouverez surement l’approche qui vous correspond.</p>
                     <p className="text-base font-normal sm:text-sm">Petit mot : merci de bien vouloir faire preuve de discernement, quoiqu’il puisse vous être conseillé, vous êtes et resterez le/la seul(e) décisionnaire de votre vie.</p>
                 </div>
-                <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm">
+                <div className="flex flex-col gap-5 mt-5 text-secondary text-xl w-full lg:text-lg font-medium sm:text-sm">
                     <h3 className="text-primary mb-5 font-semibold text-2xl lg:text-xl md:text-lg">Nous proposons une variété de séances adaptées à vos besoins</h3>
-                    <p>Chaque session est une opportunité de croissance, d’évolution et de réflexion.</p>
-                    <p className="font-semibold">Faites le premier pas vers un changement positif.</p>
+                    <p>Chaque session est une opportunité de croissance, d’évolution et de réflexion. <b>Faites le premier pas vers un changement positif.</b></p>
                 </div>
                 {seance?.length === 0 || !seance
                 ? <p className='font-medium place-self-center text-secondary text-center sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
-                : <div className="gap-8 grid grid-cols-2 mt-5 w-full max-w-[1050px] justify-items-center lg:flex lg:flex-col lg:items-center">
+                : <div className="gap-8 grid grid-cols-2 mt-5 w-full justify-items-center lg:flex lg:flex-col lg:items-center">
                     { seance?.map((seance, index) => <SeancesIndividual key={index} seance={seance} index={index} />)}
                     {/* <div className="w-[480px] rounded-3xl flex flex-col text-white gap-5 items-center justify-center bg-no-repeat bg-center text-center sm:w-[97vw] lg:hidden" style={{backgroundImage:`url(${Picture2.src})`}}>
                       <h1 className="font-Quesha text-6xl bg-primary/30 flex items-center justify-center h-full w-full rounded-3xl leading-[40px] md:text-6xl">Bienveillance et respect sont nos mantras</h1>

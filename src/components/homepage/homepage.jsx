@@ -146,7 +146,7 @@ export function Newletter () {
     return(
       <div className="relative font-Quesha w-fit text-8xl xl:text-7xl md:text-6xl">
         <div className="relative">
-          <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-16 -left-[53px] -top-[20px] xl:w-12 xl:-left-[41px] xl:-top-[23px] md:w-8 md:-left-[25px] md:-top-[16px]" style={butterfly ? {display:'block'} : {display:'none'}} priority />
+          <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-14 -left-[53px] -top-[20px] xl:w-12 xl:-left-[41px] xl:-top-[23px] md:w-8 md:-left-[25px] md:-top-[16px]" style={butterfly ? {display:'block'} : {display:'none'}} priority />
           <h1 className="gradient-categories">{title}</h1>
         </div>
         {/* <div className="h-[3px] w-full bg-mainGradient"></div> */}
@@ -156,7 +156,7 @@ export function Newletter () {
   
   export function Card ({product}) {
     return(
-      <Link href={product?.breadcrumb[0]?.slug ? {pathname: `/categories/${product?.breadcrumb[1]?.slug}`, query: { cat:product?.breadcrumb[1]?.id }} : {pathname: `/categories`}} className="flex flex-col group rounded-3xl h-full relative overflow-hidden cursor-pointer">
+      <Link href={product?.breadcrumb[0]?.slug ? {pathname: `/categories/${product?.breadcrumb[1]?.slug}`, query: { cat:product?.breadcrumb[1]?.id }} : {pathname: `/categories`}} className="flex flex-col group rounded-3xl h-full relative overflow-hidden cursor-pointer shadow-lg">
         <div className="rounded-t-3xl bg-homeGradient1 backdrop-blur-md absolute z-10 top-0 w-full h-[25%] min-h-[150px] flex flex-col gap-3 items-center justify-center text-white opacity-0 pb-5 group-hover:opacity-100 transition-all ease-out duration-300 sm:h-[100%] sm:min-h-0 sm:opacity-100 sm:top-0">
           <h2 className="text-3xl font-bold lg:text-2xl sm:text-lg text-center px-3">{product?.breadcrumb[1]?.title ? product?.breadcrumb[1]?.title.toUpperCase() : 'Nos catégories'}</h2>
           <div className="absolute right-5 bottom-3">

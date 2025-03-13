@@ -28,31 +28,30 @@ export default function Services({workshops}) {
         <Layout>
           <main className="pt-[1.5vh]">
 
-            <section className="h-home w-[98vw] items-end ml-[1vw] gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5  hlg:h-auto hlg:py-10" style={{backgroundImage:`url(${Picture.src})`}}>
-              <div className=" w-[500px] mr-20 md:mr-0 sm:max-w-[500px] sm:w-[90%]">
-                <div  className="backdrop-blur-sm rounded-3xl pt-4 pb-5 bg-[#582D3E80]">
-                  <div className="flex flex-col gap-7 px-7 w-full items-center md:gap-5">
-                  <h1 className="text-white leading-[60px] font-Quesha text-7xl md:text-5xl md:leading-[35px]">Nos ateliers et événements collectifs</h1>
+            <section className="h-home w-[98vw] items-start ml-[1vw] gap-16 pt-5 hxl:pb-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5 hxl:h-auto hlg:py-10" style={{backgroundImage:`url(${Picture.src})`}}>
+              <div className=" w-[500px] ml-20 md:ml-0 sm:max-w-[500px] sm:w-[90%]">
+                <div  className="backdrop-blur-sm rounded-3xl py-4 bg-[#582D3E80]">
+                  <div className="flex flex-col gap-5 px-7 w-full items-center md:gap-5">
+                  <h1 className="text-white leading-[50px] font-Quesha text-7xl md:text-5xl md:leading-[35px]">Nos ateliers et événements collectifs</h1>
                     <div className="h-[2px] bg-white place-self-start w-full"></div>
                     <p className="font-medium text-lg md:text-base sm:text-sm">Curieux d’explorer le monde du bien-être, de plonger dans des pratiques ésotériques et holistiques ou simplement parfaire vos connaissances ? Alors vous êtes au bon endroit !</p>
                     <p className="font-medium text-lg md:text-base sm:text-sm">Que vous débutiez ou que vous soyez déjà avancé dans votre quête spirituelle, créative ou vers votre mieux-être, nous avons diverses activités à vous proposer...</p>
                     <p className="font-bold text-lg md:text-base sm:text-sm"><b>Êtes-vous prêt pour ce merveilleux voyage en notre compagnie ?</b></p>
                   </div>
                 </div>
-                <div className="flex gap-5 w-full mt-3">
-                  <Link href='/services' className="w-1/2 flex justify-center border-2 border-primary text-sm font-black bg-background text-primary place-self-end rounded-2xl py-5 md:py-3 md:font-extrabold">
+                <div className="flex gap-3 w-full mt-3">
+                  <Link href='/services' className="w-1/2 flex justify-center border-2 border-primary text-sm font-black bg-background text-primary place-self-end rounded-2xl py-3 md:font-extrabold">
                     SERVICES
                   </Link>
-                  <Link href='/categories' className="w-1/2 flex justify-center text-sm border-2 border-secondary font-black bg-background text-secondary place-self-end rounded-2xl py-5 px-10 md:px-5 md:py-3 md:font-extrabold">
+                  <Link href='/categories' className="w-1/2 flex justify-center text-sm border-2 border-secondary font-black bg-background text-secondary place-self-end rounded-2xl px-10 md:px-5 py-3 md:font-extrabold">
                     BOUTIQUE
                   </Link>
                 </div>
               </div>
             </section>
 
-            <section className="flex flex-col gap-14 mx-10 justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 md:mx-5">
-                <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
-                <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm max-w-[1500px]">
+            <section className="flex flex-col gap-14 items-center place-self-center justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 mx-5 max-w-[1280px]">
+                <div className="flex flex-col gap-5 mt-5 text-secondary text-xl lg:text-lg font-medium sm:text-sm">
                     <Title title='Qu’avons-nous à vous proposer?' />
                     <p>Chez Merveilles de Morph’ose, nous vous proposons des <b>ateliers, événements, conférences...</b> aux thématiques variées et <b>animés par du personnel certifié !</b> Que ce soit en ligne, dans notre cocon au 28 rue du commerce à Cournon-D’Auvergne (63) ou ailleurs <b>vous trouverez surement votre bonheur</b> !</p>
                     <p>Vous vous intéressez aux constellations familiales, aux pratiques énergétiques, à la communication 
@@ -83,7 +82,7 @@ export default function Services({workshops}) {
 
 export function Individual ({workshop}) {
     return(
-        <div className="bg-transparent p-2 w-full flex flex-col relative rounded-3xl overflow-hidden max-w-[450px]">
+        <div className="w-full flex flex-col relative rounded-3xl overflow-hidden max-w-[450px] h-full shadow-lg">
             {workshop?.image 
             ? <div className="w-full h-0 pb-[60%] relative bg-white rounded-t-2xl">
                  <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-t-2xl object-cover" priority />
@@ -92,7 +91,7 @@ export function Individual ({workshop}) {
                 <Skeleton sx={{width:'100%', height:'100%', transform:'none', borderRadius:'16px 16px 0 0'}} />
               </div>
             }
-            <div className="flex bg-white flex-col text-primary font-medium justify-start pt-5 px-5 gap-0.5 rounded-b-2xl">
+            <div className="flex bg-white flex-col text-primary font-medium justify-start pt-5 px-5 gap-0.5 rounded-b-2xl flex-1">
                 <h2 className="text-xl lg:text-lg sm:text-base font-bold">{workshop?.title}</h2>
                 <p className="text-sm font-normal">{workshop?.entries_available - workshop?.entries_reserved} places restantes</p>
                 <p>{new Date(workshop?.date).toLocaleDateString('fr')} {new Date(workshop?.date).toLocaleTimeString('fr')}</p>

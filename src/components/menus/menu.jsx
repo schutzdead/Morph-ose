@@ -33,7 +33,7 @@ export function Menu () {
                     <h2 className='font-semibold text-secondary px-3 -mb-2 text-lg'>Commandes</h2>
                     <MenuButton setActive={setActive} active={active} slug='orders' text="Boutique" image={Orders} link='/admin/orders'/>
                     <MenuButton setActive={setActive} active={active} slug='orders_event' text="Evènements" image={Orders} link='/admin/orders_event'/>
-                    <MenuButton setActive={setActive} active={active} slug='pro' text="Professionnelles" image={Pro} link='/admin/pro'/>
+                    {/* <MenuButton setActive={setActive} active={active} slug='pro' text="Professionnelles" image={Pro} link='/admin/pro'/> */}
                 </div>
                 <div className='flex flex-col gap-2 border-secondary py-1.5 px-2 border-2 rounded-2xl'>
                     <h2 className='font-semibold text-secondary px-3 -mb-2 text-lg'>Créations</h2>
@@ -41,7 +41,7 @@ export function Menu () {
                     <MenuButton setActive={setActive} active={active} slug='products' text="Produits" image={Product} link='/admin/products'/>
                     <MenuButton setActive={setActive} active={active} slug='first' text="Produits phares" image={First} link='/admin/first'/>
                     <MenuButton setActive={setActive} active={active} slug='workshops' text="Evènements" image={Workshop} link='/admin/workshops'/>
-                    <MenuButton setActive={setActive} active={active} slug='rent' text="Locations" image={Rent} link='/admin/rent'/>
+                    {/* <MenuButton setActive={setActive} active={active} slug='rent' text="Locations" image={Rent} link='/admin/rent'/> */}
                 </div>
                 <MenuButton setActive={setActive} active={active} slug='shipping' text="Livraison" image={Shipping} link='/admin/shipping'/>
                 <Link href='/logout' className="rounded-lg py-2 cursor-pointer text-white flex items-center px-3 gap-7 transition-[backgroundColor] duration-300 hover:bg-secondary">
