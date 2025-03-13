@@ -15,7 +15,7 @@ export default function Contact() {
       <CustomHead pageName='Contact' metaResume="Contactez nous pour plus d'informations."/>
       <ModalFAQ data={QUESTION} modal={modal} setModal={setModal} />
         <Layout>
-          <main className="pt-[1.5vh]">
+          <main className="pt-[1.5vh] flex flex-col">
           <section className="h-home w-[98vw] ml-[1vw] items-end gap-16 pt-5 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5 hlg:h-auto hlg:py-10" style={{backgroundImage:`url(${Picture.src})`}}>
             <div className=" w-[500px] mr-20 md:mr-0 sm:max-w-[500px] sm:w-[90%]">
                   <div  className="backdrop-blur-sm rounded-3xl py-10 bg-[#582D3E80]">
