@@ -13,7 +13,7 @@ export default function Seances() {
     <>
       <CustomHead pageName='Séances individuelles' metaResume="Retrouvez l'ensemble de nos séances individuelles"/>
         <Layout>
-          <main className="pt-[1.5vh]">
+          <main className="pt-[1.5vh] flex flex-col">
 
             <section className="h-home w-[98vw] items-start ml-[1vw] gap-16 bg-no-repeat bg-cover bg-bottom flex flex-col relative rounded-3xl justify-center text-white lg:gap-10 md:items-center sm:gap-5 hlg:h-auto hlg:py-10" style={{backgroundImage:`url(${Picture.src})`}}>
               <div className=" w-[500px] ml-20 md:ml-0 sm:max-w-[500px] sm:w-[90%]">

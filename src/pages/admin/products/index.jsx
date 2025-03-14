@@ -5,7 +5,7 @@ import edit2 from '../../../../public/assets/dashboard/edit2.svg'
 import { Menu } from '@/components/menus/menu'
 import Link from 'next/link'
 import { GETRequest } from "@/utils/requestHeader"
-import {  useRef, useState } from 'react'
+import {  useEffect, useRef, useState } from 'react'
 import { Pagination } from '@mui/material'
 import { PictoButton } from '@/components/littleComponents'
 import { Loading } from '@/utils/loader'
@@ -42,7 +42,7 @@ export async function getServerSideProps({req, res}) {
       },
   }}
 
-  const result = await fetch(`${API_URL}/products`, GETRequest).then(r => r.json())
+  const result = await fetch(`${API_URL}/products?pagination=10`, GETRequest).then(r => r.json())
   return {
       props: {
           all_products:result
@@ -52,12 +52,30 @@ export async function getServerSideProps({req, res}) {
 
 export default function Products({all_products}) {
   const [products, setProducts] = useState(all_products)
+
+  const [pagination, setPagination] = useState([])
+  const [currentPage, setCurrentPage] = useState()
+
   const [loading, setLoading] = useState(false)
   const [productSearch, setProductSearch] = useState([])
   const filterBox = useRef(null)
 
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
+
+  useEffect(() => {
+    setPagination([])
+    for(let i = 1; i <= products.last_page; i++){
+      setPagination((previous) => [...previous, i])
+    }
+  }, [products])
+
+  async function updatePagination () {
+    setLoading(true)
+    const result = await fetch(`${API_URL}/products?pagination=10`, GETRequest).then(r => r.json())
+    setProducts(result)
+    setLoading(false)
+  }
 
   return (
     <>
@@ -87,8 +105,8 @@ export default function Products({all_products}) {
                     <p>Prix</p>
                 </div>
                 {
-                  products?.sort((a, b) => a.title.localeCompare(b.title)).map((product) =>
-                    <div key={product.id} className='grid grid-cols-[repeat(4,2fr)_1fr] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-sm' style={products?.indexOf(product)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
+                  products?.data?.sort((a, b) => a.title.localeCompare(b.title)).map((product) =>
+                    <div key={product.id} className='grid grid-cols-[repeat(4,2fr)_1fr] py-3 rounded-lg text-secondary/90 justify-items-center items-center sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-sm' style={products?.data?.indexOf(product)%2 === 0 ? {backgroundColor:'#F5F5F5'} : {backgroundColor:"white"}}>
                       <p className='font-semibold place-self-start pl-2'>{`${product.title}`}</p>
                       <p className='px-4 text-center'>{product?.categories[0]?.title}</p>
                       <div className='w-2 h-2 rounded-full sm:hidden' style={product.is_published ? {backgroundColor:'rgb(34 197 94)'} : {backgroundColor:'rgb(239 68 68)'}}></div>
@@ -101,9 +119,9 @@ export default function Products({all_products}) {
                     </div>
                   )
                 }
-                {/* <div className='mt-14 mb-4 w-full flex gap-3 justify-center'>
+                <div className='mt-14 mb-4 w-full flex gap-3 justify-center'>
                   <Pagination count={pagination.length} page={currentPage} onChange={(event, value) => {updatePagination(value);setCurrentPage(value)}} />
-                </div> */}
+                </div>
               </>
             }
           </div>
