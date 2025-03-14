@@ -43,7 +43,6 @@ export default function Section({data}) {
                         : <div className="flex flex-col gap-28 md:gap-10">
                             {data?.map((m, index) => 
                                 <section key={index} className="flex flex-col gap-10 relative">
-                                    <div className="absolute -z-10 bg-pictoGradient blur-[250px] h-[70%] top-[15%] w-full"></div>
                                     <div style={index%2 === 0 ? {justifyContent:'start'} : {justifyContent:'end'}} className="w-full flex">
                                         <CatTitle title={m.title.toUpperCase()} butterfly={true} reverse={index%2 === 0} />
                                     </div>
@@ -131,7 +130,7 @@ export function ArticleCard ({articleParams, link}) {
             : 
                 <Link href={link} className="group flex-[0_0_20%] pl-5 flex-col cursor-pointer lg:flex-[0_0_25%] sm:flex-[0_0_33%] relative">
                     <div className="transition-all duration-1000 relative hover:scale-[1.02] md:hover:scale-100">
-                        <div className="text-white bg-primary px-2 py-0.5 font-bold text-sm absolute rounded-md top-3 left-3 sm:text-xs sm:px-1 sm:top-1.5 sm:left-1.5">-50%</div>
+                        {/* <div className="text-white bg-primary px-2 py-0.5 font-bold text-sm absolute rounded-md top-3 left-3 sm:text-xs sm:px-1 sm:top-1.5 sm:left-1.5">-50%</div> */}
                         <div className="w-full aspect-square">
                             {article?.images[0]
                                 ? <Image src={article?.images[0]?.url} alt='Article picture' fill className="object-cover rounded-xl" priority/>
