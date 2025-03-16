@@ -70,9 +70,9 @@ export default function Products({all_products}) {
     }
   }, [products])
 
-  async function updatePagination () {
+  async function updatePagination (number) {
     setLoading(true)
-    const result = await fetch(`${API_URL}/products?pagination=10`, GETRequest).then(r => r.json())
+    const result = await fetch(`${API_URL}/products?pagination=10&page=${number}`, GETRequest).then(r => r.json())
     setProducts(result)
     setLoading(false)
   }
