@@ -8,7 +8,6 @@ import Link from "next/link";
 import Butterfly from '../../../public/assets/main/butterfly.svg'
 import RightArrow from '../../../public/assets/articles/right.svg'
 import { Newletter } from "@/components/homepage/homepage"
-import Services from '../../../public/assets/main/services.webp'
 import Close  from '../../../public/assets/essentials-icons/close.svg'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
@@ -34,7 +33,7 @@ export default function Section({data}) {
             <div onClick={(e) => { if (filterBox.current && !filterBox.current.contains(e.target)) {setSelectedSubCat([]);setSelectedCat(null)} }}>
             <Layout >
             <div className="flex flex-col gap-20 w-full md:gap-14 flex-1" >
-                <div className="px-10 sticky top-28 bg-background z-40 items-center py-8 md:px-5 sm:pb-4 text-secondary" ref={filterBox}>
+                <div className="px-10 sticky top-28 bg-background z-40 items-center pt-8 md:px-5 text-secondary" ref={filterBox}>
                     <CategoriesMenu cat={data} selectedCat={selectedCat} setSelectedCat={setSelectedCat} setSelectedSubCat={setSelectedSubCat} selectedSubCat={selectedSubCat} />
                 </div>
                 <div>
@@ -80,10 +79,11 @@ export function CategoriesMenu ({cat, selectedCat, setSelectedCat, setSelectedSu
                     onClick={() => {setSelectedSubCat(c.childs);setSelectedCat({id:c.id, slug:c.slug})}}>{c.title}</button></div>
                 )}
             </div>
-            <div className="absolute top-[100px] bg-background w-full left-0 py-3">
+            {selectedSubCat?.length > 0
+                ? <div className="absolute top-[84px] bg-background w-full left-0 pb-3">
 
-                {selectedSubCat?.length > 0
-                    ? <div className="flex text-lg md:text-base font-semibold divide-y divide-primary/30 pt-3 w-full flex-col items-center">
+                
+                    <div className="flex text-lg md:text-base font-semibold divide-y divide-primary/30 pt-3 w-full flex-col items-center">
                             <div className="w-screen flex justify-end px-3">
                                 <Image src={Close} alt="Close pictogram" onClick={() => {setSelectedSubCat([]);setSelectedCat(null);}} className='h-6 w-auto cursor-pointer' />
                             </div>
@@ -91,9 +91,10 @@ export function CategoriesMenu ({cat, selectedCat, setSelectedCat, setSelectedSu
                                 <Link key={index} className="px-3 py-4 w-full text-center hover:bg-primary/20" href={{pathname: `/categories/${selectedCat.slug}`, query: { cat:selectedCat?.id, subCat:subC.id }}} onClick={() => {setSelectedSubCat([]);setSelectedCat(null);}}>{subC.title}</Link>
                             )}
                         </div>
-                    : ""
-                }
+
             </div>
+                : ""
+            }
         </>
 
     )   

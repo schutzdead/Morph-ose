@@ -56,8 +56,8 @@ export default function Category({ data, allCat }) {
       <div onClick={(e) => { if (filterBox.current && !filterBox.current.contains(e.target)) {setSelectedSubCat([]);setSelectedCat(null)} }}>
       <Layout>
         <div className="flex flex-col gap-20 w-full md:gap-14 flex-1">
-          <div className="px-10 sticky top-28 bg-background z-40 items-center py-8 md:px-5 sm:pb-4 text-secondary" ref={filterBox}>
-              <CategoriesMenu cat={allCat.filter((f) => f.id !== data.id)} selectedCat={selectedCat} setSelectedCat={setSelectedCat} setSelectedSubCat={setSelectedSubCat} selectedSubCat={selectedSubCat} />
+          <div className="px-10 sticky top-28 bg-background z-10 items-center pt-8 md:px-5 text-secondary" ref={filterBox}>
+              <CategoriesMenu cat={allCat} selectedCat={selectedCat} setSelectedCat={setSelectedCat} setSelectedSubCat={setSelectedSubCat} selectedSubCat={selectedSubCat} />
           </div>
           <div
             className="h-[60vh] w-[90vw] max-w-[1400px] -mt-10 md:-mt-5 max-h-[500px] place-self-center flex rounded-3xl lg:max-h-[425px] md:max-h-[350px] sm:max-h-[250px] sm:h-[30vh] relative"

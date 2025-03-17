@@ -82,6 +82,9 @@ export default function EditProduct({current_product, all_categories}) {
       !current_product || current_product.message  ? '' : setProductData(current_product)
   }, [current_product])
 
+  console.log(current_product);
+  
+
   return (
     <>
     <NoIndexHead />
@@ -95,8 +98,8 @@ export default function EditProduct({current_product, all_categories}) {
         </div>
         <div className='flex gap-3 mt-10 sm:mt-20'>
             <Back title="Retour à la liste" linkTo='/admin/products' />
-            <PictoButton image={add} linkTo='/admin/products/new' />
-            <DeleteButton api='auth/admin/products' id={current_product?.id} setLoading={setLoading} backLink={'/admin/products'} />
+            {/* <PictoButton image={add} linkTo='/admin/products/new' /> */}
+            {/* <DeleteButton api='auth/admin/products' id={current_product?.id} setLoading={setLoading} backLink={'/admin/products'} /> */}
         </div>
         <div className='flex flex-col gap-5 items-center'>
           {/* <form className='w-full place-self-center gap-10 bg-white py-4 mt-4 px-5 items-center justify-items-center rounded-xl shadow-xl sm:mt-0'

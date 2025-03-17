@@ -193,6 +193,9 @@ export default function Article({product}) {
         }
     }, [currentStock, quantityValue])   
 
+    console.log(product);
+    
+
     return (
         <>
             <CustomHead pageName='Boutique' metaResume="Détails de l'article selectionné" />
@@ -223,7 +226,7 @@ export default function Article({product}) {
                                 </div>
                                 <div className="mt-5">
                                     <div className="overflow-hidden" ref={emblaThumbsRef}>
-                                        <div className="flex gap-5 w-full">
+                                        <div className="flex gap-5 h-28 sm:h-20">
                                             {product?.images?.map((m, index) => (
                                             <Thumb
                                                 key={index}
