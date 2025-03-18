@@ -42,7 +42,7 @@ export async function getServerSideProps({req, res}) {
       },
   }}
 
-  const result = await fetch(`${API_URL}/products?pagination=10`, GETRequest).then(r => r.json())
+  const result = await fetch(`${API_URL}/products?pagination=80`, GETRequest).then(r => r.json())
   return {
       props: {
           all_products:result
@@ -72,7 +72,7 @@ export default function Products({all_products}) {
 
   async function updatePagination (number) {
     setLoading(true)
-    const result = await fetch(`${API_URL}/products?pagination=10&page=${number}`, GETRequest).then(r => r.json())
+    const result = await fetch(`${API_URL}/products?pagination=80&page=${number}`, GETRequest).then(r => r.json())
     setProducts(result)
     setLoading(false)
   }
