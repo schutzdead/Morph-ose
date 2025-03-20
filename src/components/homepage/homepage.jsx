@@ -20,6 +20,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object, string } from "yup";
 
+import { motion} from "framer-motion";
+
 const schema1 = object({
   email:string().required("Requis.").email("Email invalide.").trim().lowercase(),
 });
@@ -33,61 +35,89 @@ export function Newletter () {
         resolver: yupResolver(schema1)
     })
 
+    // async function onSubmit(data) {
+    //   setErr(false)
+    //   setLoading(true)
+    //   const { email } = data
+    //   //check in the list if email is subcribe
+    //   try {
+    //       const checkList = await fetch('/api/profil', {
+    //       method:'POST',
+    //       headers: {
+    //           "Accept": "application/json",
+    //           'Content-Type': 'application/json'
+    //       },
+    //       body: JSON.stringify({ 
+    //           emails:[email]
+    //       })
+    //   })
+    //   const list = await checkList.json();
+    //   if(list.length > 0) {
+    //       setLoading(false)
+    //       reset({email:email})
+    //       setErr(true)
+    //       return
+    //   }
+
+    //   //if email doesn't exist, subcribe to list
+    //   const response = await fetch('/api', {
+    //       method: "POST",  
+    //       headers: {
+    //           "Accept": "application/json",
+    //           'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(
+    //           { 
+    //               profiles:[
+    //                   {
+    //                       email:email,
+    //                   }
+    //               ]
+    //           }
+    //       )
+    //   })
+    //   const auth = await response.json();
+    //       if(auth.length>0 && auth[0].id){
+    //           setErr(false)
+    //           setSend(true);
+    //       } else {
+    //           setErr(true)
+    //       }
+    //       setLoading(false)
+    //       reset({email:''})
+    //   } catch (err) {
+    //     console.error('Request failed:' + err)
+    //     setLoading(false)
+    //   }
+    // }
     async function onSubmit(data) {
       setErr(false)
       setLoading(true)
       const { email } = data
-      //check in the list if email is subcribe
-      try {
-          const checkList = await fetch('/api/profil', {
-          method:'POST',
-          headers: {
-              "Accept": "application/json",
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ 
-              emails:[email]
-          })
-      })
-      const list = await checkList.json();
-      if(list.length > 0) {
-          setLoading(false)
-          reset({email:email})
-          setErr(true)
-          return
-      }
 
-      //if email doesn't exist, subcribe to list
-      const response = await fetch('/api', {
-          method: "POST",  
+      try {
+        const res = await fetch('/api/newsletter', {
+          method: 'POST',
           headers: {
-              "Accept": "application/json",
-              'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(
-              { 
-                  profiles:[
-                      {
-                          email:email,
-                      }
-                  ]
-              }
-          )
-      })
-      const auth = await response.json();
-          if(auth.length>0 && auth[0].id){
-              setErr(false)
-              setSend(true);
-          } else {
-              setErr(true)
-          }
-          setLoading(false)
-          reset({email:''})
-      } catch (err) {
-        console.error('Request failed:' + err)
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          setErr(false)
+          setSend(true);
+        } else {
+          setErr(true)
+        }
         setLoading(false)
+        reset({email:''})
+      } catch (error) {
+        setErr(true)
+        console.error('Request failed:' + err)
       }
-    }
+    };
+  
 
     return(
       <section id="newsletter" className="scroll-m-32 flex flex-col gap-10 mx-10 my-32 sm:my-20 md:mx-5">
@@ -144,13 +174,16 @@ export function Newletter () {
   
   export function Title ({butterfly=false, title}) {
     return(
-      <div className="relative font-Quesha w-fit text-8xl xl:text-7xl md:text-6xl">
+      <motion.div initial={{ opacity: 0, y: -50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ type: 'spring', stiffness: 150, damping: 25}} className="relative font-Quesha w-fit text-8xl xl:text-7xl md:text-6xl">
         <div className="relative">
           <Image src={Butterfly} alt='butterfly icon' className="absolute h-auto w-14 -left-[53px] -top-[20px] xl:w-12 xl:-left-[41px] xl:-top-[23px] md:w-8 md:-left-[25px] md:-top-[16px]" style={butterfly ? {display:'block'} : {display:'none'}} priority />
           <h1 className="gradient-categories">{title}</h1>
         </div>
         {/* <div className="h-[3px] w-full bg-mainGradient"></div> */}
-      </div>
+      </motion.div>
     )
   }
   

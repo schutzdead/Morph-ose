@@ -12,8 +12,10 @@ import { DotButton, useDotButton } from "@/utils/emblaDot";
 
 import useEmblaCarousel from 'embla-carousel-react'
 
-import { Newletter, Title, Card, Picto, CustomButton, Service, ProSentence, SeancesComp } from "@/components/homepage/homepage";
+import { Newletter, Title, Card, Picto, CustomButton, Service, SeancesComp } from "@/components/homepage/homepage";
 import { GETRequest } from "@/utils/requestHeader";
+
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -32,6 +34,7 @@ export async function getServerSideProps() {
 const OPTIONS = { slidesToScroll: 'auto' }
 
 export default function Home({workshops, first_products}) {
+
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS)
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
   const {
@@ -77,12 +80,15 @@ export default function Home({workshops, first_products}) {
               </div>
             </section>
 
-            <section id="headlight" className="scroll-m-32 max-w-[1280px] flex flex-col gap-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 mx-5">
+            <motion.section id="headlight" className="scroll-m-32 max-w-[1280px] flex flex-col gap-10 justify-center my-20 sm:my-10 sm:gap-8 sm:px-3 mx-5">
               <Title title='Nos collections phares !' />
-              <div className="text-xl flex flex-col gap-5 font-bold lg:text-lg sm:text-base text-primary">
+              <motion.div initial={{ opacity: 0, x: -100 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ once: true }}
+    transition={{ type: 'spring', stiffness: 150, damping: 25 }} className="text-xl flex flex-col gap-5 font-bold lg:text-lg sm:text-base text-primary">
                 <p>Envie de découvrir nos magnifiques produits ?</p>
                 <p className="font-medium text-secondary">Vous souhaitez vous faire plaisir et/ou faire plaisir ? Que vous cherchiez des livres enrichissants, des produits digitaux, des pierres et minéraux, des cartes pour la cartomancie, de l’encens, des accessoires de méditation ou des bougies, ... Nos collections phares sont sélectionnées pour vous guider vers les incontournables des produits bien-être !</p>
-              </div>
+              </motion.div>
               <div className="grid grid-cols-3 w-full grid-rows-1 max-h-[350px] h-[55vh] min-h-[430px] gap-10 mt-5 lg:grid-cols-2 sm:grid-cols-1">
                 <div className="sm:hidden">
                   <Card  product={first_products[0]} />
@@ -95,7 +101,7 @@ export default function Home({workshops, first_products}) {
                   <Card  product={first_products[3]} />
                 </div>
               </div>
-            </section>
+            </motion.section>
 
             <section className="flex justify-evenly w-[95vw] mx-[2.5vw] relative sm:mx-5 py-10 sm:flex-col sm:items-center sm:gap-10">
               <Picto image={Picto2} text="Un site sécurisé garantissant un paiement sécurisé !" title="Paiement sécurisé !" />
@@ -109,13 +115,16 @@ export default function Home({workshops, first_products}) {
               <div className="flex flex-col gap-10 sm:gap-8 px-10">
                 <Title title='Nos derniers évènements' butterfly={true} />
                 <p className="max-w-[1200px] text-xl font-medium lg:text-lg sm:text-base text-secondary">Chez Merveilles de Morph’ose, nous mettons l’accent sur <b>la confiance, le partage, le respect et la bienveillance</b>. C’est pour cela que nous mettons à votre disposition des <b>professionnels sérieux et certifiés</b> du bien-être, du développement personnel, du développement spirituel et bien plus encore. Nous souhaitons que chaque intervention ait un impact concret sur votre vie : ouverture d’esprit, (re)connexion à soi et apprentis-sages.</p>
-                <div className="flex flex-col gap-5 mt-5 text-secondary text-lg font-medium sm:text-sm max-w-[1500px] ">
+                <motion.div initial={{ opacity: 0, x: -100 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ once: true }}
+    transition={{ type: 'spring', stiffness: 150, damping: 25 }} className="flex flex-col gap-5 mt-5 text-secondary text-lg font-medium sm:text-sm max-w-[1500px] ">
                   <p className="text-xl font-bold lg:text-lg sm:text-base text-primary">De merveilleux ateliers et événements collectifs</p>
                   <p className="">Envie de participer à des <b>ateliers, conférences et évènements captivants</b>. Et bien, vous êtes au bon endroit ! Venez partager de <b>chaleureux moments</b> autour de thématiques variées : la créativité, la spiritualité, le développement personnel, les pratiques ésotériques et holistiques...
                   Réservez vos places en quelques clics !</p>
                   <p >Constellations familiales, méditation, numérologie, communication bienveillante ou encore initiations de toutes sortes, partage de méthodes, ateliers créatifs…<b> nos sessions sont conçues pour enrichir votre esprit et nourrir votre ÊTRE</b>.
                   Les places sont limitées pour garantir une <b>expérience personnelle et immersive</b>. Alors n’attendez plus !</p>
-                </div>
+                </motion.div>
               </div>
               {workshops?.length > 0 
                 ? <div className="relative w-full flex flex-col items-center max-w-[100vw]">
@@ -180,9 +189,14 @@ function AllSeances ({workshops}) {
     <section className="flex flex-col gap-14 justify-center relative mt-20 sm:my-10 sm:gap-8 sm:px-3 max-w-[1280px] mx-5">
     <div className="flex flex-col gap-5 mt-5 text-secondary text-lg font-medium sm:text-sm max-w-[1500px]">
       <Title title='Nos splendides séances individuelles' />
-      <p className="pt-5 sm:pt-2">Besoin <b>d’éclaircir ou de débloquer une situation</b>, besoin de clés pour <b>faire vos propres choix</b> ou juste par curiosité, nos experts vous accompagnent au travers de nos séances individuelles : <b>dans nos locaux à Cournon-D’Auvergne (63), en Visio ou par retour mail</b>. N’attendez plus pour réserver en ligne et découvrir nos prestations : cartomancie, guidance (ou coaching intuitif et créatif), message d’âme, poème d’âme, ... </p>
-      <p className="pt-3 sm:pt-2"><b>« Chaque jour j’évolue : je grandis, j’apprends, je m’épanouis. Ainsi va la vie. »</b> Mina de Merveilles de Morph’ose. Vous accompagnez dans chacune de ces étapes de vie est un privilège. </p>
-      <p className="text-base sm:text-sm">Petit mot : merci de bien vouloir faire preuve de discernement, quoiqu’il puisse vous être conseillé, vous êtes et resterez le/la seul(e) décisionnaire de votre vie.</p>
+      <motion.div initial={{ opacity: 0, x: -100 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ once: true }}
+    transition={{ type: 'spring', stiffness: 150, damping: 25, duration:10 }} className="flex flex-col gap-5">
+        <p className="pt-5 sm:pt-2">Besoin <b>d’éclaircir ou de débloquer une situation</b>, besoin de clés pour <b>faire vos propres choix</b> ou juste par curiosité, nos experts vous accompagnent au travers de nos séances individuelles : <b>dans nos locaux à Cournon-D’Auvergne (63), en Visio ou par retour mail</b>. N’attendez plus pour réserver en ligne et découvrir nos prestations : cartomancie, guidance (ou coaching intuitif et créatif), message d’âme, poème d’âme, ... </p>
+        <p className="pt-3 sm:pt-2"><b>« Chaque jour j’évolue : je grandis, j’apprends, je m’épanouis. Ainsi va la vie. »</b> Mina de Merveilles de Morph’ose. Vous accompagnez dans chacune de ces étapes de vie est un privilège. </p>
+        <p className="text-base sm:text-sm">Petit mot : merci de bien vouloir faire preuve de discernement, quoiqu’il puisse vous être conseillé, vous êtes et resterez le/la seul(e) décisionnaire de votre vie.</p>
+      </motion.div>
     </div>
     {workshops?.length > 0 
       ? <div className=" max-w-[1200px] m-auto w-full md:max-w-[95vw]">

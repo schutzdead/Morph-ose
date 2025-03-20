@@ -90,6 +90,7 @@ export default function Footer () {
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>INFORMATIONS</h3>
                     <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:gap-y-3 sm:justify-center'>
                         <Link href='/politics'>CGV</Link>
+                        <Link href='/legal'>Mentions légales</Link>
                         <Link href='/mentions'>Politique de confidentialité</Link>
                         <Link href='/contact'>Nous contacter</Link>
                     </div>
