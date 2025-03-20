@@ -82,7 +82,7 @@ export default function EditProduct({current_product, all_categories}) {
       !current_product || current_product.message  ? '' : setProductData(current_product)
   }, [current_product])
 
-  console.log(current_product);
+  console.log(current_product, all_categories);
   
 
   return (

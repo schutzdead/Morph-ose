@@ -45,12 +45,8 @@ export async function getServerSideProps({req, res, query}) {
 }
 
 export default function Orders({order}) {
-  const { v4: uuidv4 } = require('uuid');
   const [menu, setMenu] = useState(false)
   const [hamburger, setHamburger] = useState(false)
-
-  console.log(order);
-  
 
   return (
     <>
@@ -112,7 +108,7 @@ export default function Orders({order}) {
                 </div>
                 <div className='flex flex-col gap-1.5'>
                       <h3 className='text-2xl font-semibold my-3 text-secondary xl:text-lg sm:text-base sm:text-center'>Détails</h3>
-                      {order?.items?.map(article => <OrderArticle key={uuidv4()} data={article}/>)}
+                      {order?.items?.map((article, index) => <OrderArticle key={index} data={article}/>)}
                 </div>
             </section>
           </>

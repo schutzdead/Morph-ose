@@ -86,9 +86,6 @@ export default function Orders({order}) {
     }
   }
 
-  console.log(order);
-  
-
   return (
     <>
     <NoIndexHead />

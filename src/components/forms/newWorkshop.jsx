@@ -39,9 +39,6 @@ export default function NewWorkshop({setLoading, formResolver, validationButton,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[searchTutorData])
 
-    console.log(docId);
-    
-
     async function onSubmit(data) {
         const { title, price, duration, entries_available, description, speaker_name } = data
         setError(false)

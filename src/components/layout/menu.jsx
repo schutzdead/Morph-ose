@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-import Plus from '../../../public/assets/header/plus.svg'
 import Image from "next/image"
 import Link from "next/link"
 import { Skeleton } from "@mui/material"
@@ -65,7 +64,10 @@ export default function Menu ({menu, setMenu , setHamburger}) {
                                 </section>
                                 <section className="flex justify-start text-start items-start w-full overflow-hidden pr-6 text-lg sm:text-base" style={openDetails ? {maxHeight:`${heightDetails}px`, transition:'all 500ms'} : { maxHeight:0, transition:'all 300ms'}}>
                                     <div ref={details} className="flex flex-col text-end divide-y divide-gray-200 w-full text-base font-normal">
-                                        {data?.map((cat,index) => <Link key={index} onClick={() => {setHamburger(false);setOpenDetails(false);setMenu(false)}} href={{pathname: `/categories/${cat.slug}`, query: { cat:cat?.id }}} className="py-3">{capitalizeFirst(cat.title)}</Link>)}
+                                        {data?.length > 0 
+                                            ? data?.map((cat,index) => <Link key={index} onClick={() => {setHamburger(false);setOpenDetails(false);setMenu(false)}} href={{pathname: `/categories/${cat.slug}`, query: { cat:cat?.id }}} className="py-3">{capitalizeFirst(cat.title)}</Link>)
+                                            : <Skeleton variant="rounded" height={100} sx={{ marginTop:"10px" }} />
+                                        }
                                     </div>
                                 </section>
                             </div>
@@ -95,67 +97,67 @@ export default function Menu ({menu, setMenu , setHamburger}) {
 }
 
 
-function MainCategory ({data, setHamburger, setMenu}) {
-    const [resetAll, setResetAll] = useState(null)
-    return(
-        <>
-            { 
-            !data ? 
-            <div className="pt-5 flex flex-col gap-5">
-                <Skeleton />
-                <div className="ml-5">
-                    <Skeleton variant="rectangular" width={250} height={60} />
-                </div>
-                <Skeleton />
-                <div className="ml-5">
-                    <Skeleton variant="rectangular" width={250} height={60} />
-                </div>
-                <div className="w-full bg-menuGradient h-[1px] mt-5"></div>
-            </div>
-            :
-            data?.map(d => 
-                <NestedTab key={d.id} each_data={d} id={d.id} childs={d?.childs} setHamburger={setHamburger} setMenu={setMenu} setResetAll={setResetAll} resetAll={resetAll} />
-            ) }
-        </>
-    )
-}
+// function MainCategory ({data, setHamburger, setMenu}) {
+//     const [resetAll, setResetAll] = useState(null)
+//     return(
+//         <>
+//             { 
+//             !data ? 
+//             <div className="pt-5 flex flex-col gap-5">
+//                 <Skeleton />
+//                 <div className="ml-5">
+//                     <Skeleton variant="rectangular" width={250} height={60} />
+//                 </div>
+//                 <Skeleton />
+//                 <div className="ml-5">
+//                     <Skeleton variant="rectangular" width={250} height={60} />
+//                 </div>
+//                 <div className="w-full bg-menuGradient h-[1px] mt-5"></div>
+//             </div>
+//             :
+//             data?.map(d => 
+//                 <NestedTab key={d.id} each_data={d} id={d.id} childs={d?.childs} setHamburger={setHamburger} setMenu={setMenu} setResetAll={setResetAll} resetAll={resetAll} />
+//             ) }
+//         </>
+//     )
+// }
 
-function NestedTab ({id, setHamburger, setMenu, setResetAll, resetAll, childs, each_data}) {
-    const [cross, setCross] = useState(true)
-    const closeBurger = () => {setHamburger(false);setMenu(false)}
-    const [open, setOpen] = useState(false)
-    const [heightDetails, setHeightDetails] = useState()
-    const details = useRef(null)
+// function NestedTab ({id, setHamburger, setMenu, setResetAll, resetAll, childs, each_data}) {
+//     const [cross, setCross] = useState(true)
+//     const closeBurger = () => {setHamburger(false);setMenu(false)}
+//     const [open, setOpen] = useState(false)
+//     const [heightDetails, setHeightDetails] = useState()
+//     const details = useRef(null)
 
-    useEffect(() => {
-        childs.length === 0 ? setCross(false) : ''
-        id === resetAll ? setOpen(true) : setOpen(false)
-    }, [childs.length, id, resetAll])
+//     useEffect(() => {
+//         childs.length === 0 ? setCross(false) : ''
+//         id === resetAll ? setOpen(true) : setOpen(false)
+//     }, [childs.length, id, resetAll])
 
-    return (
-        <div className="flex w-full flex-col mt-5">
-            <div className="flex justify-between items-center cursor-pointer gap-5" onClick={() => {setHeightDetails(details?.current?.offsetHeight); setOpen(!open); setResetAll(id)}}>
-                <li className="" onClick={(e) => {e.stopPropagation();closeBurger()}}>
-                    <Link href={{pathname: `/categories/${each_data?.slug}`, query: { cat:each_data?.id }}}>{each_data?.title.toUpperCase()}</Link>
-                </li>
-                {cross ? 
-                    <Image src={Plus} className="w-4 h-auto transition-all duration-300" style={open ? {transform:'rotate(45deg)'} : {transform:'rotate(0deg)'}} alt='Logo' />
-                    : ''
-                }
-            </div>
-            <ul className="ml-10 flex flex-col gap-3 overflow-hidden place-self-start h-auto w-auto" style={open ? {maxHeight:`${heightDetails}px`, transition:'all 1s'} : { maxHeight:0, transition:'all 500ms'}}>
-                <ul ref={details} className="w-full flex flex-col gap-1 py-5">
-                    {childs.map(cat =>
-                        <Link key={cat.id} href={{pathname: `/categories/${each_data?.slug}`, query: { cat:each_data?.id }}} onClick={closeBurger} className="cursor-pointer">
-                            <li>{cat.title}</li>
-                        </Link>
-                    )}
-                </ul>
-            </ul>
-            <div className="w-full bg-homeGradient3 h-[1px] mt-2"></div>
-        </div>
-    )
-}
+//     return (
+//         <div className="flex w-full flex-col mt-5">
+//             <div className="flex justify-between items-center cursor-pointer gap-5" onClick={() => {setHeightDetails(details?.current?.offsetHeight); setOpen(!open); setResetAll(id)}}>
+//                 <li className="" onClick={(e) => {e.stopPropagation();closeBurger()}}>
+//                     <Link href={{pathname: `/categories/${each_data?.slug}`, query: { cat:each_data?.id }}}>{each_data?.title.toUpperCase()}</Link>
+//                 </li>
+//                 {cross ? 
+//                     <Image src={Plus} className="w-4 h-auto transition-all duration-300" style={open ? {transform:'rotate(45deg)'} : {transform:'rotate(0deg)'}} alt='Logo' />
+//                     : ''
+//                 }
+//             </div>
+//             <ul className="ml-10 flex flex-col gap-3 overflow-hidden place-self-start h-auto w-auto" style={open ? {maxHeight:`${heightDetails}px`, transition:'all 1s'} : { maxHeight:0, transition:'all 500ms'}}>
+//                 <ul ref={details} className="w-full flex flex-col gap-1 py-5">
+//                     {childs.map(cat =>
+//                         <Link key={cat.id} href={{pathname: `/categories/${each_data?.slug}`, query: { cat:each_data?.id }}} onClick={closeBurger} className="cursor-pointer">
+//                             <li>{cat.title}</li>
+//                         </Link>
+//                     )}
+//                 </ul>
+//             </ul>
+//             <div className="w-full bg-homeGradient3 h-[1px] mt-2"></div>
+//         </div>
+//     )
+// }
 
 function Tab ({level1}) {
     return(

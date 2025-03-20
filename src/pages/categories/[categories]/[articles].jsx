@@ -193,9 +193,6 @@ export default function Article({product}) {
         }
     }, [currentStock, quantityValue])   
 
-    console.log(product);
-    
-
     return (
         <>
             <CustomHead pageName='Boutique' metaResume="Détails de l'article selectionné" />

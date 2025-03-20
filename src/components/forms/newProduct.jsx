@@ -44,7 +44,6 @@ export default function NewProduct ({setLoading, formResolver, validationButton,
         let newObj = {}
         let order_pos = 0
         for(let file of docId) {
-            console.log(file);
             newObj[file.id] = {order:order_pos}
             order_pos += 1
         }
