@@ -74,7 +74,7 @@ export default function Footer () {
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>SERVICES</h3>
                     <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:gap-y-3 sm:justify-center'>
                         <Link href='/services'>Evènements & Ateliers</Link>
-                        <Link href='/rent'>Proposer vos services</Link>
+                        {/* <Link href='/rent'>Proposer vos services</Link> */}
                     </div>
                 </div>
                 <div className='text-secondary font-medium flex flex-col'>

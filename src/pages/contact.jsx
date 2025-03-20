@@ -36,8 +36,8 @@ export default function Contact() {
                   </div>
               </div>
             </section>
-            <section className="flex flex-col gap-14 place-self-center max-w-[1280px] justify-center relative my-20 sm:my-10 sm:gap-8 sm:px-0 mx-5">
-                <div className="relative font-Quesha w-fit px-5 text-9xl xl:text-6xl md:text-4xl 2sm:text-center">
+            <section className="flex flex-col gap-14 place-self-center max-w-[1280px] justify-center relative my-20 sm:my-10 sm:gap-8 mx-5">
+                <div className="relative font-Quesha w-fit text-9xl xl:text-6xl md:text-4xl 2sm:text-center">
                   <Title title='Une interrogation ?'/>
                 </div>
                 <div className="text-2xl flex flex-col pb-10 gap-5 font-medium lg:text-xl sm:text-lg text-secondary">
