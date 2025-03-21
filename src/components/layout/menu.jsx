@@ -8,14 +8,14 @@ import { GETRequest } from "@/utils/requestHeader"
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-const capitalizeFirst = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+export const capitalizeFirst = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
 
 export default function Menu ({menu, setMenu , setHamburger}) {
     const [data, setData] = useState()
     async function fetchCategories() {
         try {
-            const getCategories =  await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
+            const getCategories =  await fetch(`${API_URL}/categories/not-full`, GETRequest).then(r => r.json())
             setData(getCategories)
         } catch (err) {
             console.error('Request failed:' + err)

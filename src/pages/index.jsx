@@ -15,7 +15,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { Newletter, Title, Card, Picto, CustomButton, Service, SeancesComp } from "@/components/homepage/homepage";
 import { GETRequest } from "@/utils/requestHeader";
 
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -169,7 +169,6 @@ export default function Home({workshops, first_products}) {
             <Newletter />
           </main>
         </Layout>
-      {/* } */}
     </>
   )
 }

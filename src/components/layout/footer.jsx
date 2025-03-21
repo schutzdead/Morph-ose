@@ -7,6 +7,7 @@ import Yt from '../../../public/assets/footer/yt.svg'
 import { useEffect, useState } from 'react'
 import { Skeleton } from '@mui/material'
 import { GETRequest } from '@/utils/requestHeader'
+import { capitalizeFirst } from './menu'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -15,7 +16,7 @@ export default function Footer () {
     const [data, setData] = useState()
     async function fetchCategories() {
 		try {
-            const getCategories =  await fetch(`${API_URL}/categories`, GETRequest).then(r => r.json())
+            const getCategories =  await fetch(`${API_URL}/categories/not-full`, GETRequest).then(r => r.json())
             setData(getCategories)
 		} catch (err) {
 			console.error('Request failed:' + err)
@@ -60,7 +61,7 @@ export default function Footer () {
                     <h3 className='font-semibold mb-2.5 text-primary lg:text-center sm:text-base'>BOUTIQUE</h3>
                     <div className='flex flex-col gap-2 lg:text-center lg:text-sm sm:flex-row sm:gap-5 sm:flex-wrap sm:gap-y-3 sm:justify-center'>
                     {data
-                        ? data?.slice(0,4).map(d => <Link key={d.id} href={{pathname: `/categories/${d?.slug}`, query: { cat:d?.id }}}>{d?.title}</Link>)
+                        ? data?.slice(0,4).map(d => <Link key={d.id} href={{pathname: `/categories/${d?.slug}`, query: { cat:d?.id }}}>{capitalizeFirst(d?.title)}</Link>)
                         :
                         <div className="flex flex-col gap-2">
                             <Skeleton />

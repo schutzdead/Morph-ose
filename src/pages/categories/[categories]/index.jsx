@@ -17,7 +17,7 @@ export async function getServerSideProps({ query }) {
     `${API_URL}/categories/${query.cat}`,
     GETRequest
   ).then((r) => r.json());
-  const getCategories = await fetch(`${API_URL}/categories`, GETRequest).then(
+  const getCategories = await fetch(`${API_URL}/categories/not-full`, GETRequest).then(
     (r) => r.json()
   );
   return {
