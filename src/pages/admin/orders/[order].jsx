@@ -103,10 +103,11 @@ export default function Orders({order}) {
                 ? <div className='flex items-center mb-5 px-4'>
                     <CircularLoading />
                   </div>
-                : 
-                  trackingAndPDF
+                : order?.status === "Payée"
+                  ? trackingAndPDF 
                     ? <Link href={trackingAndPDF?.url} target='_blank' className='rounded flex items-center mb-5 cursor-pointer text-white px-3 py-2 text-sm bg-secondary sm:py-1.5 sm:px-2 font-semibold'>{`Télécharger l'étiquette`}</Link>
                     : <button onClick={getLabel} className='rounded flex items-center mb-5 cursor-pointer text-white px-3 py-2 text-sm bg-secondary sm:py-1.5 sm:px-2 font-semibold'>Générer une étiquette</button>
+                  : ""
             }
           </div>
           {logErr ? <div className="text-sm text-[#d32f2f] text-center mb-3">{`Erreur lors de la génération d'étiquette, veuillez retenter plus tard ou passer directement par le site du prestataire de livraison.`}</div> : ''}
@@ -190,7 +191,7 @@ export function OrderArticle ({data}) {
                       className="rounded-2xl object-cover"
                       />
               </section>
-              <section className='flex flex-col h-full justify-between w-full flex-1 text-secondary md:h-20'>
+              <section className='flex flex-col h-full justify-between w-full flex-1 text-secondary'>
                       <div className="flex flex-col gap-1 w-full">
                           <h3 className="font-bold text-lg lg:text-base leading-none sm:text-sm">{data?.title}</h3>
                           <h3 className="whitespace-nowrap sm:text-sm ">Référence : {data?.product?.reference ? data?.product?.reference : 0}</h3>

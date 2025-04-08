@@ -62,7 +62,7 @@ export default function Services({workshops}) {
                 </div>
                 {workshops?.filter(workshop => new Date(workshop.date) >= today).length === 0 || !workshops
                 ? <p className='font-medium place-self-center text-secondary text-center pt-10 sm:text-sm'>Aucun évènement de disponible pour le moment, revenez plus tard.</p>
-                : <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-6 mt-10 md:mt-5 w-full justify-self-center">
+                : <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-6 mt-10 md:mt-5 w-full justify-items-center">
                     { workshops.filter(workshop => new Date(workshop.date) >= today).sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((workshop, index) => <Individual key={index} workshop={workshop} description="Participez à nos ateliers et évènements  en vous inscrivant !" />)}
                 </div>
                 }
@@ -87,9 +87,7 @@ export function Individual ({workshop}) {
             ? <div className="w-full h-0 pb-[60%] relative bg-white rounded-t-2xl">
                  <Image src={workshop?.image?.url} alt='service picture' fill className="rounded-t-2xl object-cover" priority />
               </div>
-            : <div className="w-full h-full">
-                <Skeleton sx={{width:'100%', height:'100%', transform:'none', borderRadius:'16px 16px 0 0'}} />
-              </div>
+            : ""
             }
             <div className="flex bg-white flex-col text-primary font-medium justify-start pt-5 px-5 gap-0.5 rounded-b-2xl flex-1">
                 <h2 className="text-xl lg:text-lg sm:text-base font-bold">{workshop?.title}</h2>

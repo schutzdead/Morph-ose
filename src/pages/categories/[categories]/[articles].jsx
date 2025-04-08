@@ -256,7 +256,7 @@ export default function Article({product}) {
                                             : ''
                                         }
                                     </div>
-                                    {product?.stock === 1 
+                                    {currentStock === 1 
                                         ? <p className="font-bold text-lg sm:text-base">{`Il n'en reste plus que un.`}</p>
                                         : <div className="flex flex-col mt-5">
                                             <p className="font-medium sm:text-sm">Quantités disponibles</p>
@@ -266,7 +266,7 @@ export default function Article({product}) {
                                 </div>
                             
                                 <div className="flex flex-col">
-                                    {product?.stock <= 0 ?
+                                    {currentStock <= 0 ?
                                     <p className="py-5 text-secondary font-semibold">{`Ce produit n'est plus en stock.`}</p>
                                     :
                                         <>

@@ -103,8 +103,14 @@ export default function Orders({order}) {
                       <Informations title="Création : " value={new Date(order.created_at).toLocaleDateString('fr')} textColor='#582D3E' />
                       <Informations title="Prix : " value={`${order?.total_price}€`} textColor='#582D3E' />
                       <Informations title="Prix de la livraison : " value={`${order?.shipping_price}€`} textColor='#582D3E' />
-                      <Informations title="Suivi : " value={order?.tracking_number} textColor='#582D3E' />
-                      <Informations title="Suivi de livraison : " value={order?.shipping_tracking_number ? order?.shipping_tracking_number : "En attente d'envoi"} textColor='#582D3E' />
+                      {order?.status === "Paiement en cours de traitement"
+                        ? <Informations title="Status : " value="Commande annulée" textColor='#582D3E' />
+                        :<>
+                          <Informations title="Suivi : " value={order?.tracking_number} textColor='#582D3E' />
+                          <Informations title="Suivi de livraison : " value={order?.shipping_tracking_number ? order?.shipping_tracking_number : "En attente d'envoi"} textColor='#582D3E' />
+                          </> 
+                      }
+
                 </div>
                 <div className='flex flex-col gap-1.5'>
                       <h3 className='text-2xl font-semibold my-3 text-secondary xl:text-lg sm:text-base sm:text-center'>Détails</h3>

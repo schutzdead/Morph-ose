@@ -64,7 +64,8 @@ export default function OrdersEvent({all_orders}) {
           </div>
           <div className='flex flex-col bg-white shadow-dashboard w-full rounded-xl py-10 px-5 xl:py-5 lg:px-2 lg:py-2 sm:shadow-none'>
             {loading ? <Loading />
-            : <>
+            : orders && orders.length > 0  
+              ? <>
                 <div className='grid text-secondary py-5 font-bold text-base items-center justify-items-center text-center rounded-xl overflow-hidden grid-cols-[repeat(5,2fr)_1fr] xl:text-sm sm:grid-cols-[repeat(3,2fr)_1fr] sm:text-xs'>
                     <p>Client</p>
                     <p>Atelier</p>
@@ -92,6 +93,7 @@ export default function OrdersEvent({all_orders}) {
                   )
                 }
               </>
+            : <p>Aucune commande pour le moment.</p>
             }
           </div>
         </section>
