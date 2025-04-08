@@ -21,7 +21,7 @@ const schema = object({
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export function ContactForm () {
-    const thematics = [{title:"Boutique", id:1}, {title:"E-commerce", id:2}, {title:"Séances individuelles", id:3}, {title:"Ateliers/évènements", id:4}, {title:"Je suis professionnel(le)", id:5}]
+    const thematics = [{title:"Produits", id:2}, {title:"Séances individuelles", id:3}, {title:"Ateliers/évènements", id:4}, {title:"Je suis pro", id:5}]
     const [dataCategory, setDataCategory] = useState("")
     const handleChangeCat = (event) => {
         setDataCategory(event.target.value);
