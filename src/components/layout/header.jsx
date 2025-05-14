@@ -64,14 +64,14 @@ export default function Header () {
     }
   },[cart])
 
-  async function freeShip () {
-    const free = await fetch(`${API_URL}/settings/value/free_shipping`, GETRequest).then(r => r.json())
-    setFreeAmount(free.value)
-  }
+  // async function freeShip () {
+  //   const free = await fetch(`${API_URL}/settings/value/free_shipping`, GETRequest).then(r => r.json())
+  //   setFreeAmount(free.value)
+  // }
 
-  useEffect(() => {
-    freeShip()
-  }, [])
+  // useEffect(() => {
+  //   freeShip()
+  // }, [])
 
   const [body, setBody] = useState()
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function Header () {
     <>
       <Menu menu={menu} setMenu={setMenu} setHamburger={setHamburger}/>
       <Cart bag={bag} setBag={setBag} />
-      <div className='bg-mainGradient text-white justify-center items-center font-medium text-sm flex relative transition-all duration-500 sm:text-xs sm:justify-start' style={isPub ? {height:'35px', opacity:1} : {height:'0px', opacity:0}}>
+      {/* <div className='bg-mainGradient text-white justify-center items-center font-medium text-sm flex relative transition-all duration-500 sm:text-xs sm:justify-start' style={isPub ? {height:'35px', opacity:1} : {height:'0px', opacity:0}}>
         {freeAmount 
           ? <p className='sm:max-w-[80%] sm:ml-2 sm:text-center sm:truncate'>{`Livraison offerte dans toute la France à partir de ${freeAmount}€ d'achat !`}</p>
           : <div className='max-w-[700px] w-[90vw]'>
@@ -91,7 +91,7 @@ export default function Header () {
         }
         
         <Image src={Close} onClick={() => setIsPub(false)} className='w-5 h-auto absolute right-5' alt='Account pictogram' />
-      </div>
+      </div> */}
       <header className="z-30 h-28 flex justify-between bg-background px-10 items-center font-medium sticky top-0 lg:px-5 text-primary">
         <nav className='flex gap-8 md:hidden'>
           <div onClick={() => setMenu(!menu)} className='flex items-center'>

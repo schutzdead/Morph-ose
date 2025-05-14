@@ -16,24 +16,37 @@ import { Newletter, Title, Card, Picto, CustomButton, Service, SeancesComp } fro
 import { GETRequest } from "@/utils/requestHeader";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Skeleton } from "@mui/material";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export async function getServerSideProps() {
-  const result = await fetch(`${API_URL}/workshops`, GETRequest).then(r => r.json())
-  const first = await fetch(`${API_URL}/catalog/homepage`, GETRequest).then(r => r.json())
+// export async function getServerSideProps() {
+//   const result = await fetch(`${API_URL}/workshops`, GETRequest).then(r => r.json())
+//   const first = await fetch(`${API_URL}/catalog/homepage`, GETRequest).then(r => r.json())
 
-  return {
-      props: {
-          workshops:result,
-          first_products:first,
-      }
-  }
-}
+//   return {
+//       props: {
+//           workshops:result,
+//           first_products:first,
+//       }
+//   }
+// }
 
 const OPTIONS = { slidesToScroll: 'auto' }
 
-export default function Home({workshops, first_products}) {
+export default function Home({ first_products, workshops }) {
+
+  const [workshopFetch, setWorkshopFetch] = useState(null)
+  const [products, setProducts] = useState(null)
+
+  useEffect(() => {
+    setProducts(first_products)
+  }, [first_products])
+
+  useEffect(() => {
+    setWorkshopFetch(workshops)
+  }, [workshops])
 
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS)
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
@@ -89,18 +102,23 @@ export default function Home({workshops, first_products}) {
                 <p>Envie de découvrir nos magnifiques produits ?</p>
                 <p className="font-medium text-secondary">Vous souhaitez vous faire plaisir et/ou faire plaisir ? Que vous cherchiez des livres enrichissants, des produits digitaux, des pierres et minéraux, des cartes pour la cartomancie, de l’encens, des accessoires de méditation ou des bougies, ... Nos collections phares sont sélectionnées pour vous guider vers les incontournables des produits bien-être !</p>
               </motion.div>
-              <div className="grid grid-cols-3 w-full grid-rows-1 max-h-[350px] h-[55vh] min-h-[430px] gap-10 mt-5 lg:grid-cols-2 sm:grid-cols-1">
-                <div className="sm:hidden">
-                  <Card  product={first_products[0]} />
-                </div>
-                <div className="flex flex-col h-full gap-10">
-                  <Card product={first_products[1]} />
-                  <Card product={first_products[2]} />
-                </div>
-                <div className="lg:hidden">
-                  <Card  product={first_products[3]} />
-                </div>
-              </div>
+              {products
+                ?
+                  <div className="grid grid-cols-3 w-full grid-rows-1 h-[55vh] min-h-[430px] gap-10 mt-5 lg:grid-cols-2 sm:grid-cols-1">
+                    <div className="sm:hidden">
+                      <Card  product={products[0]} />
+                    </div>
+                    <div className="flex flex-col h-full gap-10">
+                      <Card product={products[1]} />
+                      <Card product={products[2]} />
+                    </div>
+                    <div className="lg:hidden">
+                      <Card  product={products[3]} />
+                    </div>
+                  </div>
+                : <Skeleton className="h-[55vh] min-h-[430px] w-full" />
+              }
+
             </motion.section>
 
             <section className="flex justify-evenly w-[95vw] mx-[2.5vw] relative sm:mx-5 py-10 sm:flex-col sm:items-center sm:gap-10">
@@ -126,11 +144,11 @@ export default function Home({workshops, first_products}) {
                   Les places sont limitées pour garantir une <b>expérience personnelle et immersive</b>. Alors n’attendez plus !</p>
                 </motion.div>
               </div>
-              {workshops?.length > 0 
+              {workshopFetch?.length > 0 
                 ? <div className="relative w-full flex flex-col items-center max-w-[100vw]">
                     <div className="overflow-hidden w-[90%] md:w-[85%]" ref={emblaRef}> 
                       <div className="flex" style={{ gap: `24px` }}>
-                        { workshops
+                        { workshopFetch
                             ?.filter(workshop => workshop?.date && new Date(workshop.date) >= today)
                             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                             .slice(0,5)
@@ -164,7 +182,7 @@ export default function Home({workshops, first_products}) {
               </div>
             </section>
 
-            <AllSeances workshops={workshops} />
+            <AllSeances workshops={workshopFetch} />
 
             <Newletter />
           </main>
