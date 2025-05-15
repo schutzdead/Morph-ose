@@ -10,14 +10,14 @@ import { Skeleton } from "@mui/material";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export async function getServerSideProps() {
-  const result = await fetch(`${API_URL}/workshops`, GETRequest).then(r => r.json())
-  return {
-      props: {
-          workshops:result
-      }
-  }
-}
+// export async function getServerSideProps() {
+//   const result = await fetch(`${API_URL}/workshops`, GETRequest).then(r => r.json())
+//   return {
+//       props: {
+//           workshops:result
+//       }
+//   }
+// }
 
 export default function Services({workshops}) {
   const today = new Date();

@@ -5,33 +5,33 @@ import { CustomHead } from "@/components/customHead";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export async function getServerSideProps({req, res}) {
-  const Cookies = require('cookies')
-  const cookies = new Cookies(req, res)
-  const authToken = cookies.get('auth-token') || ''
+// export async function getServerSideProps({req, res}) {
+//   const Cookies = require('cookies')
+//   const cookies = new Cookies(req, res)
+//   const authToken = cookies.get('auth-token') || ''
 
-  const response = await fetch(`${API_URL}/auth/users/current`, {
-    method:'GET',
-    mode: "cors",
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${authToken}`
-    }
-  })
-  const person = await response.json()
-  if(response.status === 200 && !person.is_admin) {
-    return { 
-      redirect: {
-        destination: '/client/orders',
-        permanent: false,
-      },
-  }}
+//   const response = await fetch(`${API_URL}/auth/users/current`, {
+//     method:'GET',
+//     mode: "cors",
+//     headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${authToken}`
+//     }
+//   })
+//   const person = await response.json()
+//   if(response.status === 200 && !person.is_admin) {
+//     return { 
+//       redirect: {
+//         destination: '/client/orders',
+//         permanent: false,
+//       },
+//   }}
 
-  return {
-    props: {}
-  }
-}
+//   return {
+//     props: {}
+//   }
+// }
 
 export default function ClientAuth() {
   return (
